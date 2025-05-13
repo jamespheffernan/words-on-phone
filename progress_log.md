@@ -58,6 +58,11 @@
 - [ ] "Reset game" & "clear local data" UI
 
 ## 8. Testing & QA
+- [x] Fix component tests for QR code sharing feature
+- [x] Implement proper mocks for haptics functionality
+- [x] Update storage utility tests
+- [x] Fix Firebase analytics tests
+- [x] Ensure App test handles async loading state
 - [ ] Vitest unit tests ≥ 80% coverage  
 - [ ] Integration tests (Game, Settings, Stats)  
 - [ ] Cypress E2E flows: play-loop, offline, install  
