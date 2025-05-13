@@ -1,5 +1,4 @@
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import { vibrate, vibrateSuccess, vibrateError, vibrateWarning, HapticsImpactStyle } from './haptics';
 
 // Mock the @capacitor/haptics module
 vi.mock('@capacitor/haptics', () => ({
@@ -16,6 +15,8 @@ vi.mock('@capacitor/haptics', () => ({
 
 // Import the mocked module
 import { Haptics } from '@capacitor/haptics';
+// Import after the mock is set up
+import { vibrate, vibrateSuccess, vibrateError, vibrateWarning, HapticsImpactStyle } from './haptics';
 
 describe('Haptics Utility', () => {
   beforeEach(() => {
