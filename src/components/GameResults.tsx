@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useGameStore } from '../store/gameStore';
-import { vibrate, vibrateSuccess, HapticsImpactStyle } from '../utils/haptics';
+import { vibrate, vibrateSuccess, ImpactStyle } from '../utils/haptics';
 import { getDarkMode } from '../utils/storage';
 
 const GameResults: React.FC = () => {
@@ -42,7 +42,7 @@ const GameResults: React.FC = () => {
   
   // Handle go to home with haptics
   const handleGoToHome = useCallback(async () => {
-    await vibrate(HapticsImpactStyle.Light);
+    await vibrate(ImpactStyle.Light);
     goToHome();
   }, [goToHome]);
 
