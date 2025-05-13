@@ -36,6 +36,8 @@ export interface GameState {
   getRandomPhrase: () => string;
   startNewGame: () => void;
   goToHome: () => void;
+  incrementScore: () => void;
+  nextPhrase: () => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -202,5 +204,15 @@ export const useGameStore = create<GameState>((set, get) => ({
     
     const randomIndex = Math.floor(Math.random() * phrasesToUse.length);
     return phrasesToUse[randomIndex];
+  },
+
+  // Scorekeeper actions
+  incrementScore: () => set(state => ({ score: state.score + 1 })),
+  nextPhrase: () => {
+    const phrase = get().getRandomPhrase();
+    set(state => ({
+      currentPhrase: phrase,
+      usedPhrases: [...state.usedPhrases, phrase]
+    }));
   },
 })); 

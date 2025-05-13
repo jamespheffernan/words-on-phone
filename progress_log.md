@@ -13,7 +13,7 @@
 - [x] Timer slider (30–90 s) in Settings  
 - [x] Buzzer picker UI & audio playback  
 - [x] 7 000+ seeded phrases loaded locally  
-- [ ] In-game scorekeeper (UI + logic)  
+- [x] In-game scorekeeper (UI + logic)  
 - [ ] Per-phrase performance stats collection & display  
 
 ## 2. v1.1+ Nice-to-Have Features

@@ -65,4 +65,25 @@ describe('Game Store', () => {
     const state = useGameStore.getState();
     expect(state.buzzSound).toBe('buzzer2');
   });
+
+  it('should increment score', () => {
+    const { incrementScore } = useGameStore.getState();
+    incrementScore();
+    
+    const state = useGameStore.getState();
+    expect(state.score).toBe(1);
+  });
+
+  it('should move to next phrase', () => {
+    const { startGame, nextPhrase } = useGameStore.getState();
+    startGame();
+    const initialState = useGameStore.getState();
+    const initialPhrase = initialState.currentPhrase;
+    
+    nextPhrase();
+    const newState = useGameStore.getState();
+    expect(newState.currentPhrase).not.toBeNull();
+    expect(newState.usedPhrases).toContain(initialPhrase);
+    expect(newState.usedPhrases.length).toBe(2);
+  });
 }); 
