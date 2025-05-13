@@ -5,7 +5,7 @@ import Onboarding from './Onboarding';
 // Mock the haptics module
 vi.mock('../utils/haptics', () => ({
   vibrate: vi.fn().mockResolvedValue(undefined),
-  HapticsImpactStyle: {
+  ImpactStyle: {
     Light: 'light',
     Medium: 'medium',
     Heavy: 'heavy'

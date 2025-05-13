@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { vibrate, HapticsImpactStyle } from '../utils/haptics';
+import { vibrate, ImpactStyle } from '../utils/haptics';
 
 interface OnboardingProps {
   onComplete: () => void;
@@ -36,7 +36,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete, darkMode = false })
 
   // Handle next button click
   const handleNext = async () => {
-    await vibrate(HapticsImpactStyle.Light);
+    await vibrate(ImpactStyle.Light);
     
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
