@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
-import { vibrate, HapticsImpactStyle } from '../utils/haptics';
+import { vibrate, ImpactStyle } from '../utils/haptics';
 
 interface SettingsProps {
   darkMode: boolean;
@@ -35,7 +35,7 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
     setBuzzSound(sound);
     
     // Provide haptic feedback
-    vibrate(HapticsImpactStyle.Light);
+    vibrate(ImpactStyle.Light);
   };
   
   // Save timer duration when slider is released
@@ -43,7 +43,7 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
     setTimerDuration(timerValue);
     
     // Provide haptic feedback
-    vibrate(HapticsImpactStyle.Medium);
+    vibrate(ImpactStyle.Medium);
   };
   
   // Handle dark mode toggle
@@ -51,7 +51,7 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
     onToggleDarkMode(!darkMode);
     
     // Provide haptic feedback
-    vibrate(HapticsImpactStyle.Medium);
+    vibrate(ImpactStyle.Medium);
   };
   
   return (
@@ -149,7 +149,7 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
         onClick={() => {
           setTimerDuration(60);
           setBuzzSound('default');
-          vibrate(HapticsImpactStyle.Medium);
+          vibrate(ImpactStyle.Medium);
         }}
         className={`w-full py-2 px-4 text-center text-sm rounded-lg border ${
           darkMode 
