@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { vibrate, ImpactStyle } from '../utils/haptics';
+import QRShare from './QRShare';
 
 interface SettingsProps {
   darkMode: boolean;
@@ -10,6 +11,7 @@ interface SettingsProps {
 const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
   const [timerValue, setTimerValue] = useState(60);
   const [selectedSound, setSelectedSound] = useState('default');
+  const [showQRModal, setShowQRModal] = useState(false);
   const { timerDuration, buzzSound, setTimerDuration, setBuzzSound } = useGameStore(state => ({
     timerDuration: state.timerDuration,
     buzzSound: state.buzzSound,
@@ -54,6 +56,12 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
     vibrate(ImpactStyle.Medium);
   };
   
+  // Handle sharing app
+  const handleShareApp = async () => {
+    vibrate(ImpactStyle.Light);
+    setShowQRModal(true);
+  };
+
   return (
     <div className={`p-6 ${darkMode ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-md max-w-md w-full`}>
       <h2 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-800'} mb-6`}>Game Settings</h2>
@@ -144,6 +152,21 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
         </div>
       </div>
       
+      {/* Share App Button */}
+      <button
+        onClick={handleShareApp}
+        className={`w-full py-2 px-4 mb-4 text-center rounded-lg border flex items-center justify-center ${
+          darkMode 
+            ? 'bg-purple-700 text-white hover:bg-purple-600 border-purple-600' 
+            : 'bg-purple-100 text-purple-700 hover:bg-purple-200 border-purple-200'
+        }`}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+        </svg>
+        Share App
+      </button>
+      
       {/* Reset to Defaults Button */}
       <button
         onClick={() => {
@@ -159,6 +182,14 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
       >
         Reset to Defaults
       </button>
+      
+      {/* QR Code Modal */}
+      {showQRModal && (
+        <QRShare 
+          darkMode={darkMode} 
+          onClose={() => setShowQRModal(false)} 
+        />
+      )}
     </div>
   );
 };

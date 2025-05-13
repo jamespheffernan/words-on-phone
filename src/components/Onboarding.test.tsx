@@ -4,7 +4,10 @@ import Onboarding from './Onboarding';
 
 // Mock the haptics module
 vi.mock('../utils/haptics', () => ({
-  vibrate: vi.fn().mockResolvedValue(undefined),
+  vibrate: vi.fn(),
+  vibrateSuccess: vi.fn(),
+  vibrateError: vi.fn(),
+  vibrateWarning: vi.fn(),
   ImpactStyle: {
     Light: 'light',
     Medium: 'medium',
@@ -16,7 +19,7 @@ describe('Onboarding Component', () => {
   const mockOnComplete = vi.fn();
   
   beforeEach(() => {
-    vi.resetAllMocks();
+    vi.clearAllMocks();
   });
 
   it('renders the first step of the tutorial', () => {

@@ -25,6 +25,7 @@ export interface GameState {
   gameStartTime: Date | null;
   gameEndTime: Date | null;
   gameTime: number; // Total game time in seconds
+  score: number;
   
   // Actions
   initialize: () => Promise<void>;
@@ -49,6 +50,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   gameStartTime: null,
   gameEndTime: null,
   gameTime: 0,
+  score: 0,
   
   initialize: async () => {
     try {
@@ -76,7 +78,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       usedPhrases: [currentPhrase], // Start with the first phrase
       currentView: GameView.GAME,
       gameStartTime,
-      gameEndTime: null
+      gameEndTime: null,
+      score: 0
     }));
     
     // Log analytics event
@@ -134,7 +137,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       usedPhrases: [currentPhrase],
       currentView: GameView.GAME,
       gameStartTime,
-      gameEndTime: null
+      gameEndTime: null,
+      score: 0
     });
     
     // Log analytics event

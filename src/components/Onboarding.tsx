@@ -36,7 +36,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete, darkMode = false })
 
   // Handle next button click
   const handleNext = async () => {
-    await vibrate(ImpactStyle.Light);
+    vibrate(ImpactStyle.Light);
     
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);

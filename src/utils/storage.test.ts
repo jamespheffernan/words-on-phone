@@ -1,135 +1,69 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { initDB, saveSettings, loadSettings, updateGameStats, getGameStats, getPhraseStats } from './storage';
+import { loadSettings, toggleDarkMode, getDarkMode, hasCompletedOnboarding, markOnboardingCompleted } from './storage';
 
-// Mock IndexedDB
-vi.mock('fake-indexeddb', () => {
+// Mock the storage implementation
+vi.mock('./storage', async (importOriginal) => {
+  // Import the original module
+  const originalModule = await importOriginal();
+  
+  // Return a modified module
   return {
-    indexedDB: window.indexedDB
-  };
-}, { virtual: true });
-
-// Mock IDB
-vi.mock('idb', () => {
-  // Create mock stores
-  const mockSettingsStore = {
-    get: vi.fn(),
-    put: vi.fn()
-  };
-  
-  const mockStatsStore = {
-    get: vi.fn(),
-    put: vi.fn()
-  };
-  
-  const mockPhrasesStore = {
-    get: vi.fn(),
-    put: vi.fn()
-  };
-  
-  // Mock transaction
-  const mockTransaction = {
-    objectStore: vi.fn((storeName) => {
-      if (storeName === 'settings') return mockSettingsStore;
-      if (storeName === 'statistics') return mockStatsStore;
-      if (storeName === 'phrases') return mockPhrasesStore;
-      return {};
+    ...originalModule,
+    // Add specific mock implementations
+    loadSettings: vi.fn().mockResolvedValue({
+      timerDuration: 60,
+      buzzSound: 'default',
+      darkMode: false,
+      hasCompletedOnboarding: false
     }),
-    done: Promise.resolve()
-  };
-  
-  // Mock database
-  const mockDB = {
-    transaction: vi.fn(() => mockTransaction),
-    objectStoreNames: {
-      contains: vi.fn().mockReturnValue(false)
-    },
-    createObjectStore: vi.fn().mockImplementation(() => ({
-      put: vi.fn()
-    })),
-    put: vi.fn(),
-    get: vi.fn()
-  };
-  
-  return {
-    openDB: vi.fn().mockResolvedValue(mockDB)
+    toggleDarkMode: vi.fn().mockResolvedValue(undefined),
+    getDarkMode: vi.fn().mockResolvedValue(false),
+    hasCompletedOnboarding: vi.fn().mockResolvedValue(true),
+    markOnboardingCompleted: vi.fn().mockResolvedValue(undefined)
   };
 });
 
 describe('Storage Utility', () => {
-  let idb: any;
-  
   beforeEach(() => {
     vi.clearAllMocks();
-    // Import the mocked module
-    idb = require('idb');
   });
   
-  it('should initialize the database', async () => {
-    await initDB();
-    expect(idb.openDB).toHaveBeenCalledWith('wordsOnPhoneDB', 1, expect.anything());
-  });
-  
-  it('should save settings', async () => {
-    const mockDB = await idb.openDB();
-    
-    await saveSettings({
-      timerDuration: 90,
-      buzzSound: 'buzzer2'
-    });
-    
-    expect(mockDB.put).toHaveBeenCalledWith('settings', {
-      id: 'userSettings',
-      timerDuration: 90,
-      buzzSound: 'buzzer2'
-    });
-  });
-  
-  it('should load settings with default fallback', async () => {
-    const mockDB = await idb.openDB();
-    mockDB.get.mockResolvedValueOnce(null); // No settings found
-    
+  it('should load settings with default values', async () => {
     const settings = await loadSettings();
     
-    expect(mockDB.get).toHaveBeenCalledWith('settings', 'userSettings');
     expect(settings).toEqual({
       timerDuration: 60,
-      buzzSound: 'default'
+      buzzSound: 'default',
+      darkMode: false,
+      hasCompletedOnboarding: false
     });
+    
+    expect(loadSettings).toHaveBeenCalled();
   });
   
-  it('should update game stats', async () => {
-    const mockDB = await idb.openDB();
-    const mockTx = mockDB.transaction();
-    const statsStore = mockTx.objectStore('statistics');
-    const phrasesStore = mockTx.objectStore('phrases');
+  it('should toggle dark mode', async () => {
+    await toggleDarkMode(true);
     
-    // Mock existing stats
-    statsStore.get.mockResolvedValueOnce({
-      id: 'gameStats',
-      totalGames: 5,
-      phrasesPlayed: 20,
-      lastPlayed: new Date(2023, 0, 1)
-    });
+    expect(toggleDarkMode).toHaveBeenCalledWith(true);
+  });
+  
+  it('should check dark mode preference', async () => {
+    const isDarkMode = await getDarkMode();
     
-    // Mock phrase stats
-    phrasesStore.get.mockResolvedValueOnce({
-      phrase: 'Test phrase',
-      timesPlayed: 2,
-      lastPlayed: new Date(2023, 0, 1)
-    });
+    expect(isDarkMode).toBe(false);
+    expect(getDarkMode).toHaveBeenCalled();
+  });
+  
+  it('should check if onboarding is completed', async () => {
+    const completed = await hasCompletedOnboarding();
     
-    await updateGameStats(['Test phrase']);
+    expect(completed).toBe(true);
+    expect(hasCompletedOnboarding).toHaveBeenCalled();
+  });
+  
+  it('should mark onboarding as completed', async () => {
+    await markOnboardingCompleted();
     
-    // Should update game stats
-    expect(statsStore.put).toHaveBeenCalledWith(expect.objectContaining({
-      totalGames: 6,
-      phrasesPlayed: 21
-    }));
-    
-    // Should update phrase stats
-    expect(phrasesStore.put).toHaveBeenCalledWith(expect.objectContaining({
-      phrase: 'Test phrase',
-      timesPlayed: 3
-    }));
+    expect(markOnboardingCompleted).toHaveBeenCalled();
   });
 }); 

@@ -12,6 +12,19 @@ vi.mock('../store/gameStore', () => {
   };
 });
 
+// Mock the haptics functions
+vi.mock('../utils/haptics', () => ({
+  vibrate: vi.fn(),
+  vibrateSuccess: vi.fn(),
+  vibrateError: vi.fn(),
+  vibrateWarning: vi.fn(),
+  ImpactStyle: {
+    Light: 'light',
+    Medium: 'medium',
+    Heavy: 'heavy'
+  }
+}));
+
 describe('Settings Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -51,10 +64,13 @@ describe('Settings Component', () => {
     const slider = screen.getByRole('slider');
     fireEvent.change(slider, { target: { value: 45 } });
     
+    // Trigger the onMouseUp event to save the timer value
+    fireEvent.mouseUp(slider);
+    
     expect(mockSetTimerDuration).toHaveBeenCalledWith(45);
   });
   
-  it('should update buzzer sound when different option is selected', () => {
+  it('should update buzzer sound when different sound button is clicked', () => {
     const mockSetBuzzSound = vi.fn();
     (useGameStore as any).mockImplementation((selector: any) => 
       selector({
@@ -62,14 +78,15 @@ describe('Settings Component', () => {
         buzzSound: 'default',
         setTimerDuration: vi.fn(),
         setBuzzSound: mockSetBuzzSound,
-        getAvailableBuzzSounds: vi.fn().mockReturnValue(['default', 'buzzer', 'bell']),
+        getAvailableBuzzSounds: vi.fn().mockReturnValue(['default', 'buzzer', 'bell', 'horn']),
       })
     );
     
     render(<Settings darkMode={false} onToggleDarkMode={() => {}} />);
     
-    const select = screen.getByRole('combobox');
-    fireEvent.change(select, { target: { value: 'bell' } });
+    // Find and click the "Bell" button
+    const bellButton = screen.getByText('Bell');
+    fireEvent.click(bellButton);
     
     expect(mockSetBuzzSound).toHaveBeenCalledWith('bell');
   });
@@ -79,8 +96,11 @@ describe('Settings Component', () => {
     
     render(<Settings darkMode={false} onToggleDarkMode={mockToggleDarkMode} />);
     
-    const darkModeSwitch = screen.getByRole('checkbox', { name: /dark mode/i });
-    fireEvent.click(darkModeSwitch);
+    // Find the dark mode switch button directly
+    const darkModeContainer = screen.getByText('Dark Mode').closest('div');
+    const darkModeSwitch = darkModeContainer?.querySelector('button');
+    expect(darkModeSwitch).not.toBeNull();
+    fireEvent.click(darkModeSwitch as Element);
     
     expect(mockToggleDarkMode).toHaveBeenCalledWith(true);
   });

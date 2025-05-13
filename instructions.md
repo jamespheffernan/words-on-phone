@@ -33,6 +33,7 @@ Offline-first PWA	Advanced web features (Share API, Notifications)
 
 4 · Cursor-centric workflow
 	•	instructions.md: keep this plan as living spec; ask Cursor to critique/regenerate.
+	•	progress_log.md: update and check off tasks as they are completed to maintain the progress log.
 	•	.cursor/rules: write failing Vitest test first, small edit-test loops, auto-lint.
 	•	.cursorsignore: exclude media; resync nightly.
 	•	Commit every green test; push to GitHub.

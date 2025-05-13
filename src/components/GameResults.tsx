@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { vibrate, vibrateSuccess, ImpactStyle } from '../utils/haptics';
 import { getDarkMode } from '../utils/storage';
+import QRShare from './QRShare';
 
 const GameResults: React.FC = () => {
   // Use individual selectors to prevent infinite loops
@@ -9,8 +10,10 @@ const GameResults: React.FC = () => {
   const gameTime = useGameStore(state => state.gameTime);
   const startNewGame = useGameStore(state => state.startNewGame);
   const goToHome = useGameStore(state => state.goToHome);
+  const score = useGameStore(state => state.score);
   
   const [darkMode, setDarkMode] = useState(false);
+  const [showQRModal, setShowQRModal] = useState(false);
   
   // Load dark mode preference
   useEffect(() => {
@@ -36,15 +39,21 @@ const GameResults: React.FC = () => {
   
   // Handle play again with haptics
   const handlePlayAgain = useCallback(async () => {
-    await vibrateSuccess();
+    vibrateSuccess();
     startNewGame();
   }, [startNewGame]);
   
   // Handle go to home with haptics
   const handleGoToHome = useCallback(async () => {
-    await vibrate(ImpactStyle.Light);
+    vibrate(ImpactStyle.Light);
     goToHome();
   }, [goToHome]);
+  
+  // Handle sharing app
+  const handleShareApp = useCallback(async () => {
+    vibrate(ImpactStyle.Light);
+    setShowQRModal(true);
+  }, []);
 
   return (
     <div className={`p-6 ${darkMode ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-md max-w-md w-full`}>
@@ -57,8 +66,8 @@ const GameResults: React.FC = () => {
         <>
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className={`${darkMode ? 'bg-blue-900 border-blue-800' : 'bg-blue-50 border-blue-100'} p-4 rounded-lg border text-center`}>
-              <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-600'} mb-1`}>Phrases</p>
-              <p className={`text-2xl font-bold ${darkMode ? 'text-blue-400' : 'text-blue-700'}`}>{usedPhrases.length}</p>
+              <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-600'} mb-1`}>Score</p>
+              <p className={`text-2xl font-bold ${darkMode ? 'text-blue-400' : 'text-blue-700'}`}>{score}</p>
             </div>
             
             <div className={`${darkMode ? 'bg-purple-900 border-purple-800' : 'bg-purple-50 border-purple-100'} p-4 rounded-lg border text-center`}>
@@ -84,6 +93,20 @@ const GameResults: React.FC = () => {
         </div>
       )}
 
+      <div className="mb-4">
+        <button
+          onClick={handleShareApp}
+          className={`w-full mb-4 py-2 px-4 rounded-lg flex items-center justify-center ${
+            darkMode ? 'bg-green-600 hover:bg-green-700' : 'bg-green-500 hover:bg-green-600'
+          } text-white font-medium`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+          Share App
+        </button>
+      </div>
+
       <div className="grid grid-cols-2 gap-4">
         <button
           onClick={handlePlayAgain}
@@ -99,6 +122,14 @@ const GameResults: React.FC = () => {
           Back to Home
         </button>
       </div>
+      
+      {/* QR Code Modal */}
+      {showQRModal && (
+        <QRShare 
+          darkMode={darkMode} 
+          onClose={() => setShowQRModal(false)} 
+        />
+      )}
     </div>
   );
 };

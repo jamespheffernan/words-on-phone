@@ -14,32 +14,33 @@ const Game: React.FC<GameProps> = ({ darkMode }) => {
   const startGame = useGameStore(state => state.startGame);
   const stopGame = useGameStore(state => state.stopGame);
   const getRandomPhrase = useGameStore(state => state.getRandomPhrase);
+  const score = useGameStore(state => state.score);
 
   // Function to handle start game with haptic feedback
   const handleStartGame = useCallback(async () => {
-    await vibrate(ImpactStyle.Medium);
+    vibrate(ImpactStyle.Medium);
     startGame();
   }, [startGame]);
 
   // Function to handle next phrase button
   const handleNextPhrase = useCallback(async () => {
     // Haptic feedback
-    await vibrateSuccess();
+    vibrateSuccess();
     
     // Get a new random phrase and add it to used phrases
     const nextPhrase = getRandomPhrase();
     
-    // Update state with the new phrase
-    // Using a function to ensure we're using the latest state
+    // Update state with the new phrase and increment score
     useGameStore.setState(state => ({
       currentPhrase: nextPhrase,
-      usedPhrases: [...state.usedPhrases, nextPhrase]
+      usedPhrases: [...state.usedPhrases, nextPhrase],
+      score: state.score + 1
     }));
   }, [getRandomPhrase]);
   
   // Function to handle end game
   const handleEndGame = useCallback(async () => {
-    await vibrateError();
+    vibrateError();
     stopGame();
   }, [stopGame]);
 
@@ -69,9 +70,7 @@ const Game: React.FC<GameProps> = ({ darkMode }) => {
             <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} mb-4`}>
               Act it out! Pass the phone when you're done!
             </p>
-            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-              Phrases played this game: {usedPhrases?.length || 0}
-            </p>
+            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Score: {score}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
