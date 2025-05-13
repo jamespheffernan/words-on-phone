@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { playBuzzerSound } from '../assets/sounds';
 
@@ -7,14 +7,22 @@ interface TimerProviderProps {
 }
 
 const TimerProvider: React.FC<TimerProviderProps> = ({ children }) => {
-  const { isGameRunning, timerDuration, buzzSound, stopGame } = useGameStore(state => ({
-    isGameRunning: state.isGameRunning,
-    timerDuration: state.timerDuration,
-    buzzSound: state.buzzSound,
-    stopGame: state.stopGame,
-  }));
+  // Use separate selectors for better performance and to prevent infinite loops
+  const isGameRunning = useGameStore(state => state.isGameRunning);
+  const timerDuration = useGameStore(state => state.timerDuration);
+  const buzzSound = useGameStore(state => state.buzzSound);
+  const stopGame = useGameStore(state => state.stopGame);
   
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Memoize the stop game handler
+  const handleTimerExpired = useCallback(() => {
+    // Play buzzer sound when timer ends
+    playBuzzerSound(buzzSound);
+    
+    // Timer expired, stop the game
+    stopGame();
+  }, [buzzSound, stopGame]);
   
   useEffect(() => {
     // Clear any existing timers
@@ -26,13 +34,7 @@ const TimerProvider: React.FC<TimerProviderProps> = ({ children }) => {
     // Start new timer if game is running
     if (isGameRunning) {
       const timeoutDuration = timerDuration * 1000; // convert seconds to milliseconds
-      timerRef.current = setTimeout(() => {
-        // Play buzzer sound when timer ends
-        playBuzzerSound(buzzSound);
-        
-        // Timer expired, stop the game
-        stopGame();
-      }, timeoutDuration);
+      timerRef.current = setTimeout(handleTimerExpired, timeoutDuration);
     }
     
     // Clean up timer on unmount
@@ -41,7 +43,7 @@ const TimerProvider: React.FC<TimerProviderProps> = ({ children }) => {
         clearTimeout(timerRef.current);
       }
     };
-  }, [isGameRunning, timerDuration, buzzSound, stopGame]);
+  }, [isGameRunning, timerDuration, handleTimerExpired]);
   
   return <>{children}</>;
 };
