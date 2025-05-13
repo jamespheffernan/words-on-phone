@@ -46,38 +46,76 @@ let dbInstance: IDBPDatabase | null = null;
  * Initialize the IndexedDB database
  */
 export const initDB = async (): Promise<IDBPDatabase> => {
+  console.log(`Starting IndexedDB initialization: DB_NAME=${DB_NAME}, DB_VERSION=${DB_VERSION}`);
+  
   if (!dbPromise) {
-    dbPromise = openDB(DB_NAME, DB_VERSION, {
-      upgrade(db, oldVersion, newVersion) {
-        console.log(`Upgrading database from version ${oldVersion} to ${newVersion}`);
+    try {
+      console.log('Creating new database promise');
+      dbPromise = openDB(DB_NAME, DB_VERSION, {
+        upgrade(db, oldVersion, newVersion) {
+          console.log(`Upgrading database from version ${oldVersion} to ${newVersion}`);
+          
+          // Create the settings store
+          if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
+            console.log(`Creating ${SETTINGS_STORE} object store`);
+            db.createObjectStore(SETTINGS_STORE, { keyPath: 'id' });
+          }
+          
+          // Create stats store
+          if (!db.objectStoreNames.contains(STATISTICS_STORE)) {
+            console.log(`Creating ${STATISTICS_STORE} object store`);
+            db.createObjectStore(STATISTICS_STORE, { keyPath: 'id' });
+          }
+          
+          // Create phrases store for tracking phrase usage
+          if (!db.objectStoreNames.contains(PHRASES_STORE)) {
+            console.log(`Creating ${PHRASES_STORE} object store`);
+            db.createObjectStore(PHRASES_STORE, { keyPath: 'phrase' });
+          }
+          
+          // Add game sessions store in version 2
+          if (oldVersion < 2 && !db.objectStoreNames.contains(GAME_SESSIONS_STORE)) {
+            console.log(`Creating ${GAME_SESSIONS_STORE} object store`);
+            db.createObjectStore(GAME_SESSIONS_STORE, { keyPath: 'id', autoIncrement: true });
+          }
+          
+          console.log('Database upgrade completed successfully');
+        }
+      }).then(async db => {
+        console.log('Database opened successfully');
+        dbInstance = db;
         
-        // Create the settings store
-        if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
-          db.createObjectStore(SETTINGS_STORE, { keyPath: 'id' });
+        // Initialize default data after database is opened and upgraded
+        console.log('Initializing default data');
+        await initializeDefaultData(db);
+        console.log('Default data initialization complete');
+        return db;
+      }).catch(error => {
+        console.error('Error opening IndexedDB:', error);
+        if (error instanceof Error) {
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+          console.error('Error stack:', error.stack);
         }
         
-        // Create stats store
-        if (!db.objectStoreNames.contains(STATISTICS_STORE)) {
-          db.createObjectStore(STATISTICS_STORE, { keyPath: 'id' });
+        // Check for specific IndexedDB errors
+        if (error.name === 'QuotaExceededError') {
+          console.error('Storage quota exceeded. User might be in private browsing mode or storage is full');
+        } else if (error.name === 'VersionError') {
+          console.error('Version error: Attempting to open database with lower version than existing');
+        } else if (error.name === 'AbortError') {
+          console.error('Transaction was aborted, likely due to a concurrent transaction');
         }
         
-        // Create phrases store for tracking phrase usage
-        if (!db.objectStoreNames.contains(PHRASES_STORE)) {
-          db.createObjectStore(PHRASES_STORE, { keyPath: 'phrase' });
-        }
-        
-        // Add game sessions store in version 2
-        if (oldVersion < 2 && !db.objectStoreNames.contains(GAME_SESSIONS_STORE)) {
-          db.createObjectStore(GAME_SESSIONS_STORE, { keyPath: 'id', autoIncrement: true });
-        }
-      }
-    }).then(async db => {
-      dbInstance = db;
-      
-      // Initialize default data after database is opened and upgraded
-      await initializeDefaultData(db);
-      return db;
-    });
+        // Rethrow to be caught by caller
+        throw error;
+      });
+    } catch (outerError) {
+      console.error('Unexpected error during IndexedDB initialization:', outerError);
+      throw outerError;
+    }
+  } else {
+    console.log('Using existing database promise');
   }
   
   return dbPromise;
