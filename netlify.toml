@@ -3,12 +3,24 @@
   publish = "dist"
 
 [build.environment]
+  NODE_VERSION = "22.15.0"
   SKIP_TYPESCRIPT = "true"
+
+[[plugins]]
+  package = "./netlify.js"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200 
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "same-origin"
 
 [[headers]]
   for = "/*.js"
@@ -21,13 +33,29 @@
     Content-Type = "application/javascript"
 
 [[headers]]
+  for = "/*.mjs"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
   for = "/assets/*.mjs"
   [headers.values]
     Content-Type = "application/javascript"
 
 [[headers]]
-  for = "/*.mjs"
+  for = "/*.css"
   [headers.values]
+    Content-Type = "text/css"
+
+[[headers]]
+  for = "/assets/*.css"
+  [headers.values]
+    Content-Type = "text/css"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
     Content-Type = "application/javascript"
 
 [[headers]]

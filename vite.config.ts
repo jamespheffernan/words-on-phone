@@ -13,9 +13,17 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    // Use a different format for Netlify compatibility
+    modulePreload: {
+      polyfill: true,
+    },
     // Ensure correct bundling for production
     rollupOptions: {
       output: {
+        format: 'es',
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
           vendor: ['react', 'react-dom', 'zustand', 'idb'],
         },
@@ -36,3 +44,4 @@ export default defineConfig({
     },
   },
 })
+

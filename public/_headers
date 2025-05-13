@@ -1,4 +1,9 @@
-# Set correct MIME types for JavaScript modules
+/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+
 /*.js
   Content-Type: application/javascript
 
@@ -11,9 +16,26 @@
 /assets/*.mjs
   Content-Type: application/javascript
 
-# Ensure service worker is served correctly
+/*.css
+  Content-Type: text/css
+
+/assets/*.css
+  Content-Type: text/css
+
+/*.png
+  Content-Type: image/png
+
+/*.svg
+  Content-Type: image/svg+xml
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
 /sw.js
-  Cache-Control: max-age=0
+  Cache-Control: no-cache
   Content-Type: application/javascript
 
 # Cache static assets
