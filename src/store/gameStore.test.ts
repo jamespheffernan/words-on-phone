@@ -86,4 +86,28 @@ describe('Game Store', () => {
     expect(newState.usedPhrases).toContain(initialPhrase);
     expect(newState.usedPhrases.length).toBe(2);
   });
+
+  it('should record phrase success', () => {
+    const { recordPhraseSuccess } = useGameStore.getState();
+    const testPhrase = 'Test phrase 1';
+    recordPhraseSuccess(testPhrase);
+    
+    const state = useGameStore.getState();
+    expect(state.phraseStats[testPhrase]).toBeDefined();
+    expect(state.phraseStats[testPhrase].successCount).toBe(1);
+    expect(state.phraseStats[testPhrase].failCount).toBe(0);
+    expect(state.phraseStats[testPhrase].lastUsed).not.toBeNull();
+  });
+
+  it('should record phrase failure', () => {
+    const { recordPhraseFailure } = useGameStore.getState();
+    const testPhrase = 'Test phrase 2';
+    recordPhraseFailure(testPhrase);
+    
+    const state = useGameStore.getState();
+    expect(state.phraseStats[testPhrase]).toBeDefined();
+    expect(state.phraseStats[testPhrase].successCount).toBe(0);
+    expect(state.phraseStats[testPhrase].failCount).toBe(1);
+    expect(state.phraseStats[testPhrase].lastUsed).not.toBeNull();
+  });
 }); 

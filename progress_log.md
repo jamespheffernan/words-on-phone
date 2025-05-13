@@ -14,7 +14,7 @@
 - [x] Buzzer picker UI & audio playback  
 - [x] 7 000+ seeded phrases loaded locally  
 - [x] In-game scorekeeper (UI + logic)  
-- [ ] Per-phrase performance stats collection & display  
+- [x] Per-phrase performance stats collection & display  
 
 ## 2. v1.1+ Nice-to-Have Features
 - [ ] Mixed-category rounds  

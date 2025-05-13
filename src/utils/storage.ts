@@ -13,6 +13,7 @@ interface Settings {
   buzzSound: string;
   darkMode?: boolean;
   hasCompletedOnboarding?: boolean;
+  phraseStats?: Record<string, PhraseStats>;
 }
 
 interface GameStats {

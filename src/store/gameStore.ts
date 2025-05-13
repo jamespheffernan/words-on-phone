@@ -12,6 +12,13 @@ export const GameView = {
 
 export type GameViewType = typeof GameView[keyof typeof GameView];
 
+export interface PhraseStats {
+  phrase: string;
+  successCount: number;
+  failCount: number;
+  lastUsed: Date | null;
+}
+
 export interface GameState {
   // State
   isGameRunning: boolean;
@@ -26,6 +33,7 @@ export interface GameState {
   gameEndTime: Date | null;
   gameTime: number; // Total game time in seconds
   score: number;
+  phraseStats: Record<string, PhraseStats>;
   
   // Actions
   initialize: () => Promise<void>;
@@ -38,6 +46,8 @@ export interface GameState {
   goToHome: () => void;
   incrementScore: () => void;
   nextPhrase: () => void;
+  recordPhraseSuccess: (phrase: string) => void;
+  recordPhraseFailure: (phrase: string) => void;
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -53,6 +63,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   gameEndTime: null,
   gameTime: 0,
   score: 0,
+  phraseStats: {},
   
   initialize: async () => {
     try {
@@ -61,7 +72,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       set({ 
         timerDuration: settings.timerDuration,
         buzzSound: settings.buzzSound,
-        isInitialized: true
+        isInitialized: true,
+        phraseStats: settings.phraseStats || {}
       });
     } catch (error) {
       console.error('Failed to initialize settings:', error);
@@ -214,5 +226,47 @@ export const useGameStore = create<GameState>((set, get) => ({
       currentPhrase: phrase,
       usedPhrases: [...state.usedPhrases, phrase]
     }));
+  },
+  recordPhraseSuccess: (phrase) => {
+    set(state => {
+      const currentStats = state.phraseStats[phrase] || { phrase, successCount: 0, failCount: 0, lastUsed: null };
+      const updatedStats = { 
+        ...currentStats, 
+        successCount: currentStats.successCount + 1, 
+        lastUsed: new Date() 
+      };
+      return {
+        phraseStats: { ...state.phraseStats, [phrase]: updatedStats }
+      };
+    });
+    // Save updated stats to local storage
+    saveSettings({
+      timerDuration: get().timerDuration,
+      buzzSound: get().buzzSound,
+      phraseStats: get().phraseStats
+    }).catch(error => {
+      console.error('Failed to save phrase stats:', error);
+    });
+  },
+  recordPhraseFailure: (phrase) => {
+    set(state => {
+      const currentStats = state.phraseStats[phrase] || { phrase, successCount: 0, failCount: 0, lastUsed: null };
+      const updatedStats = { 
+        ...currentStats, 
+        failCount: currentStats.failCount + 1, 
+        lastUsed: new Date() 
+      };
+      return {
+        phraseStats: { ...state.phraseStats, [phrase]: updatedStats }
+      };
+    });
+    // Save updated stats to local storage
+    saveSettings({
+      timerDuration: get().timerDuration,
+      buzzSound: get().buzzSound,
+      phraseStats: get().phraseStats
+    }).catch(error => {
+      console.error('Failed to save phrase stats:', error);
+    });
   },
 })); 
