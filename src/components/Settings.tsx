@@ -20,11 +20,11 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
     setBuzzSound: state.setBuzzSound
   }));
   
+  // Initialize local state with store values only once on mount
   useEffect(() => {
-    // Initialize local state with store values
     setTimerValue(timerDuration);
     setSelectedSound(buzzSound);
-  }, [timerDuration, buzzSound]);
+  }, []);
   
   // Handle timer slider change
   const handleTimerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +32,7 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
     setTimerValue(value);
   };
   
-  // Handle buzzer sound selection and preview
+  // Handle buzzer sound selection
   const handleSoundChange = async (sound: string) => {
     setSelectedSound(sound);
     setBuzzSound(sound);
@@ -41,6 +41,12 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
     await previewSound(sound as any);
     
     // Provide haptic feedback
+    vibrate(ImpactStyle.Light);
+  };
+  
+  // Preview current sound without changing selection
+  const handlePreviewSound = async () => {
+    await previewSound(selectedSound as any);
     vibrate(ImpactStyle.Light);
   };
   
@@ -120,7 +126,7 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
           ))}
         </div>
         <button
-          onClick={() => handleSoundChange(selectedSound)}
+          onClick={handlePreviewSound}
           className={`mt-3 py-2 px-4 text-sm rounded-lg border w-full ${
             darkMode 
               ? 'bg-gray-700 border-gray-600 text-gray-300' 
