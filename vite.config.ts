@@ -12,5 +12,18 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    // Ensure correct bundling for production
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'zustand', 'idb', 'firebase'],
+        },
+      },
+    },
+  },
+  server: {
+    headers: {
+      'Content-Type': 'application/javascript',
+    },
   },
 })
