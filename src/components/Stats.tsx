@@ -18,20 +18,32 @@ const Stats: React.FC<StatsProps> = ({ darkMode }) => {
   const [stats, setStats] = useState<GameStats | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   
+  // Load stats only once when component mounts
   useEffect(() => {
-    // Load stats when component mounts
+    let isMounted = true;
+    
     const loadStats = async () => {
       try {
         const gameStats = await getGameStats();
-        setStats(gameStats);
+        // Only update state if component is still mounted
+        if (isMounted) {
+          setStats(gameStats);
+          setLoading(false);
+        }
       } catch (error) {
         console.error('Failed to load game stats:', error);
-      } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
     
     loadStats();
+    
+    // Cleanup function to prevent state updates if component unmounts
+    return () => {
+      isMounted = false;
+    };
   }, []);
   
   // Format date for display

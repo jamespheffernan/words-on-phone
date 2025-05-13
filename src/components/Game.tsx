@@ -10,36 +10,30 @@ const Game: React.FC<GameProps> = ({ darkMode }) => {
   // Use separate selectors for better performance and to prevent infinite loops
   const isGameRunning = useGameStore(state => state.isGameRunning);
   const currentPhrase = useGameStore(state => state.currentPhrase);
-  const usedPhrases = useGameStore(state => state.usedPhrases);
+  const score = useGameStore(state => state.score);
   const startGame = useGameStore(state => state.startGame);
   const stopGame = useGameStore(state => state.stopGame);
-  const getRandomPhrase = useGameStore(state => state.getRandomPhrase);
-  const score = useGameStore(state => state.score);
+  const nextPhrase = useGameStore(state => state.nextPhrase);
+  const incrementScore = useGameStore(state => state.incrementScore);
 
   // Function to handle start game with haptic feedback
-  const handleStartGame = useCallback(async () => {
+  const handleStartGame = useCallback(() => {
     vibrate(ImpactStyle.Medium);
     startGame();
   }, [startGame]);
 
   // Function to handle next phrase button
-  const handleNextPhrase = useCallback(async () => {
+  const handleNextPhrase = useCallback(() => {
     // Haptic feedback
     vibrateSuccess();
     
-    // Get a new random phrase and add it to used phrases
-    const nextPhrase = getRandomPhrase();
-    
-    // Update state with the new phrase and increment score
-    useGameStore.setState(state => ({
-      currentPhrase: nextPhrase,
-      usedPhrases: [...state.usedPhrases, nextPhrase],
-      score: state.score + 1
-    }));
-  }, [getRandomPhrase]);
+    // Use actions from the store instead of direct setState
+    nextPhrase();
+    incrementScore();
+  }, [nextPhrase, incrementScore]);
   
   // Function to handle end game
-  const handleEndGame = useCallback(async () => {
+  const handleEndGame = useCallback(() => {
     vibrateError();
     stopGame();
   }, [stopGame]);
