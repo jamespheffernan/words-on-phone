@@ -4,11 +4,13 @@ import { loadSettings, saveSettings, updateGameStats } from '../utils/storage';
 import { logAnalyticsEvent } from '../services/firebase';
 
 // Game view states
-export enum GameView {
-  HOME = 'home',
-  GAME = 'game',
-  RESULTS = 'results'
-}
+export const GameView = {
+  HOME: 'home',
+  GAME: 'game',
+  RESULTS: 'results'
+} as const;
+
+export type GameViewType = typeof GameView[keyof typeof GameView];
 
 export interface GameState {
   // State
@@ -19,7 +21,7 @@ export interface GameState {
   currentPhrase: string | null;
   usedPhrases: string[];
   isInitialized: boolean;
-  currentView: GameView;
+  currentView: GameViewType;
   gameStartTime: Date | null;
   gameEndTime: Date | null;
   gameTime: number; // Total game time in seconds
@@ -68,7 +70,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     const currentPhrase = get().getRandomPhrase();
     const gameStartTime = new Date();
     
-    set(state => ({
+    set(() => ({
       isGameRunning: true,
       currentPhrase,
       usedPhrases: [currentPhrase], // Start with the first phrase

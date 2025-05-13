@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useGameStore } from '../store/gameStore';
-import { vibrate, vibrateSuccess, vibrateError, HapticsImpactStyle } from '../utils/haptics';
+import { vibrate, vibrateSuccess, vibrateError, ImpactStyle } from '../utils/haptics';
 
 interface GameProps {
   darkMode: boolean;
@@ -17,7 +17,7 @@ const Game: React.FC<GameProps> = ({ darkMode }) => {
 
   // Function to handle start game with haptic feedback
   const handleStartGame = useCallback(async () => {
-    await vibrate(HapticsImpactStyle.Medium);
+    await vibrate(ImpactStyle.Medium);
     startGame();
   }, [startGame]);
 

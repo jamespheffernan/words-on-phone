@@ -1,6 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { initDB, saveSettings, loadSettings, updateGameStats, getGameStats, getPhraseStats } from './storage';
 
+// Mock IndexedDB
+vi.mock('fake-indexeddb', () => {
+  return {
+    indexedDB: window.indexedDB
+  };
+}, { virtual: true });
+
 // Mock IDB
 vi.mock('idb', () => {
   // Create mock stores

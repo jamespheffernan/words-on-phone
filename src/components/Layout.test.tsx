@@ -13,13 +13,13 @@ vi.mock('./Settings', () => ({
 
 describe('Layout', () => {
   it('should render the game by default', () => {
-    render(<Layout />);
+    render(<Layout darkMode={false} onToggleDarkMode={() => {}} />);
     expect(screen.getByTestId('mock-game')).toBeInTheDocument();
     expect(screen.queryByTestId('mock-settings')).not.toBeInTheDocument();
   });
   
   it('should render settings when settings tab is clicked', () => {
-    render(<Layout />);
+    render(<Layout darkMode={false} onToggleDarkMode={() => {}} />);
     
     // Click on settings tab
     fireEvent.click(screen.getByText(/Settings/i));
@@ -29,7 +29,7 @@ describe('Layout', () => {
   });
   
   it('should switch back to game when game tab is clicked', () => {
-    render(<Layout />);
+    render(<Layout darkMode={false} onToggleDarkMode={() => {}} />);
     
     // First go to settings
     fireEvent.click(screen.getByText(/Settings/i));

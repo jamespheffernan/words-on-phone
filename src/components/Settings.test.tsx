@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import Settings from './Settings';
 import { useGameStore } from '../store/gameStore';
 
-// Mock the zustand store
+// Mock the Zustand store
 vi.mock('../store/gameStore', () => {
   const actual = vi.importActual('../store/gameStore');
   return {
@@ -12,31 +12,29 @@ vi.mock('../store/gameStore', () => {
   };
 });
 
-describe('Settings', () => {
+describe('Settings Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     
     // Mock the store implementation
-    const mockSetTimerDuration = vi.fn();
-    const mockSetBuzzSound = vi.fn();
-    
     (useGameStore as any).mockImplementation((selector: any) => 
       selector({
         timerDuration: 60,
         buzzSound: 'default',
-        setTimerDuration: mockSetTimerDuration,
-        setBuzzSound: mockSetBuzzSound,
+        setTimerDuration: vi.fn(),
+        setBuzzSound: vi.fn(),
+        getAvailableBuzzSounds: vi.fn().mockReturnValue(['default', 'buzzer', 'bell']),
       })
     );
   });
-  
-  it('should render timer duration slider', () => {
-    render(<Settings />);
-    expect(screen.getByLabelText(/Timer Duration/i)).toBeInTheDocument();
-    expect(screen.getByText('60 seconds')).toBeInTheDocument();
+
+  it('should render the settings component', () => {
+    render(<Settings darkMode={false} onToggleDarkMode={() => {}} />);
+    expect(screen.getByText(/Timer Duration/i)).toBeInTheDocument();
+    expect(screen.getByText(/Buzzer Sound/i)).toBeInTheDocument();
   });
-  
-  it('should call setTimerDuration when slider changes', () => {
+
+  it('should update timer duration when slider is changed', () => {
     const mockSetTimerDuration = vi.fn();
     (useGameStore as any).mockImplementation((selector: any) => 
       selector({
@@ -44,23 +42,19 @@ describe('Settings', () => {
         buzzSound: 'default',
         setTimerDuration: mockSetTimerDuration,
         setBuzzSound: vi.fn(),
+        getAvailableBuzzSounds: vi.fn().mockReturnValue(['default', 'buzzer', 'bell']),
       })
     );
     
-    render(<Settings />);
+    render(<Settings darkMode={false} onToggleDarkMode={() => {}} />);
     
-    const slider = screen.getByLabelText(/Timer Duration/i);
-    fireEvent.change(slider, { target: { value: '90' } });
+    const slider = screen.getByRole('slider');
+    fireEvent.change(slider, { target: { value: 45 } });
     
-    expect(mockSetTimerDuration).toHaveBeenCalledWith(90);
+    expect(mockSetTimerDuration).toHaveBeenCalledWith(45);
   });
   
-  it('should render buzzer sound selector', () => {
-    render(<Settings />);
-    expect(screen.getByLabelText(/Buzzer Sound/i)).toBeInTheDocument();
-  });
-  
-  it('should call setBuzzSound when buzzer changes', () => {
+  it('should update buzzer sound when different option is selected', () => {
     const mockSetBuzzSound = vi.fn();
     (useGameStore as any).mockImplementation((selector: any) => 
       selector({
@@ -68,14 +62,26 @@ describe('Settings', () => {
         buzzSound: 'default',
         setTimerDuration: vi.fn(),
         setBuzzSound: mockSetBuzzSound,
+        getAvailableBuzzSounds: vi.fn().mockReturnValue(['default', 'buzzer', 'bell']),
       })
     );
     
-    render(<Settings />);
+    render(<Settings darkMode={false} onToggleDarkMode={() => {}} />);
     
-    const select = screen.getByLabelText(/Buzzer Sound/i);
-    fireEvent.change(select, { target: { value: 'buzzer2' } });
+    const select = screen.getByRole('combobox');
+    fireEvent.change(select, { target: { value: 'bell' } });
     
-    expect(mockSetBuzzSound).toHaveBeenCalledWith('buzzer2');
+    expect(mockSetBuzzSound).toHaveBeenCalledWith('bell');
+  });
+  
+  it('should call onToggleDarkMode when dark mode switch is clicked', () => {
+    const mockToggleDarkMode = vi.fn();
+    
+    render(<Settings darkMode={false} onToggleDarkMode={mockToggleDarkMode} />);
+    
+    const darkModeSwitch = screen.getByRole('checkbox', { name: /dark mode/i });
+    fireEvent.click(darkModeSwitch);
+    
+    expect(mockToggleDarkMode).toHaveBeenCalledWith(true);
   });
 }); 

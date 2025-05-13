@@ -32,7 +32,7 @@ describe('Game Component', () => {
   });
 
   it('should display start button when game is not running', () => {
-    render(<Game />);
+    render(<Game darkMode={false} />);
     expect(screen.getByText(/start game/i)).toBeInTheDocument();
   });
   
@@ -48,7 +48,7 @@ describe('Game Component', () => {
       })
     );
     
-    render(<Game />);
+    render(<Game darkMode={false} />);
     fireEvent.click(screen.getByText(/start game/i));
     expect(mockStartGame).toHaveBeenCalled();
   });
@@ -64,7 +64,7 @@ describe('Game Component', () => {
       })
     );
     
-    render(<Game />);
+    render(<Game darkMode={false} />);
     expect(screen.getByText('Test phrase')).toBeInTheDocument();
     expect(screen.getByText(/pass the phone/i)).toBeInTheDocument();
   });
@@ -81,7 +81,7 @@ describe('Game Component', () => {
       })
     );
     
-    render(<Game />);
+    render(<Game darkMode={false} />);
     fireEvent.click(screen.getByText(/stop game/i));
     expect(mockStopGame).toHaveBeenCalled();
   });

@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { vi, describe, beforeEach, it, expect } from 'vitest';
 import Stats from './Stats';
-import { getGameStats, getPhraseStats } from '../utils/storage';
+import { getGameStats } from '../utils/storage';
 
 // Mock the storage utilities
 vi.mock('../utils/storage', () => ({
@@ -19,7 +19,7 @@ describe('Stats Component', () => {
     const mockGetGameStats = getGameStats as unknown as ReturnType<typeof vi.fn>;
     mockGetGameStats.mockImplementation(() => new Promise(() => {})); // Never resolves to keep loading
 
-    render(<Stats />);
+    render(<Stats darkMode={false} />);
     
     expect(screen.getByText('Loading stats...')).toBeInTheDocument();
   });
@@ -29,7 +29,7 @@ describe('Stats Component', () => {
     const mockGetGameStats = getGameStats as unknown as ReturnType<typeof vi.fn>;
     mockGetGameStats.mockResolvedValue(null);
 
-    render(<Stats />);
+    render(<Stats darkMode={false} />);
     
     await waitFor(() => {
       expect(screen.getByText('No statistics available')).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe('Stats Component', () => {
       totalPlayTime: 600
     });
 
-    render(<Stats />);
+    render(<Stats darkMode={false} />);
     
     await waitFor(() => {
       expect(screen.getByText('Game Statistics')).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe('Stats Component', () => {
       ]
     });
 
-    render(<Stats />);
+    render(<Stats darkMode={false} />);
     
     await waitFor(() => {
       expect(screen.getByText('Top Phrases')).toBeInTheDocument();
