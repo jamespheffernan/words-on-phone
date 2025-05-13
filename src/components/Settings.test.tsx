@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Settings from './Settings';
 import { useGameStore } from '../store/gameStore';
+import { previewSound, getAvailableSounds } from '../utils/soundPlayer';
 
 // Mock the Zustand store
 vi.mock('../store/gameStore', () => {
@@ -25,6 +26,12 @@ vi.mock('../utils/haptics', () => ({
   }
 }));
 
+// Mock sound player
+vi.mock('../utils/soundPlayer', () => ({
+  previewSound: vi.fn(),
+  getAvailableSounds: vi.fn().mockReturnValue(['default', 'buzzer', 'bell', 'horn']),
+}));
+
 describe('Settings Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -36,7 +43,6 @@ describe('Settings Component', () => {
         buzzSound: 'default',
         setTimerDuration: vi.fn(),
         setBuzzSound: vi.fn(),
-        getAvailableBuzzSounds: vi.fn().mockReturnValue(['default', 'buzzer', 'bell']),
       })
     );
   });
@@ -45,6 +51,7 @@ describe('Settings Component', () => {
     render(<Settings darkMode={false} onToggleDarkMode={() => {}} />);
     expect(screen.getByText(/Timer Duration/i)).toBeInTheDocument();
     expect(screen.getByText(/Buzzer Sound/i)).toBeInTheDocument();
+    expect(screen.getByText(/Dark Mode/i)).toBeInTheDocument();
   });
 
   it('should update timer duration when slider is changed', () => {
@@ -55,7 +62,6 @@ describe('Settings Component', () => {
         buzzSound: 'default',
         setTimerDuration: mockSetTimerDuration,
         setBuzzSound: vi.fn(),
-        getAvailableBuzzSounds: vi.fn().mockReturnValue(['default', 'buzzer', 'bell']),
       })
     );
     
@@ -78,7 +84,6 @@ describe('Settings Component', () => {
         buzzSound: 'default',
         setTimerDuration: vi.fn(),
         setBuzzSound: mockSetBuzzSound,
-        getAvailableBuzzSounds: vi.fn().mockReturnValue(['default', 'buzzer', 'bell', 'horn']),
       })
     );
     
@@ -89,6 +94,7 @@ describe('Settings Component', () => {
     fireEvent.click(bellButton);
     
     expect(mockSetBuzzSound).toHaveBeenCalledWith('bell');
+    expect(previewSound).toHaveBeenCalledWith('bell');
   });
   
   it('should call onToggleDarkMode when dark mode switch is clicked', () => {
@@ -103,5 +109,38 @@ describe('Settings Component', () => {
     fireEvent.click(darkModeSwitch as Element);
     
     expect(mockToggleDarkMode).toHaveBeenCalledWith(true);
+  });
+
+  it('should preview sound when preview button is clicked', () => {
+    render(<Settings darkMode={false} onToggleDarkMode={() => {}} />);
+    
+    // Find and click the preview button
+    const previewButton = screen.getByText('Preview Sound');
+    fireEvent.click(previewButton);
+    
+    expect(previewSound).toHaveBeenCalledWith('default');
+  });
+
+  it('should reset to defaults when reset button is clicked', () => {
+    const mockSetTimerDuration = vi.fn();
+    const mockSetBuzzSound = vi.fn();
+    
+    (useGameStore as any).mockImplementation((selector: any) => 
+      selector({
+        timerDuration: 75,
+        buzzSound: 'bell',
+        setTimerDuration: mockSetTimerDuration,
+        setBuzzSound: mockSetBuzzSound,
+      })
+    );
+    
+    render(<Settings darkMode={false} onToggleDarkMode={() => {}} />);
+    
+    // Find and click the reset button
+    const resetButton = screen.getByText('Reset to Defaults');
+    fireEvent.click(resetButton);
+    
+    expect(mockSetTimerDuration).toHaveBeenCalledWith(60);
+    expect(mockSetBuzzSound).toHaveBeenCalledWith('default');
   });
 }); 

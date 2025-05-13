@@ -45,11 +45,11 @@
 - [ ] High-contrast and dark-mode accessible styles
 
 ## 6. Settings & Options
-- [ ] Timer duration slider (30–90 s)  
-- [ ] Buzzer sound picker with preview  
+- [x] Timer duration slider (30–90 s)  
+- [x] Buzzer sound picker with preview  
 - [ ] Phrase category selectors (future)  
 - [ ] Reset stats & clear storage flow  
-- [ ] Theme (light/dark) & haptics toggles  
+- [x] Theme (light/dark) & haptics toggles  
 
 ## 7. State & Data Persistence
 - [ ] Finalize Zustand store shape  

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { vibrate, ImpactStyle } from '../utils/haptics';
 import QRShare from './QRShare';
+import { previewSound, getAvailableSounds } from '../utils/soundPlayer';
 
 interface SettingsProps {
   darkMode: boolean;
@@ -31,10 +32,13 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
     setTimerValue(value);
   };
   
-  // Handle buzzer sound selection
-  const handleSoundChange = (sound: string) => {
+  // Handle buzzer sound selection and preview
+  const handleSoundChange = async (sound: string) => {
     setSelectedSound(sound);
     setBuzzSound(sound);
+    
+    // Play a preview of the selected sound
+    await previewSound(sound as any);
     
     // Provide haptic feedback
     vibrate(ImpactStyle.Light);
@@ -94,47 +98,40 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
       <div className="mb-6">
         <p className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'} mb-2`}>Buzzer Sound</p>
         <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={() => handleSoundChange('default')}
-            className={`py-2 px-4 text-sm rounded-lg border ${
-              selectedSound === 'default' 
-                ? darkMode ? 'bg-blue-800 border-blue-700 text-white' : 'bg-blue-100 border-blue-300 text-blue-700'
-                : darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-white border-gray-300 text-gray-700'
-            }`}
-          >
-            Default
-          </button>
-          <button
-            onClick={() => handleSoundChange('buzzer')}
-            className={`py-2 px-4 text-sm rounded-lg border ${
-              selectedSound === 'buzzer' 
-                ? darkMode ? 'bg-blue-800 border-blue-700 text-white' : 'bg-blue-100 border-blue-300 text-blue-700'
-                : darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-white border-gray-300 text-gray-700'
-            }`}
-          >
-            Buzzer
-          </button>
-          <button
-            onClick={() => handleSoundChange('bell')}
-            className={`py-2 px-4 text-sm rounded-lg border ${
-              selectedSound === 'bell' 
-                ? darkMode ? 'bg-blue-800 border-blue-700 text-white' : 'bg-blue-100 border-blue-300 text-blue-700'
-                : darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-white border-gray-300 text-gray-700'
-            }`}
-          >
-            Bell
-          </button>
-          <button
-            onClick={() => handleSoundChange('horn')}
-            className={`py-2 px-4 text-sm rounded-lg border ${
-              selectedSound === 'horn' 
-                ? darkMode ? 'bg-blue-800 border-blue-700 text-white' : 'bg-blue-100 border-blue-300 text-blue-700'
-                : darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-white border-gray-300 text-gray-700'
-            }`}
-          >
-            Horn
-          </button>
+          {getAvailableSounds().map((sound) => (
+            <button
+              key={sound}
+              onClick={() => handleSoundChange(sound)}
+              className={`py-2 px-4 text-sm rounded-lg border ${
+                selectedSound === sound 
+                  ? darkMode ? 'bg-blue-800 border-blue-700 text-white' : 'bg-blue-100 border-blue-300 text-blue-700'
+                  : darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-white border-gray-300 text-gray-700'
+              } flex items-center justify-center`}
+            >
+              <span>{sound.charAt(0).toUpperCase() + sound.slice(1)}</span>
+              {selectedSound === sound && (
+                <span className="ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              )}
+            </button>
+          ))}
         </div>
+        <button
+          onClick={() => handleSoundChange(selectedSound)}
+          className={`mt-3 py-2 px-4 text-sm rounded-lg border w-full ${
+            darkMode 
+              ? 'bg-gray-700 border-gray-600 text-gray-300' 
+              : 'bg-white border-gray-300 text-gray-700'
+          } flex items-center justify-center`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.465a5 5 0 01-.732-6.34m-.732-6.34a9 9 0 0112.728 0" />
+          </svg>
+          Preview Sound
+        </button>
       </div>
       
       {/* Dark Mode Toggle */}
@@ -172,6 +169,8 @@ const Settings: React.FC<SettingsProps> = ({ darkMode, onToggleDarkMode }) => {
         onClick={() => {
           setTimerDuration(60);
           setBuzzSound('default');
+          setTimerValue(60);
+          setSelectedSound('default');
           vibrate(ImpactStyle.Medium);
         }}
         className={`w-full py-2 px-4 text-center text-sm rounded-lg border ${
