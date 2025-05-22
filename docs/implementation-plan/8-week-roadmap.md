@@ -131,7 +131,7 @@ Words on Phone is a mobile-first party game inspired by the classic "catch-phras
 
 ### Phases / Major Milestones
 - [x] Phase 1 – Project Bootstrap (done: scaffold, lint, test, CI, and Cursor rules committed)
-- [x] Phase 2 – Phrase Engine & Core Loop
+- [x] Phase 2 – Phrase Engine & Core Loop (done: UI components, store, categories, skip limits, modals)
 - [ ] Phase 3 – Timer, Audio, Offline
 - [ ] Phase 4 – Options, Skip-Limit, and Stats
 - [ ] Phase 5 – OpenAI Phrase-Fetcher
@@ -143,8 +143,10 @@ Words on Phone is a mobile-first party game inspired by the classic "catch-phras
 
 ## Executor's Feedback or Assistance Requests
 
-- Store logic test implemented as store.test.ts. Running test suite to verify correctness and coverage. User should review test results before marking this task as complete.
+- Phase 2 Complete: Implemented all core UI components including MenuScreen with category selection, GameScreen with phrase display and skip counter, and HowToPlay modal. Store now includes full game state management with persistence. Ready to proceed with Phase 3 timer implementation.
 
 ## Lessons Learned
 
-_(Append lessons in the format `
+_(Append lessons in the format `[YYYY-MM-DD] <lesson>`)_
+- [2025-05-22] When using @testing-library/react, ensure @testing-library/dom is also installed as a dependency to avoid runtime errors.
+- [2025-05-22] Use --legacy-peer-deps flag when encountering ESLint version conflicts in npm install.

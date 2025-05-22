@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useGameStore } from '../store';
+import { useGameStore, BUZZER_SOUNDS } from '../store';
 import { PhraseCategory } from '../data/phrases';
 import { HowToPlayModal } from './HowToPlayModal';
+import { useAudio } from '../hooks/useAudio';
 import './MenuScreen.css';
 
 export const MenuScreen: React.FC = () => {
@@ -9,16 +10,26 @@ export const MenuScreen: React.FC = () => {
     selectedCategory,
     timerDuration,
     skipLimit,
+    buzzerSound,
     setCategory,
     setTimerDuration,
     setSkipLimit,
+    setBuzzerSound,
     startGame
   } = useGameStore();
 
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
+  // Audio hook for testing buzzer sounds
+  const testBuzzer = useAudio(buzzerSound, { volume: 0.4 });
+
   const categories = Object.values(PhraseCategory);
+  const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
+
+  const handleTestBuzzer = () => {
+    testBuzzer.play().catch(console.warn);
+  };
 
   return (
     <div className="menu-screen">
@@ -84,6 +95,34 @@ export const MenuScreen: React.FC = () => {
                 onChange={(e) => setSkipLimit(Number(e.target.value))}
                 className="slider"
               />
+            </div>
+
+            <div className="setting-item">
+              <label htmlFor="buzzer-sound">
+                Buzzer Sound: {BUZZER_SOUNDS[buzzerSound]}
+              </label>
+              <div className="buzzer-controls">
+                <select
+                  id="buzzer-sound"
+                  value={buzzerSound}
+                  onChange={(e) => setBuzzerSound(e.target.value as keyof typeof BUZZER_SOUNDS)}
+                  className="buzzer-selector"
+                >
+                  {buzzerSoundKeys.map(soundKey => (
+                    <option key={soundKey} value={soundKey}>
+                      {BUZZER_SOUNDS[soundKey]}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={handleTestBuzzer}
+                  className="test-buzzer-button"
+                  aria-label="Test buzzer sound"
+                >
+                  🔊 Test
+                </button>
+              </div>
             </div>
           </div>
         )}

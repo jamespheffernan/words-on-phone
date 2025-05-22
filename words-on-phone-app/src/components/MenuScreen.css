@@ -181,6 +181,66 @@
   transform: scale(1.2);
 }
 
+.buzzer-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.buzzer-selector {
+  flex: 1;
+  padding: 10px 15px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.buzzer-selector:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.buzzer-selector:focus {
+  outline: none;
+  border-color: white;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.buzzer-selector option {
+  background: #667eea;
+  color: white;
+  padding: 10px;
+}
+
+.test-buzzer-button {
+  padding: 10px 15px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+}
+
+.test-buzzer-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.test-buzzer-button:active {
+  transform: scale(0.95);
+}
+
 .menu-actions {
   display: flex;
   flex-direction: column;
@@ -246,6 +306,15 @@
     font-size: 14px;
   }
   
+  .buzzer-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .test-buzzer-button {
+    width: 100%;
+  }
+  
   .start-button {
     padding: 18px 30px;
     font-size: 20px;
@@ -269,5 +338,19 @@
   
   .category-button.selected {
     background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .buzzer-selector {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .buzzer-selector option {
+    background: #1a1a2e;
+  }
+  
+  .test-buzzer-button {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
   }
 } 

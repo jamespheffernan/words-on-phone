@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -33,4 +34,9 @@ export default defineConfig({
       type: 'module',
     },
   })],
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['src/setupTests.ts'],
+    globals: true,
+  },
 })

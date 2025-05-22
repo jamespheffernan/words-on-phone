@@ -2,11 +2,13 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { phrases, PhraseCategory, getPhrasesByCategory } from './data/phrases';
 import { PhraseCursor } from './phraseEngine';
+import { BUZZER_SOUNDS, type BuzzerSoundType } from './hooks/useAudio';
 
 export enum GameStatus {
   MENU = 'menu',
   PLAYING = 'playing',
-  PAUSED = 'paused'
+  PAUSED = 'paused',
+  ENDED = 'ended'
 }
 
 interface GameState {
@@ -21,12 +23,16 @@ interface GameState {
   // Game settings
   timerDuration: number; // in seconds (30-90)
   skipLimit: number; // 0 = unlimited, 1-5 = fixed cap
-  buzzerSound: string; // sound file name
+  buzzerSound: BuzzerSoundType; // buzzer sound type
   
   // Round state
   skipsUsed: number;
   skipsRemaining: number;
   correctCount: number;
+  
+  // Timer state
+  timeRemaining: number; // in seconds
+  isTimerRunning: boolean;
   
   // Actions
   nextPhrase: () => void;
@@ -34,12 +40,15 @@ interface GameState {
   setCategory: (category: PhraseCategory) => void;
   setTimerDuration: (seconds: number) => void;
   setSkipLimit: (limit: number) => void;
-  setBuzzerSound: (sound: string) => void;
+  setBuzzerSound: (sound: BuzzerSoundType) => void;
   startGame: () => void;
   pauseGame: () => void;
   resumeGame: () => void;
   endGame: () => void;
   resetRound: () => void;
+  setTimeRemaining: (seconds: number) => void;
+  setTimerRunning: (running: boolean) => void;
+  onTimerComplete: () => void;
 }
 
 export const useGameStore = create<GameState>()(
@@ -56,10 +65,12 @@ export const useGameStore = create<GameState>()(
         selectedCategory: PhraseCategory.EVERYTHING,
         timerDuration: 60,
         skipLimit: initialSkipLimit,
-        buzzerSound: 'default',
+        buzzerSound: 'classic',
         skipsUsed: 0,
         skipsRemaining: initialSkipLimit,
         correctCount: 0,
+        timeRemaining: 60,
+        isTimerRunning: false,
         
         // Actions
         nextPhrase: () => set((state) => {
@@ -96,7 +107,10 @@ export const useGameStore = create<GameState>()(
           };
         }),
         
-        setTimerDuration: (seconds) => set({ timerDuration: seconds }),
+        setTimerDuration: (seconds) => set({ 
+          timerDuration: seconds,
+          timeRemaining: seconds
+        }),
         
         setSkipLimit: (limit) => set({ 
           skipLimit: limit,
@@ -110,26 +124,47 @@ export const useGameStore = create<GameState>()(
           currentPhrase: state.cursor.next(),
           skipsUsed: 0,
           skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
-          correctCount: 0
+          correctCount: 0,
+          timeRemaining: state.timerDuration,
+          isTimerRunning: true
         })),
         
-        pauseGame: () => set({ status: GameStatus.PAUSED }),
+        pauseGame: () => set({ 
+          status: GameStatus.PAUSED,
+          isTimerRunning: false
+        }),
         
-        resumeGame: () => set({ status: GameStatus.PLAYING }),
+        resumeGame: () => set({ 
+          status: GameStatus.PLAYING,
+          isTimerRunning: true
+        }),
         
         endGame: () => set({ 
-          status: GameStatus.MENU,
+          status: GameStatus.ENDED,
           currentPhrase: '',
           skipsUsed: 0,
           skipsRemaining: get().skipLimit === 0 ? Infinity : get().skipLimit,
-          correctCount: 0
+          correctCount: 0,
+          timeRemaining: get().timerDuration,
+          isTimerRunning: false
         }),
         
         resetRound: () => set((state) => ({
           skipsUsed: 0,
           skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
-          correctCount: 0
-        }))
+          correctCount: 0,
+          timeRemaining: state.timerDuration,
+          isTimerRunning: false
+        })),
+        
+        setTimeRemaining: (seconds) => set({ timeRemaining: seconds }),
+        
+        setTimerRunning: (running) => set({ isTimerRunning: running }),
+        
+        onTimerComplete: () => set({ 
+          status: GameStatus.ENDED,
+          isTimerRunning: false
+        })
       };
     },
     {
@@ -142,4 +177,7 @@ export const useGameStore = create<GameState>()(
       })
     }
   )
-); 
+);
+
+// Export buzzer sounds for use in components
+export { BUZZER_SOUNDS }; 

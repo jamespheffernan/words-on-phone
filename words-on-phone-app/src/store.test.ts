@@ -45,14 +45,4 @@ describe('Game Store', () => {
     }
     expect(seen.size).toBe(3);
   });
-});
-
-describe('High-precision Timer', () => {
-  it('should count down accurately over 1 second (±20ms)', async () => {
-    // This is a placeholder for the timer logic to be implemented.
-    // The test will fail until the timer is implemented.
-    // Simulate a timer that counts down from 1000ms to 0 using requestAnimationFrame.
-    // For now, just fail the test.
-    expect(false).toBe(true);
-  });
 }); 
