@@ -4,13 +4,13 @@ import { PhraseCategory } from '../data/phrases';
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.VITE_FIREBASE_API_KEY || 'demo-key',
-  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || 'demo-project.firebaseapp.com',
-  projectId: process.env.VITE_FIREBASE_PROJECT_ID || 'demo-project',
-  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET || 'demo-project.appspot.com',
-  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '123456789',
-  appId: process.env.VITE_FIREBASE_APP_ID || '1:123456789:web:demo-app-id',
-  measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID || 'G-DEMO-ID'
+  apiKey: "AIzaSyCFmEujw4bjwovk8IA69ZYoExlpY0lDb_0",
+  authDomain: "words-on-phone.firebaseapp.com",
+  projectId: "words-on-phone",
+  storageBucket: "words-on-phone.firebasestorage.app",
+  messagingSenderId: "106660935414",
+  appId: "1:106660935414:web:80c9f7919f00a2a58d1ed7",
+  measurementId: "G-BCQ5F1YP2P"
 };
 
 // Initialize Firebase only if not already initialized
@@ -19,7 +19,7 @@ let analytics: Analytics | null = null;
 const initializeFirebaseAnalytics = () => {
   try {
     // Only initialize in browser environment with valid config
-    if (typeof window !== 'undefined' && firebaseConfig.apiKey !== 'demo-key') {
+    if (typeof window !== 'undefined' && firebaseConfig.apiKey !== 'AIzaSyCFmEujw4bjwovk8IA69ZYoExlpY0lDb_0') {
       const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
       analytics = getAnalytics(app);
     }

@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { phrases, PhraseCategory, getPhrasesByCategory } from './data/phrases';
+import { PhraseCategory } from './data/phrases';
+import { phraseService } from './services/phraseService';
 import { PhraseCursor } from './phraseEngine';
 import { BUZZER_SOUNDS, type BuzzerSoundType } from './hooks/useAudio';
 import { indexedDBStorage } from './storage/indexedDBStorage';
@@ -82,7 +83,7 @@ interface GameState {
 export const useGameStore = create<GameState>()(
   persist(
     (set, get) => {
-      const cursor = new PhraseCursor(phrases);
+      const cursor = new PhraseCursor(phraseService.getAllPhrases());
       const initialSkipLimit = 3;
       
       // Helper function to update phrase stats
@@ -197,7 +198,7 @@ export const useGameStore = create<GameState>()(
         }),
         
         setCategory: (category) => set(() => {
-          const categoryPhrases = getPhrasesByCategory(category);
+          const categoryPhrases = phraseService.getPhrasesByCategory(category);
           const newCursor = new PhraseCursor(categoryPhrases);
           return {
             selectedCategory: category,

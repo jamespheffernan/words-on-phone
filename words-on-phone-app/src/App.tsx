@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGameStore, GameStatus } from './store';
 import { MenuScreen } from './components/MenuScreen';
 import { GameScreen } from './components/GameScreen';
 import { EndScreen } from './components/EndScreen';
 import { ScoreTracker } from './components/ScoreTracker';
+import { usePhraseWorker } from './hooks/usePhraseWorker';
+import { phraseService } from './services/phraseService';
 import PWABadge from './PWABadge';
 import './App.css';
 
 function App() {
   const { status } = useGameStore();
   const [showScoreTracker, setShowScoreTracker] = useState(false);
+  const { lastFetchResult } = usePhraseWorker();
+
+  // Handle new phrases from worker
+  useEffect(() => {
+    if (lastFetchResult?.phrases && lastFetchResult.phrases.length > 0) {
+      phraseService.handleWorkerPhrases(lastFetchResult.phrases);
+    }
+  }, [lastFetchResult]);
 
   return (
     <div className="app">
