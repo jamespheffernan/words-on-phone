@@ -1,37 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import appLogo from '/favicon.svg'
-import PWABadge from './PWABadge.tsx'
-import './App.css'
+import React from 'react';
+import { useGameStore, GameStatus } from './store';
+import { MenuScreen } from './components/MenuScreen';
+import { GameScreen } from './components/GameScreen';
+import PWABadge from './PWABadge';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { status } = useGameStore();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={appLogo} className="logo" alt="words-on-phone-app logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>words-on-phone-app</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className="app">
+      {status === GameStatus.MENU && <MenuScreen />}
+      {status === GameStatus.PLAYING && <GameScreen />}
+      {status === GameStatus.PAUSED && (
+        <div className="paused-overlay">
+          <h2>Game Paused</h2>
+          <button onClick={() => useGameStore.getState().resumeGame()}>
+            Resume
+          </button>
+          <button onClick={() => useGameStore.getState().endGame()}>
+            End Game
+          </button>
+        </div>
+      )}
       <PWABadge />
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
