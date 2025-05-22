@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGameStore, GameStatus } from './store';
 import { MenuScreen } from './components/MenuScreen';
 import { GameScreen } from './components/GameScreen';
 import { EndScreen } from './components/EndScreen';
+import { ScoreTracker } from './components/ScoreTracker';
 import PWABadge from './PWABadge';
 import './App.css';
 
 function App() {
   const { status } = useGameStore();
+  const [showScoreTracker, setShowScoreTracker] = useState(false);
 
   return (
     <div className="app">
@@ -25,6 +27,10 @@ function App() {
           </button>
         </div>
       )}
+      <ScoreTracker 
+        isVisible={showScoreTracker}
+        onToggle={() => setShowScoreTracker(!showScoreTracker)}
+      />
       <PWABadge />
     </div>
   );

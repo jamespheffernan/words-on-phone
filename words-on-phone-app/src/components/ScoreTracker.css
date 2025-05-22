@@ -1,0 +1,369 @@
+.score-tracker-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.score-tracker-toggle:hover {
+  background: white;
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.score-tracker-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+}
+
+.score-tracker {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  color: #333;
+}
+
+.score-tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+.score-tracker-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.close-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #f5f5f5;
+  color: #666;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.score-disclaimer {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+.score-disclaimer p {
+  margin: 0;
+  font-size: 14px;
+  color: #856404;
+  text-align: center;
+}
+
+.teams-list {
+  margin-bottom: 20px;
+}
+
+.team-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.team-row:last-child {
+  border-bottom: none;
+}
+
+.team-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.team-name-text {
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: block;
+  font-weight: 600;
+  color: #333;
+}
+
+.team-name-text:hover {
+  background: #f8f9fa;
+}
+
+.team-name-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #667eea;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  outline: none;
+}
+
+.score-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.score-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-button.minus {
+  background: #ff6b6b;
+  color: white;
+}
+
+.score-button.minus:hover {
+  background: #ff5252;
+  transform: scale(1.1);
+}
+
+.score-button.plus {
+  background: #4ecdc4;
+  color: white;
+}
+
+.score-button.plus:hover {
+  background: #45b7b8;
+  transform: scale(1.1);
+}
+
+.score-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  min-width: 40px;
+  text-align: center;
+}
+
+.remove-team-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.remove-team-button:hover {
+  background: #ffebee;
+  opacity: 1;
+}
+
+.score-tracker-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-top: 2px solid #f0f0f0;
+  padding-top: 20px;
+}
+
+.add-team-button,
+.reset-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.add-team-button {
+  background: #667eea;
+  color: white;
+}
+
+.add-team-button:hover {
+  background: #5a6fd8;
+  transform: translateY(-2px);
+}
+
+.reset-button {
+  background: transparent;
+  color: #666;
+  border: 2px solid #ddd;
+}
+
+.reset-button:hover {
+  background: #f8f9fa;
+  border-color: #666;
+  color: #333;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .score-tracker-toggle {
+    top: 15px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+  
+  .score-tracker {
+    padding: 20px;
+    margin: 20px;
+    width: calc(100% - 40px);
+  }
+  
+  .score-tracker-header h3 {
+    font-size: 20px;
+  }
+  
+  .team-row {
+    gap: 10px;
+    padding: 12px 0;
+  }
+  
+  .score-controls {
+    gap: 8px;
+  }
+  
+  .score-button {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+  
+  .score-value {
+    font-size: 20px;
+    min-width: 32px;
+  }
+  
+  .score-tracker-actions {
+    gap: 8px;
+  }
+  
+  .add-team-button,
+  .reset-button {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .score-tracker {
+    background: #2d3748;
+    color: white;
+  }
+  
+  .score-tracker-header {
+    border-bottom-color: #4a5568;
+  }
+  
+  .score-tracker-header h3 {
+    color: white;
+  }
+  
+  .close-button {
+    background: #4a5568;
+    color: #e2e8f0;
+  }
+  
+  .close-button:hover {
+    background: #718096;
+  }
+  
+  .team-row {
+    border-bottom-color: #4a5568;
+  }
+  
+  .team-name-text {
+    color: white;
+  }
+  
+  .team-name-text:hover {
+    background: #4a5568;
+  }
+  
+  .team-name-input {
+    background: #4a5568;
+    border-color: #667eea;
+    color: white;
+  }
+  
+  .score-value {
+    color: white;
+  }
+  
+  .remove-team-button:hover {
+    background: rgba(255, 107, 107, 0.2);
+  }
+  
+  .score-tracker-actions {
+    border-top-color: #4a5568;
+  }
+  
+  .reset-button {
+    color: #e2e8f0;
+    border-color: #718096;
+  }
+  
+  .reset-button:hover {
+    background: #4a5568;
+    border-color: #e2e8f0;
+    color: white;
+  }
+} 

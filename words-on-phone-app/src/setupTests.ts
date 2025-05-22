@@ -57,4 +57,42 @@ global.AudioContext = global.AudioContext || class MockAudioContext {
   get destination() {
     return {};
   }
+} as any;
+
+// Mock IndexedDB for tests
+class MockIDBRequest {
+  result: any;
+  error: any;
+  onsuccess: ((event: any) => void) | null = null;
+  onerror: ((event: any) => void) | null = null;
+  
+  constructor(result?: any) {
+    this.result = result;
+    setTimeout(() => {
+      if (this.onsuccess) {
+        this.onsuccess({ target: this });
+      }
+    }, 0);
+  }
+}
+
+class MockIDBObjectStore {
+  get() { return new MockIDBRequest(); }
+  put() { return new MockIDBRequest(); }
+  delete() { return new MockIDBRequest(); }
+  clear() { return new MockIDBRequest(); }
+}
+
+class MockIDBTransaction {
+  objectStore() { return new MockIDBObjectStore(); }
+}
+
+class MockIDBDatabase {
+  transaction() { return new MockIDBTransaction(); }
+}
+
+global.indexedDB = {
+  open: () => new MockIDBRequest(new MockIDBDatabase()),
+  deleteDatabase: () => new MockIDBRequest(),
+  cmp: () => 0,
 } as any; 
