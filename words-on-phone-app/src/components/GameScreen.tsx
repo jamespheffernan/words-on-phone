@@ -28,25 +28,29 @@ export const GameScreen: React.FC = () => {
   const timer = useTimer({
     duration: timerDuration,
     onComplete: () => {
-      buzzer.play().catch(console.warn); // Play buzzer sound
-      onTimerComplete(); // Update game state
+      buzzer.play().catch(console.warn);
+      onTimerComplete();
     },
     onTick: setTimeRemaining
   });
 
   // Sync timer with game state
   useEffect(() => {
-    if (isTimerRunning && !timer.isRunning) {
+    if (isTimerRunning && !timer.isRunning && !timer.isPaused) {
       timer.start();
     } else if (!isTimerRunning && timer.isRunning) {
       timer.pause();
+    } else if (isTimerRunning && timer.isPaused) {
+      timer.resume();
     }
-  }, [isTimerRunning, timer]);
+  }, [isTimerRunning, timer.isRunning, timer.isPaused, timer]);
 
-  // Reset timer when duration changes
+  // Reset timer when duration changes or when game is not running
   useEffect(() => {
-    timer.reset();
-  }, [timerDuration, timer]);
+    if (!isTimerRunning) {
+      timer.reset();
+    }
+  }, [timerDuration, isTimerRunning, timer]);
 
   // Preload buzzer sound when it changes
   useEffect(() => {
@@ -63,9 +67,10 @@ export const GameScreen: React.FC = () => {
 
   const canSkip = skipLimit === 0 || skipsRemaining > 0;
 
-  // Calculate timer progress for visual indicator
-  const timerProgress = (timeRemaining / timerDuration) * 100;
-  const isTimerLow = timeRemaining <= 10;
+  // Use timer hook's time when running, store's time when not running
+  const displayTime = timer.isRunning || timer.isPaused ? timer.timeRemaining : timeRemaining;
+  const timerProgress = (displayTime / timerDuration) * 100;
+  const isTimerLow = displayTime <= 10;
 
   return (
     <div className="game-screen">
@@ -78,7 +83,7 @@ export const GameScreen: React.FC = () => {
             className={`timer-circle ${isTimerLow ? 'timer-low' : ''}`}
             style={{ '--progress': `${timerProgress}%` } as React.CSSProperties}
           >
-            <span className="timer-text">{timeRemaining}s</span>
+            <span className="timer-text">{displayTime}s</span>
           </div>
         </div>
         <div className="score">Correct: {correctCount}</div>
