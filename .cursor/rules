@@ -1,7 +1,0 @@
-# Cursor Rules for Words on Phone
-
-- Every change must start with a failing Vitest or Cypress test.
-- PRs must be ≤ 200 lines of code (excluding tests/docs).
-- Commit only when all tests are green.
-- PR template must confirm: npm run test && npx cypress run pass.
-- Use vertical slices: UI, logic, tests, docs in one PR. 
