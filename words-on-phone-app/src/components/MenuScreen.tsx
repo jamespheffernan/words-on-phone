@@ -101,7 +101,7 @@ export const MenuScreen: React.FC = () => {
     <main className="menu-screen">
       <header className="menu-header">
         <h1 className="game-title">Words on Phone</h1>
-        <p className="game-tagline">The ultimate party game!</p>
+        <p className="game-tagline">The Game with the Words on the Phone!</p>
       </header>
 
       <div className="menu-content">
