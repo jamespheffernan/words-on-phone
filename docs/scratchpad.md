@@ -5,7 +5,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 ## Active Implementation Plans
 
 - [cors-fix-gemini-function](implementation-plan/cors-fix-gemini-function.md) - ⚠️ **NEEDS REVISION** - CORS Fix for Gemini Netlify Function (Production 404 Error Detected)
-- [netlify-function-deployment-fix](implementation-plan/netlify-function-deployment-fix.md) - 🚧 **PLANNING COMPLETE** - Netlify Function Deployment Fix - 404 Error Resolution  
+- [netlify-function-deployment-fix](implementation-plan/netlify-function-deployment-fix.md) - ✅ **COMPLETED** - Netlify Function Deployment Fix - 404 Error Resolution  
 - [visual-background-warning](implementation-plan/visual-background-warning.md) - **Planning Complete** - Visual Background Warning System (Progressive Red Background)
 
 ## Current Status / Progress Tracking
@@ -25,8 +25,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 **Currently Active:**
 - 🚧 **Phase 9**: Launch preparation (App Store submission, privacy forms, screenshots)
-- 🚨 **PRODUCTION ISSUE**: Custom category request feature failing with 404 error - Netlify function not accessible at expected endpoint
-- ⚠️ **CORS Fix Status Revision**: Previous "completed" status incorrect - production deployment has URL path mismatch issue
+- ✅ **PRODUCTION ISSUE RESOLVED**: Custom category request feature now fully functional - URL path mismatch fixed and verified
 
 **Next Up:**
 - Phase 9: Final polish, App Store submission, documentation
@@ -51,3 +50,4 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-01-27] When implementing delete functionality for user-generated content: (1) Always include confirmation dialogs to prevent accidental deletion, (2) Ensure complete cleanup of all related data (phrases, metadata, cache), (3) Update UI immediately after deletion, (4) Handle edge cases like deleting currently selected items by switching to safe defaults, (5) Use visual cues (positioning, colors, icons) to make delete buttons discoverable but not accidentally clickable.
 - [2025-01-27] Netlify secrets scanning will fail deployment if environment variables prefixed with `VITE_` containing sensitive data (like API keys) are exposed in the client bundle. The solution is to move API calls to secure serverless functions and remove the `VITE_` prefix from environment variables.
 - [2025-01-27] Always verify production deployment endpoints match the actual deployed function paths. Documentation claiming successful production testing can be misleading if the tested URLs differ from the actual application configuration. The CORS fix documentation tested `/.netlify/functions/gemini` but the production app tries to access `/netlify/functions/gemini` (missing dot), causing 404 errors. Thorough end-to-end testing with the actual application URLs is essential to catch URL path mismatches between different environments.
+- [2025-01-27] When testing serverless functions end-to-end, ensure test scripts use the exact same request format as the actual application code. API functions expect specific field names (`prompt`, `category`, `phraseCount`) and response structures (`candidates[0].content.parts[0].text`). Testing with incorrect request formats will give false negatives even when the function is working correctly. Always examine the actual service layer code to understand the precise API contract before writing integration tests.
