@@ -1,0 +1,62 @@
+
+
+.app {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.paused-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  z-index: 999;
+  backdrop-filter: blur(10px);
+}
+
+.paused-overlay h2 {
+  color: white;
+  font-size: 3rem;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.paused-overlay button {
+  padding: 15px 40px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.paused-overlay button:first-of-type {
+  background: #4ecdc4;
+  color: white;
+}
+
+.paused-overlay button:first-of-type:hover {
+  background: #45b7b8;
+  transform: scale(1.05);
+}
+
+.paused-overlay button:last-of-type {
+  background: #ff6b6b;
+  color: white;
+}
+
+.paused-overlay button:last-of-type:hover {
+  background: #ff5252;
+  transform: scale(1.05);
+}

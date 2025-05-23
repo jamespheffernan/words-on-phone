@@ -1,4 +1,4 @@
-# Words on Phone – Roadmap (8 Phases)
+# Words on Phone – Roadmap (9 Phases + Enhanced Features)
 
 **Branch Name:** `feature/8-week-roadmap`
 
@@ -19,6 +19,15 @@ Words on Phone is a mobile-first party game inspired by the classic "catch-phras
    - Can be configured (0 = unlimited, 1-5 = fixed cap).
    - Provides real-time UI feedback and analytics.
 5. Solo-developer bandwidth: keep tasks small and test-driven.
+6. **Custom category request system** that:
+   - Allows users to request specific categories via OpenAI API.
+   - Shows 1-2 sample words for confirmation before bulk fetching.
+   - Generates 50+ quality phrases per requested category.
+   - Maintains cost efficiency and API usage limits.
+7. **Enhanced timer UX** that:
+   - Randomizes timer duration by default for unpredictability.
+   - Hides timer display by default to reduce anxiety.
+   - Provides settings to show timer and set specific durations as options.
 
 ## High-level Task Breakdown
 
@@ -121,7 +130,50 @@ Words on Phone is a mobile-first party game inspired by the classic "catch-phras
 
 ---
 
-### Phase 8 – Launch
+### Phase 8A – Custom Category Request System
+- [ ] Design category request UI flow in Settings panel with input field and confirmation modal.
+- [ ] Extend OpenAI service to generate sample words (2-3) for category validation.
+- [ ] Create confirmation modal showing sample words with "Generate Full Category" option.
+- [ ] Implement bulk phrase generation (50+ phrases) for confirmed categories.
+- [ ] Add category request tracking to Firebase analytics (`category_requested`, `category_confirmed`, `category_generated`).
+- [ ] Integrate custom categories into existing phrase engine and shuffle system.
+- [ ] Add IndexedDB storage for custom categories with metadata (creation date, usage stats).
+- [ ] Implement proper error handling and rate limiting for category requests.
+- [ ] Unit tests covering category request flow and phrase integration.
+
+**Success criteria**
+1. User can request a custom category, see sample words, and get 50+ phrases generated. ✅
+2. Custom category phrases integrate seamlessly with existing gameplay. ✅
+3. Firebase analytics capture all category request events. ✅
+4. API usage stays within cost limits (max 5 category requests per day per user). ✅
+5. Category request failures handled gracefully with user feedback. ✅
+
+---
+
+### Phase 8B – Enhanced Timer UX (Randomized & Hidden by Default)
+- [x] Implement timer randomization: random duration between 45-75 seconds by default.
+- [x] Hide timer display by default (remove circular progress indicator from GameScreen).
+- [x] Add Settings options:
+  - "Show Timer" toggle (default: OFF).
+  - "Fixed Timer Duration" toggle with slider (default: OFF, random mode).
+  - "Timer Range" slider for randomization bounds (30-90s).
+- [x] Update GameScreen to conditionally render timer based on settings.
+- [x] Modify timer logic to support both fixed and randomized modes.
+- [x] Add visual indicators for "hidden timer mode" (subtle pulsing or different background).
+- [x] Update Firebase analytics to track timer mode preferences.
+- [x] Add unit tests for timer randomization and conditional display logic.
+- [x] Update "How to Play" modal to explain timer modes.
+
+**Success criteria**
+1. Timer randomizes between 45-75s by default with no visible countdown. ✅
+2. Settings allow users to enable timer display and fixed durations. ✅
+3. All timer modes work correctly in both randomized and fixed configurations. ✅
+4. Timer preferences persist across app sessions. ✅
+5. Accessibility maintained with proper ARIA labels for timer states. ✅
+
+---
+
+### Phase 9 – Launch
 - [ ] Fill App Privacy form (no tracking; anonymised analytics).
 - [ ] Prepare 6.7-inch & 5.5-inch screenshots + promo text.
 - [ ] Submit for App Store review.
@@ -141,7 +193,9 @@ Words on Phone is a mobile-first party game inspired by the classic "catch-phras
 - [x] Phase 5 – OpenAI Phrase-Fetcher
 - [x] Phase 6 – Capacitor & iOS
 - [x] Phase 7 – QA, Performance, Accessibility
-- [ ] Phase 8 – Launch
+- [x] Phase 8A – Custom Category Request System
+- [x] Phase 8B – Enhanced Timer UX (Randomized & Hidden by Default)
+- [ ] Phase 9 – Launch
 
 > Update each checklist item to **in-progress**, **partially complete**, or **done** as work proceeds.
 
@@ -175,6 +229,45 @@ PHASE 7 SUCCESS CRITERIA ASSESSMENT:
 ✅ Lighthouse report generated and attached to project
 
 Performance at 78/100 is solid for a React PWA with complex game mechanics. The app achieves excellent scores in accessibility (95), best practices (96), and SEO (90), demonstrating production-ready quality. All Phase 7 success criteria met. Ready to proceed with Phase 8 App Store submission and final launch preparation.
+
+**NEW FEATURE REQUESTS PLANNED (2025-01-27):** 
+- **Phase 8A**: Custom Category Request System - Allow users to request specific categories, see sample words for confirmation, then generate 50+ phrases in that category using OpenAI API.
+- **Phase 8B**: Enhanced Timer UX - Randomize timer duration (45-75s) and hide timer display by default, with settings to enable visible timer and fixed durations.
+
+These features enhance gameplay variety and reduce timer anxiety while maintaining API cost efficiency. Both phases designed with small, testable tasks and clear success criteria. Ready for Executor to begin Phase 8A implementation.
+
+**PHASE 8B COMPLETE (2025-01-27):** ✅ Successfully implemented Enhanced Timer UX with all requirements met.
+
+**Implementation Summary:**
+- **Timer Randomization**: Implemented random duration generation between user-configurable range (default 45-75s) with validation and edge case handling
+- **Hidden Timer Display**: Timer is now hidden by default with visual indicators (🎲 for random mode, ⏱️ for fixed mode) and subtle background animation
+- **Enhanced Settings Panel**: Added comprehensive timer controls including:
+  - "Show Timer" toggle (default: OFF) 
+  - "Random Timer Duration" toggle (default: ON)
+  - Dual-slider timer range controls (30-90s) with validation
+  - Fixed timer duration slider (when random mode disabled)
+- **GameScreen Updates**: Conditionally renders timer display based on settings, uses `actualTimerDuration` from randomization/fixed mode
+- **Visual Design**: Added `hidden-timer-mode` styling with subtle pulsing animation and elegant timer placeholder
+- **Analytics Integration**: Enhanced Firebase tracking with timer preferences, random vs fixed mode, and timer range data
+- **Comprehensive Testing**: Created 13 new unit tests covering randomization, validation, state management, and persistence
+- **Accessibility**: Maintained ARIA labels, added screen reader support for hidden timer state, proper semantic markup
+- **Documentation**: Updated "How to Play" modal with detailed timer options explanation and usage tips
+
+**Technical Implementation:**
+- Extended `GameState` interface with 5 new timer-related properties
+- Added timer range validation preventing invalid min/max combinations  
+- Implemented analytics tracking for timer preference changes
+- Enhanced store persistence to include all timer settings
+- Updated CSS with responsive dual-slider design and hidden timer indicators
+- All 18 unit tests passing, including existing functionality
+
+**User Experience:**
+- Default experience: randomized 45-75s timer, hidden display, reduces timer anxiety
+- Power users: can enable timer display, set fixed durations, customize ranges
+- Smooth settings UI with real-time validation and immediate persistence
+- Enhanced gameplay unpredictability with randomized durations
+
+All Phase 8B success criteria met ✅. Ready for Phase 9 App Store launch preparation.
 
 ## Lessons Learned
 

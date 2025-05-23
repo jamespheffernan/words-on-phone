@@ -4,7 +4,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 ## Active Implementation Plans
 
-- [8-week-roadmap](implementation-plan/8-week-roadmap.md) - **Phase 3 Complete** ✅ Timer, Audio & PWA Foundation
+- [8-week-roadmap](implementation-plan/8-week-roadmap.md) - **Phase 8B Complete** ✅ Ready for Phase 9: App Store Launch
 
 ## Current Status / Progress Tracking
 
@@ -14,13 +14,13 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - ✅ **Phase 3** (Week 3): High-precision timer, Web Audio API, offline capabilities
 - ✅ **Phase 4** (Week 4): Options panel, skip-limit features, Firebase analytics, IndexedDB persistence
 - ✅ **Phase 5** (Week 5): OpenAI phrase-fetcher with Web Worker, deduplication, throttling
-
-**Recently Completed:**
 - ✅ **Phase 6** (Week 6): Capacitor mobile app, iOS deployment
 - ✅ **Phase 7** (Week 7): QA, performance optimization, accessibility (Lighthouse: Performance 78/100, Accessibility 95/100, Best Practices 96/100, SEO 90/100)
+- ✅ **Phase 8A** (Week 8A): Custom Category Request System (user requests category → see sample words → generate 50+ phrases)
+- ✅ **Phase 8B** (Week 8B): Enhanced Timer UX (randomized duration 45-75s, hidden by default, optional visible/fixed timer)
 
-**Remaining:**
-- Phase 8 (Week 8): Final polish, App Store submission, documentation
+**Next Up:**
+- Phase 9: Final polish, App Store submission, documentation
 
 ---
 
