@@ -247,6 +247,29 @@ Category: ${categoryName}`;
     return Array.from(categories).sort();
   }
 
+  async deleteCustomCategory(categoryName: string): Promise<void> {
+    try {
+      // Get all phrases for this category
+      const phrasesToDelete = await this.getCustomPhrasesByCategory(categoryName);
+      
+      if (phrasesToDelete.length === 0) {
+        console.warn(`No phrases found for category: ${categoryName}`);
+        return;
+      }
+
+      // Delete phrases from database
+      await this.deleteCustomPhrasesFromDB(categoryName);
+      
+      // Delete any associated request records
+      await this.deleteRequestByCategory(categoryName);
+      
+      console.log(`Deleted ${phrasesToDelete.length} phrases from category: ${categoryName}`);
+    } catch (error) {
+      console.error(`Failed to delete custom category ${categoryName}:`, error);
+      throw error;
+    }
+  }
+
   // Private helper methods
   private async callGemini(prompt: string, category: string): Promise<string> {
     const response = await fetch(GEMINI_API_URL, {
@@ -436,6 +459,73 @@ Category: ${categoryName}`;
     } catch (error) {
       console.warn('Failed to save to localStorage:', error);
     }
+  }
+
+  private async deleteCustomPhrasesFromDB(categoryName: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const dbRequest = indexedDB.open(this.dbName, 1);
+      
+      dbRequest.onsuccess = () => {
+        const db = dbRequest.result;
+        const transaction = db.transaction([this.phrasesStoreName], 'readwrite');
+        const store = transaction.objectStore(this.phrasesStoreName);
+        const index = store.index('customCategory');
+        
+        const getRequest = index.getAll(categoryName);
+        
+        getRequest.onsuccess = () => {
+          const phrases = getRequest.result;
+          let deletedCount = 0;
+          
+          if (phrases.length === 0) {
+            resolve();
+            return;
+          }
+          
+          phrases.forEach(phrase => {
+            const deleteRequest = store.delete(phrase.phraseId);
+            
+            deleteRequest.onsuccess = () => {
+              deletedCount++;
+              if (deletedCount === phrases.length) {
+                resolve();
+              }
+            };
+            
+            deleteRequest.onerror = () => {
+              deletedCount++;
+              if (deletedCount === phrases.length) {
+                resolve();
+              }
+            };
+          });
+        };
+        
+        getRequest.onerror = () => reject(getRequest.error);
+      };
+      
+      dbRequest.onerror = () => reject(dbRequest.error);
+    });
+  }
+
+  private async deleteRequestByCategory(categoryName: string): Promise<void> {
+    const requestId = this.generateRequestId(categoryName);
+    
+    return new Promise((resolve, reject) => {
+      const dbRequest = indexedDB.open(this.dbName, 1);
+      
+      dbRequest.onsuccess = () => {
+        const db = dbRequest.result;
+        const transaction = db.transaction([this.requestsStoreName], 'readwrite');
+        const store = transaction.objectStore(this.requestsStoreName);
+        
+        const deleteRequest = store.delete(requestId);
+        deleteRequest.onsuccess = () => resolve();
+        deleteRequest.onerror = () => resolve(); // Don't fail if request doesn't exist
+      };
+      
+      dbRequest.onerror = () => reject(dbRequest.error);
+    });
   }
 }
 

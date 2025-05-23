@@ -29,6 +29,9 @@ class PhraseService {
   private dbName = 'words-on-phone-phrases';
   private storeName = 'fetchedPhrases';
 
+  // Add a custom category cache
+  private customCategoryPhrases: Record<string, string[]> = {};
+
   constructor() {
     this.initializeDB();
     this.loadFetchedPhrases();
@@ -67,6 +70,16 @@ class PhraseService {
     try {
       const customPhrases = await categoryRequestService.getCustomPhrases();
       this.state.customPhrases = customPhrases.map(p => p.text);
+      
+      // Organize custom phrases by category for efficient lookup
+      this.customCategoryPhrases = {};
+      customPhrases.forEach(phrase => {
+        if (!this.customCategoryPhrases[phrase.customCategory]) {
+          this.customCategoryPhrases[phrase.customCategory] = [];
+        }
+        this.customCategoryPhrases[phrase.customCategory].push(phrase.text);
+      });
+      
       this.updateAllPhrases();
     } catch (error) {
       console.warn('Failed to load custom phrases:', error);
@@ -177,13 +190,21 @@ class PhraseService {
     return [...this.state.allPhrases];
   }
 
-  getPhrasesByCategory(category: PhraseCategory): string[] {
+  getPhrasesByCategory(category: PhraseCategory | string): string[] {
     if (category === PhraseCategory.EVERYTHING) {
       return this.getAllPhrases();
     }
 
+    // Check if it's a custom category
+    if (typeof category === 'string' && !(Object.values(PhraseCategory) as string[]).includes(category)) {
+      // It's a custom category - return from cache
+      return this.customCategoryPhrases[category] || [];
+    }
+
     // Static phrases for this category
-    const staticCategoryPhrases = categorizedPhrases[category] || [];
+    const staticCategoryPhrases = (category !== PhraseCategory.EVERYTHING && Object.prototype.hasOwnProperty.call(categorizedPhrases, category)) 
+      ? categorizedPhrases[category as keyof typeof categorizedPhrases] || []
+      : [];
 
     // Fetched phrases for this category
     const fetchedCategoryPhrases = this.state.fetchedPhrases
@@ -275,6 +296,24 @@ class PhraseService {
   // Method to refresh custom phrases after new category generation
   async refreshCustomPhrases(): Promise<void> {
     await this.loadCustomPhrases();
+  }
+
+  async getCustomCategories(): Promise<string[]> {
+    return await categoryRequestService.getAllCustomCategories();
+  }
+
+  async handleCustomCategoryDeleted(categoryName: string): Promise<void> {
+    // Remove custom category phrases from our cache
+    this.state.customPhrases = this.state.customPhrases.filter(() => {
+      // For now, we don't have category metadata in our cache
+      // The deletion is handled at the service level
+      return true;
+    });
+    
+    // Refresh our custom phrases cache from the database
+    await this.loadCustomPhrases();
+    
+    console.log(`Handled deletion of custom category: ${categoryName}`);
   }
 }
 
