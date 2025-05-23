@@ -266,4 +266,124 @@ describe('Enhanced Timer Store Tests', () => {
       expect(persistedState.timerDuration).toBe(70);
     });
   });
+});
+
+describe('Beep Configuration Settings', () => {
+  let store: ReturnType<typeof useGameStore.getState>;
+
+  beforeEach(() => {
+    store = useGameStore.getState();
+    // Reset to initial state
+    useGameStore.setState({
+      enableBeepRamp: true,
+      beepRampStart: 20,
+      beepFirstInterval: 1000,
+      beepFinalInterval: 150,
+      beepVolume: 0.6
+    });
+  });
+
+  describe('setEnableBeepRamp', () => {
+    it('should enable/disable beep ramp', () => {
+      store.setEnableBeepRamp(false);
+      expect(useGameStore.getState().enableBeepRamp).toBe(false);
+
+      store.setEnableBeepRamp(true);
+      expect(useGameStore.getState().enableBeepRamp).toBe(true);
+    });
+  });
+
+  describe('setBeepRampStart', () => {
+    it('should set beep ramp start time within valid range', () => {
+      store.setBeepRampStart(25);
+      expect(useGameStore.getState().beepRampStart).toBe(25);
+    });
+
+    it('should clamp values to 10-40 range', () => {
+      store.setBeepRampStart(5);
+      expect(useGameStore.getState().beepRampStart).toBe(10);
+
+      store.setBeepRampStart(50);
+      expect(useGameStore.getState().beepRampStart).toBe(40);
+    });
+  });
+
+  describe('setBeepFirstInterval', () => {
+    it('should set first interval within valid range', () => {
+      store.setBeepFirstInterval(800);
+      expect(useGameStore.getState().beepFirstInterval).toBe(800);
+    });
+
+    it('should clamp values to 400-1500 range', () => {
+      store.setBeepFirstInterval(200);
+      expect(useGameStore.getState().beepFirstInterval).toBe(400);
+
+      store.setBeepFirstInterval(2000);
+      expect(useGameStore.getState().beepFirstInterval).toBe(1500);
+    });
+
+    it('should ensure first interval >= final interval', () => {
+      // Set final interval to 200
+      store.setBeepFinalInterval(200);
+      
+      // Try to set first interval lower than final
+      store.setBeepFirstInterval(100);
+      
+      // Should be adjusted to be >= final interval (clamped to minimum valid value of 400)
+      expect(useGameStore.getState().beepFirstInterval).toBe(400);
+    });
+  });
+
+  describe('setBeepFinalInterval', () => {
+    it('should set final interval within valid range', () => {
+      store.setBeepFinalInterval(200);
+      expect(useGameStore.getState().beepFinalInterval).toBe(200);
+    });
+
+    it('should clamp values to 80-400 range', () => {
+      store.setBeepFinalInterval(50);
+      expect(useGameStore.getState().beepFinalInterval).toBe(80);
+
+      store.setBeepFinalInterval(500);
+      expect(useGameStore.getState().beepFinalInterval).toBe(400);
+    });
+
+    it('should ensure final interval <= first interval', () => {
+      // Set first interval to 500
+      store.setBeepFirstInterval(500);
+      
+      // Try to set final interval higher than first
+      store.setBeepFinalInterval(600);
+      
+      // Should be adjusted to be <= first interval (clamped to maximum valid value of 400)
+      expect(useGameStore.getState().beepFinalInterval).toBe(400);
+    });
+  });
+
+  describe('setBeepVolume', () => {
+    it('should set volume within valid range', () => {
+      store.setBeepVolume(0.8);
+      expect(useGameStore.getState().beepVolume).toBe(0.8);
+    });
+
+    it('should clamp values to 0-1 range', () => {
+      store.setBeepVolume(-0.5);
+      expect(useGameStore.getState().beepVolume).toBe(0);
+
+      store.setBeepVolume(1.5);
+      expect(useGameStore.getState().beepVolume).toBe(1);
+    });
+  });
+
+  describe('Initial State', () => {
+    it('should have correct default beep settings', () => {
+      const initialState = useGameStore.getState();
+      
+      expect(initialState.enableBeepRamp).toBe(true);
+      expect(initialState.beepRampStart).toBe(20);
+      expect(initialState.beepFirstInterval).toBe(1000);
+      expect(initialState.beepFinalInterval).toBe(150);
+      expect(initialState.beepVolume).toBe(0.6);
+    });
+  });
 }); 

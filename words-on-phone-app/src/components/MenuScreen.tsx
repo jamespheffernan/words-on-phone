@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGameStore, BUZZER_SOUNDS } from '../store';
 import { PhraseCategory } from '../data/phrases';
 import { HowToPlayModal } from './HowToPlayModal';
 import { CategoryRequestModal } from './CategoryRequestModal';
 import { useAudio } from '../hooks/useAudio';
+import { useBeepAudio } from '../hooks/useBeepAudio';
 import { categoryRequestService } from '../services/categoryRequestService';
 import { phraseService } from '../services/phraseService';
 import { trackCategoryRequested, trackCategoryConfirmed, trackCategoryGenerated } from '../firebase/analytics';
@@ -19,6 +20,12 @@ export const MenuScreen: React.FC = () => {
     timerRangeMax,
     skipLimit,
     buzzerSound,
+    // Beep ramp settings
+    enableBeepRamp,
+    beepRampStart,
+    beepFirstInterval,
+    beepFinalInterval,
+    beepVolume,
     setCategory,
     setTimerDuration,
     setShowTimer,
@@ -27,21 +34,62 @@ export const MenuScreen: React.FC = () => {
     setTimerRangeMax,
     setSkipLimit,
     setBuzzerSound,
+    // Beep ramp actions
+    setEnableBeepRamp,
+    setBeepRampStart,
+    setBeepFirstInterval,
+    setBeepFinalInterval,
+    setBeepVolume,
     startGame
   } = useGameStore();
 
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showCategoryRequest, setShowCategoryRequest] = useState(false);
+  const [customCategories, setCustomCategories] = useState<string[]>([]);
 
   // Audio hook for testing buzzer sounds
   const testBuzzer = useAudio(buzzerSound, { volume: 0.4 });
+  
+  // Beep audio hook for testing beep sounds
+  const testBeepAudio = useBeepAudio({ volume: beepVolume, enabled: true });
 
   const categories = Object.values(PhraseCategory);
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
 
-  const handleTestBuzzer = () => {
-    testBuzzer.play().catch(console.warn);
+  // Load custom categories on mount
+  useEffect(() => {
+    const loadCustomCategories = async () => {
+      try {
+        const customCats = await phraseService.getCustomCategories();
+        setCustomCategories(customCats);
+      } catch (error) {
+        console.warn('Failed to load custom categories:', error);
+      }
+    };
+    
+    loadCustomCategories();
+  }, []);
+
+  const handleTestBuzzer = async () => {
+    try {
+      console.log('Testing buzzer sound:', buzzerSound);
+      await testBuzzer.play();
+      console.log('Buzzer test successful');
+    } catch (error) {
+      console.warn('Buzzer test failed:', error);
+      // You could add a toast notification here for user feedback
+    }
+  };
+
+  const handleTestBeep = async () => {
+    try {
+      console.log('Testing beep sound with volume:', beepVolume);
+      await testBeepAudio.playBeep();
+      console.log('Beep test successful');
+    } catch (error) {
+      console.warn('Beep test failed:', error);
+    }
   };
 
   const handleCategoryRequest = async (categoryName: string): Promise<string[]> => {
@@ -90,6 +138,10 @@ export const MenuScreen: React.FC = () => {
       // Refresh phrase service to include new custom phrases
       await phraseService.refreshCustomPhrases();
       
+      // Refresh custom categories list to include the new category
+      const updatedCustomCategories = await phraseService.getCustomCategories();
+      setCustomCategories(updatedCustomCategories);
+      
       console.log(`Generated ${customPhrases.length} phrases for category: ${categoryName}`);
     } catch (error) {
       console.error('Category generation failed:', error);
@@ -97,11 +149,44 @@ export const MenuScreen: React.FC = () => {
     }
   };
 
+  const handleDeleteCustomCategory = async (categoryName: string): Promise<void> => {
+    // Show confirmation dialog
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete the custom category "${categoryName}"?\n\nThis will permanently remove all phrases in this category and cannot be undone.`
+    );
+    
+    if (!confirmDelete) {
+      return;
+    }
+    
+    try {
+      await categoryRequestService.deleteCustomCategory(categoryName);
+      
+      // Update phrase service to remove from cache
+      await phraseService.handleCustomCategoryDeleted(categoryName);
+      
+      // Refresh custom categories list
+      const updatedCustomCategories = await phraseService.getCustomCategories();
+      setCustomCategories(updatedCustomCategories);
+      
+      // If the deleted category was selected, switch to "Everything"
+      if (selectedCategory === categoryName) {
+        setCategory(PhraseCategory.EVERYTHING);
+      }
+      
+      console.log(`Deleted custom category: ${categoryName}`);
+    } catch (error) {
+      console.error('Failed to delete custom category:', error);
+      // You could add a toast notification here for user feedback
+      alert(`Failed to delete category "${categoryName}". Please try again.`);
+    }
+  };
+
   return (
     <main className="menu-screen">
       <header className="menu-header">
         <h1 className="game-title">Words on Phone</h1>
-        <p className="game-tagline">The ultimate party game!</p>
+        <p className="game-tagline">The game with the words on your phone!!</p>
       </header>
 
       <div className="menu-content">
@@ -118,7 +203,34 @@ export const MenuScreen: React.FC = () => {
                 {category}
               </button>
             ))}
+            {customCategories.map(customCategory => (
+              <div key={`custom-${customCategory}`} className="custom-category-container">
+                <button
+                  className={`category-button custom-category ${selectedCategory === customCategory ? 'selected' : ''}`}
+                  onClick={() => setCategory(customCategory)}
+                  aria-label={`Select ${customCategory} custom category`}
+                >
+                  {customCategory} ✨
+                </button>
+                <button
+                  className="delete-category-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteCustomCategory(customCategory);
+                  }}
+                  aria-label={`Delete ${customCategory} category`}
+                  title={`Delete ${customCategory}`}
+                >
+                  ×
+                </button>
+              </div>
+            ))}
           </div>
+          {customCategories.length > 0 && (
+            <p className="custom-categories-note">
+              ✨ = Custom categories you've created • Click × to delete
+            </p>
+          )}
         </section>
 
         <button
@@ -253,6 +365,102 @@ export const MenuScreen: React.FC = () => {
                   🔊 Test
                 </button>
               </div>
+            </div>
+
+            <div className="setting-item beep-ramp-section">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={enableBeepRamp}
+                  onChange={(e) => setEnableBeepRamp(e.target.checked)}
+                  className="setting-checkbox"
+                />
+                Enable "Hot Potato" Beep Ramp (default: enabled)
+              </label>
+              <p className="setting-description">
+                Accelerating beeps in final seconds build excitement like Catch Phrase
+              </p>
+              
+              {enableBeepRamp && (
+                <>
+                  <div className="setting-item">
+                    <label htmlFor="beep-ramp-start">
+                      Start Beeping: {beepRampStart}s before end
+                    </label>
+                    <input
+                      id="beep-ramp-start"
+                      type="range"
+                      min="10"
+                      max="40"
+                      step="5"
+                      value={beepRampStart}
+                      onChange={(e) => setBeepRampStart(Number(e.target.value))}
+                      className="slider"
+                      aria-label="Beep ramp start time"
+                    />
+                  </div>
+
+                  <div className="setting-item">
+                    <label htmlFor="beep-volume">
+                      Beep Volume: {Math.round(beepVolume * 100)}%
+                    </label>
+                    <div className="buzzer-controls">
+                      <input
+                        id="beep-volume"
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.1"
+                        value={beepVolume}
+                        onChange={(e) => setBeepVolume(Number(e.target.value))}
+                        className="slider"
+                        aria-label="Beep volume"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleTestBeep}
+                        className="test-buzzer-button"
+                        aria-label="Test beep sound"
+                      >
+                        🔊 Test Beep
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="setting-item">
+                    <label htmlFor="beep-intervals">
+                      Beep Speed: {beepFirstInterval}ms → {beepFinalInterval}ms
+                    </label>
+                    <p className="setting-description">
+                      First interval (slow) to final interval (rapid fire)
+                    </p>
+                    <div className="dual-slider-container">
+                      <input
+                        id="beep-first-interval"
+                        type="range"
+                        min="400"
+                        max="1500"
+                        step="100"
+                        value={beepFirstInterval}
+                        onChange={(e) => setBeepFirstInterval(Number(e.target.value))}
+                        className="slider range-min"
+                        aria-label="Initial beep interval"
+                      />
+                      <input
+                        id="beep-final-interval"
+                        type="range"
+                        min="80"
+                        max="400"
+                        step="20"
+                        value={beepFinalInterval}
+                        onChange={(e) => setBeepFinalInterval(Number(e.target.value))}
+                        className="slider range-max"
+                        aria-label="Final beep interval"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="setting-item custom-category-section">

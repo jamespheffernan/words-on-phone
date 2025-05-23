@@ -10,21 +10,65 @@ declare global {
 interface UseAudioOptions {
   volume?: number; // 0-1
   preload?: boolean;
+  type?: 'buzzer' | 'beep'; // New: specify audio type
 }
 
+// Global audio context to prevent multiple instances
+let globalAudioContext: AudioContext | null = null;
+
+// Global source tracking for non-overlapping playback
+const activeSources = new Map<string, AudioBufferSourceNode>();
+
+const getAudioContext = async (): Promise<AudioContext> => {
+  if (!globalAudioContext || globalAudioContext.state === 'closed') {
+    globalAudioContext = new (window.AudioContext || window.webkitAudioContext!)();
+  }
+  
+  // Resume context if suspended (required by browser autoplay policies)
+  if (globalAudioContext.state === 'suspended') {
+    await globalAudioContext.resume();
+  }
+  
+  return globalAudioContext;
+};
+
 export const useAudio = (soundName: string, options: UseAudioOptions = {}) => {
-  const { volume = 0.8, preload = true } = options;
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const { volume = 0.8, preload = true, type = 'buzzer' } = options;
   const audioBufferRef = useRef<AudioBuffer | null>(null);
   const isLoadedRef = useRef(false);
+  const lastSourceRef = useRef<AudioBufferSourceNode | null>(null);
 
-  // Create synthetic buzzer sounds using Web Audio API
-  const createBuzzerSound = useCallback((type: string): AudioBuffer => {
-    if (!audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext!)();
+  // Create synthetic beep sounds for countdown timer
+  const createBeepSound = useCallback(async (): Promise<AudioBuffer> => {
+    const ctx = await getAudioContext();
+    const sampleRate = ctx.sampleRate;
+    const duration = 0.2; // Short 200ms beep
+    const bufferLength = sampleRate * duration;
+    const buffer = ctx.createBuffer(1, bufferLength, sampleRate);
+    const channelData = buffer.getChannelData(0);
+
+    // Generate sharp, attention-grabbing beep
+    for (let i = 0; i < bufferLength; i++) {
+      const t = i / sampleRate;
+      
+      // High-pitched tone (1200Hz) with quick decay
+      const frequency = 1200;
+      const sample = Math.sin(2 * Math.PI * frequency * t);
+      
+      // Quick attack, exponential decay envelope
+      const attack = Math.min(1, t * 50); // 20ms attack
+      const decay = Math.exp(-t * 8); // Fast decay
+      const envelope = attack * decay;
+      
+      channelData[i] = sample * envelope * 0.4; // Moderate volume to avoid harshness
     }
 
-    const ctx = audioContextRef.current;
+    return buffer;
+  }, []);
+
+  // Create synthetic buzzer sounds using Web Audio API
+  const createBuzzerSound = useCallback(async (buzzerType: string): Promise<AudioBuffer> => {
+    const ctx = await getAudioContext();
     const sampleRate = ctx.sampleRate;
     const duration = 1.5; // 1.5 seconds
     const bufferLength = sampleRate * duration;
@@ -36,7 +80,7 @@ export const useAudio = (soundName: string, options: UseAudioOptions = {}) => {
       const t = i / sampleRate;
       let sample = 0;
 
-      switch (type) {
+      switch (buzzerType) {
         case 'classic':
           // Classic buzzer with falling frequency
           sample = Math.sin(2 * Math.PI * (800 - 400 * t) * t) * Math.exp(-t * 2);
@@ -73,33 +117,54 @@ export const useAudio = (soundName: string, options: UseAudioOptions = {}) => {
   // Load sound
   useEffect(() => {
     if (preload && !isLoadedRef.current) {
-      try {
-        audioBufferRef.current = createBuzzerSound(soundName);
-        isLoadedRef.current = true;
-      } catch (error) {
-        console.warn('Failed to create audio buffer:', error);
-      }
+      const createSound = type === 'beep' ? createBeepSound() : createBuzzerSound(soundName);
+      
+      createSound
+        .then(buffer => {
+          audioBufferRef.current = buffer;
+          isLoadedRef.current = true;
+        })
+        .catch(error => {
+          console.warn('Failed to create audio buffer:', error);
+        });
     }
-  }, [soundName, preload, createBuzzerSound]);
+  }, [soundName, preload, type, createBuzzerSound, createBeepSound]);
 
   const play = useCallback(async () => {
     try {
-      if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext!)();
-      }
+      const ctx = await getAudioContext();
 
-      const ctx = audioContextRef.current;
-
-      // Resume audio context if suspended (required by browser autoplay policies)
-      if (ctx.state === 'suspended') {
-        await ctx.resume();
+      // For beeps, stop any previous beep to prevent overlap
+      if (type === 'beep') {
+        const activeSource = activeSources.get('beep');
+        if (activeSource) {
+          try {
+            activeSource.stop();
+          } catch (e) {
+            // Source may already be stopped, ignore error
+          }
+        }
+        
+        // Also stop the last source from this hook instance
+        if (lastSourceRef.current) {
+          try {
+            lastSourceRef.current.stop();
+          } catch (e) {
+            // Source may already be stopped, ignore error
+          }
+        }
       }
 
       // Create or use existing buffer
       let buffer = audioBufferRef.current;
       if (!buffer) {
-        buffer = createBuzzerSound(soundName);
+        if (type === 'beep') {
+          buffer = await createBeepSound();
+        } else {
+          buffer = await createBuzzerSound(soundName);
+        }
         audioBufferRef.current = buffer;
+        isLoadedRef.current = true;
       }
 
       // Create source and gain nodes
@@ -113,6 +178,20 @@ export const useAudio = (soundName: string, options: UseAudioOptions = {}) => {
       source.connect(gainNode);
       gainNode.connect(ctx.destination);
 
+      // Track active source for non-overlapping playback
+      if (type === 'beep') {
+        activeSources.set('beep', source);
+        lastSourceRef.current = source;
+        
+        // Clean up when source ends
+        source.onended = () => {
+          activeSources.delete('beep');
+          if (lastSourceRef.current === source) {
+            lastSourceRef.current = null;
+          }
+        };
+      }
+
       // Play sound
       source.start(0);
 
@@ -121,30 +200,54 @@ export const useAudio = (soundName: string, options: UseAudioOptions = {}) => {
       console.warn('Failed to play audio:', error);
       return Promise.reject(error);
     }
-  }, [soundName, volume, createBuzzerSound]);
+  }, [soundName, volume, type, createBuzzerSound, createBeepSound]);
 
-  const preloadSound = useCallback(() => {
+  const preloadSound = useCallback(async () => {
     if (!isLoadedRef.current) {
       try {
-        audioBufferRef.current = createBuzzerSound(soundName);
+        const buffer = type === 'beep' ? await createBeepSound() : await createBuzzerSound(soundName);
+        audioBufferRef.current = buffer;
         isLoadedRef.current = true;
       } catch (error) {
         console.warn('Failed to preload audio:', error);
       }
     }
-  }, [soundName, createBuzzerSound]);
+  }, [soundName, type, createBuzzerSound, createBeepSound]);
 
-  // Cleanup
+  // Stop any currently playing audio from this instance
+  const stop = useCallback(() => {
+    if (lastSourceRef.current) {
+      try {
+        lastSourceRef.current.stop();
+      } catch (e) {
+        // Source may already be stopped, ignore error
+      }
+      lastSourceRef.current = null;
+    }
+    
+    if (type === 'beep') {
+      const activeSource = activeSources.get('beep');
+      if (activeSource) {
+        try {
+          activeSource.stop();
+        } catch (e) {
+          // Source may already be stopped, ignore error
+        }
+        activeSources.delete('beep');
+      }
+    }
+  }, [type]);
+
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
-      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
-        audioContextRef.current.close();
-      }
+      stop();
     };
-  }, []);
+  }, [stop]);
 
   return {
     play,
+    stop,
     preloadSound,
     isLoaded: isLoadedRef.current
   };

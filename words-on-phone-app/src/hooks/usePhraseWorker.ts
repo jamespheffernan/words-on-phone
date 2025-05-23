@@ -13,7 +13,7 @@ interface FetchedPhrase {
   phraseId: string;
   text: string;
   category: PhraseCategory;
-  source: 'openai';
+  source: 'gemini';
   fetchedAt: number;
 }
 
