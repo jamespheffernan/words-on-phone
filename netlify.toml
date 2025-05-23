@@ -1,0 +1,30 @@
+[build]
+  base = "words-on-phone-app"
+  publish = "words-on-phone-app/dist"
+  command = "npm run build"
+  functions = "words-on-phone-app/netlify/functions"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/assets/*.ts"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/assets/*Worker*.ts"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+    
+[[headers]]
+  for = "/assets/*Worker*.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable" 
