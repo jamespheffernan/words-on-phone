@@ -1,6 +1,19 @@
 /// <reference lib="webworker" />
 
-import { PhraseCategory } from '../data/phrases';
+// Inline enum to avoid import issues in worker context
+enum PhraseCategory {
+  EVERYTHING = 'Everything',
+  MOVIES = 'Movies & TV',
+  MUSIC = 'Music & Artists',
+  SPORTS = 'Sports & Athletes',
+  FOOD = 'Food & Drink',
+  PLACES = 'Places & Travel',
+  PEOPLE = 'Famous People',
+  TECHNOLOGY = 'Technology & Science',
+  HISTORY = 'History & Events',
+  ENTERTAINMENT = 'Entertainment & Pop Culture',
+  NATURE = 'Nature & Animals'
+}
 
 // Gemini API Response Interface
 interface GeminiResponse {
@@ -435,5 +448,14 @@ class PhraseWorker {
   }
 }
 
-// Initialize the worker
-new PhraseWorker(); 
+// Initialize the worker with error handling
+try {
+  new PhraseWorker();
+  console.log('PhraseWorker initialized successfully');
+} catch (error) {
+  console.error('Failed to initialize PhraseWorker:', error);
+  self.postMessage({
+    type: 'ERROR',
+    error: `Worker initialization failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+  });
+} 
