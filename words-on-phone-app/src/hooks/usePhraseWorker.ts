@@ -112,9 +112,9 @@ export const usePhraseWorker = () => {
 
   const initializeWorker = useCallback(() => {
     try {
-      // Create worker from URL
-      const workerUrl = new URL('../workers/phraseWorker.ts', import.meta.url);
-      workerRef.current = new Worker(workerUrl, { type: 'module' });
+      // Create worker using Vite's worker import syntax
+      const workerUrl = new URL('../workers/phraseWorker.ts?worker', import.meta.url);
+      workerRef.current = new Worker(workerUrl);
 
       workerRef.current.addEventListener('message', handleWorkerMessage);
       
@@ -142,7 +142,7 @@ export const usePhraseWorker = () => {
 
   const terminateWorker = useCallback(() => {
     if (workerRef.current) {
-      workerRef.current.postMessage({ type: 'STOP_WORKER' });
+      workerRef.current.postMessage({ type: 'STOP' });
       workerRef.current.terminate();
       workerRef.current = null;
       updateState({ isLoaded: false, isWorking: false });
