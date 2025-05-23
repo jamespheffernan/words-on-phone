@@ -2,10 +2,12 @@
 
 import { PhraseCategory } from '../data/phrases';
 
-interface OpenAIResponse {
-  choices: Array<{
-    message: {
-      content: string;
+interface GeminiResponse {
+  candidates: Array<{
+    content: {
+      parts: Array<{
+        text: string;
+      }>;
     };
   }>;
 }
@@ -14,18 +16,18 @@ interface FetchedPhrase {
   phraseId: string;
   text: string;
   category: PhraseCategory;
-  source: 'openai';
+  source: 'gemini';
   fetchedAt: number;
 }
 
-const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
 const FETCH_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 const DAILY_QUOTA_LIMIT = 1000;
 const PHRASES_PER_REQUEST = 20;
 
 // Storage keys for IndexedDB
 const LAST_FETCH_KEY = 'lastPhraseFetch';
-const DAILY_USAGE_KEY = 'dailyOpenAIUsage';
+const DAILY_USAGE_KEY = 'dailyGeminiUsage';
 const FETCHED_PHRASES_KEY = 'fetchedPhrases';
 
 // Worker state
@@ -114,7 +116,7 @@ class PhraseWorker {
       // Create abort controller for this request
       this.abortController = new AbortController();
 
-      const newPhrases = await this.requestPhrasesFromOpenAI(apiKey);
+      const newPhrases = await this.requestPhrasesFromGemini(apiKey);
       const deduplicatedPhrases = await this.deduplicatePhrases(newPhrases);
       
       if (deduplicatedPhrases.length > 0) {
@@ -178,10 +180,10 @@ class PhraseWorker {
   private async getApiKey(): Promise<string | null> {
     // Try to get from environment or storage
     // In a real app, this would be more secure
-    return await this.getFromStorage('openai_api_key') || null;
+    return await this.getFromStorage('gemini_api_key') || null;
   }
 
-  private async requestPhrasesFromOpenAI(apiKey: string): Promise<FetchedPhrase[]> {
+  private async requestPhrasesFromGemini(apiKey: string): Promise<FetchedPhrase[]> {
     const categories = Object.values(PhraseCategory);
     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
     
@@ -196,39 +198,34 @@ class PhraseWorker {
     
     Category: ${randomCategory}`;
 
-    const response = await fetch(OPENAI_API_URL, {
+    const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a creative assistant helping generate phrases for a party game. Return only the phrases, one per line.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        max_tokens: 500,
-        temperature: 0.8,
+        contents: [{
+          parts: [{
+            text: prompt
+          }]
+        }],
+        generationConfig: {
+          temperature: 0.8,
+          maxOutputTokens: 500,
+        }
       }),
       signal: this.abortController?.signal,
     });
 
     if (!response.ok) {
-      throw new Error(`OpenAI API error: ${response.status} ${response.statusText}`);
+      throw new Error(`Gemini API error: ${response.status} ${response.statusText}`);
     }
 
-    const data: OpenAIResponse = await response.json();
-    const content = data.choices[0]?.message?.content;
+    const data: GeminiResponse = await response.json();
+    const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
     
     if (!content) {
-      throw new Error('No content received from OpenAI');
+      throw new Error('No content received from Gemini');
     }
 
     // Parse phrases from response
@@ -240,7 +237,7 @@ class PhraseWorker {
         phraseId: this.generatePhraseId(text),
         text,
         category: randomCategory,
-        source: 'openai' as const,
+        source: 'gemini' as const,
         fetchedAt: Date.now(),
       }));
 
@@ -258,7 +255,7 @@ class PhraseWorker {
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash; // Convert to 32-bit integer
     }
-    return `openai_${Math.abs(hash).toString(36)}_${Date.now().toString(36)}`;
+    return `gemini_${Math.abs(hash).toString(36)}_${Date.now().toString(36)}`;
   }
 
   private async deduplicatePhrases(newPhrases: FetchedPhrase[]): Promise<FetchedPhrase[]> {

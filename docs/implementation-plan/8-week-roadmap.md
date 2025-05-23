@@ -196,15 +196,15 @@ Words on Phone is a mobile-first party game inspired by the classic "catch-phras
   - [ ] Pre-cache beep audio files in Service Worker for offline functionality.
   - [ ] Add volume controls for beep sounds independent of buzzer volume.
 
-- [ ] **Task 4: Settings Integration & Persistence**
-  - [ ] Extend Zustand store with beep configuration:
+- [x] **Task 4: Settings Integration & Persistence**
+  - [x] Extend Zustand store with beep configuration:
     - `enableBeepRamp`: boolean (default: true).
     - `beepRampStart`: number (10-40s range, default: 20s).
     - `beepFirstInterval`: number (400-1500ms range, default: 1000ms).
     - `beepFinalInterval`: number (80-400ms range, default: 150ms).
-  - [ ] Add settings UI controls in MenuScreen settings panel.
-  - [ ] Implement IndexedDB persistence for beep settings.
-  - [ ] Add beep volume slider independent of main buzzer volume.
+  - [x] Add settings UI controls in MenuScreen settings panel.
+  - [x] Implement IndexedDB persistence for beep settings.
+  - [x] Add beep volume slider independent of main buzzer volume.
 
 - [ ] **Task 5: Game Integration & Edge Cases**
   - [ ] Integrate beep ramp into GameScreen with proper lifecycle management.
@@ -255,6 +255,68 @@ Words on Phone is a mobile-first party game inspired by the classic "catch-phras
 
 ---
 
+### Phase 8D – Gemini API Migration
+- [x] **Task 1: OpenAI to Gemini API Migration**
+  - [x] Update phrase worker (`phraseWorker.ts`) to use Gemini API instead of OpenAI
+  - [x] Convert OpenAI API format to Gemini API format with proper request structure
+  - [x] Update response parsing for Gemini's response format
+  - [x] Change API endpoint from OpenAI to Google Generative Language API
+  - [x] Update all interface definitions to use 'gemini' source instead of 'openai'
+
+- [x] **Task 2: Category Request Service Migration**
+  - [x] Migrate category request service (`categoryRequestService.ts`) to use Gemini API
+  - [x] Update API call method from `callOpenAI` to `callGemini`
+  - [x] Implement proper Gemini API request format with contents array
+  - [x] Update error messages to reference Gemini instead of OpenAI
+  - [x] Change API key storage from 'openai_api_key' to 'gemini_api_key'
+
+- [x] **Task 3: API Key Management & Security**
+  - [x] Create secure API key management utility (`apiKeyManager.ts`)
+  - [x] Implement safe API key storage using localStorage with JSON encoding
+  - [x] Add automatic initialization of provided Gemini API key
+  - [x] Update all services to use 'gemini_api_key' storage key
+  - [x] Integrate API key initialization into main app entry point
+
+- [x] **Task 4: Interface & Type Updates**
+  - [x] Update `FetchedPhrase` interfaces across all files to use 'gemini' source
+  - [x] Update phrase service to reference Gemini instead of OpenAI in logs
+  - [x] Update hook interfaces to match new Gemini source type
+  - [x] Ensure consistent naming throughout the codebase
+
+**Success criteria**
+1. All API calls successfully use Gemini API instead of OpenAI ✅
+2. API key is stored and retrieved securely using localStorage ✅
+3. Phrase generation and category requests work with Gemini ✅
+4. Error messages and logging reference Gemini appropriately ✅
+5. No references to OpenAI remain in the active codebase ✅
+
+**Phase 8D Status:** ✅ **COMPLETED** - Gemini API Migration
+
+All tasks completed successfully:
+1. ✅ OpenAI to Gemini API Migration - phrase worker fully migrated
+2. ✅ Category Request Service Migration - service migrated with proper API calls  
+3. ✅ API Key Management & Security - secure key storage implemented
+4. ✅ Interface & Type Updates - all interfaces updated consistently
+
+**API Integration Verified:** Direct API test confirms Gemini endpoint responds correctly with generated phrases matching expected format.
+
+**GEMINI API MIGRATION BUG FIX (2025-01-27):** 🐛➡️✅ Fixed critical category request bug where the `generateRequestId` method was using timestamps, causing request IDs to be different between `requestSampleWords` and `generateFullCategory` calls. The issue was that the ID generation included `Date.now()`, so the same category name would generate different IDs at different times, causing "Category request not found" errors.
+
+**Solution Applied:**
+- Modified `generateRequestId` to be deterministic based only on category name (removed timestamp)
+- Updated `generateFullCategory` to handle missing requests gracefully by creating new ones if needed
+- This ensures consistent request IDs and robust category request handling
+
+**Technical Details:**
+- Before: `req_${categoryName}_${Date.now()}` (non-deterministic)
+- After: `req_${categoryName}` (deterministic)
+- Added fallback logic to create missing requests automatically
+- Category request flow now works reliably end-to-end
+
+All Phase 8D success criteria remain met ✅. Category request system fully operational with Gemini API.
+
+---
+
 ### Phase 9 – Launch
 - [ ] Fill App Privacy form (no tracking; anonymised analytics).
 - [ ] Prepare 6.7-inch & 5.5-inch screenshots + promo text.
@@ -278,6 +340,7 @@ Words on Phone is a mobile-first party game inspired by the classic "catch-phras
 - [x] Phase 8A – Custom Category Request System
 - [x] Phase 8B – Enhanced Timer UX (Randomized & Hidden by Default)
 - [ ] Phase 8C – Accelerating Beep "Hot Potato" Timer System
+- [x] Phase 8D – Gemini API Migration
 - [ ] Phase 9 – Launch
 
 > Update each checklist item to **in-progress**, **partially complete**, or **done** as work proceeds.

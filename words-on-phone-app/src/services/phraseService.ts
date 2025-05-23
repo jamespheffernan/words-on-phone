@@ -5,7 +5,7 @@ interface FetchedPhrase {
   phraseId: string;
   text: string;
   category: PhraseCategory;
-  source: 'openai';
+  source: 'gemini';
   fetchedAt: number;
 }
 
@@ -269,7 +269,7 @@ class PhraseService {
   // Method for the worker to call when new phrases are available
   async handleWorkerPhrases(phrases: FetchedPhrase[]): Promise<void> {
     const added = await this.addFetchedPhrases(phrases);
-    console.log(`Added ${added} new phrases from OpenAI`);
+    console.log(`Added ${added} new phrases from Gemini`);
   }
 
   // Method to refresh custom phrases after new category generation

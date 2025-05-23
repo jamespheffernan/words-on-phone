@@ -4,6 +4,7 @@ import { PhraseCategory } from '../data/phrases';
 import { HowToPlayModal } from './HowToPlayModal';
 import { CategoryRequestModal } from './CategoryRequestModal';
 import { useAudio } from '../hooks/useAudio';
+import { useBeepAudio } from '../hooks/useBeepAudio';
 import { categoryRequestService } from '../services/categoryRequestService';
 import { phraseService } from '../services/phraseService';
 import { trackCategoryRequested, trackCategoryConfirmed, trackCategoryGenerated } from '../firebase/analytics';
@@ -19,6 +20,12 @@ export const MenuScreen: React.FC = () => {
     timerRangeMax,
     skipLimit,
     buzzerSound,
+    // Beep ramp settings
+    enableBeepRamp,
+    beepRampStart,
+    beepFirstInterval,
+    beepFinalInterval,
+    beepVolume,
     setCategory,
     setTimerDuration,
     setShowTimer,
@@ -27,6 +34,12 @@ export const MenuScreen: React.FC = () => {
     setTimerRangeMax,
     setSkipLimit,
     setBuzzerSound,
+    // Beep ramp actions
+    setEnableBeepRamp,
+    setBeepRampStart,
+    setBeepFirstInterval,
+    setBeepFinalInterval,
+    setBeepVolume,
     startGame
   } = useGameStore();
 
@@ -36,6 +49,9 @@ export const MenuScreen: React.FC = () => {
 
   // Audio hook for testing buzzer sounds
   const testBuzzer = useAudio(buzzerSound, { volume: 0.4 });
+  
+  // Beep audio hook for testing beep sounds
+  const testBeepAudio = useBeepAudio({ volume: beepVolume, enabled: true });
 
   const categories = Object.values(PhraseCategory);
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
@@ -48,6 +64,16 @@ export const MenuScreen: React.FC = () => {
     } catch (error) {
       console.warn('Buzzer test failed:', error);
       // You could add a toast notification here for user feedback
+    }
+  };
+
+  const handleTestBeep = async () => {
+    try {
+      console.log('Testing beep sound with volume:', beepVolume);
+      await testBeepAudio.playBeep();
+      console.log('Beep test successful');
+    } catch (error) {
+      console.warn('Beep test failed:', error);
     }
   };
 
@@ -108,7 +134,7 @@ export const MenuScreen: React.FC = () => {
     <main className="menu-screen">
       <header className="menu-header">
         <h1 className="game-title">Words on Phone</h1>
-        <p className="game-tagline">The ultimate party game!</p>
+        <p className="game-tagline">The game with the words on your phone!!</p>
       </header>
 
       <div className="menu-content">
@@ -260,6 +286,102 @@ export const MenuScreen: React.FC = () => {
                   🔊 Test
                 </button>
               </div>
+            </div>
+
+            <div className="setting-item beep-ramp-section">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={enableBeepRamp}
+                  onChange={(e) => setEnableBeepRamp(e.target.checked)}
+                  className="setting-checkbox"
+                />
+                Enable "Hot Potato" Beep Ramp (default: enabled)
+              </label>
+              <p className="setting-description">
+                Accelerating beeps in final seconds build excitement like Catch Phrase
+              </p>
+              
+              {enableBeepRamp && (
+                <>
+                  <div className="setting-item">
+                    <label htmlFor="beep-ramp-start">
+                      Start Beeping: {beepRampStart}s before end
+                    </label>
+                    <input
+                      id="beep-ramp-start"
+                      type="range"
+                      min="10"
+                      max="40"
+                      step="5"
+                      value={beepRampStart}
+                      onChange={(e) => setBeepRampStart(Number(e.target.value))}
+                      className="slider"
+                      aria-label="Beep ramp start time"
+                    />
+                  </div>
+
+                  <div className="setting-item">
+                    <label htmlFor="beep-volume">
+                      Beep Volume: {Math.round(beepVolume * 100)}%
+                    </label>
+                    <div className="buzzer-controls">
+                      <input
+                        id="beep-volume"
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.1"
+                        value={beepVolume}
+                        onChange={(e) => setBeepVolume(Number(e.target.value))}
+                        className="slider"
+                        aria-label="Beep volume"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleTestBeep}
+                        className="test-buzzer-button"
+                        aria-label="Test beep sound"
+                      >
+                        🔊 Test Beep
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="setting-item">
+                    <label htmlFor="beep-intervals">
+                      Beep Speed: {beepFirstInterval}ms → {beepFinalInterval}ms
+                    </label>
+                    <p className="setting-description">
+                      First interval (slow) to final interval (rapid fire)
+                    </p>
+                    <div className="dual-slider-container">
+                      <input
+                        id="beep-first-interval"
+                        type="range"
+                        min="400"
+                        max="1500"
+                        step="100"
+                        value={beepFirstInterval}
+                        onChange={(e) => setBeepFirstInterval(Number(e.target.value))}
+                        className="slider range-min"
+                        aria-label="Initial beep interval"
+                      />
+                      <input
+                        id="beep-final-interval"
+                        type="range"
+                        min="80"
+                        max="400"
+                        step="20"
+                        value={beepFinalInterval}
+                        onChange={(e) => setBeepFinalInterval(Number(e.target.value))}
+                        className="slider range-max"
+                        aria-label="Final beep interval"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="setting-item custom-category-section">

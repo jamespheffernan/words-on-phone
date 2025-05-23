@@ -50,6 +50,13 @@ interface GameState {
   skipLimit: number; // 0 = unlimited, 1-5 = fixed cap
   buzzerSound: BuzzerSoundType; // buzzer sound type
   
+  // Beep ramp settings
+  enableBeepRamp: boolean; // whether beep ramp is enabled (default: true)
+  beepRampStart: number; // when to start beeping in seconds before end (default: 20, range: 10-40)
+  beepFirstInterval: number; // initial beep interval in ms (default: 1000, range: 400-1500)
+  beepFinalInterval: number; // final rapid beep interval in ms (default: 150, range: 80-400)
+  beepVolume: number; // beep volume 0-1, independent of buzzer (default: 0.6)
+  
   // Round state
   skipsUsed: number;
   skipsRemaining: number;
@@ -74,6 +81,14 @@ interface GameState {
   setTimerRangeMax: (max: number) => void;
   setSkipLimit: (limit: number) => void;
   setBuzzerSound: (sound: BuzzerSoundType) => void;
+  
+  // Beep ramp actions
+  setEnableBeepRamp: (enabled: boolean) => void;
+  setBeepRampStart: (seconds: number) => void;
+  setBeepFirstInterval: (ms: number) => void;
+  setBeepFinalInterval: (ms: number) => void;
+  setBeepVolume: (volume: number) => void;
+  
   startGame: () => void;
   pauseGame: () => void;
   resumeGame: () => void;
@@ -147,6 +162,14 @@ export const useGameStore = create<GameState>()(
         actualTimerDuration: 60,
         skipLimit: initialSkipLimit,
         buzzerSound: 'classic',
+        
+        // Beep ramp initial state
+        enableBeepRamp: true,
+        beepRampStart: 20, // 20 seconds before end
+        beepFirstInterval: 1000, // 1000ms initial interval
+        beepFinalInterval: 150, // 150ms final interval
+        beepVolume: 0.6, // 60% volume
+        
         skipsUsed: 0,
         skipsRemaining: initialSkipLimit,
         correctCount: 0,
@@ -273,6 +296,34 @@ export const useGameStore = create<GameState>()(
         }),
         
         setBuzzerSound: (sound) => set({ buzzerSound: sound }),
+        
+        // Beep ramp actions
+        setEnableBeepRamp: (enabled) => set({ enableBeepRamp: enabled }),
+        
+        setBeepRampStart: (seconds) => set((state) => {
+          // Validate range: 10-40 seconds
+          const validSeconds = Math.max(10, Math.min(40, seconds));
+          return { beepRampStart: validSeconds };
+        }),
+        
+        setBeepFirstInterval: (ms) => set((state) => {
+          // Validate range: 400-1500ms, and ensure it's >= finalInterval
+          const validMs = Math.max(400, Math.min(1500, ms));
+          const adjustedMs = Math.max(validMs, state.beepFinalInterval);
+          return { beepFirstInterval: adjustedMs };
+        }),
+        
+        setBeepFinalInterval: (ms) => set((state) => {
+          // Validate range: 80-400ms, and ensure it's <= firstInterval
+          const validMs = Math.max(80, Math.min(400, ms));
+          const adjustedMs = Math.min(validMs, state.beepFirstInterval);
+          return { beepFinalInterval: adjustedMs };
+        }),
+        
+        setBeepVolume: (volume) => set({
+          // Validate range: 0-1
+          beepVolume: Math.max(0, Math.min(1, volume))
+        }),
         
         startGame: () => set((state) => {
           // Determine actual timer duration based on settings
@@ -425,6 +476,12 @@ export const useGameStore = create<GameState>()(
         timerRangeMax: state.timerRangeMax,
         skipLimit: state.skipLimit,
         buzzerSound: state.buzzerSound,
+        // Beep ramp settings
+        enableBeepRamp: state.enableBeepRamp,
+        beepRampStart: state.beepRampStart,
+        beepFirstInterval: state.beepFirstInterval,
+        beepFinalInterval: state.beepFinalInterval,
+        beepVolume: state.beepVolume,
         phraseStats: state.phraseStats
       }),
       // Ensure proper merging of async storage to avoid race conditions
@@ -440,6 +497,12 @@ export const useGameStore = create<GameState>()(
           timerRangeMax: persisted.timerRangeMax ?? currentState.timerRangeMax,
           skipLimit: persisted.skipLimit ?? currentState.skipLimit,
           buzzerSound: persisted.buzzerSound ?? currentState.buzzerSound,
+          // Beep ramp settings
+          enableBeepRamp: persisted.enableBeepRamp ?? currentState.enableBeepRamp,
+          beepRampStart: persisted.beepRampStart ?? currentState.beepRampStart,
+          beepFirstInterval: persisted.beepFirstInterval ?? currentState.beepFirstInterval,
+          beepFinalInterval: persisted.beepFinalInterval ?? currentState.beepFinalInterval,
+          beepVolume: persisted.beepVolume ?? currentState.beepVolume,
           phraseStats: persisted.phraseStats && Object.keys(persisted.phraseStats).length > 0
             ? persisted.phraseStats
             : currentState.phraseStats
