@@ -12,7 +12,18 @@ async function testCustomCategoryWorkflow() {
   try {
     // Step 1: Test sample words request (simulating what the UI does)
     console.log('Step 1: Testing sample words request...');
-    const sampleWordsPrompt = `Generate 5 sample words that would fit in the category "Test Category for Production". Return only the words, one per line, no numbering or formatting.`;
+    const sampleWordsPrompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
+
+Task  
+Generate exactly 3 example words or short phrases for the category **Test Category for Production**. These are sample items to show what this category contains.
+
+Rules:
+- Each should be 1-3 words maximum  
+- Family-friendly only (no profanity, politics, or adult themes)
+- Representative examples that clearly belong to "Test Category for Production"
+- Return only the items, one per line, no numbering or formatting
+
+Begin.`;
     const sampleWordsResponse = await fetch(PRODUCTION_URL, {
       method: 'POST',
       headers: {
@@ -20,8 +31,8 @@ async function testCustomCategoryWorkflow() {
       },
       body: JSON.stringify({
         prompt: sampleWordsPrompt,
-        category: 'sample',
-        phraseCount: 5
+        category: 'Test Category for Production',
+        phraseCount: 3
       })
     });
     
@@ -46,16 +57,28 @@ async function testCustomCategoryWorkflow() {
     
     // Step 2: Test full category generation
     console.log('Step 2: Testing full category generation...');
-    const fullCategoryPrompt = `Generate 20 unique, fun, and challenging phrases for a party game similar to "Catch Phrase" in the category "Test Category for Production".
+    const fullCategoryPrompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
 
-Rules:
-- Each phrase should be 1-4 words
-- Suitable for all ages
-- Not too obvious but not impossibly obscure
-- No proper names or very specific references
-- Return only the phrases, one per line, no numbering or formatting
+Task  
+1. Given the category **Test Category for Production**, output **30-50 unique English phrases** (2–6 words each).  
+2. Every phrase must be recognisably tied to that category; if an item feels too niche, swap it for a well-known, adjacent concept rather than something obscure.  
+3. Family-friendly only (no profanity, politics, or adult themes).  
+4. No duplicates; avoid starting more than twice with the same word.
 
-Category: Test Category for Production`;
+Output  
+Return **only** valid JSON:
+
+[
+  "First phrase",
+  "Second phrase",
+  …
+]
+
+Hidden work  
+Think silently. After drafting, verify:
+• 30–50 items • 2–6 words each • ≥80 % on-category • no repeats.
+
+Begin.`;
     
     const fullCategoryResponse = await fetch(PRODUCTION_URL, {
       method: 'POST',
@@ -65,7 +88,7 @@ Category: Test Category for Production`;
       body: JSON.stringify({
         prompt: fullCategoryPrompt,
         category: 'Test Category for Production',
-        phraseCount: 20
+        phraseCount: 50
       })
     });
     
@@ -78,11 +101,29 @@ Category: Test Category for Production`;
     
     const fullCategoryData = await fullCategoryResponse.json();
     
-    // Parse the phrases from the response
-    const generatedPhrases = fullCategoryData.candidates?.[0]?.content?.parts?.[0]?.text
-      ?.split('\n')
-      .map(line => line.trim())
-      .filter(line => line.length > 0) || [];
+    // Parse the phrases from the response (try JSON first, fallback to line-by-line)
+    const responseText = fullCategoryData.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    let generatedPhrases = [];
+    
+    try {
+      // Try to parse as JSON first (new PhraseMachine format)
+      const jsonMatch = responseText.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        const jsonArray = JSON.parse(jsonMatch[0]);
+        if (Array.isArray(jsonArray)) {
+          generatedPhrases = jsonArray
+            .map(phrase => String(phrase).trim())
+            .filter(phrase => phrase.length > 0);
+        }
+      }
+    } catch (error) {
+      console.log('Response not in JSON format, falling back to line-by-line parsing');
+      // Fallback to line-by-line parsing
+      generatedPhrases = responseText
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line.length > 0);
+    }
     
     console.log('✅ Full category generated:', {
       phrasesCount: generatedPhrases.length,

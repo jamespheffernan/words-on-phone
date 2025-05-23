@@ -127,16 +127,18 @@ export class CategoryRequestService {
     await this.saveRequest(request);
 
     try {
-      const prompt = `Generate ${SAMPLE_WORDS_COUNT} example words or short phrases (1-3 words each) for the category "${categoryName}". These should be representative examples that would appear in a party game like "Catch Phrase".
+      const prompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
+
+Task  
+Generate exactly ${SAMPLE_WORDS_COUNT} example words or short phrases for the category **${categoryName}**. These are sample items to show what this category contains.
 
 Rules:
-- Return only the words/phrases, one per line
-- No numbering, bullets, or extra formatting
-- Each should be 1-3 words maximum
-- Suitable for all ages
-- Representative of the category "${categoryName}"
+- Each should be 1-3 words maximum  
+- Family-friendly only (no profanity, politics, or adult themes)
+- Representative examples that clearly belong to "${categoryName}"
+- Return only the items, one per line, no numbering or formatting
 
-Category: ${categoryName}`;
+Begin.`;
 
       const response = await this.callGemini(prompt, categoryName);
       const sampleWords = this.parseWordsFromResponse(response);
@@ -181,19 +183,28 @@ Category: ${categoryName}`;
     }
 
     try {
-      const prompt = `Generate ${PHRASES_PER_CATEGORY} unique, challenging phrases for a party game like "Catch Phrase" in the category "${categoryName}".
+      const prompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
 
-Reference examples: ${sampleWords.join(', ')}
+Task  
+1. Given the category **${categoryName}**, output **30-50 unique English phrases** (2–6 words each).  
+2. Every phrase must be recognisably tied to that category; if an item feels too niche, swap it for a well-known, adjacent concept rather than something obscure.  
+3. Family-friendly only (no profanity, politics, or adult themes).  
+4. No duplicates; avoid starting more than twice with the same word.
 
-Rules:
-- Each phrase should be 1-4 words
-- Suitable for all ages
-- Not too obvious but not impossibly obscure
-- No proper names or very specific references
-- Return only the phrases, one per line, no numbering or formatting
-- Make them fun and engaging for a party game
+Output  
+Return **only** valid JSON:
 
-Category: ${categoryName}`;
+[
+  "First phrase",
+  "Second phrase",
+  …
+]
+
+Hidden work  
+Think silently. After drafting, verify:
+• 30–50 items • 2–6 words each • ≥80 % on-category • no repeats.
+
+Begin.`;
 
       const response = await this.callGemini(prompt, categoryName);
       const phraseTexts = this.parsePhrasesFromResponse(response);
@@ -312,6 +323,23 @@ Category: ${categoryName}`;
   }
 
   private parsePhrasesFromResponse(response: string): string[] {
+    // Try to parse as JSON first (new PhraseMachine format)
+    try {
+      const jsonMatch = response.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        const jsonArray = JSON.parse(jsonMatch[0]);
+        if (Array.isArray(jsonArray)) {
+          return jsonArray
+            .map(phrase => String(phrase).trim())
+            .filter(phrase => phrase.length > 0 && phrase.length <= 100)
+            .slice(0, PHRASES_PER_CATEGORY);
+        }
+      }
+    } catch (error) {
+      console.log('Response not in JSON format, falling back to line-by-line parsing');
+    }
+
+    // Fallback to line-by-line parsing (legacy format)
     return response
       .split('\n')
       .map(line => line.trim())
