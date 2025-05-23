@@ -242,9 +242,91 @@ Category: ${categoryName}`;
   }
 
   async getAllCustomCategories(): Promise<string[]> {
-    const allCustomPhrases = await this.getCustomPhrases();
-    const categories = new Set(allCustomPhrases.map(phrase => phrase.customCategory));
-    return Array.from(categories).sort();
+    try {
+      const customPhrases = await this.getAllCustomPhrasesFromDB();
+      const categories = [...new Set(customPhrases.map(p => p.customCategory))];
+      return categories.sort();
+    } catch (error) {
+      console.warn('Failed to get custom categories:', error);
+      return [];
+    }
+  }
+
+  // Delete methods for custom categories
+  async deleteCustomCategory(categoryName: string): Promise<void> {
+    try {
+      // Delete all phrases for this category
+      await this.deleteCustomPhrasesByCategory(categoryName);
+      
+      // Delete the category request
+      const requestId = this.generateRequestId(categoryName);
+      await this.deleteRequest(requestId);
+      
+      console.log(`Deleted custom category: ${categoryName}`);
+    } catch (error) {
+      console.error('Failed to delete custom category:', error);
+      throw error;
+    }
+  }
+
+  private async deleteCustomPhrasesByCategory(categoryName: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const dbRequest = indexedDB.open(this.dbName, 1);
+      
+      dbRequest.onsuccess = () => {
+        const db = dbRequest.result;
+        const transaction = db.transaction([this.phrasesStoreName], 'readwrite');
+        const store = transaction.objectStore(this.phrasesStoreName);
+        
+        // Get all phrases and delete the ones matching this category
+        const getAllRequest = store.getAll();
+        getAllRequest.onsuccess = () => {
+          const allPhrases = getAllRequest.result as CustomCategoryPhrase[];
+          const phrasesToDelete = allPhrases.filter(p => p.customCategory === categoryName);
+          
+          if (phrasesToDelete.length === 0) {
+            resolve();
+            return;
+          }
+          
+          let completed = 0;
+          const total = phrasesToDelete.length;
+          
+          phrasesToDelete.forEach(phrase => {
+            const deleteRequest = store.delete(phrase.phraseId);
+            deleteRequest.onsuccess = () => {
+              completed++;
+              if (completed === total) resolve();
+            };
+            deleteRequest.onerror = () => {
+              completed++;
+              if (completed === total) resolve();
+            };
+          });
+        };
+        getAllRequest.onerror = () => reject(getAllRequest.error);
+      };
+      
+      dbRequest.onerror = () => reject(dbRequest.error);
+    });
+  }
+
+  private async deleteRequest(requestId: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const dbRequest = indexedDB.open(this.dbName, 1);
+      
+      dbRequest.onsuccess = () => {
+        const db = dbRequest.result;
+        const transaction = db.transaction([this.requestsStoreName], 'readwrite');
+        const store = transaction.objectStore(this.requestsStoreName);
+        
+        const deleteRequest = store.delete(requestId);
+        deleteRequest.onsuccess = () => resolve();
+        deleteRequest.onerror = () => reject(deleteRequest.error);
+      };
+      
+      dbRequest.onerror = () => reject(dbRequest.error);
+    });
   }
 
   // Private helper methods

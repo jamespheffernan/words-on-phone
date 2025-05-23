@@ -99,7 +99,7 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
     <div className="category-request-overlay" onClick={handleClose}>
       <div className="category-request-modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Request Custom Category</h2>
+          <h2>🎯 Request Custom Category</h2>
           <button 
             className="close-button" 
             onClick={handleClose}
@@ -133,7 +133,7 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
                   Cancel
                 </button>
                 <button type="submit" className="preview-button" disabled={!state.categoryName.trim()}>
-                  Get Sample Words
+                  🔍 Get Sample Words
                 </button>
               </div>
             </form>
@@ -156,10 +156,10 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
               </p>
               <div className="form-actions">
                 <button onClick={handleStartOver} className="back-button">
-                  Try Different Category
+                  ← Try Different Category
                 </button>
                 <button onClick={handleConfirmGeneration} className="generate-button">
-                  Generate Full Category
+                  ✨ Generate Full Category
                 </button>
               </div>
             </div>
@@ -169,36 +169,36 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
             <div className="generating-phase">
               <div className="loading-spinner"></div>
               <p>Generating phrases for "{state.categoryName}"...</p>
-              <p className="loading-note">This may take a few moments.</p>
+              <p className="loading-note">This may take a few moments while AI creates your custom phrases.</p>
             </div>
           )}
 
           {state.phase === 'success' && (
             <div className="success-phase">
-              <div className="success-icon">✅</div>
+              <div className="success-icon">🎉</div>
               <h3>Category Generated!</h3>
               <p>
                 Successfully generated <strong>{state.generatedCount}</strong> phrases 
                 for "<strong>{state.categoryName}</strong>".
               </p>
               <p className="success-note">
-                These phrases are now available in your game. Select "Everything" 
-                or the specific category to use them.
+                These phrases are now available in your game! Look for the golden category 
+                with the ✨ sparkle in your category selection.
               </p>
               <button onClick={handleClose} className="done-button">
-                Done
+                🎯 Start Playing!
               </button>
             </div>
           )}
 
           {state.phase === 'error' && (
             <div className="error-phase">
-              <div className="error-icon">❌</div>
+              <div className="error-icon">⚠️</div>
               <h3>Request Failed</h3>
               <p className="error-message">{state.error}</p>
               <div className="form-actions">
                 <button onClick={handleStartOver} className="retry-button">
-                  Try Again
+                  🔄 Try Again
                 </button>
                 <button onClick={handleClose} className="cancel-button">
                   Cancel

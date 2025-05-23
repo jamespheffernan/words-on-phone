@@ -33,7 +33,7 @@ initializeFirebaseAnalytics();
 
 // Analytics event types for game
 export interface RoundStartEvent {
-  category: PhraseCategory;
+  category: PhraseCategory | string;
   timer_duration: number;
   show_timer: boolean;
   use_random_timer: boolean;
@@ -45,21 +45,21 @@ export interface RoundStartEvent {
 
 export interface PhraseSuccessEvent {
   phrase_id: string;
-  category: PhraseCategory;
+  category: PhraseCategory | string;
   time_taken_ms: number;
   attempts_before_success: number;
 }
 
 export interface PhraseTimeoutEvent {
   phrase_id: string;
-  category: PhraseCategory;
+  category: PhraseCategory | string;
   time_on_phrase_ms: number;
   total_phrases_attempted: number;
 }
 
 export interface SkipLimitReachedEvent {
   phrase_id: string;
-  category: PhraseCategory;
+  category: PhraseCategory | string;
   skips_used: number;
   skip_limit: number;
 }

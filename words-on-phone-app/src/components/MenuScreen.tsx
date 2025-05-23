@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGameStore, BUZZER_SOUNDS } from '../store';
 import { PhraseCategory } from '../data/phrases';
 import { HowToPlayModal } from './HowToPlayModal';
@@ -46,6 +46,7 @@ export const MenuScreen: React.FC = () => {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showCategoryRequest, setShowCategoryRequest] = useState(false);
+  const [customCategories, setCustomCategories] = useState<string[]>([]);
 
   // Audio hook for testing buzzer sounds
   const testBuzzer = useAudio(buzzerSound, { volume: 0.4 });
@@ -55,6 +56,20 @@ export const MenuScreen: React.FC = () => {
 
   const categories = Object.values(PhraseCategory);
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
+
+  // Load custom categories on mount
+  useEffect(() => {
+    const loadCustomCategories = async () => {
+      try {
+        const customCats = await phraseService.getCustomCategories();
+        setCustomCategories(customCats);
+      } catch (error) {
+        console.warn('Failed to load custom categories:', error);
+      }
+    };
+    
+    loadCustomCategories();
+  }, []);
 
   const handleTestBuzzer = async () => {
     try {
@@ -123,10 +138,47 @@ export const MenuScreen: React.FC = () => {
       // Refresh phrase service to include new custom phrases
       await phraseService.refreshCustomPhrases();
       
+      // Refresh custom categories list to include the new category
+      const updatedCustomCategories = await phraseService.getCustomCategories();
+      setCustomCategories(updatedCustomCategories);
+      
       console.log(`Generated ${customPhrases.length} phrases for category: ${categoryName}`);
     } catch (error) {
       console.error('Category generation failed:', error);
       throw error;
+    }
+  };
+
+  const handleDeleteCustomCategory = async (categoryName: string): Promise<void> => {
+    // Show confirmation dialog
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete the custom category "${categoryName}"?\n\nThis will permanently remove all phrases in this category and cannot be undone.`
+    );
+    
+    if (!confirmDelete) {
+      return;
+    }
+    
+    try {
+      await categoryRequestService.deleteCustomCategory(categoryName);
+      
+      // Update phrase service to remove from cache
+      await phraseService.handleCustomCategoryDeleted(categoryName);
+      
+      // Refresh custom categories list
+      const updatedCustomCategories = await phraseService.getCustomCategories();
+      setCustomCategories(updatedCustomCategories);
+      
+      // If the deleted category was selected, switch to "Everything"
+      if (selectedCategory === categoryName) {
+        setCategory(PhraseCategory.EVERYTHING);
+      }
+      
+      console.log(`Deleted custom category: ${categoryName}`);
+    } catch (error) {
+      console.error('Failed to delete custom category:', error);
+      // You could add a toast notification here for user feedback
+      alert(`Failed to delete category "${categoryName}". Please try again.`);
     }
   };
 
@@ -151,7 +203,34 @@ export const MenuScreen: React.FC = () => {
                 {category}
               </button>
             ))}
+            {customCategories.map(customCategory => (
+              <div key={`custom-${customCategory}`} className="custom-category-container">
+                <button
+                  className={`category-button custom-category ${selectedCategory === customCategory ? 'selected' : ''}`}
+                  onClick={() => setCategory(customCategory)}
+                  aria-label={`Select ${customCategory} custom category`}
+                >
+                  {customCategory} ✨
+                </button>
+                <button
+                  className="delete-category-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteCustomCategory(customCategory);
+                  }}
+                  aria-label={`Delete ${customCategory} category`}
+                  title={`Delete ${customCategory}`}
+                >
+                  ×
+                </button>
+              </div>
+            ))}
           </div>
+          {customCategories.length > 0 && (
+            <p className="custom-categories-note">
+              ✨ = Custom categories you've created • Click × to delete
+            </p>
+          )}
         </section>
 
         <button

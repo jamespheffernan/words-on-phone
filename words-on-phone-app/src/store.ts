@@ -38,7 +38,7 @@ interface GameState {
   // Phrase management
   cursor: PhraseCursor<string>;
   currentPhrase: string;
-  selectedCategory: PhraseCategory;
+  selectedCategory: PhraseCategory | string; // Allow custom categories
   
   // Game settings
   timerDuration: number; // in seconds (30-90)
@@ -73,7 +73,7 @@ interface GameState {
   // Actions
   nextPhrase: () => void;
   skipPhrase: () => void;
-  setCategory: (category: PhraseCategory) => void;
+  setCategory: (category: PhraseCategory | string) => void;
   setTimerDuration: (seconds: number) => void;
   setShowTimer: (show: boolean) => void;
   setUseRandomTimer: (useRandom: boolean) => void;
