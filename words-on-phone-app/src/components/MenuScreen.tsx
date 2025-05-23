@@ -40,8 +40,15 @@ export const MenuScreen: React.FC = () => {
   const categories = Object.values(PhraseCategory);
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
 
-  const handleTestBuzzer = () => {
-    testBuzzer.play().catch(console.warn);
+  const handleTestBuzzer = async () => {
+    try {
+      console.log('Testing buzzer sound:', buzzerSound);
+      await testBuzzer.play();
+      console.log('Buzzer test successful');
+    } catch (error) {
+      console.warn('Buzzer test failed:', error);
+      // You could add a toast notification here for user feedback
+    }
   };
 
   const handleCategoryRequest = async (categoryName: string): Promise<string[]> => {

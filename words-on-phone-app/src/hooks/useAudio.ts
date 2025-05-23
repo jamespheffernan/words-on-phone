@@ -12,19 +12,30 @@ interface UseAudioOptions {
   preload?: boolean;
 }
 
+// Global audio context to prevent multiple instances
+let globalAudioContext: AudioContext | null = null;
+
+const getAudioContext = async (): Promise<AudioContext> => {
+  if (!globalAudioContext || globalAudioContext.state === 'closed') {
+    globalAudioContext = new (window.AudioContext || window.webkitAudioContext!)();
+  }
+  
+  // Resume context if suspended (required by browser autoplay policies)
+  if (globalAudioContext.state === 'suspended') {
+    await globalAudioContext.resume();
+  }
+  
+  return globalAudioContext;
+};
+
 export const useAudio = (soundName: string, options: UseAudioOptions = {}) => {
   const { volume = 0.8, preload = true } = options;
-  const audioContextRef = useRef<AudioContext | null>(null);
   const audioBufferRef = useRef<AudioBuffer | null>(null);
   const isLoadedRef = useRef(false);
 
   // Create synthetic buzzer sounds using Web Audio API
-  const createBuzzerSound = useCallback((type: string): AudioBuffer => {
-    if (!audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext!)();
-    }
-
-    const ctx = audioContextRef.current;
+  const createBuzzerSound = useCallback(async (type: string): Promise<AudioBuffer> => {
+    const ctx = await getAudioContext();
     const sampleRate = ctx.sampleRate;
     const duration = 1.5; // 1.5 seconds
     const bufferLength = sampleRate * duration;
@@ -73,33 +84,27 @@ export const useAudio = (soundName: string, options: UseAudioOptions = {}) => {
   // Load sound
   useEffect(() => {
     if (preload && !isLoadedRef.current) {
-      try {
-        audioBufferRef.current = createBuzzerSound(soundName);
-        isLoadedRef.current = true;
-      } catch (error) {
-        console.warn('Failed to create audio buffer:', error);
-      }
+      createBuzzerSound(soundName)
+        .then(buffer => {
+          audioBufferRef.current = buffer;
+          isLoadedRef.current = true;
+        })
+        .catch(error => {
+          console.warn('Failed to create audio buffer:', error);
+        });
     }
   }, [soundName, preload, createBuzzerSound]);
 
   const play = useCallback(async () => {
     try {
-      if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext!)();
-      }
-
-      const ctx = audioContextRef.current;
-
-      // Resume audio context if suspended (required by browser autoplay policies)
-      if (ctx.state === 'suspended') {
-        await ctx.resume();
-      }
+      const ctx = await getAudioContext();
 
       // Create or use existing buffer
       let buffer = audioBufferRef.current;
       if (!buffer) {
-        buffer = createBuzzerSound(soundName);
+        buffer = await createBuzzerSound(soundName);
         audioBufferRef.current = buffer;
+        isLoadedRef.current = true;
       }
 
       // Create source and gain nodes
@@ -123,10 +128,11 @@ export const useAudio = (soundName: string, options: UseAudioOptions = {}) => {
     }
   }, [soundName, volume, createBuzzerSound]);
 
-  const preloadSound = useCallback(() => {
+  const preloadSound = useCallback(async () => {
     if (!isLoadedRef.current) {
       try {
-        audioBufferRef.current = createBuzzerSound(soundName);
+        const buffer = await createBuzzerSound(soundName);
+        audioBufferRef.current = buffer;
         isLoadedRef.current = true;
       } catch (error) {
         console.warn('Failed to preload audio:', error);
@@ -134,14 +140,8 @@ export const useAudio = (soundName: string, options: UseAudioOptions = {}) => {
     }
   }, [soundName, createBuzzerSound]);
 
-  // Cleanup
-  useEffect(() => {
-    return () => {
-      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
-        audioContextRef.current.close();
-      }
-    };
-  }, []);
+  // No cleanup effect needed since we're using a global context
+  // The browser will handle cleanup when the tab/window closes
 
   return {
     play,
