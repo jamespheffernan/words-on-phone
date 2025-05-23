@@ -9,7 +9,7 @@ describe('Phrase Engine', () => {
     // Act
     shufflePhrases(testPhrases);
     const cursor = new PhraseCursor(testPhrases);
-    let seen = new Set();
+    const seen = new Set();
     for (let i = 0; i < testPhrases.length; i++) {
       seen.add(cursor.next());
     }
