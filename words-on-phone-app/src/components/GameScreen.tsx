@@ -5,6 +5,7 @@ import { useAudio } from '../hooks/useAudio';
 import { useHaptics } from '../hooks/useHaptics';
 import { useBeepAudio } from '../hooks/useBeepAudio';
 import { useBeepRamp } from '../hooks/useBeepRamp';
+import { useBackgroundWarning } from '../hooks/useBackgroundWarning';
 import './GameScreen.css';
 
 export const GameScreen: React.FC = () => {
@@ -113,8 +114,21 @@ export const GameScreen: React.FC = () => {
   const progress = (displayTime / actualTimerDuration) * 100;
   const isLowTime = displayTime <= 10;
 
+  // Background warning system
+  const backgroundWarning = useBackgroundWarning({
+    timeRemaining: displayTime,
+    totalDuration: actualTimerDuration,
+    enabled: true // Always enabled for now, will add setting later
+  });
+
   return (
-    <main className={`game-screen ${!showTimer ? 'hidden-timer-mode' : ''}`}>
+    <main 
+      className={`game-screen ${!showTimer ? 'hidden-timer-mode' : ''}`}
+      style={{
+        background: backgroundWarning.backgroundStyle,
+        transition: 'background 0.3s ease-in-out'
+      }}
+    >
       <header className="game-header">
         <div className="game-controls">
           <button 

@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 100vh;
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Background is now set dynamically via inline styles with warning system */
   color: white;
 }
 
@@ -62,7 +62,8 @@
   height: 60px;
   border-radius: 50%;
   background: inherit;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Background now inherits from parent game-screen background */
+  background: inherit;
 }
 
 .timer-text {
@@ -222,29 +223,36 @@
   }
 }
 
-/* Dark mode support */
+/* Dark mode support - removed static backgrounds as they're now dynamic */
 @media (prefers-color-scheme: dark) {
-  .game-screen {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  }
-  
-  .timer-circle::before {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  }
+  /* Dark mode colors are handled by the warning system */
 }
 
-/* Hidden timer mode styles */
+/* Hidden timer mode styles - now uses dynamic background with subtle overlay */
 .game-screen.hidden-timer-mode {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Background is set dynamically, add subtle overlay for hidden timer indication */
+  position: relative;
+}
+
+.game-screen.hidden-timer-mode::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.02);
   animation: subtlePulse 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
 }
 
 @keyframes subtlePulse {
   0%, 100% {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: rgba(255, 255, 255, 0.02);
   }
   50% {
-    background: linear-gradient(135deg, #7681eb 0%, #8556a3 100%);
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 
