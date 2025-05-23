@@ -12,7 +12,8 @@ export const useBeepAudio = (options: BeepAudioOptions) => {
   const initializeAudio = useCallback(() => {
     if (!audioContextRef.current) {
       // Use webkitAudioContext for Safari compatibility
-      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      const AudioContextClass = window.AudioContext || 
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       audioContextRef.current = new AudioContextClass();
       
       // Create gain node for volume control

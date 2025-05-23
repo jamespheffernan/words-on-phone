@@ -3,6 +3,8 @@ import { useGameStore } from '../store';
 import { useTimer } from '../hooks/useTimer';
 import { useAudio } from '../hooks/useAudio';
 import { useHaptics } from '../hooks/useHaptics';
+import { useBeepAudio } from '../hooks/useBeepAudio';
+import { useBeepRamp } from '../hooks/useBeepRamp';
 import './GameScreen.css';
 
 export const GameScreen: React.FC = () => {
@@ -21,11 +23,23 @@ export const GameScreen: React.FC = () => {
     isTimerRunning,
     setTimeRemaining,
     onTimerComplete,
-    buzzerSound
+    buzzerSound,
+    // Beep ramp settings
+    enableBeepRamp,
+    beepRampStart,
+    beepFirstInterval,
+    beepFinalInterval,
+    beepVolume
   } = useGameStore();
 
   // Audio hook for buzzer sound
   const buzzer = useAudio(buzzerSound, { volume: 0.6, preload: true });
+
+  // Beep audio hook for ramp beeps
+  const beepAudio = useBeepAudio({ 
+    volume: beepVolume, 
+    enabled: enableBeepRamp 
+  });
 
   // Haptics hook for mobile feedback
   const { triggerNotification } = useHaptics();
@@ -42,6 +56,30 @@ export const GameScreen: React.FC = () => {
       setTimeRemaining(remaining);
     }
   });
+
+  // Beep ramp system
+  const beepRamp = useBeepRamp({
+    remainingMs: timer.timeRemainingMs,
+    beepConfig: {
+      rampStartMs: beepRampStart * 1000, // convert seconds to ms
+      firstInterval: beepFirstInterval,
+      finalInterval: beepFinalInterval
+    },
+    enabled: enableBeepRamp && timer.isRunning && !timer.isPaused,
+    onBeep: () => {
+      beepAudio.playBeep().catch(console.warn);
+    }
+  });
+
+  // Debug info for beep system
+  if (process.env.NODE_ENV === 'development') {
+    console.debug('Beep ramp status:', {
+      isActive: beepRamp.isBeepRampActive,
+      currentInterval: beepRamp.currentInterval,
+      nextBeepIn: beepRamp.nextBeepIn,
+      remainingMs: timer.timeRemainingMs
+    });
+  }
 
   // Sync timer with game state
   useEffect(() => {
