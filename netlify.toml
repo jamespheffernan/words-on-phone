@@ -1,8 +1,8 @@
 [build]
   base = "words-on-phone-app"
-  publish = "words-on-phone-app/dist"
+  publish = "dist"
   command = "npm run build"
-  functions = "words-on-phone-app/netlify/functions"
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/*"
