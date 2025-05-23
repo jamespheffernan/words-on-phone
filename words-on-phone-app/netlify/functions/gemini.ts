@@ -59,28 +59,43 @@ export const handler: Handler = async (event, context) => {
     }
 
     // Use the provided model or default
-    const model = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+    const model = process.env.GEMINI_MODEL || 'gemini-1.5-flash-latest';
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+
+    const requestBody = {
+      contents: [{
+        parts: [{
+          text: prompt
+        }]
+      }],
+      generationConfig: {
+        temperature: 0.8,
+        maxOutputTokens: 500,
+      },
+    };
+
+    console.log('Making request to Gemini API:', {
+      url: `${apiUrl}?key=${apiKey.substring(0, 10)}...`,
+      model,
+      promptLength: prompt.length
+    });
 
     const response = await fetch(`${apiUrl}?key=${apiKey}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: prompt
-          }]
-        }],
-        generationConfig: {
-          temperature: 0.8,
-          maxOutputTokens: 500,
-        },
-      }),
+      body: JSON.stringify(requestBody),
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Gemini API error response:', {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorText
+      });
+      
       if (response.status === 401) {
         return {
           statusCode: 401,
@@ -102,7 +117,10 @@ export const handler: Handler = async (event, context) => {
       } else {
         return {
           statusCode: 500,
-          body: JSON.stringify({ error: `Gemini API error: ${response.status} ${response.statusText}` }),
+          body: JSON.stringify({ 
+            error: `Gemini API error: ${response.status} ${response.statusText}`,
+            details: errorText 
+          }),
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
