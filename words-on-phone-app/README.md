@@ -65,16 +65,16 @@ A React-based party game app similar to "Catch Phrase" where players guess phras
 
 ## Environment Setup
 
-### Required Environment Variables
+### Required Environment Variables (Server-side)
 
-For full functionality including custom categories, you need to configure:
+For full functionality including custom categories, you need to configure these environment variables **in your hosting platform** (e.g., Netlify):
 
 ```bash
-# .env.local (create this file in the project root)
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
+# Required for custom category generation (Server-side only)
+GEMINI_API_KEY=your_gemini_api_key_here
 
 # Optional overrides
-VITE_GEMINI_MODEL=gemini-1.5-flash
+GEMINI_MODEL=gemini-1.5-flash
 ```
 
 ### Getting a Gemini API Key
@@ -82,7 +82,9 @@ VITE_GEMINI_MODEL=gemini-1.5-flash
 1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
 2. Sign in with your Google account
 3. Create a new API key
-4. Copy the key to your `.env.local` file
+4. Add the key to your hosting platform's environment variables
+
+> **Security Note**: The API key is handled securely through serverless functions and never exposed in the client-side code.
 
 > **Note**: The app works without an API key, but custom category generation will be unavailable.
 
@@ -106,17 +108,24 @@ npm test
 
 ### Netlify Deployment
 
-1. **Environment Variables**: Set `VITE_GEMINI_API_KEY` in Netlify's environment variables
+1. **Environment Variables**: Set `GEMINI_API_KEY` (without `VITE_` prefix) in Netlify's environment variables
 2. **Build Settings**:
    - Base directory: `words-on-phone-app`
    - Build command: `npm run build`
    - Publish directory: `words-on-phone-app/dist`
 
+### Security
+
+- API keys are handled server-side through Netlify Functions
+- No sensitive credentials are exposed in the client-side bundle
+- CORS headers are properly configured for secure API communication
+
 ### Other Platforms
 
-The app can be deployed to any static hosting service. Just ensure:
-- Environment variables are properly configured
-- Build assets are served from the correct directory
+The app can be deployed to any static hosting service that supports serverless functions. You'll need to:
+- Adapt the `netlify/functions/gemini.ts` for your platform's serverless function format
+- Configure environment variables on your hosting platform
+- Ensure CORS headers are properly set
 
 ## Features Overview
 
@@ -127,7 +136,7 @@ The app can be deployed to any static hosting service. Just ensure:
 - Score tracking
 
 ### Custom Categories (Requires API Key)
-- AI-generated phrase categories
+- AI-generated phrase categories via secure serverless functions
 - Preview sample words before generation
 - Seamless integration with existing categories
 

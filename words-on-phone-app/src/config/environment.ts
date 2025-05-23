@@ -1,9 +1,8 @@
 // Environment configuration for the app
 export const env = {
-  // Gemini API configuration
-  GEMINI_API_KEY: import.meta.env.VITE_GEMINI_API_KEY || '',
+  // Gemini API configuration - API key now handled by serverless function
   GEMINI_MODEL: import.meta.env.VITE_GEMINI_MODEL || 'gemini-1.5-flash',
-  GEMINI_API_URL: 'https://generativelanguage.googleapis.com/v1beta/models',
+  GEMINI_API_URL: '/netlify/functions/gemini', // Local serverless function endpoint
   
   // Development/production flags
   IS_DEVELOPMENT: import.meta.env.DEV,
@@ -20,9 +19,8 @@ export const env = {
 export const validateEnvironment = () => {
   const errors: string[] = [];
   
-  if (!env.GEMINI_API_KEY && env.IS_PRODUCTION) {
-    errors.push('VITE_GEMINI_API_KEY is required in production');
-  }
+  // No client-side validation needed for API key since it's handled server-side
+  // The serverless function will handle API key validation
   
   if (errors.length > 0) {
     console.error('Environment validation failed:', errors);
@@ -32,7 +30,7 @@ export const validateEnvironment = () => {
   return true;
 };
 
-// Helper to check if Gemini API is available
+// Helper to check if Gemini API is available (always true for serverless function)
 export const isGeminiAvailable = () => {
-  return !!env.GEMINI_API_KEY;
+  return true; // Serverless function handles availability
 }; 

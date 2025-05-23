@@ -21,10 +21,8 @@ interface FetchedPhrase {
   fetchedAt: number;
 }
 
-// Environment configuration - accessed directly in worker
-const GEMINI_API_KEY = import.meta.env?.VITE_GEMINI_API_KEY || '';
-const GEMINI_MODEL = import.meta.env?.VITE_GEMINI_MODEL || 'gemini-1.5-flash';
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+// Environment configuration - now uses serverless function
+const GEMINI_API_URL = '/netlify/functions/gemini'; // Serverless function endpoint
 
 const FETCH_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 const DAILY_QUOTA_LIMIT = 1000;
@@ -101,12 +99,6 @@ class PhraseWorker {
       // Check daily quota
       if (await this.isDailyQuotaExceeded()) {
         this.postMessage({ type: 'FETCH_SKIPPED', reason: 'quota_exceeded' });
-        return;
-      }
-
-      // Check if API key is available
-      if (!GEMINI_API_KEY) {
-        this.postMessage({ type: 'FETCH_SKIPPED', reason: 'no_api_key' });
         return;
       }
 
@@ -191,21 +183,15 @@ class PhraseWorker {
     
     Category: ${randomCategory}`;
 
-    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+    const response = await fetch(GEMINI_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: prompt
-          }]
-        }],
-        generationConfig: {
-          temperature: 0.8,
-          maxOutputTokens: 500,
-        },
+        prompt,
+        category: randomCategory,
+        phraseCount: PHRASES_PER_REQUEST,
       }),
       signal: this.abortController?.signal,
     });
@@ -320,7 +306,7 @@ class PhraseWorker {
           dailyQuotaLimit: DAILY_QUOTA_LIMIT_REQ,
           fetchedPhrasesCount: phrasesCount,
           nextFetchIn: Math.max(0, FETCH_INTERVAL_MS - (Date.now() - lastFetch)),
-          apiKeyAvailable: !!GEMINI_API_KEY,
+          apiKeyAvailable: true,
         }
       });
     } catch (error) {

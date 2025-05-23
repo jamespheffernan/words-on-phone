@@ -35,7 +35,7 @@ interface GeminiResponse {
   }>;
 }
 
-const GEMINI_API_URL = `${env.GEMINI_API_URL}/${env.GEMINI_MODEL}:generateContent`;
+const GEMINI_API_URL = env.GEMINI_API_URL; // Now points to serverless function
 const DAILY_QUOTA_LIMIT = env.DAILY_CATEGORY_QUOTA;
 const SAMPLE_WORDS_COUNT = 3;
 const PHRASES_PER_CATEGORY = env.PHRASES_PER_CATEGORY;
@@ -113,10 +113,6 @@ export class CategoryRequestService {
       throw new Error(quotaCheck.reason || 'Cannot make request at this time');
     }
 
-    if (!env.GEMINI_API_KEY) {
-      throw new Error('Gemini API is not configured. Custom categories are temporarily unavailable.');
-    }
-
     // Create request record
     const requestId = this.generateRequestId(categoryName);
     const request: CustomCategoryRequest = {
@@ -142,7 +138,7 @@ Rules:
 
 Category: ${categoryName}`;
 
-      const response = await this.callGemini(prompt);
+      const response = await this.callGemini(prompt, categoryName);
       const sampleWords = this.parseWordsFromResponse(response);
 
       if (sampleWords.length < 2) {
@@ -167,10 +163,6 @@ Category: ${categoryName}`;
   }
 
   async generateFullCategory(categoryName: string, sampleWords: string[]): Promise<CustomCategoryPhrase[]> {
-    if (!env.GEMINI_API_KEY) {
-      throw new Error('Gemini API is not configured');
-    }
-
     // Find existing request
     const requestId = this.generateRequestId(categoryName);
     let existingRequest = await this.getRequest(requestId);
@@ -203,7 +195,7 @@ Rules:
 
 Category: ${categoryName}`;
 
-      const response = await this.callGemini(prompt);
+      const response = await this.callGemini(prompt, categoryName);
       const phraseTexts = this.parsePhrasesFromResponse(response);
 
       if (phraseTexts.length < 20) {
@@ -256,22 +248,16 @@ Category: ${categoryName}`;
   }
 
   // Private helper methods
-  private async callGemini(prompt: string): Promise<string> {
-    const response = await fetch(`${GEMINI_API_URL}?key=${env.GEMINI_API_KEY}`, {
+  private async callGemini(prompt: string, category: string): Promise<string> {
+    const response = await fetch(GEMINI_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: prompt
-          }]
-        }],
-        generationConfig: {
-          temperature: 0.8,
-          maxOutputTokens: 1000,
-        },
+        prompt,
+        category,
+        phraseCount: category === 'sample' ? SAMPLE_WORDS_COUNT : PHRASES_PER_CATEGORY,
       }),
     });
 
@@ -281,18 +267,17 @@ Category: ${categoryName}`;
       } else if (response.status === 429) {
         throw new Error('API rate limit exceeded. Please try again later.');
       } else {
-        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        throw new Error(`API error: ${response.status} ${response.statusText}`);
       }
     }
 
     const data: GeminiResponse = await response.json();
-    const content = data.candidates[0]?.content?.parts[0]?.text;
-    
-    if (!content) {
+
+    if (!data.candidates || data.candidates.length === 0 || !data.candidates[0].content.parts[0].text) {
       throw new Error('No content received from Gemini');
     }
-    
-    return content;
+
+    return data.candidates[0].content.parts[0].text;
   }
 
   private parseWordsFromResponse(response: string): string[] {
