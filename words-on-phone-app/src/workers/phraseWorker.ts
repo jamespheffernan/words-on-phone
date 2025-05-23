@@ -37,7 +37,7 @@ interface FetchedPhrase {
 // Environment configuration - now uses serverless function
 const GEMINI_API_URL = self.location?.hostname === 'localhost' && self.location?.port === '5173'
   ? 'http://localhost:8888/.netlify/functions/gemini'  // Development: Netlify Dev on port 8888
-  : '/netlify/functions/gemini'; // Production: same domain
+  : '/.netlify/functions/gemini'; // Production: same domain
 
 const FETCH_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 const DAILY_QUOTA_LIMIT = 1000;

@@ -4,7 +4,8 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 ## Active Implementation Plans
 
-- [cors-fix-gemini-function](implementation-plan/cors-fix-gemini-function.md) - ✅ **COMPLETED** - CORS Fix for Gemini Netlify Function
+- [cors-fix-gemini-function](implementation-plan/cors-fix-gemini-function.md) - ⚠️ **NEEDS REVISION** - CORS Fix for Gemini Netlify Function (Production 404 Error Detected)
+- [netlify-function-deployment-fix](implementation-plan/netlify-function-deployment-fix.md) - 🚧 **PLANNING COMPLETE** - Netlify Function Deployment Fix - 404 Error Resolution  
 - [visual-background-warning](implementation-plan/visual-background-warning.md) - **Planning Complete** - Visual Background Warning System (Progressive Red Background)
 
 ## Current Status / Progress Tracking
@@ -24,7 +25,8 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 **Currently Active:**
 - 🚧 **Phase 9**: Launch preparation (App Store submission, privacy forms, screenshots)
-- ✅ **CORS Fix**: Custom category request feature CORS issue resolved - production deployment verified
+- 🚨 **PRODUCTION ISSUE**: Custom category request feature failing with 404 error - Netlify function not accessible at expected endpoint
+- ⚠️ **CORS Fix Status Revision**: Previous "completed" status incorrect - production deployment has URL path mismatch issue
 
 **Next Up:**
 - Phase 9: Final polish, App Store submission, documentation
@@ -47,4 +49,5 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-01-27] When implementing stateful request systems, avoid timestamps in ID generation for multi-step processes. Use deterministic IDs based on content (e.g., category name) so the same logical entity always has the same ID across different function calls. Non-deterministic IDs with timestamps cause "request not found" errors between related operations.
 - [2025-01-27] For React components that need to display both static and dynamic data, implement caching in the service layer to enable synchronous access to async data. Store dynamic content (like custom categories) in organized cache structures (e.g., Record<string, string[]>) that can be accessed immediately by UI components, while keeping the async loading logic separate in useEffect hooks.
 - [2025-01-27] When implementing delete functionality for user-generated content: (1) Always include confirmation dialogs to prevent accidental deletion, (2) Ensure complete cleanup of all related data (phrases, metadata, cache), (3) Update UI immediately after deletion, (4) Handle edge cases like deleting currently selected items by switching to safe defaults, (5) Use visual cues (positioning, colors, icons) to make delete buttons discoverable but not accidentally clickable.
-- [2025-01-27] Netlify secrets scanning will fail deployment if environment variables prefixed with `VITE_` containing sensitive data (like API keys) are exposed in the client bundle. The solution is to move API calls to secure serverless functions and remove the `
+- [2025-01-27] Netlify secrets scanning will fail deployment if environment variables prefixed with `VITE_` containing sensitive data (like API keys) are exposed in the client bundle. The solution is to move API calls to secure serverless functions and remove the `VITE_` prefix from environment variables.
+- [2025-01-27] Always verify production deployment endpoints match the actual deployed function paths. Documentation claiming successful production testing can be misleading if the tested URLs differ from the actual application configuration. The CORS fix documentation tested `/.netlify/functions/gemini` but the production app tries to access `/netlify/functions/gemini` (missing dot), causing 404 errors. Thorough end-to-end testing with the actual application URLs is essential to catch URL path mismatches between different environments.
