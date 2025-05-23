@@ -1,5 +1,10 @@
 import { Handler, HandlerEvent, HandlerContext, HandlerResponse } from '@netlify/functions';
 
+// Node.js process global for environment variables
+declare const process: {
+  env: Record<string, string | undefined>;
+};
+
 interface GeminiRequest {
   prompt: string;
   category: string;
