@@ -13,7 +13,7 @@ interface FetchedPhrase {
   phraseId: string;
   text: string;
   category: PhraseCategory;
-  source: 'openai';
+  source: 'gemini';
   fetchedAt: number;
 }
 
@@ -149,14 +149,14 @@ export const usePhraseWorker = () => {
 
   const manualFetch = useCallback(() => {
     if (workerRef.current && state.isLoaded && !state.isWorking) {
-      workerRef.current.postMessage({ type: 'MANUAL_FETCH' });
+      workerRef.current.postMessage({ type: 'FETCH_NOW' });
       updateState({ error: null });
     }
   }, [state.isLoaded, state.isWorking, updateState]);
 
   const getStatus = useCallback(() => {
     if (workerRef.current && state.isLoaded) {
-      workerRef.current.postMessage({ type: 'GET_STATUS' });
+      workerRef.current.postMessage({ type: 'STATUS' });
     }
   }, [state.isLoaded]);
 

@@ -1,4 +1,5 @@
 import { PhraseCategory } from '../data/phrases';
+import { env } from '../config/environment';
 
 interface CustomCategoryRequest {
   id: string;
@@ -14,7 +15,7 @@ interface FetchedPhrase {
   phraseId: string;
   text: string;
   category: PhraseCategory;
-  source: 'openai';
+  source: 'gemini';
   fetchedAt: number;
 }
 
@@ -23,10 +24,21 @@ interface CustomCategoryPhrase extends Omit<FetchedPhrase, 'category'> {
   category: PhraseCategory.EVERYTHING; // Custom phrases go in "Everything" category
 }
 
-const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
-const DAILY_QUOTA_LIMIT = 5; // Conservative limit for custom category requests
+// Gemini API Response Interface
+interface GeminiResponse {
+  candidates: Array<{
+    content: {
+      parts: Array<{
+        text: string;
+      }>;
+    };
+  }>;
+}
+
+const GEMINI_API_URL = `${env.GEMINI_API_URL}/${env.GEMINI_MODEL}:generateContent`;
+const DAILY_QUOTA_LIMIT = env.DAILY_CATEGORY_QUOTA;
 const SAMPLE_WORDS_COUNT = 3;
-const PHRASES_PER_CATEGORY = 50;
+const PHRASES_PER_CATEGORY = env.PHRASES_PER_CATEGORY;
 
 // Storage keys
 const DAILY_CATEGORY_USAGE_KEY = 'dailyCategoryUsage';
@@ -101,9 +113,8 @@ export class CategoryRequestService {
       throw new Error(quotaCheck.reason || 'Cannot make request at this time');
     }
 
-    const apiKey = await this.getApiKey();
-    if (!apiKey) {
-      throw new Error('OpenAI API key not configured. Please add your API key in settings.');
+    if (!env.GEMINI_API_KEY) {
+      throw new Error('Gemini API is not configured. Custom categories are temporarily unavailable.');
     }
 
     // Create request record
@@ -131,7 +142,7 @@ Rules:
 
 Category: ${categoryName}`;
 
-      const response = await this.callOpenAI(apiKey, prompt);
+      const response = await this.callGemini(prompt);
       const sampleWords = this.parseWordsFromResponse(response);
 
       if (sampleWords.length < 2) {
@@ -148,7 +159,6 @@ Category: ${categoryName}`;
 
       return request.sampleWords;
     } catch (error) {
-      // Update request with error
       request.status = 'failed';
       request.error = error instanceof Error ? error.message : 'Unknown error';
       await this.saveRequest(request);
@@ -157,17 +167,25 @@ Category: ${categoryName}`;
   }
 
   async generateFullCategory(categoryName: string, sampleWords: string[]): Promise<CustomCategoryPhrase[]> {
-    const apiKey = await this.getApiKey();
-    if (!apiKey) {
-      throw new Error('OpenAI API key not configured');
+    if (!env.GEMINI_API_KEY) {
+      throw new Error('Gemini API is not configured');
     }
 
     // Find existing request
     const requestId = this.generateRequestId(categoryName);
-    const existingRequest = await this.getRequest(requestId);
+    let existingRequest = await this.getRequest(requestId);
     
     if (!existingRequest) {
-      throw new Error('Category request not found');
+      // Create a new request if it doesn't exist (fallback)
+      existingRequest = {
+        id: requestId,
+        categoryName,
+        requestedAt: Date.now(),
+        sampleWords,
+        phrasesGenerated: 0,
+        status: 'confirmed'
+      };
+      await this.saveRequest(existingRequest);
     }
 
     try {
@@ -185,7 +203,7 @@ Rules:
 
 Category: ${categoryName}`;
 
-      const response = await this.callOpenAI(apiKey, prompt);
+      const response = await this.callGemini(prompt);
       const phraseTexts = this.parsePhrasesFromResponse(response);
 
       if (phraseTexts.length < 20) {
@@ -198,7 +216,7 @@ Category: ${categoryName}`;
         text: text.trim(),
         customCategory: categoryName,
         category: PhraseCategory.EVERYTHING,
-        source: 'openai' as const,
+        source: 'gemini' as const,
         fetchedAt: Date.now()
       }));
 
@@ -213,7 +231,6 @@ Category: ${categoryName}`;
 
       return deduplicatedPhrases;
     } catch (error) {
-      // Update request with error
       existingRequest.status = 'failed';
       existingRequest.error = error instanceof Error ? error.message : 'Unknown error';
       await this.saveRequest(existingRequest);
@@ -239,29 +256,28 @@ Category: ${categoryName}`;
   }
 
   // Private helper methods
-  private async callOpenAI(apiKey: string, prompt: string): Promise<string> {
-    const response = await fetch(OPENAI_API_URL, {
+  private async callGemini(prompt: string): Promise<string> {
+    const response = await fetch(`${GEMINI_API_URL}?key=${env.GEMINI_API_KEY}`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        max_tokens: 1000,
-        temperature: 0.8,
+        contents: [{
+          parts: [{
+            text: prompt
+          }]
+        }],
+        generationConfig: {
+          temperature: 0.8,
+          maxOutputTokens: 1000,
+        },
       }),
     });
 
     if (!response.ok) {
       if (response.status === 401) {
-        throw new Error('Invalid API key. Please check your OpenAI API key.');
+        throw new Error('Invalid Gemini API key configuration.');
       } else if (response.status === 429) {
         throw new Error('API rate limit exceeded. Please try again later.');
       } else {
@@ -269,8 +285,14 @@ Category: ${categoryName}`;
       }
     }
 
-    const data = await response.json();
-    return data.choices[0]?.message?.content || '';
+    const data: GeminiResponse = await response.json();
+    const content = data.candidates[0]?.content?.parts[0]?.text;
+    
+    if (!content) {
+      throw new Error('No content received from Gemini');
+    }
+    
+    return content;
   }
 
   private parseWordsFromResponse(response: string): string[] {
@@ -290,7 +312,8 @@ Category: ${categoryName}`;
   }
 
   private generateRequestId(categoryName: string): string {
-    return `req_${categoryName.toLowerCase().replace(/[^a-z0-9]/g, '_')}_${Date.now()}`;
+    // Use deterministic ID based only on category name (no timestamp)
+    return `req_${categoryName.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
   }
 
   private generatePhraseId(text: string, category: string): string {
@@ -306,10 +329,6 @@ Category: ${categoryName}`;
     return newPhrases.filter(phrase => 
       !existingTexts.has(phrase.text.toLowerCase())
     );
-  }
-
-  private async getApiKey(): Promise<string | null> {
-    return await this.getFromStorage('openai_api_key') || null;
   }
 
   private async incrementDailyUsage(): Promise<void> {

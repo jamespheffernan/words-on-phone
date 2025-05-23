@@ -70,14 +70,14 @@ describe('PhraseService', () => {
         phraseId: 'test1',
         text: 'The Godfather', // This should be deduplicated (exists in static)
         category: PhraseCategory.MOVIES,
-        source: 'openai',
+        source: 'gemini',
         fetchedAt: Date.now()
       },
       {
         phraseId: 'test2',
         text: 'Unique New Phrase',
         category: PhraseCategory.MOVIES,
-        source: 'openai',
+        source: 'gemini',
         fetchedAt: Date.now()
       }
     ];
@@ -108,7 +108,7 @@ describe('PhraseService', () => {
         phraseId: 'worker1',
         text: 'Worker Generated Phrase',
         category: PhraseCategory.ENTERTAINMENT,
-        source: 'openai',
+        source: 'gemini',
         fetchedAt: Date.now()
       }
     ];
