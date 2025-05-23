@@ -34,6 +34,28 @@ export default defineConfig({
       type: 'module',
     },
   })],
+  worker: {
+    format: 'es',
+    plugins: () => [react()],
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+      },
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          // Ensure worker files get .js extension
+          if (assetInfo.name && assetInfo.name.includes('Worker')) {
+            return 'assets/[name]-[hash].js';
+          }
+          return 'assets/[name]-[hash].[ext]';
+        },
+      },
+    },
+  },
   test: {
     environment: 'jsdom',
     setupFiles: ['src/setupTests.ts'],
