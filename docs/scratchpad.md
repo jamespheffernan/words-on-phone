@@ -5,6 +5,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 ## Active Implementation Plans
 
 - [8-week-roadmap](implementation-plan/8-week-roadmap.md) - **Phase 8C In Progress** - Accelerating Beep "Hot Potato" Timer System
+- [cors-fix-gemini-function](implementation-plan/cors-fix-gemini-function.md) - **Planning Complete** - CORS Fix for Gemini Netlify Function
 
 ## Current Status / Progress Tracking
 
@@ -22,6 +23,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 **Currently Active:**
 - 🚧 **Phase 8C**: Accelerating Beep "Hot Potato" Timer System (Tasks 1-4 Complete ✅, Task 5 Next)
+- 🚨 **CORS Fix**: Custom category request feature blocked by CORS policy in development environment
 
 **Next Up:**
 - Phase 9: Final polish, App Store submission, documentation
@@ -50,3 +52,5 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-01-27] **Editor Conflict Resolution**: When encountering "Use the actions in the editor tool bar to either undo your changes or overwrite" errors, check for multiple dev server instances running simultaneously. Multiple Vite processes create competing file watchers and HMR conflicts that prevent file saves. Solution: (1) Kill all dev server processes with `pkill -f vite`, (2) Clear node module caches, (3) Restart a single dev server on a specific port. Prevention: Always check for existing dev servers before starting new ones, and use explicit port assignments to avoid port exhaustion.
 - [2025-05-23] **Branch Merge Analysis**: When considering merging feature branches with potential conflicts, systematically compare the actual implementations rather than just file names. In this case, the main branch already contained all valuable work from feature/8-week-roadmap but in upgraded form (Gemini API vs OpenAI, complete beep system, clean file structure). The "conflicts" were actually the main branch being more advanced. No merge was needed - main branch was already the authoritative version containing all completed work from Phase 8A-8D.
 - [2025-05-23] **Git Reference Corruption**: When encountering "fatal: bad object refs/heads/branch-name 2" errors during fetch/pull operations, check for corrupted git references with spaces or special characters in `.git/refs/heads/`. These can be caused by file system operations that create duplicate files with "2" suffixes. Fix by removing the corrupted reference files: `rm ".git/refs/heads/branch-name 2"`. Always use quotes when removing files with spaces in names.
+- [2025-05-23] **CORS and UI Integration**: When implementing serverless functions for client-side API calls, two separate issues often arise: (1) CORS preflight failure when functions don't handle OPTIONS requests properly - fix by adding explicit OPTIONS handler returning 200 OK with proper headers, and (2) UI integration gaps where backend functionality works but frontend doesn't display results - ensure React components load and refresh data from services after async operations complete. Both issues can appear as "API not working" but have different root causes requiring separate fixes.
+- [2025-05-23] **Systematic Linting Error Resolution**: When addressing multiple ESLint errors (26 problems → 0), tackle them systematically by category: (1) Update ESLint config to exclude build artifacts and add environment-specific rules (Cypress tests), (2) Replace `any` types with `unknown` and proper type assertions, (3) Remove unused imports/parameters, (4) Fix React hook dependency arrays using ref-based approaches for circular dependencies, (5) Use ESLint disable comments sparingly and only for legitimate cases like test mocks. Always verify with `npm run lint` and `npm run build` after fixes. This approach maintains type safety while eliminating development server warnings.

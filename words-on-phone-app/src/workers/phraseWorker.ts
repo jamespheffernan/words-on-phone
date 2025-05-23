@@ -35,7 +35,9 @@ interface FetchedPhrase {
 }
 
 // Environment configuration - now uses serverless function
-const GEMINI_API_URL = '/netlify/functions/gemini'; // Serverless function endpoint
+const GEMINI_API_URL = self.location?.hostname === 'localhost' && self.location?.port === '5173'
+  ? 'http://localhost:8888/.netlify/functions/gemini'  // Development: Netlify Dev on port 8888
+  : '/netlify/functions/gemini'; // Production: same domain
 
 const FETCH_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 const DAILY_QUOTA_LIMIT = 1000;
@@ -156,7 +158,7 @@ class PhraseWorker {
 
   private async shouldFetch(): Promise<boolean> {
     try {
-      const lastFetch = await this.getFromStorage(LAST_FETCH_KEY) || 0;
+      const lastFetch = (await this.getFromStorage(LAST_FETCH_KEY) as number | null) || 0;
       const now = Date.now();
       return (now - lastFetch) >= FETCH_INTERVAL_MS;
     } catch {
@@ -167,9 +169,9 @@ class PhraseWorker {
   private async isDailyQuotaExceeded(): Promise<boolean> {
     try {
       const today = new Date().toDateString();
-      const usageData = await this.getFromStorage(DAILY_USAGE_KEY) || { date: today, count: 0 };
+      const usageData = (await this.getFromStorage(DAILY_USAGE_KEY) as { date: string; count: number } | null) || { date: today, count: 0 };
       
-      // Reset if it's a new day
+      // Reset if new day
       if (usageData.date !== today) {
         await this.setInStorage(DAILY_USAGE_KEY, { date: today, count: 0 });
         return false;
@@ -177,7 +179,7 @@ class PhraseWorker {
       
       return usageData.count >= DAILY_QUOTA_LIMIT_REQ;
     } catch {
-      return false; // Default to allowing if we can't check
+      return false; // Allow if we can't check
     }
   }
 
@@ -258,7 +260,7 @@ class PhraseWorker {
 
   private async deduplicatePhrases(newPhrases: FetchedPhrase[]): Promise<FetchedPhrase[]> {
     try {
-      const existingPhrases = await this.getFromStorage(FETCHED_PHRASES_KEY) || [];
+      const existingPhrases = (await this.getFromStorage(FETCHED_PHRASES_KEY) as FetchedPhrase[] | null) || [];
       const existingTexts = new Set(existingPhrases.map((p: FetchedPhrase) => p.text.toLowerCase()));
       
       return newPhrases.filter(phrase => 
@@ -271,7 +273,7 @@ class PhraseWorker {
 
   private async storePhrases(phrases: FetchedPhrase[]) {
     try {
-      const existingPhrases = await this.getFromStorage(FETCHED_PHRASES_KEY) || [];
+      const existingPhrases = (await this.getFromStorage(FETCHED_PHRASES_KEY) as FetchedPhrase[] | null) || [];
       const updatedPhrases = [...existingPhrases, ...phrases];
       
       // Keep only the most recent 1000 phrases to prevent unlimited growth
@@ -291,7 +293,7 @@ class PhraseWorker {
 
   private async incrementDailyUsage() {
     const today = new Date().toDateString();
-    const usageData = await this.getFromStorage(DAILY_USAGE_KEY) || { date: today, count: 0 };
+    const usageData = (await this.getFromStorage(DAILY_USAGE_KEY) as { date: string; count: number } | null) || { date: today, count: 0 };
     
     if (usageData.date !== today) {
       // New day, reset counter
@@ -307,9 +309,9 @@ class PhraseWorker {
 
   private async sendStatus() {
     try {
-      const lastFetch = await this.getFromStorage(LAST_FETCH_KEY) || 0;
-      const usageData = await this.getFromStorage(DAILY_USAGE_KEY) || { date: new Date().toDateString(), count: 0 };
-      const phrasesCount = (await this.getFromStorage(FETCHED_PHRASES_KEY) || []).length;
+      const lastFetch = (await this.getFromStorage(LAST_FETCH_KEY) as number | null) || 0;
+      const usageData = (await this.getFromStorage(DAILY_USAGE_KEY) as { date: string; count: number } | null) || { date: new Date().toDateString(), count: 0 };
+      const phrasesCount = ((await this.getFromStorage(FETCHED_PHRASES_KEY) as FetchedPhrase[] | null) || []).length;
       
       this.postMessage({
         type: 'STATUS',
@@ -332,7 +334,7 @@ class PhraseWorker {
 
   private async sendStoredPhrases() {
     try {
-      const phrases = await this.getFromStorage(FETCHED_PHRASES_KEY) || [];
+      const phrases = (await this.getFromStorage(FETCHED_PHRASES_KEY) as FetchedPhrase[] | null) || [];
       this.postMessage({
         type: 'STORED_PHRASES',
         phrases
@@ -364,12 +366,12 @@ class PhraseWorker {
     this.postMessage({ type: 'WORKER_STOPPED' });
   }
 
-  private postMessage(message: any) {
+  private postMessage(message: { type: string; [key: string]: unknown }) {
     self.postMessage(message);
   }
 
   // Simple IndexedDB wrapper for worker context
-  private async getFromStorage(key: string): Promise<any> {
+  private async getFromStorage(key: string): Promise<unknown> {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open('words-on-phone-worker', 1);
       
@@ -394,7 +396,7 @@ class PhraseWorker {
     });
   }
 
-  private async setInStorage(key: string, value: any): Promise<void> {
+  private async setInStorage(key: string, value: unknown): Promise<void> {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open('words-on-phone-worker', 1);
       

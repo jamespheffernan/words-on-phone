@@ -82,7 +82,7 @@ export class CategoryRequestService {
   async canMakeRequest(): Promise<{ canMake: boolean; reason?: string; remainingToday: number }> {
     try {
       const today = new Date().toDateString();
-      const usageData = await this.getFromStorage(DAILY_CATEGORY_USAGE_KEY) || { date: today, count: 0 };
+      const usageData = (await this.getFromStorage(DAILY_CATEGORY_USAGE_KEY) as { date: string; count: number } | null) || { date: today, count: 0 };
       
       // Reset counter if it's a new day
       if (usageData.date !== today) {
@@ -341,7 +341,7 @@ Category: ${categoryName}`;
 
   private async incrementDailyUsage(): Promise<void> {
     const today = new Date().toDateString();
-    const usageData = await this.getFromStorage(DAILY_CATEGORY_USAGE_KEY) || { date: today, count: 0 };
+    const usageData = (await this.getFromStorage(DAILY_CATEGORY_USAGE_KEY) as { date: string; count: number } | null) || { date: today, count: 0 };
     
     if (usageData.date !== today) {
       await this.setInStorage(DAILY_CATEGORY_USAGE_KEY, { date: today, count: 1 });
@@ -444,7 +444,7 @@ Category: ${categoryName}`;
     });
   }
 
-  private async getFromStorage(key: string): Promise<any> {
+  private async getFromStorage(key: string): Promise<unknown> {
     try {
       const value = localStorage.getItem(key);
       return value ? JSON.parse(value) : null;
@@ -453,7 +453,7 @@ Category: ${categoryName}`;
     }
   }
 
-  private async setInStorage(key: string, value: any): Promise<void> {
+  private async setInStorage(key: string, value: unknown): Promise<void> {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {

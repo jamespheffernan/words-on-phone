@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGameStore, BUZZER_SOUNDS } from '../store';
 import { PhraseCategory } from '../data/phrases';
 import { HowToPlayModal } from './HowToPlayModal';
@@ -33,12 +33,27 @@ export const MenuScreen: React.FC = () => {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showCategoryRequest, setShowCategoryRequest] = useState(false);
+  const [customCategories, setCustomCategories] = useState<string[]>([]);
 
   // Audio hook for testing buzzer sounds
   const testBuzzer = useAudio(buzzerSound, { volume: 0.4 });
 
-  const categories = Object.values(PhraseCategory);
+  const staticCategories = Object.values(PhraseCategory);
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
+
+  // Load custom categories on component mount
+  useEffect(() => {
+    const loadCustomCategories = async () => {
+      try {
+        const customCats = await phraseService.getCustomCategories();
+        setCustomCategories(customCats);
+      } catch (error) {
+        console.warn('Failed to load custom categories:', error);
+      }
+    };
+
+    loadCustomCategories();
+  }, []);
 
   const handleTestBuzzer = () => {
     testBuzzer.play().catch(console.warn);
@@ -90,6 +105,10 @@ export const MenuScreen: React.FC = () => {
       // Refresh phrase service to include new custom phrases
       await phraseService.refreshCustomPhrases();
       
+      // Refresh custom categories list in UI
+      const updatedCustomCategories = await phraseService.getCustomCategories();
+      setCustomCategories(updatedCustomCategories);
+      
       console.log(`Generated ${customPhrases.length} phrases for category: ${categoryName}`);
     } catch (error) {
       console.error('Category generation failed:', error);
@@ -108,7 +127,7 @@ export const MenuScreen: React.FC = () => {
         <section className="category-section">
           <h2>Choose Category</h2>
           <div className="category-grid">
-            {categories.map(category => (
+            {staticCategories.map(category => (
               <button
                 key={category}
                 className={`category-button ${selectedCategory === category ? 'selected' : ''}`}
@@ -116,6 +135,16 @@ export const MenuScreen: React.FC = () => {
                 aria-label={`Select ${category} category`}
               >
                 {category}
+              </button>
+            ))}
+            {customCategories.map(category => (
+              <button
+                key={`custom-${category}`}
+                className={`category-button custom-category ${selectedCategory === category ? 'selected' : ''}`}
+                onClick={() => setCategory(category)}
+                aria-label={`Select ${category} custom category`}
+              >
+                ✨ {category}
               </button>
             ))}
           </div>

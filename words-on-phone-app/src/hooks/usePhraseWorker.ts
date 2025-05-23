@@ -19,7 +19,7 @@ interface FetchedPhrase {
 
 interface WorkerMessage {
   type: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface PhraseWorkerState {
@@ -44,6 +44,8 @@ export const usePhraseWorker = () => {
     lastFetchResult: null,
   });
 
+  const getStatusRef = useRef<(() => void) | null>(null);
+
   const updateState = useCallback((updates: Partial<PhraseWorkerState>) => {
     setState(prev => ({ ...prev, ...updates }));
   }, []);
@@ -60,20 +62,20 @@ export const usePhraseWorker = () => {
         updateState({ 
           isWorking: false, 
           lastFetchResult: {
-            count: payload.count,
-            phrases: payload.phrases,
-            message: payload.message,
+            count: payload.count as number,
+            phrases: payload.phrases as FetchedPhrase[] | undefined,
+            message: payload.message as string | undefined,
           },
           error: null 
         });
         // Refresh status after successful fetch
-        setTimeout(() => getStatus(), 1000);
+        setTimeout(() => getStatusRef.current?.(), 1000);
         break;
 
       case 'FETCH_ERROR':
         updateState({ 
           isWorking: false, 
-          error: payload.error || 'Unknown fetch error' 
+          error: (payload.error as string) || 'Unknown fetch error' 
         });
         break;
 
@@ -82,7 +84,7 @@ export const usePhraseWorker = () => {
           isWorking: false,
           lastFetchResult: {
             count: 0,
-            message: `Fetch skipped: ${payload.reason}`,
+            message: `Fetch skipped: ${payload.reason as string}`,
           }
         });
         break;
@@ -92,11 +94,11 @@ export const usePhraseWorker = () => {
         break;
 
       case 'STATUS':
-        updateState({ status: payload.status, error: null });
+        updateState({ status: payload.status as WorkerStatus, error: null });
         break;
 
       case 'STATUS_ERROR':
-        updateState({ error: payload.error || 'Failed to get status' });
+        updateState({ error: (payload.error as string) || 'Failed to get status' });
         break;
 
       case 'WORKER_STOPPED':
@@ -127,7 +129,7 @@ export const usePhraseWorker = () => {
       updateState({ isLoaded: true, error: null });
 
       // Get initial status
-      setTimeout(() => getStatus(), 500);
+      setTimeout(() => getStatusRef.current?.(), 500);
 
     } catch (error) {
       console.error('Failed to initialize worker:', error);
@@ -160,6 +162,9 @@ export const usePhraseWorker = () => {
     }
   }, [state.isLoaded]);
 
+  // Update the ref when getStatus changes
+  getStatusRef.current = getStatus;
+
   // Initialize worker on mount
   useEffect(() => {
     initializeWorker();
@@ -168,7 +173,7 @@ export const usePhraseWorker = () => {
     return () => {
       terminateWorker();
     };
-  }, []); // Empty dependency array for mount/unmount only
+  }, [initializeWorker, terminateWorker]);
 
   // Periodically refresh status
   useEffect(() => {

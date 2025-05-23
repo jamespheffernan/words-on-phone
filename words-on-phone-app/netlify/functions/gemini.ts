@@ -1,4 +1,4 @@
-import { Handler, HandlerEvent, HandlerContext, HandlerResponse } from '@netlify/functions';
+import { Handler, HandlerEvent, HandlerResponse } from '@netlify/functions';
 
 // Node.js process global for environment variables
 declare const process: {
@@ -21,8 +21,21 @@ interface GeminiResponse {
   }>;
 }
 
-export const handler: Handler = async (event: HandlerEvent, context: HandlerContext): Promise<HandlerResponse> => {
-  // Only allow POST requests
+export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResponse> => {
+  // Handle CORS preflight OPTIONS request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      body: '',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    };
+  }
+
+  // Only allow POST requests for actual API calls
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -50,7 +63,7 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
 
   try {
     const body = JSON.parse(event.body || '{}') as GeminiRequest;
-    const { prompt, category, phraseCount = 20 } = body;
+    const { prompt, category } = body;
 
     if (!prompt || !category) {
       return {

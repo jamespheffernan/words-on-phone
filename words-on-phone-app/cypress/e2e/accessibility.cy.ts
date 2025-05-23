@@ -47,7 +47,8 @@ describe('Accessibility Tests', () => {
     // Force end screen by triggering timeout
     cy.window().then((win) => {
       // Force trigger end game
-      (win as any).gameStore?.getState().endGame();
+      const windowWithStore = win as Window & { gameStore?: { getState: () => { endGame: () => void } } };
+      windowWithStore.gameStore?.getState().endGame();
     });
     
     cy.checkA11y();

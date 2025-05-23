@@ -443,4 +443,26 @@
 
 .range-max {
   border-bottom: 2px solid #ff6b6b;
+}
+
+/* Custom Category Button Styling */
+.category-button.custom-category {
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+  border: 2px solid #ffd700;
+  color: #2c1810;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.category-button.custom-category:hover {
+  background: linear-gradient(135deg, #ffed4e 0%, #ffc947 100%);
+  border-color: #ffed4e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.category-button.custom-category.selected {
+  background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+  border-color: #ffed4e;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+  color: #2c1810;
 } 

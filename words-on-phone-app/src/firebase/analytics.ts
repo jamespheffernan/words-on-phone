@@ -224,7 +224,7 @@ export const trackTimerPreferencesChanged = (data: TimerPreferencesChangedEvent)
 };
 
 // General game event tracker
-export const trackGameEvent = (eventName: string, parameters: Record<string, any> = {}) => {
+export const trackGameEvent = (eventName: string, parameters: Record<string, string | number | boolean> = {}) => {
   try {
     if (analytics) {
       logEvent(analytics, eventName, parameters);

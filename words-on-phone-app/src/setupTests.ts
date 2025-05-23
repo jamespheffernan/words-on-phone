@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import '@testing-library/jest-dom';
 
 // Mock performance.now for testing
@@ -22,7 +23,7 @@ global.cancelAnimationFrame = global.cancelAnimationFrame || ((id: number) => {
 
 // Mock AudioContext for testing
 global.AudioContext = global.AudioContext || class MockAudioContext {
-  state = 'running';
+  state = 'running' as AudioContextState;
   sampleRate = 44100;
   
   createBuffer() {
@@ -55,7 +56,7 @@ global.AudioContext = global.AudioContext || class MockAudioContext {
   }
   
   get destination() {
-    return {};
+    return {} as AudioDestinationNode;
   }
 } as any;
 
@@ -68,6 +69,7 @@ class MockIDBRequest {
   
   constructor(result?: any) {
     this.result = result;
+    this.error = null;
     setTimeout(() => {
       if (this.onsuccess) {
         this.onsuccess({ target: this });
