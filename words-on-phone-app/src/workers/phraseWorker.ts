@@ -1,19 +1,21 @@
 /// <reference lib="webworker" />
 
-// Inline enum to avoid import issues in worker context
-enum PhraseCategory {
-  EVERYTHING = 'Everything',
-  MOVIES = 'Movies & TV',
-  MUSIC = 'Music & Artists',
-  SPORTS = 'Sports & Athletes',
-  FOOD = 'Food & Drink',
-  PLACES = 'Places & Travel',
-  PEOPLE = 'Famous People',
-  TECHNOLOGY = 'Technology & Science',
-  HISTORY = 'History & Events',
-  ENTERTAINMENT = 'Entertainment & Pop Culture',
-  NATURE = 'Nature & Animals'
-}
+// Inline const object to avoid import issues in worker context (enum causes syntax errors)
+const PhraseCategory = {
+  EVERYTHING: 'Everything',
+  MOVIES: 'Movies & TV',
+  MUSIC: 'Music & Artists',
+  SPORTS: 'Sports & Athletes',
+  FOOD: 'Food & Drink',
+  PLACES: 'Places & Travel',
+  PEOPLE: 'Famous People',
+  TECHNOLOGY: 'Technology & Science',
+  HISTORY: 'History & Events',
+  ENTERTAINMENT: 'Entertainment & Pop Culture',
+  NATURE: 'Nature & Animals'
+} as const;
+
+type PhraseCategory = typeof PhraseCategory[keyof typeof PhraseCategory];
 
 
 
