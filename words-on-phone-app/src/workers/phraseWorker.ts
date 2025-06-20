@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 
-// Inline const object to avoid import issues in worker context (enum causes syntax errors)
+// Inline const object to avoid import issues in worker context (plain JS for compatibility)
 const PhraseCategory = {
   EVERYTHING: 'Everything',
   MOVIES: 'Movies & TV',
@@ -13,9 +13,7 @@ const PhraseCategory = {
   HISTORY: 'History & Events',
   ENTERTAINMENT: 'Entertainment & Pop Culture',
   NATURE: 'Nature & Animals'
-} as const;
-
-type PhraseCategory = typeof PhraseCategory[keyof typeof PhraseCategory];
+};
 
 
 
@@ -30,7 +28,7 @@ interface CustomTerm {
 interface FetchedPhrase {
   phraseId: string;
   text: string;
-  category: PhraseCategory;
+  category: string;
   source: 'openai';
   fetchedAt: number;
   difficulty?: "easy" | "medium" | "hard";
