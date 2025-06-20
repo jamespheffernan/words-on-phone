@@ -41,8 +41,8 @@ When generating phrases, adhere to the content rules and address failure scenari
 
 # JSON Schema
 
-**CustomTerm[]**  
-- Top-level array with 1–100 items per call.
+**Response Object:**
+- \`phrases\`: CustomTerm[] - Array with 1–100 items per call.
 
 **Interface CustomTerm:**
 - \`id\`: string - echo back the client-supplied UUID unchanged.
@@ -66,7 +66,7 @@ When generating phrases, adhere to the content rules and address failure scenari
 
 6. **Language**: Use U.S. English spelling.
 
-7. **Quantity**: Ensure the return of at least 20 terms.
+7. **Quantity**: Ensure the return of at least the requested number of terms.
 
 # Failure Handling
 
@@ -78,7 +78,18 @@ No other content should appear in the response.
 
 # Output Format
 
-- The response should be in a JSON array of CustomTerm objects if successful. If a failure, only return the error JSON object.
+- The response should be a JSON object with a "phrases" array containing CustomTerm objects if successful.
+- If a failure, only return the error JSON object with an "error" field.
+
+Example successful response:
+\`\`\`json
+{
+  "phrases": [
+    {"id": "uuid1", "phrase": "Golden Retriever", "topic": "Animals", "difficulty": "easy"},
+    {"id": "uuid2", "phrase": "Elephant Trunk", "topic": "Animals", "difficulty": "medium"}
+  ]
+}
+\`\`\`
 
 # Notes
 
@@ -260,7 +271,7 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
     console.log('OpenAI raw response content:', content);
 
     // Parse the JSON response
-    let parsedResponse: CustomTerm[] | ErrorResponse;
+    let parsedResponse: { phrases: CustomTerm[] } | ErrorResponse;
     try {
       parsedResponse = JSON.parse(content);
       console.log('Parsed OpenAI response:', parsedResponse);
@@ -281,13 +292,13 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
       };
     }
 
-    // Validate the response is an array
-    if (!Array.isArray(parsedResponse)) {
-      console.error('OpenAI response is not an array:', typeof parsedResponse, parsedResponse);
+    // Validate the response has a phrases array
+    if (!parsedResponse.phrases || !Array.isArray(parsedResponse.phrases)) {
+      console.error('OpenAI response missing phrases array:', typeof parsedResponse, parsedResponse);
       return {
         statusCode: 400,
         body: JSON.stringify({ 
-          error: 'OpenAI response is not an array',
+          error: 'OpenAI response missing phrases array',
           debug: {
             type: typeof parsedResponse,
             content: content.substring(0, 200) + '...',
@@ -301,10 +312,10 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
       };
     }
 
-    // Return the successful response
+    // Return the phrases array
     return {
       statusCode: 200,
-      body: JSON.stringify(parsedResponse),
+      body: JSON.stringify(parsedResponse.phrases),
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
