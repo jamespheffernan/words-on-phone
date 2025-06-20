@@ -27,6 +27,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 **Currently Active:**
 - 🚧 **Phase 9**: Launch preparation (App Store submission, privacy forms, screenshots)
 - ✅ **PRODUCTION ISSUE RESOLVED**: Custom category request feature now fully functional - URL path mismatch fixed and verified
+- ✅ **CYPRESS TYPESCRIPT FIXED**: TypeScript configuration issues in accessibility tests resolved
 
 **Next Up:**
 - Phase 9: Final polish, App Store submission, documentation
@@ -54,3 +55,4 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-01-27] When testing serverless functions end-to-end, ensure test scripts use the exact same request format as the actual application code. API functions expect specific field names (`prompt`, `category`, `phraseCount`) and response structures (`candidates[0].content.parts[0].text`). Testing with incorrect request formats will give false negatives even when the function is working correctly. Always examine the actual service layer code to understand the precise API contract before writing integration tests.
 - [2025-01-27] When updating prompt formats that change output structure (line-based to JSON), always implement parsing logic that can handle both old and new formats for smooth transitions. Production testing is essential when modifying prompt formats - what works in development may behave differently with live AI models. JSON extraction from AI responses should use regex pattern matching rather than assuming the entire response is JSON, as models may include explanatory text before/after the JSON.
 - [2025-01-27] For Vite projects using Web Workers, import workers using the `?worker` query parameter (e.g., `new URL('../workers/file.ts?worker', import.meta.url)`) to avoid MIME type issues. Don't use `{ type: 'module' }` option as it can cause "video/mp2t" MIME type errors. Also ensure worker message types match exactly between sender and receiver (e.g., 'STOP' not 'STOP_WORKER').
+- [2025-01-27] Cypress projects require dedicated TypeScript configuration for proper type support. Create a `tsconfig.cypress.json` file with `"types": ["cypress", "cypress-axe"]` and include it as a project reference in the main `tsconfig.json`. Configure `cypress.config.js` with `typescript: { configFile: "tsconfig.cypress.json" }` to resolve TypeScript errors for Cypress globals like `describe`, `it`, `cy`, and `expect`. Modern Cypress versions (14+) have built-in TypeScript support and don't require separate `@types/cypress` package.
