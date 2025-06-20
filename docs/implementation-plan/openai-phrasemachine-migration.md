@@ -326,6 +326,22 @@ All deployment issues resolved:
 
 **🎉 RESULT: CategoryRequestService now actually uses OpenAI when available!**
 
+### ✅ **TIMEOUT ISSUE RESOLVED: Reduced Batch Size to Prevent 502 Errors (2025-01-27)**
+
+**🚨 CRITICAL ISSUE DISCOVERED:**
+- CategoryRequestService was requesting 50 phrases per batch
+- Netlify functions have 10-second timeout limit
+- Large batches caused: `{"errorType":"Sandbox.Timedout","errorMessage":"Task timed out after 10.00 seconds"}`
+- User experienced: `OpenAI API error: 502`
+
+**✅ FIX IMPLEMENTED:**
+- ✅ Reduced `PHRASES_PER_CATEGORY` from 50 to 15
+- ✅ Tested: 50 phrases = timeout, 15 phrases = success
+- ✅ 15-phrase batches complete reliably within 10s limit
+- ✅ Deployed to production and verified working
+
+**🎯 RESULT: OpenAI category generation now works without 502 errors!**
+
 ### 🎯 **Technical Achievement Summary:**
 - **Zero Downtime**: Gemini function remains operational during transition
 - **Clean Deployment**: All TypeScript compilation successful
