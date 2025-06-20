@@ -20,7 +20,7 @@ export const env = {
   DAILY_PHRASE_QUOTA: 1000,
   DAILY_CATEGORY_QUOTA: 5,
   PHRASES_PER_REQUEST: 20,
-  PHRASES_PER_CATEGORY: 15, // Reduced from 50 to stay within 10s timeout limit
+  PHRASES_PER_CATEGORY: 20, // Sweet spot: 80% reliability, good gameplay quantity, 8s avg completion
   
   // OpenAI specific limits
   OPENAI_MAX_BATCH_SIZE: 100,
