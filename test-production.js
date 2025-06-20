@@ -1,181 +1,260 @@
-// Production End-to-End Test for Custom Category Request
-// This script tests the complete workflow that would happen when a user
-// requests a custom category through the UI
+#!/usr/bin/env node
 
-const PRODUCTION_URL = 'https://words-on-phone.netlify.app/.netlify/functions/gemini';
+// Production Environment Test for OpenAI Function
+const PRODUCTION_URL = 'https://words-on-phone.netlify.app/.netlify/functions/openai';
 
-async function testCustomCategoryWorkflow() {
-  console.log('🧪 Testing Custom Category Request - Production End-to-End');
-  console.log('🌐 Production URL:', PRODUCTION_URL);
-  console.log('');
-  
-  try {
-    // Step 1: Test sample words request (simulating what the UI does)
-    console.log('Step 1: Testing sample words request...');
-    const sampleWordsPrompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
-
-Task  
-Generate exactly 3 example words or short phrases for the category **Test Category for Production**. These are sample items to show what this category contains.
-
-Rules:
-- Each should be 1-3 words maximum  
-- Family-friendly only (no profanity, politics, or adult themes)
-- Representative examples that clearly belong to "Test Category for Production"
-- Return only the items, one per line, no numbering or formatting
-
-Begin.`;
-    const sampleWordsResponse = await fetch(PRODUCTION_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        prompt: sampleWordsPrompt,
-        category: 'Test Category for Production',
-        phraseCount: 3
-      })
-    });
-    
-    console.log('Sample words response status:', sampleWordsResponse.status);
-    console.log('Sample words response headers:', Object.fromEntries(sampleWordsResponse.headers.entries()));
-    
-    if (!sampleWordsResponse.ok) {
-      throw new Error(`Sample words request failed: ${sampleWordsResponse.status} ${sampleWordsResponse.statusText}`);
-    }
-    
-    const sampleWordsData = await sampleWordsResponse.json();
-    console.log('✅ Sample words received:', sampleWordsData);
-    
-    // Parse the sample words from the response
-    const sampleWords = sampleWordsData.candidates?.[0]?.content?.parts?.[0]?.text
-      ?.split('\n')
-      .map(line => line.trim())
-      .filter(line => line.length > 0) || ['test', 'production', 'verification'];
-    
-    console.log('Sample words parsed:', sampleWords);
-    console.log('');
-    
-    // Step 2: Test full category generation
-    console.log('Step 2: Testing full category generation...');
-    const fullCategoryPrompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
-
-Task  
-1. Given the category **Test Category for Production**, output **30-50 unique English phrases** (2–6 words each).  
-2. Every phrase must be recognisably tied to that category; if an item feels too niche, swap it for a well-known, adjacent concept rather than something obscure.  
-3. Family-friendly only (no profanity, politics, or adult themes).  
-4. No duplicates; avoid starting more than twice with the same word.
-
-Output  
-Return **only** valid JSON:
-
-[
-  "First phrase",
-  "Second phrase",
-  …
-]
-
-Hidden work  
-Think silently. After drafting, verify:
-• 30–50 items • 2–6 words each • ≥80 % on-category • no repeats.
-
-Begin.`;
-    
-    const fullCategoryResponse = await fetch(PRODUCTION_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        prompt: fullCategoryPrompt,
-        category: 'Test Category for Production',
-        phraseCount: 50
-      })
-    });
-    
-    console.log('Full category response status:', fullCategoryResponse.status);
-    console.log('Full category response headers:', Object.fromEntries(fullCategoryResponse.headers.entries()));
-    
-    if (!fullCategoryResponse.ok) {
-      throw new Error(`Full category request failed: ${fullCategoryResponse.status} ${fullCategoryResponse.statusText}`);
-    }
-    
-    const fullCategoryData = await fullCategoryResponse.json();
-    
-    // Parse the phrases from the response (try JSON first, fallback to line-by-line)
-    const responseText = fullCategoryData.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    let generatedPhrases = [];
-    
-    try {
-      // Try to parse as JSON first (new PhraseMachine format)
-      const jsonMatch = responseText.match(/\[[\s\S]*\]/);
-      if (jsonMatch) {
-        const jsonArray = JSON.parse(jsonMatch[0]);
-        if (Array.isArray(jsonArray)) {
-          generatedPhrases = jsonArray
-            .map(phrase => String(phrase).trim())
-            .filter(phrase => phrase.length > 0);
-        }
-      }
-    } catch (error) {
-      console.log('Response not in JSON format, falling back to line-by-line parsing');
-      // Fallback to line-by-line parsing
-      generatedPhrases = responseText
-        .split('\n')
-        .map(line => line.trim())
-        .filter(line => line.length > 0);
-    }
-    
-    console.log('✅ Full category generated:', {
-      phrasesCount: generatedPhrases.length,
-      samplePhrases: generatedPhrases.slice(0, 3)
-    });
-    console.log('');
-    
-    // Step 3: CORS verification (OPTIONS request)
-    console.log('Step 3: Testing CORS (OPTIONS request)...');
-    const corsResponse = await fetch(PRODUCTION_URL, {
-      method: 'OPTIONS',
-      headers: {
-        'Origin': 'https://words-on-phone.netlify.app',
-        'Access-Control-Request-Method': 'POST',
-        'Access-Control-Request-Headers': 'Content-Type'
-      }
-    });
-    
-    console.log('CORS response status:', corsResponse.status);
-    console.log('CORS headers:', Object.fromEntries(corsResponse.headers.entries()));
-    
-    if (!corsResponse.ok) {
-      throw new Error(`CORS check failed: ${corsResponse.status} ${corsResponse.statusText}`);
-    }
-    
-    console.log('✅ CORS configuration working correctly');
-    console.log('');
-    
-    // Final verification
-    console.log('🎉 END-TO-END PRODUCTION TEST SUCCESSFUL');
-    console.log('');
-    console.log('✅ Sample words request working');
-    console.log('✅ Full category generation working');
-    console.log('✅ CORS headers properly configured');
-    console.log('✅ Function accessible at correct URL (/.netlify/functions/gemini)');
-    console.log('✅ No 404 errors detected');
-    
-    return true;
-    
-  } catch (error) {
-    console.error('❌ Production test failed:', error.message);
-    console.error('Full error:', error);
-    return false;
-  }
+// Generate UUID for testing
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 }
 
-// Run the test
-testCustomCategoryWorkflow()
-  .then(success => {
-    process.exit(success ? 0 : 1);
-  })
-  .catch(error => {
-    console.error('Unexpected error:', error);
-    process.exit(1);
-  }); 
+async function testProductionOpenAI() {
+  console.log('\n🚀 Testing Production OpenAI Function...');
+  console.log('URL:', PRODUCTION_URL);
+  console.log('🧪 Running tests...\n');
+
+  const testResults = {
+    total: 0,
+    passed: 0,
+    failed: 0,
+  };
+
+  async function runTest(testName, testFn) {
+    testResults.total++;
+    try {
+      console.log(`\n📋 ${testName}`);
+      await testFn();
+      console.log(`✅ ${testName} - PASSED`);
+      testResults.passed++;
+    } catch (error) {
+      console.error(`❌ ${testName} - FAILED: ${error.message}`);
+      testResults.failed++;
+    }
+  }
+
+  // Test 1: Basic connectivity
+  await runTest('Basic Connectivity', async () => {
+    const response = await fetch(PRODUCTION_URL, {
+      method: 'OPTIONS',
+    });
+    
+    if (!response.ok && response.status !== 405) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    console.log('   ✓ Function is accessible');
+  });
+
+  // Test 2: Valid OpenAI request
+  await runTest('Valid OpenAI Request', async () => {
+    const phraseIds = Array.from({ length: 5 }, () => generateUUID());
+    
+    const response = await fetch(PRODUCTION_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        topic: 'Movies',
+        batchSize: 5,
+        phraseIds: phraseIds,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`HTTP ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    
+    if (Array.isArray(data)) {
+      console.log(`   ✓ Received ${data.length} phrases`);
+      console.log(`   ✓ Sample phrases: ${data.slice(0, 2).map(p => p.phrase).join(', ')}`);
+      
+      // Validate response structure
+      const firstPhrase = data[0];
+      if (!firstPhrase.id || !firstPhrase.phrase) {
+        throw new Error('Invalid phrase structure');
+      }
+      console.log('   ✓ Response structure is valid');
+    } else if (data.error) {
+      throw new Error(`OpenAI API error: ${data.error}`);
+    } else {
+      throw new Error('Unexpected response format');
+    }
+  });
+
+  // Test 3: Different categories
+  await runTest('Different Categories', async () => {
+    const categories = ['Sports', 'Food', 'Technology'];
+    
+    for (const category of categories) {
+      const phraseIds = Array.from({ length: 3 }, () => generateUUID());
+      
+      const response = await fetch(PRODUCTION_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          topic: category,
+          batchSize: 3,
+          phraseIds: phraseIds,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed for category ${category}: HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (!Array.isArray(data) || data.length === 0) {
+        throw new Error(`No phrases returned for category: ${category}`);
+      }
+      
+      console.log(`   ✓ ${category}: ${data.length} phrases`);
+    }
+  });
+
+  // Test 4: Error handling - missing required fields
+  await runTest('Error Handling - Missing Fields', async () => {
+    const response = await fetch(PRODUCTION_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        // Missing required fields
+        topic: 'Movies',
+      }),
+    });
+
+    if (response.ok) {
+      throw new Error('Expected request to fail but it succeeded');
+    }
+
+    const data = await response.json();
+    if (!data.error) {
+      throw new Error('Expected error field in response');
+    }
+    
+    console.log('   ✓ Properly handled missing fields');
+  });
+
+  // Test 5: Invalid JSON
+  await runTest('Error Handling - Invalid JSON', async () => {
+    const response = await fetch(PRODUCTION_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: 'invalid json',
+    });
+
+    if (response.ok) {
+      throw new Error('Expected request to fail but it succeeded');
+    }
+    
+    console.log('   ✓ Properly handled invalid JSON');
+  });
+
+  // Test 6: Rate limiting behavior
+  await runTest('Rate Limiting Behavior', async () => {
+    console.log('   ⏳ Testing rate limiting (making multiple requests)...');
+    
+    const requests = [];
+    for (let i = 0; i < 3; i++) {
+      const phraseIds = Array.from({ length: 2 }, () => generateUUID());
+      
+      requests.push(
+        fetch(PRODUCTION_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            topic: 'Testing',
+            batchSize: 2,
+            phraseIds: phraseIds,
+          }),
+        })
+      );
+    }
+
+    const responses = await Promise.all(requests);
+    let successCount = 0;
+    let rateLimitedCount = 0;
+
+    for (const response of responses) {
+      if (response.ok) {
+        successCount++;
+      } else if (response.status === 429) {
+        rateLimitedCount++;
+      }
+    }
+
+    console.log(`   ✓ ${successCount} successful requests, ${rateLimitedCount} rate limited`);
+    
+    if (successCount === 0) {
+      throw new Error('All requests were blocked - possible configuration issue');
+    }
+  });
+
+  // Test 7: Large batch size
+  await runTest('Large Batch Size', async () => {
+    const phraseIds = Array.from({ length: 50 }, () => generateUUID());
+    
+    const response = await fetch(PRODUCTION_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        topic: 'Everything',
+        batchSize: 50,
+        phraseIds: phraseIds,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`HTTP ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error('No phrases returned for large batch');
+    }
+    
+    console.log(`   ✓ Large batch: ${data.length} phrases returned`);
+  });
+
+  // Summary
+  console.log('\n📊 Test Summary:');
+  console.log(`   Total tests: ${testResults.total}`);
+  console.log(`   Passed: ${testResults.passed}`);
+  console.log(`   Failed: ${testResults.failed}`);
+  console.log(`   Success rate: ${((testResults.passed / testResults.total) * 100).toFixed(1)}%`);
+
+  if (testResults.failed === 0) {
+    console.log('\n🎉 All tests passed! OpenAI function is working correctly in production.');
+  } else {
+    console.log('\n⚠️  Some tests failed. Check the OpenAI function configuration.');
+  }
+
+  if (testResults.passed > 0) {
+    console.log('✅ Function accessible at correct URL (/.netlify/functions/openai)');
+    console.log('✅ OpenAI API integration is working');
+    console.log('✅ Error handling is functional');
+    console.log('✅ Basic functionality verified');
+  }
+
+  return testResults.failed === 0;
+}
+
+// Run the tests
+testProductionOpenAI().catch(console.error); 

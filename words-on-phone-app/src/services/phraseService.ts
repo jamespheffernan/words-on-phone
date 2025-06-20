@@ -1,13 +1,6 @@
 import { phrases as staticPhrases, categorizedPhrases, PhraseCategory } from '../data/phrases';
 import { categoryRequestService } from './categoryRequestService';
-
-interface FetchedPhrase {
-  phraseId: string;
-  text: string;
-  category: PhraseCategory;
-  source: 'gemini';
-  fetchedAt: number;
-}
+import { FetchedPhrase } from '../types/openai';
 
 interface PhraseServiceState {
   staticPhrases: string[];
@@ -40,17 +33,34 @@ class PhraseService {
 
   private async initializeDB(): Promise<void> {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open(this.dbName, 1);
+      const request = indexedDB.open(this.dbName, 2); // Increment version for migration
 
       request.onerror = () => reject(request.error);
       request.onsuccess = () => resolve();
 
       request.onupgradeneeded = (event) => {
         const db = (event.target as IDBOpenDBRequest).result;
+        const transaction = (event.target as IDBOpenDBRequest).transaction!;
+        
         if (!db.objectStoreNames.contains(this.storeName)) {
           const store = db.createObjectStore(this.storeName, { keyPath: 'phraseId' });
           store.createIndex('category', 'category', { unique: false });
           store.createIndex('fetchedAt', 'fetchedAt', { unique: false });
+          store.createIndex('source', 'source', { unique: false }); // Add index for source
+        } else {
+          // Migration: Update existing phrases to use 'openai' source instead of 'gemini'
+          const store = transaction.objectStore(this.storeName);
+          const getAllRequest = store.getAll();
+          
+          getAllRequest.onsuccess = () => {
+            const phrases = getAllRequest.result as FetchedPhrase[];
+            phrases.forEach(phrase => {
+              if (phrase.source === 'gemini' as any) {
+                const updatedPhrase = { ...phrase, source: 'openai' as const };
+                store.put(updatedPhrase);
+              }
+            });
+          };
         }
       };
     });
@@ -88,7 +98,7 @@ class PhraseService {
 
   private async getAllFetchedPhrasesFromDB(): Promise<FetchedPhrase[]> {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open(this.dbName, 1);
+      const request = indexedDB.open(this.dbName, 2);
 
       request.onerror = () => reject(request.error);
 
@@ -140,7 +150,7 @@ class PhraseService {
 
   private async saveFetchedPhrasesToDB(phrases: FetchedPhrase[]): Promise<void> {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open(this.dbName, 1);
+      const request = indexedDB.open(this.dbName, 2);
 
       request.onerror = () => reject(request.error);
 
@@ -249,7 +259,7 @@ class PhraseService {
 
   private async deleteFetchedPhrasesFromDB(phraseIds: string[]): Promise<void> {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open(this.dbName, 1);
+      const request = indexedDB.open(this.dbName, 2);
 
       request.onerror = () => reject(request.error);
 
@@ -321,4 +331,4 @@ class PhraseService {
 export const phraseService = new PhraseService();
 
 // Export types for use elsewhere
-export type { FetchedPhrase }; 
+export type { FetchedPhrase } from '../types/openai'; 

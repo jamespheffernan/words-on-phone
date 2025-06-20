@@ -15,7 +15,7 @@ enum PhraseCategory {
   NATURE = 'Nature & Animals'
 }
 
-// OpenAI API Response Interface (matches CustomTerm from CategoryRequestService)
+// Import centralized types - inline interfaces for worker compatibility
 interface CustomTerm {
   id: string; // UUID echoed from request
   topic?: string; // Optional topic echoed back
@@ -23,7 +23,6 @@ interface CustomTerm {
   difficulty?: 'easy' | 'medium' | 'hard'; // Optional difficulty
 }
 
-// OpenAI API Success/Error Response types
 type OpenAISuccessResponse = CustomTerm[];
 interface OpenAIErrorResponse {
   error: string; // Short error reason
@@ -108,7 +107,7 @@ class PhraseWorker {
     });
   }
 
-  // Generate UUID for phrase IDs (same implementation as CategoryRequestService)
+  // Generate UUID for phrase IDs (same implementation as centralized function)
   private generateUUID(): string {
     // Use crypto.randomUUID() if available (modern browsers)
     if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -126,6 +125,39 @@ class PhraseWorker {
   // Generate multiple UUIDs for batch requests
   private generateUUIDs(count: number): string[] {
     return Array.from({ length: count }, () => this.generateUUID());
+  }
+
+  // Type guard for OpenAI responses
+  private isOpenAIErrorResponse(response: OpenAIResponse): response is OpenAIErrorResponse {
+    return typeof response === 'object' && 'error' in response;
+  }
+
+  // Type guard for custom terms
+  private isValidCustomTerm(term: any): term is CustomTerm {
+    return (
+      typeof term === 'object' &&
+      typeof term.id === 'string' &&
+      typeof term.phrase === 'string' &&
+      term.phrase.trim().length > 0 &&
+      (term.topic === undefined || typeof term.topic === 'string') &&
+      (term.difficulty === undefined || ['easy', 'medium', 'hard'].includes(term.difficulty))
+    );
+  }
+
+  // Convert CustomTerm to FetchedPhrase
+  private customTermToFetchedPhrase(
+    term: CustomTerm, 
+    category: PhraseCategory, 
+    fetchedAt: number = Date.now()
+  ): FetchedPhrase {
+    return {
+      phraseId: term.id,
+      text: term.phrase.trim(),
+      category,
+      source: 'openai',
+      fetchedAt,
+      difficulty: term.difficulty
+    };
   }
 
   private async fetchPhrases(manual = false) {
@@ -240,8 +272,8 @@ class PhraseWorker {
 
     const data: OpenAIResponse = await response.json();
     
-    // Check if response is an error
-    if ('error' in data) {
+    // Check if response is an error using type guard
+    if (this.isOpenAIErrorResponse(data)) {
       throw new Error(data.error);
     }
 
@@ -252,24 +284,17 @@ class PhraseWorker {
       throw new Error('Invalid response format from OpenAI API');
     }
 
-    // Validate and filter terms
-    const validTerms = customTerms.filter(term => {
-      return term.id && term.phrase && term.phrase.trim().length > 0;
-    });
+    // Validate and filter terms using type guard
+    const validTerms = customTerms.filter(term => this.isValidCustomTerm(term));
 
     if (validTerms.length === 0) {
       throw new Error('No valid phrases received from OpenAI API');
     }
 
-    // Convert CustomTerm objects to FetchedPhrase objects
-    const phrases: FetchedPhrase[] = validTerms.map(term => ({
-      phraseId: term.id, // Use the UUID from the response
-      text: term.phrase.trim(),
-      category: randomCategory,
-      source: 'openai' as const,
-      fetchedAt: Date.now(),
-      difficulty: term.difficulty // Include difficulty if provided
-    }));
+    // Convert CustomTerm objects to FetchedPhrase objects using utility function
+    const phrases: FetchedPhrase[] = validTerms.map(term => 
+      this.customTermToFetchedPhrase(term, randomCategory)
+    );
 
     // Update daily usage
     await this.incrementDailyUsage();

@@ -1,196 +1,158 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PhraseCategory } from '../data/phrases';
+import { FetchedPhrase } from '../types/openai';
 
-interface WorkerStatus {
+export interface WorkerStatus {
   lastFetch: number;
   dailyUsage: number;
   dailyQuotaLimit: number;
   fetchedPhrasesCount: number;
   nextFetchIn: number;
+  apiKeyAvailable: boolean;
 }
 
-interface FetchedPhrase {
-  phraseId: string;
-  text: string;
-  category: PhraseCategory;
-  source: 'gemini';
-  fetchedAt: number;
+export interface WorkerMessage {
+  type: 'FETCH_SUCCESS' | 'FETCH_ERROR' | 'FETCH_STARTED' | 'FETCH_SKIPPED' | 'FETCH_CANCELLED' | 'STATUS' | 'STATUS_ERROR' | 'WORKER_STARTED' | 'WORKER_STOPPED' | 'ERROR' | 'STORED_PHRASES';
+  count?: number;
+  error?: string;
+  reason?: string;
+  phrases?: FetchedPhrase[];
+  status?: WorkerStatus;
 }
 
-interface WorkerMessage {
-  type: string;
-  [key: string]: unknown;
-}
-
-export interface PhraseWorkerState {
-  isLoaded: boolean;
-  isWorking: boolean;
-  status: WorkerStatus | null;
-  error: string | null;
-  lastFetchResult: {
-    count: number;
-    phrases?: FetchedPhrase[];
-    message?: string;
-  } | null;
-}
-
-export const usePhraseWorker = () => {
+export function usePhraseWorker() {
   const workerRef = useRef<Worker | null>(null);
-  const [state, setState] = useState<PhraseWorkerState>({
-    isLoaded: false,
-    isWorking: false,
-    status: null,
-    error: null,
-    lastFetchResult: null,
-  });
-
-  const getStatusRef = useRef<(() => void) | null>(null);
-
-  const updateState = useCallback((updates: Partial<PhraseWorkerState>) => {
-    setState(prev => ({ ...prev, ...updates }));
-  }, []);
-
-  const handleWorkerMessage = useCallback((event: MessageEvent<WorkerMessage>) => {
-    const { type, ...payload } = event.data;
-
-    switch (type) {
-      case 'FETCH_STARTED':
-        updateState({ isWorking: true, error: null });
-        break;
-
-      case 'FETCH_SUCCESS':
-        updateState({ 
-          isWorking: false, 
-          lastFetchResult: {
-            count: payload.count as number,
-            phrases: payload.phrases as FetchedPhrase[] | undefined,
-            message: payload.message as string | undefined,
-          },
-          error: null 
-        });
-        // Refresh status after successful fetch
-        setTimeout(() => getStatusRef.current?.(), 1000);
-        break;
-
-      case 'FETCH_ERROR':
-        updateState({ 
-          isWorking: false, 
-          error: (payload.error as string) || 'Unknown fetch error' 
-        });
-        break;
-
-      case 'FETCH_SKIPPED':
-        updateState({ 
-          isWorking: false,
-          lastFetchResult: {
-            count: 0,
-            message: `Fetch skipped: ${payload.reason as string}`,
-          }
-        });
-        break;
-
-      case 'FETCH_CANCELLED':
-        updateState({ isWorking: false });
-        break;
-
-      case 'STATUS':
-        updateState({ status: payload.status as WorkerStatus, error: null });
-        break;
-
-      case 'STATUS_ERROR':
-        updateState({ error: (payload.error as string) || 'Failed to get status' });
-        break;
-
-      case 'WORKER_STOPPED':
-        updateState({ isLoaded: false, isWorking: false });
-        break;
-
-      default:
-        console.warn('Unknown worker message type:', type);
-    }
-  }, [updateState]);
-
-  const initializeWorker = useCallback(() => {
-    try {
-      // Create worker using Vite's worker import syntax
-      const workerUrl = new URL('../workers/phraseWorker.ts?worker', import.meta.url);
-      workerRef.current = new Worker(workerUrl);
-
-      workerRef.current.addEventListener('message', handleWorkerMessage);
-      
-      workerRef.current.addEventListener('error', (error) => {
-        console.error('Worker error:', error);
-        updateState({ 
-          error: `Worker error: ${error.message || 'Unknown error'}`,
-          isLoaded: false 
-        });
-      });
-
-      updateState({ isLoaded: true, error: null });
-
-      // Get initial status
-      setTimeout(() => getStatusRef.current?.(), 500);
-
-    } catch (error) {
-      console.error('Failed to initialize worker:', error);
-      updateState({ 
-        error: `Failed to initialize worker: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        isLoaded: false 
-      });
-    }
-  }, [handleWorkerMessage, updateState]);
-
-  const terminateWorker = useCallback(() => {
-    if (workerRef.current) {
-      workerRef.current.postMessage({ type: 'STOP' });
-      workerRef.current.terminate();
-      workerRef.current = null;
-      updateState({ isLoaded: false, isWorking: false });
-    }
-  }, [updateState]);
-
-  const manualFetch = useCallback(() => {
-    if (workerRef.current && state.isLoaded && !state.isWorking) {
-      workerRef.current.postMessage({ type: 'FETCH_NOW' });
-      updateState({ error: null });
-    }
-  }, [state.isLoaded, state.isWorking, updateState]);
-
-  const getStatus = useCallback(() => {
-    if (workerRef.current && state.isLoaded) {
-      workerRef.current.postMessage({ type: 'STATUS' });
-    }
-  }, [state.isLoaded]);
-
-  // Update the ref when getStatus changes
-  getStatusRef.current = getStatus;
+  const [isRunning, setIsRunning] = useState(false);
+  const [status, setStatus] = useState<WorkerStatus | null>(null);
+  const [lastFetch, setLastFetch] = useState<{ count: number; timestamp: number } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Initialize worker on mount
   useEffect(() => {
-    initializeWorker();
+    const initWorker = async () => {
+      try {
+        workerRef.current = new Worker(
+          new URL('../workers/phraseWorker.ts', import.meta.url),
+          { type: 'module' }
+        );
+
+        workerRef.current.onmessage = (event: MessageEvent<WorkerMessage>) => {
+          const { type, count, error: workerError, phrases, status: workerStatus } = event.data;
+
+          switch (type) {
+            case 'WORKER_STARTED':
+              setIsRunning(true);
+              setError(null);
+              break;
+
+            case 'WORKER_STOPPED':
+              setIsRunning(false);
+              break;
+
+            case 'FETCH_STARTED':
+              setError(null);
+              break;
+
+            case 'FETCH_SUCCESS':
+              if (count !== undefined) {
+                setLastFetch({ count, timestamp: Date.now() });
+              }
+              setError(null);
+              break;
+
+            case 'FETCH_ERROR':
+              setError(workerError || 'Unknown fetch error');
+              break;
+
+            case 'FETCH_SKIPPED':
+              // Could show info about why it was skipped
+              break;
+
+            case 'STATUS':
+              if (workerStatus) {
+                setStatus(workerStatus);
+              }
+              break;
+
+            case 'STATUS_ERROR':
+              setError(workerError || 'Failed to get worker status');
+              break;
+
+            case 'ERROR':
+              setError(workerError || 'Worker error');
+              break;
+
+            default:
+              console.log('Unhandled worker message:', type);
+          }
+        };
+
+        workerRef.current.onerror = (error) => {
+          console.error('Worker error:', error);
+          setError('Worker initialization failed');
+          setIsRunning(false);
+        };
+
+        // Request initial status
+        workerRef.current.postMessage({ type: 'STATUS' });
+      } catch (error) {
+        console.error('Failed to initialize phrase worker:', error);
+        setError('Failed to initialize background phrase fetcher');
+      }
+    };
+
+    initWorker();
 
     // Cleanup on unmount
     return () => {
-      terminateWorker();
+      if (workerRef.current) {
+        workerRef.current.postMessage({ type: 'STOP' });
+        workerRef.current.terminate();
+        workerRef.current = null;
+      }
     };
-  }, [initializeWorker, terminateWorker]);
+  }, []);
 
-  // Periodically refresh status
-  useEffect(() => {
-    if (!state.isLoaded) return;
+  // Functions to control the worker
+  const startWorker = () => {
+    if (workerRef.current && !isRunning) {
+      workerRef.current.postMessage({ type: 'START' });
+    }
+  };
 
-    const statusInterval = setInterval(() => {
-      getStatus();
-    }, 30000); // Every 30 seconds
+  const stopWorker = () => {
+    if (workerRef.current && isRunning) {
+      workerRef.current.postMessage({ type: 'STOP' });
+    }
+  };
 
-    return () => clearInterval(statusInterval);
-  }, [state.isLoaded, getStatus]);
+  const fetchNow = () => {
+    if (workerRef.current) {
+      workerRef.current.postMessage({ type: 'FETCH_NOW' });
+    }
+  };
+
+  const requestStatus = () => {
+    if (workerRef.current) {
+      workerRef.current.postMessage({ type: 'STATUS' });
+    }
+  };
+
+  const getStoredPhrases = () => {
+    if (workerRef.current) {
+      workerRef.current.postMessage({ type: 'GET_PHRASES' });
+    }
+  };
 
   return {
-    ...state,
-    manualFetch,
-    getStatus,
-    terminateWorker,
-    initializeWorker,
+    isRunning,
+    status,
+    lastFetch,
+    error,
+    startWorker,
+    stopWorker,
+    fetchNow,
+    requestStatus,
+    getStoredPhrases,
   };
-}; 
+} 

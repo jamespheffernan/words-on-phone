@@ -1,44 +1,16 @@
 import { PhraseCategory } from '../data/phrases';
 import { env } from '../config/environment';
-
-interface CustomCategoryRequest {
-  id: string;
-  categoryName: string;
-  requestedAt: number;
-  sampleWords: string[];
-  phrasesGenerated: number;
-  status: 'pending' | 'confirmed' | 'generated' | 'failed';
-  error?: string;
-}
-
-interface FetchedPhrase {
-  phraseId: string;
-  text: string;
-  category: PhraseCategory;
-  source: 'openai';
-  fetchedAt: number;
-  difficulty?: 'easy' | 'medium' | 'hard';
-}
-
-interface CustomCategoryPhrase extends Omit<FetchedPhrase, 'category'> {
-  customCategory: string;
-  category: PhraseCategory.EVERYTHING;
-}
-
-// OpenAI API Response Interface (matches CustomTerm from implementation plan)
-interface CustomTerm {
-  id: string;
-  topic?: string;
-  phrase: string;
-  difficulty?: 'easy' | 'medium' | 'hard';
-}
-
-// OpenAI API Success/Error Response types
-type OpenAISuccessResponse = CustomTerm[];
-interface OpenAIErrorResponse {
-  error: string;
-}
-type OpenAIResponse = OpenAISuccessResponse | OpenAIErrorResponse;
+import {
+  CustomTerm,
+  OpenAIResponse,
+  isOpenAIErrorResponse,
+  isValidCustomTerm,
+  FetchedPhrase,
+  CustomCategoryPhrase,
+  CustomCategoryRequest,
+  generatePhraseIds,
+  customTermToCustomCategoryPhrase
+} from '../types/openai';
 
 const OPENAI_API_URL = env.OPENAI_API_URL;
 const DAILY_QUOTA_LIMIT = env.DAILY_CATEGORY_QUOTA;
@@ -82,26 +54,6 @@ export class CategoryRequestService {
         }
       };
     });
-  }
-
-  // Generate UUID for phrase IDs
-  private generateUUID(): string {
-    // Use crypto.randomUUID() if available (modern browsers)
-    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-      return crypto.randomUUID();
-    }
-    
-    // Fallback UUID v4 implementation for older browsers
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      const r = Math.random() * 16 | 0;
-      const v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
-
-  // Generate multiple UUIDs for batch requests
-  private generateUUIDs(count: number): string[] {
-    return Array.from({ length: count }, () => this.generateUUID());
   }
 
   async canMakeRequest(): Promise<{ canMake: boolean; reason?: string; remainingToday: number }> {
@@ -153,7 +105,7 @@ export class CategoryRequestService {
 
     try {
       // Generate UUIDs for sample words request
-      const phraseIds = this.generateUUIDs(SAMPLE_WORDS_COUNT);
+      const phraseIds = generatePhraseIds(SAMPLE_WORDS_COUNT);
       
       const response = await this.callOpenAI(categoryName, SAMPLE_WORDS_COUNT, phraseIds);
       const customTerms = this.parseOpenAIResponse(response, 'sample');
@@ -202,7 +154,7 @@ export class CategoryRequestService {
 
     try {
       // Generate UUIDs for full category request
-      const phraseIds = this.generateUUIDs(PHRASES_PER_CATEGORY);
+      const phraseIds = generatePhraseIds(PHRASES_PER_CATEGORY);
       
       const response = await this.callOpenAI(categoryName, PHRASES_PER_CATEGORY, phraseIds);
       const customTerms = this.parseOpenAIResponse(response, 'full');
@@ -211,16 +163,10 @@ export class CategoryRequestService {
         throw new Error(`Only generated ${customTerms.length} phrases. Expected at least 20.`);
       }
 
-      // Convert CustomTerm objects to CustomCategoryPhrase objects
-      const customPhrases: CustomCategoryPhrase[] = customTerms.map(term => ({
-        phraseId: term.id,
-        text: term.phrase.trim(),
-        customCategory: categoryName,
-        category: PhraseCategory.EVERYTHING,
-        source: 'openai' as const,
-        fetchedAt: Date.now(),
-        difficulty: term.difficulty
-      }));
+      // Convert CustomTerm objects to CustomCategoryPhrase objects using utility function
+      const customPhrases: CustomCategoryPhrase[] = customTerms.map(term => 
+        customTermToCustomCategoryPhrase(term, categoryName)
+      );
 
       // Remove duplicates and save to database
       const deduplicatedPhrases = await this.deduplicateCustomPhrases(customPhrases);
@@ -309,8 +255,8 @@ export class CategoryRequestService {
   }
 
   private parseOpenAIResponse(response: OpenAIResponse, requestType: 'sample' | 'full'): CustomTerm[] {
-    // Check if response is an error
-    if ('error' in response) {
+    // Check if response is an error using type guard
+    if (isOpenAIErrorResponse(response)) {
       throw new Error(response.error);
     }
 
@@ -321,10 +267,8 @@ export class CategoryRequestService {
       throw new Error('Invalid response format from OpenAI API');
     }
 
-    // Validate and filter terms
-    const validTerms = customTerms.filter(term => {
-      return term.id && term.phrase && term.phrase.trim().length > 0;
-    });
+    // Validate and filter terms using type guard
+    const validTerms = customTerms.filter(isValidCustomTerm);
 
     if (validTerms.length === 0) {
       throw new Error('No valid phrases received from OpenAI API');

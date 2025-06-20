@@ -1,21 +1,18 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import { validateEnvironment, env, isGeminiAvailable } from './config/environment'
+import { validateEnvironment, env, isOpenAIAvailable } from './config/environment'
+import './index.css'
 
-// Validate environment configuration
+// Validate environment on startup
 validateEnvironment();
 
-// Log API configuration status in development
-if (env.IS_DEVELOPMENT) {
-  console.log('🚀 Words on Phone - Development Mode');
-  console.log('📡 Gemini API Available:', isGeminiAvailable());
-  console.log('💡 Custom categories are handled via secure serverless functions');
-}
+console.log('🚀 Words on Phone starting up...');
+console.log('📊 Environment:', env);
+console.log('📡 OpenAI API Available:', isOpenAIAvailable());
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
     <App />
-  </StrictMode>,
+  </React.StrictMode>,
 )

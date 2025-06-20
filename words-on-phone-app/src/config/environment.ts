@@ -1,53 +1,80 @@
 // Environment configuration for the app
 export const env = {
-  // Gemini API configuration - API key now handled by serverless function
-  GEMINI_MODEL: import.meta.env.VITE_GEMINI_MODEL || 'gemini-1.5-flash',
-  GEMINI_API_URL: import.meta.env.DEV 
-    ? 'http://localhost:8888/.netlify/functions/gemini'  // Development: Netlify Dev on port 8888
-    : '/.netlify/functions/gemini', // Production: same domain
-  
-  // OpenAI API configuration - API key handled by serverless function
-  OPENAI_MODEL: 'gpt-4o-mini', // Cost-efficient model
+  // OpenAI API configuration - API key now handled by serverless function
+  OPENAI_MODEL: import.meta.env.VITE_OPENAI_MODEL || 'gpt-4o-mini',
   OPENAI_API_URL: import.meta.env.DEV
     ? 'http://localhost:8888/.netlify/functions/openai'  // Development: Netlify Dev on port 8888
     : '/.netlify/functions/openai', // Production: same domain
   
-  // Development/production flags
+  // Daily quotas for API usage
+  DAILY_CATEGORY_QUOTA: parseInt(import.meta.env.VITE_DAILY_CATEGORY_QUOTA || '5', 10),
+  PHRASES_PER_CATEGORY: parseInt(import.meta.env.VITE_PHRASES_PER_CATEGORY || '50', 10),
+  
+  // App configuration
   IS_DEVELOPMENT: import.meta.env.DEV,
   IS_PRODUCTION: import.meta.env.PROD,
+  BASE_URL: import.meta.env.BASE_URL,
+  MODE: import.meta.env.MODE,
   
-  // API quotas and limits
-  DAILY_PHRASE_QUOTA: 1000,
-  DAILY_CATEGORY_QUOTA: 5,
-  PHRASES_PER_REQUEST: 20,
-  PHRASES_PER_CATEGORY: 50,
+  // Feature flags
+  ENABLE_ANALYTICS: import.meta.env.VITE_ENABLE_ANALYTICS === 'true',
+  ENABLE_BACKGROUND_FETCH: import.meta.env.VITE_ENABLE_BACKGROUND_FETCH !== 'false', // Default to true
   
-  // OpenAI specific limits
-  OPENAI_MAX_BATCH_SIZE: 100,
-  OPENAI_MIN_BATCH_SIZE: 20,
+  // Game configuration
+  GAME_DURATION: parseInt(import.meta.env.VITE_GAME_DURATION || '60', 10), // seconds
+  ROUND_COUNT: parseInt(import.meta.env.VITE_ROUND_COUNT || '3', 10),
+  
+  // Performance settings
+  MAX_PHRASES_CACHE: parseInt(import.meta.env.VITE_MAX_PHRASES_CACHE || '1000', 10),
+  PHRASE_CLEANUP_INTERVAL: parseInt(import.meta.env.VITE_PHRASE_CLEANUP_INTERVAL || '86400000', 10), // 24 hours in ms
 } as const;
 
-// Validation function to check if required environment variables are set
-export const validateEnvironment = () => {
-  const errors: string[] = [];
-  
-  // No client-side validation needed for API key since it's handled server-side
-  // The serverless function will handle API key validation
-  
-  if (errors.length > 0) {
-    console.error('Environment validation failed:', errors);
-    return false;
-  }
-  
-  return true;
-};
+// Type for the environment object
+export type Environment = typeof env;
 
-// Helper to check if Gemini API is available (always true for serverless function)
-export const isGeminiAvailable = () => {
-  return true; // Serverless function handles availability
-};
+// Validation function to ensure required environment variables are set
+export function validateEnvironment(): void {
+  const requiredVars: (keyof Environment)[] = [
+    'OPENAI_API_URL',
+  ];
+
+  const missingVars = requiredVars.filter(varName => {
+    const value = env[varName];
+    return !value || value === '';
+  });
+
+  if (missingVars.length > 0) {
+    console.warn(`Missing environment variables: ${missingVars.join(', ')}`);
+    console.warn('Some features may not work properly.');
+  }
+
+  // Additional validation
+  if (env.DAILY_CATEGORY_QUOTA <= 0) {
+    console.warn('DAILY_CATEGORY_QUOTA should be greater than 0');
+  }
+
+  if (env.PHRASES_PER_CATEGORY <= 0) {
+    console.warn('PHRASES_PER_CATEGORY should be greater than 0');
+  }
+}
 
 // Helper to check if OpenAI API is available (always true for serverless function)
 export const isOpenAIAvailable = () => {
-  return true; // Serverless function handles availability
-}; 
+  return true; // Serverless function handles API key validation
+};
+
+// Export individual config values for convenience
+export const {
+  OPENAI_MODEL,
+  OPENAI_API_URL,
+  DAILY_CATEGORY_QUOTA,
+  PHRASES_PER_CATEGORY,
+  IS_DEVELOPMENT,
+  IS_PRODUCTION,
+  ENABLE_ANALYTICS,
+  ENABLE_BACKGROUND_FETCH,
+  GAME_DURATION,
+  ROUND_COUNT,
+  MAX_PHRASES_CACHE,
+  PHRASE_CLEANUP_INTERVAL,
+} = env; 

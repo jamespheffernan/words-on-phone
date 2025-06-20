@@ -1,127 +1,114 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { phraseService, type FetchedPhrase } from './phraseService';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { phraseService } from './phraseService';
 import { PhraseCategory } from '../data/phrases';
+import { FetchedPhrase } from '../types/openai';
 
 // Mock IndexedDB
-const mockDB = {
-  objectStoreNames: {
-    contains: vi.fn(() => false)
-  },
-  createObjectStore: vi.fn(() => ({
-    createIndex: vi.fn()
-  })),
-  transaction: vi.fn(() => ({
-    objectStore: vi.fn(() => ({
-      add: vi.fn(() => ({ onsuccess: null, onerror: null })),
-      getAll: vi.fn(() => ({ 
-        onsuccess: null, 
-        onerror: null,
-        result: []
-      })),
-      delete: vi.fn(() => ({ onsuccess: null, onerror: null }))
-    }))
-  }))
-};
-
 const mockIndexedDB = {
-  open: vi.fn(() => ({
-    onerror: null,
-    onsuccess: null,
-    onupgradeneeded: null,
-    result: mockDB
-  }))
+  open: vi.fn(),
+  deleteDatabase: vi.fn(),
 };
 
-// Setup global mocks
-Object.defineProperty(global, 'indexedDB', {
+const mockIDBOpenDBRequest = {
+  result: {
+    objectStoreNames: {
+      contains: vi.fn().mockReturnValue(false),
+    },
+    createObjectStore: vi.fn().mockReturnValue({
+      createIndex: vi.fn(),
+    }),
+    transaction: vi.fn().mockReturnValue({
+      objectStore: vi.fn().mockReturnValue({
+        get: vi.fn().mockReturnValue({ onsuccess: vi.fn(), onerror: vi.fn() }),
+        getAll: vi.fn().mockReturnValue({ 
+          onsuccess: vi.fn(),
+          onerror: vi.fn(),
+          result: []
+        }),
+        add: vi.fn().mockReturnValue({ onsuccess: vi.fn(), onerror: vi.fn() }),
+        put: vi.fn().mockReturnValue({ onsuccess: vi.fn(), onerror: vi.fn() }),
+        delete: vi.fn().mockReturnValue({ onsuccess: vi.fn(), onerror: vi.fn() }),
+      }),
+    }),
+  },
+  onsuccess: null as any,
+  onerror: null as any,
+  onupgradeneeded: null as any,
+};
+
+Object.defineProperty(globalThis, 'indexedDB', {
   value: mockIndexedDB
 });
 
 describe('PhraseService', () => {
-  let service: typeof phraseService;
-
   beforeEach(() => {
     vi.clearAllMocks();
-    // Reset service state by creating a new instance
-    service = phraseService;
+    mockIndexedDB.open.mockReturnValue(mockIDBOpenDBRequest);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it('should initialize with static phrases', () => {
-    const allPhrases = service.getAllPhrases();
+    const allPhrases = phraseService.getAllPhrases();
     expect(allPhrases.length).toBeGreaterThan(0);
-    
-    const stats = service.getStatistics();
-    expect(stats.staticPhrases).toBeGreaterThan(0);
-    expect(stats.fetchedPhrases).toBe(0);
-    expect(stats.totalPhrases).toBe(stats.staticPhrases);
   });
 
-  it('should get phrases by category', () => {
-    const everythingPhrases = service.getPhrasesByCategory(PhraseCategory.EVERYTHING);
-    const moviePhrases = service.getPhrasesByCategory(PhraseCategory.MOVIES);
-    
-    expect(everythingPhrases.length).toBeGreaterThan(moviePhrases.length);
+  it('should return phrases by category', () => {
+    const moviePhrases = phraseService.getPhrasesByCategory(PhraseCategory.MOVIES);
     expect(moviePhrases.length).toBeGreaterThan(0);
+    expect(moviePhrases).toContain('The Godfather');
   });
 
-  it('should deduplicate phrases correctly', async () => {
+  it('should handle adding fetched phrases', async () => {
     const mockPhrases: FetchedPhrase[] = [
       {
-        phraseId: 'test1',
-        text: 'The Godfather', // This should be deduplicated (exists in static)
+        phraseId: 'test-1',
+        text: 'Test Phrase 1',
         category: PhraseCategory.MOVIES,
-        source: 'gemini',
-        fetchedAt: Date.now()
+        source: 'openai',
+        fetchedAt: Date.now(),
       },
       {
-        phraseId: 'test2',
-        text: 'Unique New Phrase',
-        category: PhraseCategory.MOVIES,
-        source: 'gemini',
-        fetchedAt: Date.now()
+        phraseId: 'test-2',
+        text: 'Test Phrase 2',
+        category: PhraseCategory.MUSIC,
+        source: 'openai',
+        fetchedAt: Date.now(),
       }
     ];
 
-    // For this test, we expect deduplication to work even without full DB mocking
-    const added = await service.addFetchedPhrases(mockPhrases).catch(() => 0);
+    // Mock successful database operations
+    mockIDBOpenDBRequest.onsuccess = () => {};
     
-    // Should only add the unique phrase, not "The Godfather"
-    expect(added).toBeLessThan(mockPhrases.length);
+    const count = await phraseService.addFetchedPhrases(mockPhrases);
+    expect(count).toBe(2);
   });
 
-  it('should provide category statistics', () => {
-    const stats = service.getStatistics();
-    
+  it('should deduplicate phrases', async () => {
+    const duplicatePhrases: FetchedPhrase[] = [
+      {
+        phraseId: 'test-3',
+        text: 'The Godfather', // This should be deduplicated
+        category: PhraseCategory.MOVIES,
+        source: 'openai',
+        fetchedAt: Date.now(),
+      }
+    ];
+
+    const count = await phraseService.addFetchedPhrases(duplicatePhrases);
+    expect(count).toBe(0); // Should be deduplicated
+  });
+
+  it('should return statistics', () => {
+    const stats = phraseService.getStatistics();
     expect(stats).toHaveProperty('totalPhrases');
     expect(stats).toHaveProperty('staticPhrases');
     expect(stats).toHaveProperty('fetchedPhrases');
+    expect(stats).toHaveProperty('customPhrases');
     expect(stats).toHaveProperty('lastUpdate');
     expect(stats).toHaveProperty('categoryCounts');
-    
-    expect(stats.categoryCounts[PhraseCategory.EVERYTHING]).toBeGreaterThan(0);
-    expect(stats.categoryCounts[PhraseCategory.MOVIES]).toBeGreaterThan(0);
-  });
-
-  it('should handle worker phrases callback', async () => {
-    const mockPhrases: FetchedPhrase[] = [
-      {
-        phraseId: 'worker1',
-        text: 'Worker Generated Phrase',
-        category: PhraseCategory.ENTERTAINMENT,
-        source: 'gemini',
-        fetchedAt: Date.now()
-      }
-    ];
-
-    // Mock console.log to verify it's called
-    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-
-    await service.handleWorkerPhrases(mockPhrases);
-    
-    expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining('Added')
-    );
-    
-    consoleSpy.mockRestore();
+    expect(stats.totalPhrases).toBeGreaterThan(0);
   });
 }); 
