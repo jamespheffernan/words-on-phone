@@ -15,37 +15,42 @@ enum PhraseCategory {
   NATURE = 'Nature & Animals'
 }
 
-// Gemini API Response Interface
-interface GeminiResponse {
-  candidates: Array<{
-    content: {
-      parts: Array<{
-        text: string;
-      }>;
-    };
-  }>;
+// OpenAI API Response Interface (matches CustomTerm from CategoryRequestService)
+interface CustomTerm {
+  id: string; // UUID echoed from request
+  topic?: string; // Optional topic echoed back
+  phrase: string; // 1-4 words, Title-case
+  difficulty?: 'easy' | 'medium' | 'hard'; // Optional difficulty
 }
+
+// OpenAI API Success/Error Response types
+type OpenAISuccessResponse = CustomTerm[];
+interface OpenAIErrorResponse {
+  error: string; // Short error reason
+}
+type OpenAIResponse = OpenAISuccessResponse | OpenAIErrorResponse;
 
 interface FetchedPhrase {
   phraseId: string;
   text: string;
   category: PhraseCategory;
-  source: 'gemini';
+  source: 'openai'; // Updated to reflect OpenAI source
   fetchedAt: number;
+  difficulty?: 'easy' | 'medium' | 'hard'; // Added difficulty field
 }
 
-// Environment configuration - now uses serverless function
-const GEMINI_API_URL = self.location?.hostname === 'localhost' && self.location?.port === '5173'
-  ? 'http://localhost:8888/.netlify/functions/gemini'  // Development: Netlify Dev on port 8888
-  : '/.netlify/functions/gemini'; // Production: same domain
+// Environment configuration - now uses OpenAI serverless function
+const OPENAI_API_URL = self.location?.hostname === 'localhost' && self.location?.port === '5173'
+  ? 'http://localhost:8888/.netlify/functions/openai'  // Development: Netlify Dev on port 8888
+  : '/.netlify/functions/openai'; // Production: same domain
 
 const FETCH_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 const DAILY_QUOTA_LIMIT = 1000;
-const PHRASES_PER_REQUEST = 20;
+const PHRASES_PER_REQUEST = 50; // Increased batch size for OpenAI cost optimization
 
 // Storage keys for IndexedDB
 const LAST_FETCH_KEY = 'lastPhraseFetch';
-const DAILY_USAGE_KEY = 'dailyGeminiUsage';
+const DAILY_USAGE_KEY = 'dailyOpenAIUsage'; // Updated key name
 const FETCHED_PHRASES_KEY = 'fetchedPhrases';
 
 // Worker state
@@ -103,6 +108,26 @@ class PhraseWorker {
     });
   }
 
+  // Generate UUID for phrase IDs (same implementation as CategoryRequestService)
+  private generateUUID(): string {
+    // Use crypto.randomUUID() if available (modern browsers)
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+    
+    // Fallback UUID v4 implementation for older browsers
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
+  // Generate multiple UUIDs for batch requests
+  private generateUUIDs(count: number): string[] {
+    return Array.from({ length: count }, () => this.generateUUID());
+  }
+
   private async fetchPhrases(manual = false) {
     try {
       // Check if we should fetch
@@ -122,7 +147,7 @@ class PhraseWorker {
       // Create abort controller for this request
       this.abortController = new AbortController();
 
-      const newPhrases = await this.requestPhrasesFromGemini();
+      const newPhrases = await this.requestPhrasesFromOpenAI();
       const deduplicatedPhrases = await this.deduplicatePhrases(newPhrases);
       
       if (deduplicatedPhrases.length > 0) {
@@ -183,79 +208,73 @@ class PhraseWorker {
     }
   }
 
-  private async requestPhrasesFromGemini(): Promise<FetchedPhrase[]> {
+  private async requestPhrasesFromOpenAI(): Promise<FetchedPhrase[]> {
     const categories = Object.values(PhraseCategory);
     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
     
-    const prompt = `Generate ${PHRASES_PER_REQUEST} unique, fun, and challenging phrases for a party game similar to "Catch Phrase" in the category "${randomCategory}". 
+    // Generate UUIDs for the batch request
+    const phraseIds = this.generateUUIDs(PHRASES_PER_REQUEST);
     
-    Rules:
-    - Each phrase should be 1-4 words
-    - Suitable for all ages
-    - Not too obvious but not impossibly obscure
-    - No proper names or very specific references
-    - Return only the phrases, one per line, no numbering or formatting
-    
-    Category: ${randomCategory}`;
-
-    const response = await fetch(GEMINI_API_URL, {
+    const response = await fetch(OPENAI_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        prompt,
-        category: randomCategory,
-        phraseCount: PHRASES_PER_REQUEST,
+        topic: randomCategory,
+        batchSize: PHRASES_PER_REQUEST,
+        phraseIds: phraseIds,
       }),
       signal: this.abortController?.signal,
     });
 
     if (!response.ok) {
       if (response.status === 401) {
-        throw new Error('Invalid Gemini API key');
+        throw new Error('Invalid OpenAI API key');
       } else if (response.status === 429) {
-        throw new Error('Gemini API rate limit exceeded. Please try again later.');
+        throw new Error('OpenAI API rate limit exceeded. Please try again later.');
       } else {
-        throw new Error(`Gemini API error: ${response.status} ${response.statusText}`);
+        throw new Error(`OpenAI API error: ${response.status} ${response.statusText}`);
       }
     }
 
-    const data: GeminiResponse = await response.json();
-    const content = data.candidates[0]?.content?.parts[0]?.text;
+    const data: OpenAIResponse = await response.json();
     
-    if (!content) {
-      throw new Error('No content received from Gemini');
+    // Check if response is an error
+    if ('error' in data) {
+      throw new Error(data.error);
     }
 
-    // Parse phrases from response
-    const phrases = content
-      .split('\n')
-      .map(line => line.trim())
-      .filter(line => line.length > 0 && line.length <= 50) // Reasonable length limit
-      .map(text => ({
-        phraseId: this.generatePhraseId(text),
-        text,
-        category: randomCategory,
-        source: 'gemini' as const,
-        fetchedAt: Date.now(),
-      }));
+    // Response is a success array of CustomTerm objects
+    const customTerms = data as CustomTerm[];
+    
+    if (!Array.isArray(customTerms)) {
+      throw new Error('Invalid response format from OpenAI API');
+    }
+
+    // Validate and filter terms
+    const validTerms = customTerms.filter(term => {
+      return term.id && term.phrase && term.phrase.trim().length > 0;
+    });
+
+    if (validTerms.length === 0) {
+      throw new Error('No valid phrases received from OpenAI API');
+    }
+
+    // Convert CustomTerm objects to FetchedPhrase objects
+    const phrases: FetchedPhrase[] = validTerms.map(term => ({
+      phraseId: term.id, // Use the UUID from the response
+      text: term.phrase.trim(),
+      category: randomCategory,
+      source: 'openai' as const,
+      fetchedAt: Date.now(),
+      difficulty: term.difficulty // Include difficulty if provided
+    }));
 
     // Update daily usage
     await this.incrementDailyUsage();
 
     return phrases;
-  }
-
-  private generatePhraseId(text: string): string {
-    // Create a hash-like ID from the text
-    let hash = 0;
-    for (let i = 0; i < text.length; i++) {
-      const char = text.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32-bit integer
-    }
-    return `gemini_${Math.abs(hash).toString(36)}_${Date.now().toString(36)}`;
   }
 
   private async deduplicatePhrases(newPhrases: FetchedPhrase[]): Promise<FetchedPhrase[]> {
@@ -453,7 +472,7 @@ class PhraseWorker {
 // Initialize the worker with error handling
 try {
   new PhraseWorker();
-  console.log('PhraseWorker initialized successfully');
+  console.log('PhraseWorker initialized successfully with OpenAI API');
 } catch (error) {
   console.error('Failed to initialize PhraseWorker:', error);
   self.postMessage({
