@@ -114,10 +114,27 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
 
   // Check for API key in environment
   const apiKey = process.env.OPENAI_API_KEY;
+  
+  // Debug logging to help troubleshoot
+  console.log('Environment variables check:', {
+    hasOpenAIKey: !!apiKey,
+    openAIKeyLength: apiKey ? apiKey.length : 0,
+    openAIKeyPrefix: apiKey ? apiKey.substring(0, 7) + '...' : 'undefined',
+    allEnvKeys: Object.keys(process.env).filter(key => key.includes('OPENAI')),
+    nodeEnv: process.env.NODE_ENV,
+    netlifyContext: process.env.CONTEXT
+  });
+  
   if (!apiKey) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'API key not configured' }),
+      body: JSON.stringify({ 
+        error: 'API key not configured',
+        debug: {
+          availableOpenAIKeys: Object.keys(process.env).filter(key => key.includes('OPENAI')),
+          hasKey: !!apiKey
+        }
+      }),
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
