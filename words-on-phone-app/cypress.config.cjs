@@ -17,4 +17,7 @@ module.exports = defineConfig({
     },
     specPattern: "src/**/*.cy.{js,jsx,ts,tsx}",
   },
+  typescript: {
+    configFile: "tsconfig.cypress.json"
+  }
 }); 
