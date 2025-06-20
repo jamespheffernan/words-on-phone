@@ -65,21 +65,21 @@ The user wants to rebuild the AI phrase generation feature to leverage OpenAI's 
 4. CORS headers allow requests from development and production origins ✅
 5. API key is securely handled server-side only ✅
 
-### Task 2: Update Category Request Service
-- [ ] Modify `categoryRequestService.ts` to use OpenAI endpoint
-- [ ] Implement UUID generation for phrase IDs
-- [ ] Update request format to include topic parameter
-- [ ] Parse new JSON response format with CustomTerm interface
-- [ ] Handle optional difficulty levels in responses
-- [ ] Update sample word generation to use new format
-- [ ] Maintain existing quota and rate limiting logic
+### Task 2: Update Category Request Service ✅
+- [x] Modify `categoryRequestService.ts` to use OpenAI endpoint
+- [x] Implement UUID generation for phrase IDs
+- [x] Update request format to include topic parameter
+- [x] Parse new JSON response format with CustomTerm interface
+- [x] Handle optional difficulty levels in responses
+- [x] Update sample word generation to use new format
+- [x] Maintain existing quota and rate limiting logic
 
 **Success Criteria:**
-1. Service generates proper UUIDs for each phrase request
-2. Topic parameter correctly passed to API
-3. Response parsing handles both success and error formats
-4. Difficulty levels stored if provided by API
-5. Existing features (sample words, quotas) continue working
+1. Service generates proper UUIDs for each phrase request ✅
+2. Topic parameter correctly passed to API ✅
+3. Response parsing handles both success and error formats ✅
+4. Difficulty levels stored if provided by API ✅
+5. Existing features (sample words, quotas) continue working ✅
 
 ### Task 3: Update Phrase Worker for Background Fetching
 - [ ] Modify `phraseWorker.ts` to use OpenAI endpoint
@@ -203,7 +203,7 @@ type OpenAIResponse = SuccessResponse | ErrorResponse;
 
 ### Tasks
 - [x] **Task 1**: Update Netlify Serverless Function for OpenAI ✅
-- [ ] **Task 2**: Update Category Request Service
+- [x] **Task 2**: Update Category Request Service ✅
 - [ ] **Task 3**: Update Phrase Worker for Background Fetching
 - [ ] **Task 4**: Update Data Models and Interfaces
 - [ ] **Task 5**: Update UI Components for Difficulty Levels
@@ -211,7 +211,7 @@ type OpenAIResponse = SuccessResponse | ErrorResponse;
 - [ ] **Task 7**: Documentation and Cleanup
 
 ### Milestones
-- [ ] API Integration Working (Tasks 1-2)
+- [x] API Integration Working (Tasks 1-2) ✅
 - [ ] Background Fetching Migrated (Task 3)
 - [ ] Data Models Updated (Task 4)
 - [ ] UI Enhancements Complete (Task 5)
@@ -270,6 +270,46 @@ type OpenAIResponse = SuccessResponse | ErrorResponse;
 **Next Steps:**
 - Need OpenAI API key set as `OPENAI_API_KEY` in Netlify environment variables
 - Ready to proceed with Task 2: Update Category Request Service
+
+### Task 2 Completion Report [2025-01-27]
+
+**✅ Successfully Migrated CategoryRequestService to OpenAI API**
+
+**Technical Implementation:**
+- **API Migration**: Completely updated `categoryRequestService.ts` to use OpenAI endpoint instead of Gemini
+- **UUID Generation**: Implemented robust UUID generation using `crypto.randomUUID()` with fallback for older browsers
+- **Interface Updates**: Added `CustomTerm` interface matching OpenAI JSON schema with optional difficulty levels
+- **Request Format**: Updated to send `topic`, `batchSize`, and `phraseIds` parameters to OpenAI API
+- **Response Parsing**: Implemented `parseOpenAIResponse()` method to handle both success arrays and error objects
+- **Source Field**: Updated from 'gemini' to 'openai' for all new phrases
+
+**Key Features Implemented:**
+1. **UUID Integration**: Pre-generates UUIDs client-side and sends to API for echo-back
+2. **Difficulty Support**: Handles optional difficulty levels ('easy', 'medium', 'hard') from API responses
+3. **Batch Processing**: Optimized for OpenAI's batch format (3 for samples, 50 for full categories)
+4. **Error Handling**: Distinguishes between API errors and model-generated error responses
+5. **Backward Compatibility**: Maintains all existing quota and rate limiting functionality
+
+**Testing Added:**
+- Created comprehensive test suite in `categoryRequestService.test.ts`
+- Tests UUID generation, API integration, and quota management
+- All 5 tests pass successfully
+- Verified TypeScript compilation with no errors
+
+**Data Model Changes:**
+- Updated `FetchedPhrase` interface to include optional `difficulty` field
+- Updated `source` field from 'gemini' to 'openai'
+- Added `CustomTerm` interface matching OpenAI API response format
+- Maintained backward compatibility with existing phrase data
+
+**Success Verification:**
+✅ Service generates proper UUIDs for each phrase request
+✅ Topic parameter correctly passed to API
+✅ Response parsing handles both success and error formats
+✅ Difficulty levels stored if provided by API
+✅ Existing features (sample words, quotas) continue working
+
+**Ready for Task 3**: Update Phrase Worker for Background Fetching
 
 ## Lessons Learned
 
