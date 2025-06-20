@@ -7,6 +7,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [cors-fix-gemini-function](implementation-plan/cors-fix-gemini-function.md) - ⚠️ **NEEDS REVISION** - CORS Fix for Gemini Netlify Function (Production 404 Error Detected)
 - [netlify-function-deployment-fix](implementation-plan/netlify-function-deployment-fix.md) - ✅ **COMPLETED** - Netlify Function Deployment Fix - 404 Error Resolution  
 - [visual-background-warning](implementation-plan/visual-background-warning.md) - **✅ COMPLETE** - Visual Background Warning System (Progressive Red Background)
+- [openai-phrasemachine-migration](implementation-plan/openai-phrasemachine-migration.md) - ✅ **COMPLETED** - OpenAI PhraseMachine Migration (Full Production Deployment)
 - [phrasemachine-prompt-upgrade](implementation-plan/phrasemachine-prompt-upgrade.md) - ✅ **COMPLETED** - PhraseMachine Prompt Format Upgrade
 
 ## Current Status / Progress Tracking
