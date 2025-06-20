@@ -198,7 +198,7 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
         }
       ],
       temperature: 0.8,
-      max_tokens: 2000,
+      max_tokens: 4000, // Increased for large batch requests (50+ phrases)
       response_format: { type: 'json_object' }
     };
 
