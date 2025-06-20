@@ -41,7 +41,7 @@ const OPENAI_API_URL = self.location?.hostname === 'localhost' && self.location?
 
 const FETCH_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 const DAILY_QUOTA_LIMIT = 1000;
-const PHRASES_PER_REQUEST = 25; // Optimized batch size to avoid Netlify function timeouts
+const PHRASES_PER_REQUEST = 15; // Optimized batch size to stay within Netlify 10s timeout limit
 
 // Storage keys for IndexedDB
 const LAST_FETCH_KEY = 'lastPhraseFetch';
