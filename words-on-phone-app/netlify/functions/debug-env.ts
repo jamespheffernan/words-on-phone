@@ -19,7 +19,8 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
     };
   }
 
-  const openaiKey = process.env.OPENAI_API_KEY;
+  const openaiKey = process.env.OpenAI_API_KEY;
+  const openaiKeyAllCaps = process.env.OPENAI_API_KEY;
   const allEnvKeys = Object.keys(process.env);
   const openaiKeys = allEnvKeys.filter(key => key.toLowerCase().includes('openai'));
   
@@ -27,8 +28,11 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
     statusCode: 200,
     body: JSON.stringify({
       hasOpenAIKey: !!openaiKey,
+      hasOpenAIKeyAllCaps: !!openaiKeyAllCaps,
       openAIKeyLength: openaiKey ? openaiKey.length : 0,
+      openAIKeyAllCapsLength: openaiKeyAllCaps ? openaiKeyAllCaps.length : 0,
       openAIKeyPrefix: openaiKey ? openaiKey.substring(0, 10) + '...' : 'undefined',
+      openAIKeyAllCapsPrefix: openaiKeyAllCaps ? openaiKeyAllCaps.substring(0, 10) + '...' : 'undefined',
       allOpenAIKeys: openaiKeys,
       totalEnvVars: allEnvKeys.length,
       nodeEnv: process.env.NODE_ENV,
