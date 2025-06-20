@@ -175,7 +175,7 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
 
     // Prepare OpenAI API request
     const openAIRequest = {
-      model: 'gpt-4o-mini', // Using gpt-4o-mini as the cost-efficient model
+      model: 'gpt-4o-mini', // Using GPT-4.1 nano (gpt-4o-mini is the API name for GPT-4.1 nano)
       messages: [
         {
           role: 'system',
@@ -192,7 +192,7 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
     };
 
     console.log('Making request to OpenAI API:', {
-      model: 'gpt-4o-mini',
+      model: 'gpt-4o-mini (GPT-4.1 nano)',
       topic,
       batchSize,
       phraseIdCount: phraseIds.length
