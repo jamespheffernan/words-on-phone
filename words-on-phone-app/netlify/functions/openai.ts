@@ -138,11 +138,26 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
   }
 
   try {
+    console.log('🔍 OpenAI function called:', {
+      httpMethod: event.httpMethod,
+      headers: event.headers,
+      bodyLength: event.body?.length || 0,
+      bodyPreview: event.body?.substring(0, 100) || 'empty'
+    });
+
     const body = JSON.parse(event.body || '{}') as OpenAIRequest;
     const { topic, batchSize, phraseIds } = body;
 
+    console.log('📊 Parsed request body:', {
+      topic,
+      batchSize,
+      phraseIds: phraseIds?.length || 'undefined',
+      bodyType: typeof body
+    });
+
     // Validate request
     if (!batchSize || !phraseIds || phraseIds.length === 0) {
+      console.log('❌ Validation failed: Missing required fields');
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Missing required fields: batchSize and phraseIds' }),
@@ -323,11 +338,20 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
     };
 
   } catch (error) {
-    console.error('OpenAI function error:', error);
+    console.error('❌ OpenAI function error:', {
+      error: error instanceof Error ? error.message : error,
+      stack: error instanceof Error ? error.stack : undefined,
+      eventBody: event.body,
+      eventMethod: event.httpMethod
+    });
     return {
       statusCode: 500,
       body: JSON.stringify({ 
-        error: error instanceof Error ? error.message : 'Internal server error' 
+        error: error instanceof Error ? error.message : 'Internal server error',
+        debug: {
+          eventMethod: event.httpMethod,
+          bodyLength: event.body?.length || 0
+        }
       }),
       headers: {
         'Content-Type': 'application/json',
