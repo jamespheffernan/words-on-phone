@@ -7,7 +7,7 @@ export const env = {
     : '/.netlify/functions/gemini', // Production: same domain
   
   // OpenAI API configuration - API key handled by serverless function
-  OPENAI_MODEL: 'gpt-4o-mini', // GPT-4.1 nano (cost-efficient model)
+  OPENAI_MODEL: 'gpt-4o', // Full GPT-4o for better quality and larger batch handling
   OPENAI_API_URL: import.meta.env.DEV
     ? 'http://localhost:8888/.netlify/functions/openai'  // Development: Netlify Dev on port 8888
     : '/.netlify/functions/openai', // Production: same domain
