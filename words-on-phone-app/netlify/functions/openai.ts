@@ -113,7 +113,7 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
   }
 
   // Check for API key in environment
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.OpenAI_API_KEY;
   
   // Debug logging to help troubleshoot
   console.log('Environment variables check:', {
