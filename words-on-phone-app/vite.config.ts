@@ -36,7 +36,7 @@ export default defineConfig({
   })],
   worker: {
     format: 'es',
-    plugins: () => [react()],
+    plugins: () => [], // Remove React plugin from workers - workers don't need React
     rollupOptions: {
       output: {
         entryFileNames: 'assets/[name]-[hash].js',

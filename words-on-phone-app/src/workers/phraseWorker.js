@@ -17,22 +17,24 @@ const PhraseCategory = {
 
 
 
-// CustomTerm interface matching OpenAI JSON schema
-interface CustomTerm {
-  id: string;
-  topic?: string;
-  phrase: string;
-  difficulty?: "easy" | "medium" | "hard";
-}
+// Type definitions using JSDoc for JavaScript compatibility
+/**
+ * @typedef {Object} CustomTerm
+ * @property {string} id
+ * @property {string} [topic]
+ * @property {string} phrase
+ * @property {"easy" | "medium" | "hard"} [difficulty]
+ */
 
-interface FetchedPhrase {
-  phraseId: string;
-  text: string;
-  category: string;
-  source: 'openai';
-  fetchedAt: number;
-  difficulty?: "easy" | "medium" | "hard";
-}
+/**
+ * @typedef {Object} FetchedPhrase
+ * @property {string} phraseId
+ * @property {string} text
+ * @property {string} category
+ * @property {'openai'} source
+ * @property {number} fetchedAt
+ * @property {"easy" | "medium" | "hard"} [difficulty]
+ */
 
 // Environment configuration - now uses OpenAI serverless function
 const OPENAI_API_URL = self.location?.hostname === 'localhost' && self.location?.port === '5173'
@@ -54,7 +56,7 @@ const FETCH_INTERVAL_MS = FETCH_INTERVAL;
 const DAILY_QUOTA_LIMIT_REQ = DAILY_QUOTA_LIMIT;
 
 // UUID generation for OpenAI requests
-function generateUUID(): string {
+function generateUUID() {
   if (typeof crypto !== 'undefined' && crypto.randomUUID) {
     return crypto.randomUUID();
   }
@@ -67,15 +69,14 @@ function generateUUID(): string {
 }
 
 class PhraseWorker {
-  private abortController: AbortController | null = null;
-
   constructor() {
+    this.abortController = null;
     this.setupEventListeners();
     this.scheduleNextFetch();
     console.log('PhraseWorker initialized successfully with OpenAI API');
   }
 
-  private setupEventListeners() {
+  setupEventListeners() {
     self.addEventListener('message', (event) => {
       const { type } = event.data;
 
@@ -116,8 +117,7 @@ class PhraseWorker {
       });
     });
   }
-
-  private async fetchPhrases(manual = false) {
+  async fetchPhrases(manual = false) {
     try {
       // Check if we should fetch
       if (!manual && !(await this.shouldFetch())) {
@@ -151,7 +151,7 @@ class PhraseWorker {
       } else {
         this.postMessage({ 
           type: 'FETCH_SUCCESS', 
-          count: 0,
+          count,
           message: 'No new phrases after deduplication'
         });
       }
@@ -169,25 +169,23 @@ class PhraseWorker {
       this.abortController = null;
     }
   }
-
-  private async shouldFetch(): Promise<boolean> {
+  async shouldFetch() {
     try {
-      const lastFetch = (await this.getFromStorage(LAST_FETCH_KEY) as number | null) || 0;
+      const lastFetch = (await this.getFromStorage(LAST_FETCH_KEY) || 0;
       const now = Date.now();
       return (now - lastFetch) >= FETCH_INTERVAL_MS;
     } catch {
       return true; // Default to allowing fetch if we can't check
     }
   }
-
-  private async isDailyQuotaExceeded(): Promise<boolean> {
+  async isDailyQuotaExceeded() {
     try {
       const today = new Date().toDateString();
-      const usageData = (await this.getFromStorage(DAILY_USAGE_KEY) as { date: string; count: number } | null) || { date: today, count: 0 };
+      const usageData = (await this.getFromStorage(DAILY_USAGE_KEY)) || { date, count: 0 };
       
       // Reset if new day
       if (usageData.date !== today) {
-        await this.setInStorage(DAILY_USAGE_KEY, { date: today, count: 0 });
+        await this.setInStorage(DAILY_USAGE_KEY, { date, count: 0 });
         return false;
       }
       
@@ -196,8 +194,7 @@ class PhraseWorker {
       return false; // Allow if we can't check
     }
   }
-
-  private async requestPhrasesFromOpenAI(): Promise<FetchedPhrase[]> {
+  async requestPhrasesFromOpenAI() {
     const categories = Object.values(PhraseCategory);
     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
     
@@ -210,9 +207,9 @@ class PhraseWorker {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        topic: randomCategory,
-        batchSize: PHRASES_PER_REQUEST,
-        phraseIds: phraseIds,
+        topic,
+        batchSize,
+        phraseIds,
       }),
       signal: this.abortController?.signal,
     });
@@ -241,11 +238,11 @@ class PhraseWorker {
     }
 
     // Convert CustomTerm objects to FetchedPhrase objects
-    const phrases: FetchedPhrase[] = data.map((term: CustomTerm) => ({
+    const phrases = data.map((term) => ({
       phraseId: term.id,
       text: term.phrase,
-      category: randomCategory,
-      source: 'openai' as const,
+      category,
+      source: 'openai',
       fetchedAt: Date.now(),
       difficulty: term.difficulty,
     }));
@@ -255,11 +252,10 @@ class PhraseWorker {
 
     return phrases;
   }
-
-  private async deduplicatePhrases(newPhrases: FetchedPhrase[]): Promise<FetchedPhrase[]> {
+  async deduplicatePhrases(newPhrases) {
     try {
-      const existingPhrases = (await this.getFromStorage(FETCHED_PHRASES_KEY) as FetchedPhrase[] | null) || [];
-      const existingTexts = new Set(existingPhrases.map((p: FetchedPhrase) => p.text.toLowerCase()));
+      const existingPhrases = (await this.getFromStorage(FETCHED_PHRASES_KEY) || [];
+      const existingTexts = new Set(existingPhrases.map((p) => p.text.toLowerCase()));
       
       return newPhrases.filter(phrase => 
         !existingTexts.has(phrase.text.toLowerCase())
@@ -268,10 +264,9 @@ class PhraseWorker {
       return newPhrases; // Return all if we can't check
     }
   }
-
-  private async storePhrases(phrases: FetchedPhrase[]) {
+  async storePhrases(phrases) {
     try {
-      const existingPhrases = (await this.getFromStorage(FETCHED_PHRASES_KEY) as FetchedPhrase[] | null) || [];
+      const existingPhrases = (await this.getFromStorage(FETCHED_PHRASES_KEY) || [];
       const updatedPhrases = [...existingPhrases, ...phrases];
       
       // Keep only the most recent 1000 phrases to prevent unlimited growth
@@ -284,42 +279,39 @@ class PhraseWorker {
       throw new Error(`Failed to store phrases: ${error}`);
     }
   }
-
-  private async updateFetchMetadata() {
+  async updateFetchMetadata() {
     await this.setInStorage(LAST_FETCH_KEY, Date.now());
   }
-
-  private async incrementDailyUsage() {
+  async incrementDailyUsage() {
     const today = new Date().toDateString();
-    const usageData = (await this.getFromStorage(DAILY_USAGE_KEY) as { date: string; count: number } | null) || { date: today, count: 0 };
+    const usageData = (await this.getFromStorage(DAILY_USAGE_KEY)) || { date, count: 0 };
     
     if (usageData.date !== today) {
       // New day, reset counter
-      await this.setInStorage(DAILY_USAGE_KEY, { date: today, count: 1 });
+      await this.setInStorage(DAILY_USAGE_KEY, { date, count: 1 });
     } else {
       // Increment existing counter
       await this.setInStorage(DAILY_USAGE_KEY, { 
-        date: today, 
+        date, 
         count: usageData.count + 1 
       });
     }
   }
-
-  private async sendStatus() {
+  async sendStatus() {
     try {
-      const lastFetch = (await this.getFromStorage(LAST_FETCH_KEY) as number | null) || 0;
-      const usageData = (await this.getFromStorage(DAILY_USAGE_KEY) as { date: string; count: number } | null) || { date: new Date().toDateString(), count: 0 };
-      const phrasesCount = ((await this.getFromStorage(FETCHED_PHRASES_KEY) as FetchedPhrase[] | null) || []).length;
+      const lastFetch = (await this.getFromStorage(LAST_FETCH_KEY) || 0;
+      const usageData = (await this.getFromStorage(DAILY_USAGE_KEY)) || { date: new Date().toDateString(), count: 0 };
+      const phrasesCount = ((await this.getFromStorage(FETCHED_PHRASES_KEY) || []).length;
       
       this.postMessage({
         type: 'STATUS',
         status: {
           lastFetch,
           dailyUsage: usageData.count,
-          dailyQuotaLimit: DAILY_QUOTA_LIMIT_REQ,
-          fetchedPhrasesCount: phrasesCount,
+          dailyQuotaLimit,
+          fetchedPhrasesCount,
           nextFetchIn: Math.max(0, FETCH_INTERVAL_MS - (Date.now() - lastFetch)),
-          apiKeyAvailable: true,
+          apiKeyAvailable,
         }
       });
     } catch (error) {
@@ -329,10 +321,9 @@ class PhraseWorker {
       });
     }
   }
-
-  private async sendStoredPhrases() {
+  async sendStoredPhrases() {
     try {
-      const phrases = (await this.getFromStorage(FETCHED_PHRASES_KEY) as FetchedPhrase[] | null) || [];
+      const phrases = (await this.getFromStorage(FETCHED_PHRASES_KEY) || [];
       this.postMessage({
         type: 'STORED_PHRASES',
         phrases
@@ -344,8 +335,7 @@ class PhraseWorker {
       });
     }
   }
-
-  private scheduleNextFetch() {
+  scheduleNextFetch() {
     // Check every hour if it's time to fetch
     const checkInterval = 60 * 60 * 1000; // 1 hour
     
@@ -355,21 +345,19 @@ class PhraseWorker {
       }
     }, checkInterval);
   }
-
-  private cleanup() {
+  cleanup() {
     isRunning = false;
     if (this.abortController) {
       this.abortController.abort();
     }
     this.postMessage({ type: 'WORKER_STOPPED' });
   }
-
-  private postMessage(message: { type: string; [key: string]: unknown }) {
+  postMessage(message) {
     self.postMessage(message);
   }
 
   // Simple IndexedDB wrapper for worker context
-  private async getFromStorage(key: string): Promise<unknown> {
+  async getFromStorage(key) {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open('words-on-phone-worker', 1);
       
@@ -393,8 +381,7 @@ class PhraseWorker {
       };
     });
   }
-
-  private async setInStorage(key: string, value: unknown): Promise<void> {
+  async setInStorage(key) {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open('words-on-phone-worker', 1);
       
@@ -418,8 +405,7 @@ class PhraseWorker {
       };
     });
   }
-
-  private async startPeriodicFetching() {
+  async startPeriodicFetching() {
     if (isRunning) {
       this.postMessage({ type: 'ALREADY_RUNNING' });
       return;

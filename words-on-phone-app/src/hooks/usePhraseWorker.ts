@@ -113,7 +113,7 @@ export const usePhraseWorker = () => {
   const initializeWorker = useCallback(() => {
     try {
       // Create worker using Vite's worker import syntax
-      const workerUrl = new URL('../workers/phraseWorker.ts?worker', import.meta.url);
+      const workerUrl = new URL('../workers/phraseWorker.js?worker', import.meta.url);
       workerRef.current = new Worker(workerUrl);
 
       workerRef.current.addEventListener('message', handleWorkerMessage);

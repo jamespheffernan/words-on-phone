@@ -48,6 +48,7 @@ describe('PhraseWorker', () => {
 
   it('should set up event listeners when imported', async () => {
     // Import the worker to trigger initialization
+    // @ts-ignore - Worker is now a JavaScript file
     await import('./phraseWorker');
     
     // Check that event listeners were set up
@@ -57,6 +58,7 @@ describe('PhraseWorker', () => {
   });
 
   it('should handle START message', async () => {
+    // @ts-ignore - Worker is now a JavaScript file
     await import('./phraseWorker');
     
     // Get the message handler
@@ -75,6 +77,7 @@ describe('PhraseWorker', () => {
   });
 
   it('should handle STATUS message', async () => {
+    // @ts-ignore - Worker is now a JavaScript file
     await import('./phraseWorker');
     
     // Get the message handler
@@ -93,6 +96,7 @@ describe('PhraseWorker', () => {
   });
 
   it('should handle unknown message types gracefully', async () => {
+    // @ts-ignore - Worker is now a JavaScript file
     await import('./phraseWorker');
     
     // Get the message handler
