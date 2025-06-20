@@ -33,7 +33,7 @@ export type AIService = 'openai' | 'gemini' | 'none';
 // Cache for service detection to avoid repeated checks
 let cachedActiveService: AIService | null = null;
 let cacheTimestamp = 0;
-const CACHE_DURATION = 10 * 1000; // 10 seconds for testing - will restore to 5 minutes later
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 // Function to clear detection cache (for debugging)
 export const clearServiceDetectionCache = () => {
