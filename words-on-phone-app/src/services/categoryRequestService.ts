@@ -1,5 +1,6 @@
 import { PhraseCategory } from '../data/phrases';
 import { env } from '../config/environment';
+import { detectActiveAIService, type AIService } from '../config/environment';
 
 interface CustomCategoryRequest {
   id: string;
@@ -15,8 +16,9 @@ interface FetchedPhrase {
   phraseId: string;
   text: string;
   category: PhraseCategory;
-  source: 'gemini';
+  source: 'openai' | 'gemini'; // Updated to support both
   fetchedAt: number;
+  difficulty?: "easy" | "medium" | "hard"; // Added difficulty support
 }
 
 interface CustomCategoryPhrase extends Omit<FetchedPhrase, 'category'> {
@@ -35,10 +37,43 @@ interface GeminiResponse {
   }>;
 }
 
-const GEMINI_API_URL = env.GEMINI_API_URL; // Now points to serverless function
+// OpenAI CustomTerm interface
+interface CustomTerm {
+  id: string;
+  topic?: string;
+  phrase: string;
+  difficulty?: "easy" | "medium" | "hard";
+}
+
+// Dynamic API URL selection based on active service
+const getApiUrl = async (): Promise<{ url: string; service: AIService }> => {
+  const activeService = await detectActiveAIService();
+  
+  if (activeService === 'openai') {
+    return { url: env.OPENAI_API_URL, service: 'openai' };
+  } else if (activeService === 'gemini') {
+    return { url: env.GEMINI_API_URL, service: 'gemini' };
+  } else {
+    throw new Error('No AI service available');
+  }
+};
+
 const DAILY_QUOTA_LIMIT = env.DAILY_CATEGORY_QUOTA;
 const SAMPLE_WORDS_COUNT = 3;
 const PHRASES_PER_CATEGORY = env.PHRASES_PER_CATEGORY;
+
+// UUID generation for OpenAI requests
+const generateUUID = (): string => {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  // Fallback UUID v4 implementation
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
 
 // Storage keys
 const DAILY_CATEGORY_USAGE_KEY = 'dailyCategoryUsage';
@@ -127,21 +162,18 @@ export class CategoryRequestService {
     await this.saveRequest(request);
 
     try {
-      const prompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
-
-Task  
-Generate exactly ${SAMPLE_WORDS_COUNT} example words or short phrases for the category **${categoryName}**. These are sample items to show what this category contains.
-
-Rules:
-- Each should be 1-3 words maximum  
-- Family-friendly only (no profanity, politics, or adult themes)
-- Representative examples that clearly belong to "${categoryName}"
-- Return only the items, one per line, no numbering or formatting
-
-Begin.`;
-
-      const response = await this.callGemini(prompt, categoryName);
-      const sampleWords = this.parseWordsFromResponse(response);
+      // Get the active AI service
+      const { url: apiUrl, service } = await getApiUrl();
+      
+      let sampleWords: string[];
+      
+      if (service === 'openai') {
+        // Use OpenAI format
+        sampleWords = await this.requestSampleWordsFromOpenAI(categoryName, apiUrl);
+      } else {
+        // Use Gemini format
+        sampleWords = await this.requestSampleWordsFromGemini(categoryName, apiUrl);
+      }
 
       if (sampleWords.length < 2) {
         throw new Error('Could not generate enough sample words. Please try a different category.');
@@ -164,6 +196,69 @@ Begin.`;
     }
   }
 
+  private async requestSampleWordsFromOpenAI(categoryName: string, apiUrl: string): Promise<string[]> {
+    const phraseIds = Array.from({ length: SAMPLE_WORDS_COUNT }, () => generateUUID());
+    
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        topic: categoryName,
+        batchSize: SAMPLE_WORDS_COUNT,
+        phraseIds: phraseIds
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`OpenAI API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    if ('error' in data) {
+      throw new Error(`OpenAI API error: ${data.error}`);
+    }
+
+    if (!Array.isArray(data)) {
+      throw new Error('OpenAI response is not an array');
+    }
+
+    return data.map((term: CustomTerm) => term.phrase);
+  }
+
+  private async requestSampleWordsFromGemini(categoryName: string, apiUrl: string): Promise<string[]> {
+    const prompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
+
+Task  
+Generate exactly ${SAMPLE_WORDS_COUNT} example words or short phrases for the category **${categoryName}**. These are sample items to show what this category contains.
+
+Rules:
+- Each should be 1-3 words maximum  
+- Family-friendly only (no profanity, politics, or adult themes)
+- Representative examples that clearly belong to "${categoryName}"
+- Return only the items, one per line, no numbering or formatting
+
+Begin.`;
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt: prompt,
+        category: categoryName
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Gemini API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data: GeminiResponse = await response.json();
+    const responseText = data.candidates[0]?.content?.parts[0]?.text || '';
+    
+    return this.parseWordsFromResponse(responseText);
+  }
+
   async generateFullCategory(categoryName: string, sampleWords: string[]): Promise<CustomCategoryPhrase[]> {
     // Find existing request
     const requestId = this.generateRequestId(categoryName);
@@ -183,7 +278,83 @@ Begin.`;
     }
 
     try {
-      const prompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
+      // Get the active AI service
+      const { url: apiUrl, service } = await getApiUrl();
+      
+      let phrases: CustomCategoryPhrase[];
+      
+      if (service === 'openai') {
+        // Use OpenAI format
+        phrases = await this.generatePhrasesFromOpenAI(categoryName, apiUrl);
+      } else {
+        // Use Gemini format
+        phrases = await this.generatePhrasesFromGemini(categoryName, apiUrl);
+      }
+
+      // Deduplicate phrases
+      const deduplicatedPhrases = await this.deduplicateCustomPhrases(phrases);
+      
+      if (deduplicatedPhrases.length === 0) {
+        throw new Error('No new phrases generated after deduplication. Please try a different category.');
+      }
+
+      // Save phrases to storage
+      await this.saveCustomPhrases(deduplicatedPhrases);
+
+      // Update request status
+      existingRequest.status = 'generated';
+      existingRequest.phrasesGenerated = deduplicatedPhrases.length;
+      await this.saveRequest(existingRequest);
+
+      return deduplicatedPhrases;
+    } catch (error) {
+      existingRequest.status = 'failed';
+      existingRequest.error = error instanceof Error ? error.message : 'Unknown error';
+      await this.saveRequest(existingRequest);
+      throw error;
+    }
+  }
+
+  private async generatePhrasesFromOpenAI(categoryName: string, apiUrl: string): Promise<CustomCategoryPhrase[]> {
+    const phraseIds = Array.from({ length: PHRASES_PER_CATEGORY }, () => generateUUID());
+    
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        topic: categoryName,
+        batchSize: PHRASES_PER_CATEGORY,
+        phraseIds: phraseIds
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`OpenAI API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    if ('error' in data) {
+      throw new Error(`OpenAI API error: ${data.error}`);
+    }
+
+    if (!Array.isArray(data)) {
+      throw new Error('OpenAI response is not an array');
+    }
+
+    return data.map((term: CustomTerm) => ({
+      phraseId: term.id,
+      text: term.phrase,
+      customCategory: categoryName,
+      category: PhraseCategory.EVERYTHING,
+      source: 'openai' as const,
+      fetchedAt: Date.now(),
+      difficulty: term.difficulty
+    }));
+  }
+
+  private async generatePhrasesFromGemini(categoryName: string, apiUrl: string): Promise<CustomCategoryPhrase[]> {
+    const prompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
 
 Task  
 1. Given the category **${categoryName}**, output **30-50 unique English phrases** (2–6 words each).  
@@ -200,45 +371,34 @@ Return **only** valid JSON:
   …
 ]
 
-Hidden work  
-Think silently. After drafting, verify:
-• 30–50 items • 2–6 words each • ≥80 % on-category • no repeats.
-
 Begin.`;
 
-      const response = await this.callGemini(prompt, categoryName);
-      const phraseTexts = this.parsePhrasesFromResponse(response);
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt: prompt,
+        category: categoryName
+      })
+    });
 
-      if (phraseTexts.length < 20) {
-        throw new Error(`Only generated ${phraseTexts.length} phrases. Expected at least 20.`);
-      }
-
-      // Convert to CustomCategoryPhrase objects
-      const customPhrases: CustomCategoryPhrase[] = phraseTexts.map(text => ({
-        phraseId: this.generatePhraseId(text, categoryName),
-        text: text.trim(),
-        customCategory: categoryName,
-        category: PhraseCategory.EVERYTHING,
-        source: 'gemini' as const,
-        fetchedAt: Date.now()
-      }));
-
-      // Remove duplicates and save to database
-      const deduplicatedPhrases = await this.deduplicateCustomPhrases(customPhrases);
-      await this.saveCustomPhrases(deduplicatedPhrases);
-
-      // Update request record
-      existingRequest.status = 'generated';
-      existingRequest.phrasesGenerated = deduplicatedPhrases.length;
-      await this.saveRequest(existingRequest);
-
-      return deduplicatedPhrases;
-    } catch (error) {
-      existingRequest.status = 'failed';
-      existingRequest.error = error instanceof Error ? error.message : 'Unknown error';
-      await this.saveRequest(existingRequest);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`Gemini API error: ${response.status} ${response.statusText}`);
     }
+
+    const data: GeminiResponse = await response.json();
+    const responseText = data.candidates[0]?.content?.parts[0]?.text || '';
+    
+    const phrases = this.parsePhrasesFromResponse(responseText);
+    
+    return phrases.map(phrase => ({
+      phraseId: this.generatePhraseId(phrase, categoryName),
+      text: phrase,
+      customCategory: categoryName,
+      category: PhraseCategory.EVERYTHING,
+      source: 'gemini' as const,
+      fetchedAt: Date.now()
+    }));
   }
 
   async getCustomPhrases(): Promise<CustomCategoryPhrase[]> {
@@ -282,37 +442,6 @@ Begin.`;
   }
 
   // Private helper methods
-  private async callGemini(prompt: string, category: string): Promise<string> {
-    const response = await fetch(GEMINI_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        prompt,
-        category,
-        phraseCount: category === 'sample' ? SAMPLE_WORDS_COUNT : PHRASES_PER_CATEGORY,
-      }),
-    });
-
-    if (!response.ok) {
-      if (response.status === 401) {
-        throw new Error('Invalid Gemini API key configuration.');
-      } else if (response.status === 429) {
-        throw new Error('API rate limit exceeded. Please try again later.');
-      } else {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
-      }
-    }
-
-    const data: GeminiResponse = await response.json();
-
-    if (!data.candidates || data.candidates.length === 0 || !data.candidates[0].content.parts[0].text) {
-      throw new Error('No content received from Gemini');
-    }
-
-    return data.candidates[0].content.parts[0].text;
-  }
 
   private parseWordsFromResponse(response: string): string[] {
     return response

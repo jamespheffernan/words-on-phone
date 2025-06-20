@@ -300,16 +300,24 @@ All deployment issues resolved:
 - **Task 5**: Integration Testing & Deployment ✅ 
 - **Task 6**: Final Integration & Production Deployment ✅
 
-### 🎉 **MIGRATION COMPLETE!**
-**All core tasks completed successfully:**
-- OpenAI API fully integrated and operational
-- Category request service migrated to OpenAI
-- Phrase worker updated for background fetching
-- Data models and interfaces updated
-- Production deployment verified and working
-- API key configuration resolved
+### ⚠️ **ISSUE DISCOVERED: Service Layer Still Uses Gemini (2025-01-27)**
 
-**The OpenAI PhraseMachine migration is now 100% complete and operational in production!**
+**Problem Identified:**
+- UI correctly detects and displays "Powered by OpenAI GPT-4.1 nano"
+- `detectActiveAIService()` function correctly identifies OpenAI as the active service
+- **BUT**: CategoryRequestService is hardcoded to always use Gemini endpoint
+- Service layer ignores detection logic and always calls `GEMINI_API_URL`
+
+**Root Cause:**
+- Service was never updated to dynamically choose between OpenAI/Gemini
+- Detection logic exists but isn't used by the actual service layer
+- Functions are deployed, but service doesn't switch to preferred provider
+
+**Required Fix:**
+- Update CategoryRequestService to use `detectActiveAIService()`
+- Implement dynamic endpoint and request format selection
+- Update response parsing to handle both OpenAI and Gemini formats
+- Test end-to-end to ensure actual OpenAI usage
 
 ### 🎯 **Technical Achievement Summary:**
 - **Zero Downtime**: Gemini function remains operational during transition
