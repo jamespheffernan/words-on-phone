@@ -33,18 +33,29 @@ export type AIService = 'openai' | 'gemini' | 'none';
 // Cache for service detection to avoid repeated checks
 let cachedActiveService: AIService | null = null;
 let cacheTimestamp = 0;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 10 * 1000; // 10 seconds for testing - will restore to 5 minutes later
+
+// Function to clear detection cache (for debugging)
+export const clearServiceDetectionCache = () => {
+  cachedActiveService = null;
+  cacheTimestamp = 0;
+  console.log('Service detection cache cleared');
+};
 
 // Detect which AI service is currently active and working
 export const detectActiveAIService = async (): Promise<AIService> => {
   // Return cached result if still valid
   const now = Date.now();
   if (cachedActiveService && (now - cacheTimestamp) < CACHE_DURATION) {
+    console.log(`🔄 Using cached AI service: ${cachedActiveService}`);
     return cachedActiveService;
   }
 
+  console.log('🔍 Testing AI services...');
+
   // Test OpenAI first (preferred service)
   try {
+    console.log('🧪 Testing OpenAI service...');
     const openaiResponse = await fetch(env.OPENAI_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -55,21 +66,34 @@ export const detectActiveAIService = async (): Promise<AIService> => {
       })
     });
     
+    console.log(`📡 OpenAI response status: ${openaiResponse.status} (ok: ${openaiResponse.ok})`);
+    
     if (openaiResponse.ok) {
       const data = await openaiResponse.json();
+      console.log('📊 OpenAI response data type:', typeof data, Array.isArray(data) ? '(array)' : '(object)');
+      console.log('📊 OpenAI response sample:', JSON.stringify(data).substring(0, 100));
+      console.log('📊 OpenAI has error field:', 'error' in data);
+      console.log('📊 OpenAI !data.error:', !data.error);
+      
       // Check if it's not an error response
       if (!data.error) {
+        console.log('✅ OpenAI service detected as working!');
         cachedActiveService = 'openai';
         cacheTimestamp = now;
         return 'openai';
+      } else {
+        console.log('❌ OpenAI returned error response');
       }
+    } else {
+      console.log('❌ OpenAI response not ok');
     }
   } catch (error) {
-    console.debug('OpenAI service test failed:', error);
+    console.log('❌ OpenAI service test failed:', error);
   }
 
   // Test Gemini as fallback
   try {
+    console.log('🧪 Testing Gemini service...');
     const geminiResponse = await fetch(env.GEMINI_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -79,20 +103,33 @@ export const detectActiveAIService = async (): Promise<AIService> => {
       })
     });
     
+    console.log(`📡 Gemini response status: ${geminiResponse.status} (ok: ${geminiResponse.ok})`);
+    
     if (geminiResponse.ok) {
       const data = await geminiResponse.json();
+      console.log('📊 Gemini response data type:', typeof data);
+      console.log('📊 Gemini response sample:', JSON.stringify(data).substring(0, 100));
+      console.log('📊 Gemini has error field:', 'error' in data);
+      console.log('📊 Gemini !data.error:', !data.error);
+      
       // Check if it's not an error response
       if (!data.error) {
+        console.log('✅ Gemini service detected as working (fallback)');
         cachedActiveService = 'gemini';
         cacheTimestamp = now;
         return 'gemini';
+      } else {
+        console.log('❌ Gemini returned error response');
       }
+    } else {
+      console.log('❌ Gemini response not ok');
     }
   } catch (error) {
-    console.debug('Gemini service test failed:', error);
+    console.log('❌ Gemini service test failed:', error);
   }
 
   // Neither service is working
+  console.log('❌ No AI services detected as working');
   cachedActiveService = 'none';
   cacheTimestamp = now;
   return 'none';
@@ -102,7 +139,7 @@ export const detectActiveAIService = async (): Promise<AIService> => {
 export const getAIServiceDisplayName = (service: AIService): string => {
   switch (service) {
     case 'openai':
-      return 'OpenAI GPT-4.1 nano';
+      return 'OpenAI GPT-4o';
     case 'gemini':
       return 'Google Gemini';
     case 'none':
