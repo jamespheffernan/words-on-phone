@@ -1,152 +1,128 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { CategoryRequestService } from './categoryRequestService';
+import { generatePhraseId, generatePhraseIds, isValidCustomTerm, customTermToCustomCategoryPhrase } from '../types/openai';
 
-// Mock IndexedDB for testing
+// Mock IndexedDB
 const mockIndexedDB = {
-  open: () => ({
-    onsuccess: null,
-    onerror: null,
-    onupgradeneeded: null,
-    result: {
-      objectStoreNames: { contains: () => false },
-      createObjectStore: () => ({
-        createIndex: () => {}
+  open: vi.fn(),
+  deleteDatabase: vi.fn(),
+};
+
+const mockIDBOpenDBRequest = {
+  result: {
+    objectStoreNames: {
+      contains: vi.fn().mockReturnValue(false),
+    },
+    createObjectStore: vi.fn().mockReturnValue({
+      createIndex: vi.fn(),
+    }),
+    transaction: vi.fn().mockReturnValue({
+      objectStore: vi.fn().mockReturnValue({
+        get: vi.fn().mockReturnValue({ onsuccess: vi.fn(), onerror: vi.fn() }),
+        getAll: vi.fn().mockReturnValue({ 
+          onsuccess: vi.fn(),
+          onerror: vi.fn(),
+          result: []
+        }),
+        add: vi.fn().mockReturnValue({ onsuccess: vi.fn(), onerror: vi.fn() }),
+        put: vi.fn().mockReturnValue({ onsuccess: vi.fn(), onerror: vi.fn() }),
+        delete: vi.fn().mockReturnValue({ onsuccess: vi.fn(), onerror: vi.fn() }),
       }),
-      transaction: () => ({
-        objectStore: () => ({
-          put: () => ({ onsuccess: null, onerror: null }),
-          get: () => ({ onsuccess: null, onerror: null }),
-          getAll: () => ({ onsuccess: null, onerror: null, result: [] }),
-          delete: () => ({ onsuccess: null, onerror: null }),
-          index: () => ({
-            getAll: () => ({ onsuccess: null, onerror: null, result: [] })
-          })
-        })
-      })
-    }
-  })
+    }),
+  },
+  onsuccess: null as any,
+  onerror: null as any,
+  onupgradeneeded: null as any,
 };
 
-// Mock localStorage
-const mockLocalStorage = {
-  getItem: () => null,
-  setItem: () => {},
-  removeItem: () => {}
-};
+Object.defineProperty(globalThis, 'indexedDB', {
+  value: mockIndexedDB
+});
 
-// Mock fetch for API calls
-const mockFetch = async (url: string, options: any) => {
-  const body = JSON.parse(options.body);
-  
-  // Mock successful OpenAI response
-  if (body.batchSize <= 3) {
-    // Sample words response
-    return {
-      ok: true,
-      json: async () => body.phraseIds.map((id: string, index: number) => ({
-        id,
-        topic: body.topic,
-        phrase: `Sample ${index + 1}`,
-        difficulty: 'easy'
-      }))
-    };
-  } else {
-    // Full category response
-    return {
-      ok: true,
-      json: async () => body.phraseIds.slice(0, 30).map((id: string, index: number) => ({
-        id,
-        topic: body.topic,
-        phrase: `Phrase ${index + 1}`,
-        difficulty: index % 3 === 0 ? 'easy' : index % 3 === 1 ? 'medium' : 'hard'
-      }))
-    };
-  }
-};
+// Mock fetch
+const mockFetch = vi.fn();
+Object.defineProperty(globalThis, 'fetch', {
+  value: mockFetch
+});
 
 describe('CategoryRequestService', () => {
   let service: CategoryRequestService;
 
   beforeEach(() => {
-    // Mock browser APIs
-    Object.defineProperty(global, 'indexedDB', {
-      value: mockIndexedDB,
-      writable: true
-    });
-    
-    Object.defineProperty(global, 'localStorage', {
-      value: mockLocalStorage,
-      writable: true
-    });
-    
-    Object.defineProperty(global, 'fetch', {
-      value: mockFetch,
-      writable: true
-    });
-
-    // Mock crypto.randomUUID
-    Object.defineProperty(global, 'crypto', {
-      value: {
-        randomUUID: () => `uuid-${Math.random().toString(36).substr(2, 9)}`
-      },
-      writable: true
-    });
-
+    vi.clearAllMocks();
+    mockIndexedDB.open.mockReturnValue(mockIDBOpenDBRequest);
     service = new CategoryRequestService();
   });
 
-  it('should create an instance', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('should initialize properly', () => {
     expect(service).toBeDefined();
-    expect(service).toBeInstanceOf(CategoryRequestService);
   });
 
-  it('should have methods for OpenAI integration', () => {
-    expect(typeof service.canMakeRequest).toBe('function');
-    expect(typeof service.requestSampleWords).toBe('function');
-    expect(typeof service.generateFullCategory).toBe('function');
-    expect(typeof service.getCustomPhrases).toBe('function');
-    expect(typeof service.getAllCustomCategories).toBe('function');
-    expect(typeof service.deleteCustomCategory).toBe('function');
+  it('should check quota availability', async () => {
+    const quotaCheck = await service.canMakeRequest();
+    expect(quotaCheck).toHaveProperty('canMake');
+    expect(quotaCheck).toHaveProperty('remainingToday');
+    expect(typeof quotaCheck.canMake).toBe('boolean');
+    expect(typeof quotaCheck.remainingToday).toBe('number');
   });
 
-  it('should generate valid UUIDs', () => {
-    // Access private method through type assertion for testing
-    const serviceAny = service as any;
-    const uuid1 = serviceAny.generateUUID();
-    const uuid2 = serviceAny.generateUUID();
+  it('should generate valid UUIDs using centralized utility', () => {
+    const uuid1 = generatePhraseId();
+    const uuid2 = generatePhraseId();
     
-    expect(uuid1).toBeDefined();
-    expect(uuid2).toBeDefined();
+    expect(uuid1).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+    expect(uuid2).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
     expect(uuid1).not.toBe(uuid2);
-    expect(typeof uuid1).toBe('string');
-    expect(typeof uuid2).toBe('string');
-    
-    // Basic UUID format check (should have dashes)
-    expect(uuid1).toMatch(/-/);
-    expect(uuid2).toMatch(/-/);
   });
 
-  it('should generate multiple UUIDs', () => {
-    const serviceAny = service as any;
-    const uuids = serviceAny.generateUUIDs(5);
+  it('should generate multiple UUIDs using centralized utility', () => {
+    const uuids = generatePhraseIds(5);
     
     expect(uuids).toHaveLength(5);
-    expect(Array.isArray(uuids)).toBe(true);
+    expect(new Set(uuids).size).toBe(5); // All unique
     
-    // Check all UUIDs are unique
-    const uniqueUuids = new Set(uuids);
-    expect(uniqueUuids.size).toBe(5);
+    uuids.forEach(uuid => {
+      expect(uuid).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+    });
   });
 
-  it('should handle quota checking', async () => {
-    const result = await service.canMakeRequest();
+  it('should validate CustomTerm objects correctly', () => {
+    const validTerm = {
+      id: generatePhraseId(),
+      phrase: 'Test Phrase',
+      topic: 'Movies',
+      difficulty: 'medium' as const
+    };
+
+    const invalidTerm = {
+      id: generatePhraseId(),
+      // Missing phrase field
+      topic: 'Movies'
+    };
+
+    expect(isValidCustomTerm(validTerm)).toBe(true);
+    expect(isValidCustomTerm(invalidTerm)).toBe(false);
+  });
+
+  it('should convert CustomTerm to CustomCategoryPhrase correctly', () => {
+    const customTerm = {
+      id: generatePhraseId(),
+      phrase: 'Test Movie',
+      topic: 'Movies',
+      difficulty: 'easy' as const
+    };
+
+    const result = customTermToCustomCategoryPhrase(customTerm, 'My Movies');
     
-    expect(result).toBeDefined();
-    expect(typeof result.canMake).toBe('boolean');
-    expect(typeof result.remainingToday).toBe('number');
-    
-    if (!result.canMake) {
-      expect(typeof result.reason).toBe('string');
-    }
+    expect(result.phraseId).toBe(customTerm.id);
+    expect(result.text).toBe('Test Movie');
+    expect(result.customCategory).toBe('My Movies');
+    expect(result.source).toBe('openai');
+    expect(result.difficulty).toBe('easy');
+    expect(typeof result.fetchedAt).toBe('number');
   });
 }); 

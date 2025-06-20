@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { PhraseCategory } from '../data/phrases';
-import { FetchedPhrase } from '../types/openai';
 
 export interface WorkerStatus {
   lastFetch: number;
@@ -11,104 +9,68 @@ export interface WorkerStatus {
   apiKeyAvailable: boolean;
 }
 
-export interface WorkerMessage {
-  type: 'FETCH_SUCCESS' | 'FETCH_ERROR' | 'FETCH_STARTED' | 'FETCH_SKIPPED' | 'FETCH_CANCELLED' | 'STATUS' | 'STATUS_ERROR' | 'WORKER_STARTED' | 'WORKER_STOPPED' | 'ERROR' | 'STORED_PHRASES';
-  count?: number;
-  error?: string;
-  reason?: string;
-  phrases?: FetchedPhrase[];
-  status?: WorkerStatus;
-}
-
-export function usePhraseWorker() {
+export const usePhraseWorker = () => {
   const workerRef = useRef<Worker | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [status, setStatus] = useState<WorkerStatus | null>(null);
   const [lastFetch, setLastFetch] = useState<{ count: number; timestamp: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Initialize worker on mount
   useEffect(() => {
-    const initWorker = async () => {
+    // Create worker
+    workerRef.current = new Worker(
+      new URL('../workers/phraseWorker.ts', import.meta.url),
+      { type: 'module' }
+    );
+
+    // Set up message handling
+    workerRef.current.onmessage = (event) => {
       try {
-        workerRef.current = new Worker(
-          new URL('../workers/phraseWorker.ts', import.meta.url),
-          { type: 'module' }
-        );
-
-        workerRef.current.onmessage = (event: MessageEvent<WorkerMessage>) => {
-          const { type, count, error: workerError, phrases, status: workerStatus } = event.data;
-
+        if (event.data && typeof event.data === 'object') {
+          const { type, count, error: workerError, status: workerStatus } = event.data;
+          
           switch (type) {
-            case 'WORKER_STARTED':
-              setIsRunning(true);
-              setError(null);
-              break;
-
-            case 'WORKER_STOPPED':
-              setIsRunning(false);
-              break;
-
-            case 'FETCH_STARTED':
-              setError(null);
-              break;
-
-            case 'FETCH_SUCCESS':
+            case 'FETCH_COMPLETE':
               if (count !== undefined) {
-                setLastFetch({ count, timestamp: Date.now() });
+                setLastFetch({
+                  count,
+                  timestamp: Date.now()
+                });
               }
-              setError(null);
+              setError(workerError || null);
               break;
-
-            case 'FETCH_ERROR':
-              setError(workerError || 'Unknown fetch error');
+              
+            case 'STATUS_UPDATE':
+              setStatus(workerStatus || null);
               break;
-
-            case 'FETCH_SKIPPED':
-              // Could show info about why it was skipped
-              break;
-
-            case 'STATUS':
-              if (workerStatus) {
-                setStatus(workerStatus);
-              }
-              break;
-
-            case 'STATUS_ERROR':
-              setError(workerError || 'Failed to get worker status');
-              break;
-
+              
             case 'ERROR':
-              setError(workerError || 'Worker error');
+              setError(workerError || 'Unknown worker error');
               break;
-
+              
             default:
-              console.log('Unhandled worker message:', type);
+              console.warn('Unknown worker message type:', type);
           }
-        };
-
-        workerRef.current.onerror = (error) => {
-          console.error('Worker error:', error);
-          setError('Worker initialization failed');
-          setIsRunning(false);
-        };
-
-        // Request initial status
-        workerRef.current.postMessage({ type: 'STATUS' });
-      } catch (error) {
-        console.error('Failed to initialize phrase worker:', error);
-        setError('Failed to initialize background phrase fetcher');
+        }
+      } catch (err) {
+        console.error('Error processing worker message:', err);
+        setError('Failed to process worker response');
       }
     };
 
-    initWorker();
+    workerRef.current.onerror = (error) => {
+      console.error('Phrase worker error:', error);
+      setError('Worker initialization failed');
+      setIsRunning(false);
+    };
 
-    // Cleanup on unmount
+    // Start worker
+    startWorker();
+
+    // Cleanup
     return () => {
       if (workerRef.current) {
-        workerRef.current.postMessage({ type: 'STOP' });
         workerRef.current.terminate();
-        workerRef.current = null;
       }
     };
   }, []);
@@ -155,4 +117,4 @@ export function usePhraseWorker() {
     requestStatus,
     getStoredPhrases,
   };
-} 
+}; 

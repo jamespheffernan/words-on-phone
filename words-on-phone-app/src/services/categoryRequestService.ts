@@ -1,15 +1,13 @@
-import { PhraseCategory } from '../data/phrases';
 import { env } from '../config/environment';
-import {
-  CustomTerm,
+import { 
+  CustomTerm, 
   OpenAIResponse,
   isOpenAIErrorResponse,
-  isValidCustomTerm,
-  FetchedPhrase,
+  CustomCategoryRequest, 
   CustomCategoryPhrase,
-  CustomCategoryRequest,
   generatePhraseIds,
-  customTermToCustomCategoryPhrase
+  customTermToCustomCategoryPhrase,
+  isValidCustomTerm
 } from '../types/openai';
 
 const OPENAI_API_URL = env.OPENAI_API_URL;
@@ -18,7 +16,7 @@ const SAMPLE_WORDS_COUNT = 3;
 const PHRASES_PER_CATEGORY = env.PHRASES_PER_CATEGORY;
 
 // Storage keys
-const DAILY_CATEGORY_USAGE_KEY = 'dailyCategoryUsage';
+const DAILY_CATEGORY_USAGE_KEY = 'dailyCategoryRequestUsage';
 
 export class CategoryRequestService {
   private dbName = 'words-on-phone-categories';
@@ -84,52 +82,49 @@ export class CategoryRequestService {
     }
   }
 
-  async requestSampleWords(categoryName: string): Promise<string[]> {
-    const quotaCheck = await this.canMakeRequest();
-    if (!quotaCheck.canMake) {
-      throw new Error(quotaCheck.reason || 'Cannot make request at this time');
+  /**
+   * Request sample words for a category to help users decide
+   */
+  async requestSampleWords(category: string): Promise<string[]> {
+    const quota = await this.canMakeRequest();
+    if (!quota.canMake) {
+      throw new Error(quota.reason || 'Cannot make request');
     }
 
-    // Create request record
-    const requestId = this.generateRequestId(categoryName);
-    const request: CustomCategoryRequest = {
-      id: requestId,
-      categoryName,
-      requestedAt: Date.now(),
-      sampleWords: [],
-      phrasesGenerated: 0,
-      status: 'pending'
-    };
-
-    await this.saveRequest(request);
-
+    const batchSize = 3; // Small batch for samples
+    const phraseIds = generatePhraseIds(batchSize);
+    
     try {
-      // Generate UUIDs for sample words request
-      const phraseIds = generatePhraseIds(SAMPLE_WORDS_COUNT);
-      
-      const response = await this.callOpenAI(categoryName, SAMPLE_WORDS_COUNT, phraseIds);
-      const customTerms = this.parseOpenAIResponse(response, 'sample');
+      const response = await fetch('/netlify/functions/openai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic: category,
+          batchSize,
+          phraseIds
+        })
+      });
 
-      if (customTerms.length < 2) {
-        throw new Error('Could not generate enough sample words. Please try a different category.');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      // Extract just the phrase text for sample words
-      const sampleWords = customTerms.map(term => term.phrase);
+      const data: CustomTerm[] = await response.json();
       
-      // Update request with sample words
-      request.sampleWords = sampleWords.slice(0, SAMPLE_WORDS_COUNT);
-      request.status = 'confirmed';
-      await this.saveRequest(request);
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid response format');
+      }
 
-      // Increment daily usage
+      // Validate and extract phrases
+      const validTerms = data.filter(isValidCustomTerm);
+      const phrases = validTerms.map(term => term.phrase);
+      
+      // Store usage and phrases
       await this.incrementDailyUsage();
-
-      return request.sampleWords;
+      
+      return phrases;
     } catch (error) {
-      request.status = 'failed';
-      request.error = error instanceof Error ? error.message : 'Unknown error';
-      await this.saveRequest(request);
+      console.error('Error requesting sample words:', error);
       throw error;
     }
   }
@@ -283,12 +278,6 @@ export class CategoryRequestService {
     return `req_${categoryName.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
   }
 
-  private generatePhraseId(text: string, category: string): string {
-    const normalized = text.toLowerCase().replace(/[^a-z0-9]/g, '_');
-    const categoryPrefix = category.toLowerCase().replace(/[^a-z0-9]/g, '_');
-    return `custom_${categoryPrefix}_${normalized}_${Date.now()}`;
-  }
-
   private async deduplicateCustomPhrases(newPhrases: CustomCategoryPhrase[]): Promise<CustomCategoryPhrase[]> {
     const existingPhrases = await this.getAllCustomPhrasesFromDB();
     const existingTexts = new Set(existingPhrases.map(p => p.text.toLowerCase()));
@@ -298,18 +287,13 @@ export class CategoryRequestService {
     );
   }
 
+  /**
+   * Increment daily usage counter
+   */
   private async incrementDailyUsage(): Promise<void> {
     const today = new Date().toDateString();
-    const usageData = (await this.getFromStorage(DAILY_CATEGORY_USAGE_KEY) as { date: string; count: number } | null) || { date: today, count: 0 };
-    
-    if (usageData.date !== today) {
-      await this.setInStorage(DAILY_CATEGORY_USAGE_KEY, { date: today, count: 1 });
-    } else {
-      await this.setInStorage(DAILY_CATEGORY_USAGE_KEY, { 
-        date: today, 
-        count: usageData.count + 1 
-      });
-    }
+    const currentUsage = await this.getFromStorage(`${DAILY_CATEGORY_USAGE_KEY}_${today}`) as number || 0;
+    await this.setInStorage(`${DAILY_CATEGORY_USAGE_KEY}_${today}`, currentUsage + 1);
   }
 
   // Database operations

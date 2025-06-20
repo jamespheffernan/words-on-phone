@@ -97,11 +97,11 @@ The user wants to rebuild the AI phrase generation feature to leverage OpenAI's 
 5. Background fetching doesn't impact game performance ✅
 
 ### Task 4: Update Data Models and Interfaces
-- [ ] Create `CustomTerm` interface matching JSON schema
-- [ ] Update `FetchedPhrase` interface to support difficulty levels
-- [ ] Modify phrase storage to handle new ID format
-- [ ] Update all type definitions from 'gemini' to 'openai'
-- [ ] Ensure backward compatibility with existing phrases
+- [x] Create `CustomTerm` interface matching JSON schema
+- [x] Update `FetchedPhrase` interface to support difficulty levels
+- [x] Modify phrase storage to handle new ID format
+- [x] Update all type definitions from 'gemini' to 'openai'
+- [x] Ensure backward compatibility with existing phrases
 
 **Success Criteria:**
 1. All interfaces match new JSON schema exactly
@@ -205,7 +205,7 @@ type OpenAIResponse = SuccessResponse | ErrorResponse;
 - [x] **Task 1**: Update Netlify Serverless Function for OpenAI ✅
 - [x] **Task 2**: Update Category Request Service ✅
 - [x] **Task 3**: Update Phrase Worker for Background Fetching ✅
-- [ ] **Task 4**: Update Data Models and Interfaces
+- [x] **Task 4**: Update Data Models and Interfaces
 - [ ] **Task 5**: Update UI Components for Difficulty Levels
 - [ ] **Task 6**: Testing and Migration Verification
 - [ ] **Task 7**: Documentation and Cleanup
@@ -213,7 +213,7 @@ type OpenAIResponse = SuccessResponse | ErrorResponse;
 ### Milestones
 - [x] API Integration Working (Tasks 1-2) ✅
 - [x] Background Fetching Migrated (Task 3)
-- [ ] Data Models Updated (Task 4)
+- [x] Data Models Updated (Task 4)
 - [ ] UI Enhancements Complete (Task 5)
 - [ ] Testing & Deployment Verified (Task 6)
 - [ ] Documentation Complete (Task 7)
