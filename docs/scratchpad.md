@@ -4,6 +4,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 ## Active Implementation Plans
 
+- [openai-phrasemachine-migration](implementation-plan/openai-phrasemachine-migration.md) - 🚧 **IN PLANNING** - OpenAI PhraseMachine Migration (GPT-4.1 nano with custom prompt format)
 - [cors-fix-gemini-function](implementation-plan/cors-fix-gemini-function.md) - ⚠️ **NEEDS REVISION** - CORS Fix for Gemini Netlify Function (Production 404 Error Detected)
 - [netlify-function-deployment-fix](implementation-plan/netlify-function-deployment-fix.md) - ✅ **COMPLETED** - Netlify Function Deployment Fix - 404 Error Resolution  
 - [visual-background-warning](implementation-plan/visual-background-warning.md) - **✅ COMPLETE** - Visual Background Warning System (Progressive Red Background)
@@ -26,11 +27,13 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 **Currently Active:**
 - 🚧 **Phase 9**: Launch preparation (App Store submission, privacy forms, screenshots)
+- 🚧 **OpenAI Migration**: Rebuilding AI phrase generation to use OpenAI GPT-4.1 nano with custom PhraseMachine prompt
 - ✅ **PRODUCTION ISSUE RESOLVED**: Custom category request feature now fully functional - URL path mismatch fixed and verified
 - ✅ **CYPRESS TYPESCRIPT FIXED**: TypeScript configuration issues in accessibility tests resolved
 
 **Next Up:**
 - Phase 9: Final polish, App Store submission, documentation
+- OpenAI PhraseMachine Migration: Implement new AI integration with enhanced prompt format
 
 ---
 

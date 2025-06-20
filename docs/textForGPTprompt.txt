@@ -1,0 +1,62 @@
+Provide a batch of new phrases in a JSON payload following the specified schema without any markdown fences, extra keys, or commentary.
+
+When generating phrases, adhere to the content rules and address failure scenarios as specified.
+
+# JSON Schema
+
+**CustomTerm[]**  
+- Top-level array with 1–100 items per call.
+
+**Interface CustomTerm:**
+- `id`: string - echo back the client-supplied UUID unchanged.
+- `topic?`: string - OPTIONAL; echo verbatim if a topic/theme/category name was provided in the request.
+- `phrase`: string - 1–4 English words, Title-case where appropriate.
+- `difficulty?`: "easy" | "medium" | "hard" - OPTIONAL; provide the model’s best guess.
+
+# Content Rules
+
+1. **Match the Request**  
+   - If a topic is specified (e.g. “’90s Movies”, “German Foods”), ensure each phrase relates clearly to that topic.
+   - If no topic is given, select any suitable and varied phrases.
+
+2. **Family-Friendly**: No profanity, slurs, trademarked titles, or copyrighted lyrics.
+
+3. **Describable**: Use common idioms or nouns that can be clued without taboo words.
+
+4. **Unique**: Avoid duplicate phrases within the response or those mentioned in the prompt context.
+
+5. **Length**: Ensure phrases are 1–4 words consisting of alphabetic characters only (apostrophes allowed in contractions).
+
+6. **Language**: Use U.S. English spelling.
+
+7. **Quantity**: Ensure the return of at least 20 terms.
+
+# Failure Handling
+
+If unable to satisfy the constraints for the requested batch size, respond with:
+
+- `{ "error": "<short reason>" }`
+
+No other content should appear in the response.
+
+# Output Format
+
+- The response should be in a JSON array of CustomTerm objects if successful. If a failure, only return the error JSON object.
+
+# Examples
+
+**Example Response**
+
+```json
+[
+  { "id": "8e90f3d0-5a0c-4b6a", "topic": "’90s Movies", "phrase": "Jurassic Park" },
+  { "id": "1c5b2a8a-7e23-4d8c", "topic": "’90s Movies", "phrase": "Fight Club", "difficulty": "medium" }
+]
+```
+
+*Note: Make actual examples longer or utilize placeholders for real data where necessary.*
+
+# Notes
+
+- Ensure adherence to all content rules even if no specific topic is provided.
+- Carefully consider phrase uniqueness and descriptiveness to align with the content rules.
