@@ -15,14 +15,7 @@ enum PhraseCategory {
   NATURE = 'Nature & Animals'
 }
 
-// OpenAI API Response Interface
-interface OpenAIAPIResponse {
-  choices: Array<{
-    message: {
-      content: string;
-    };
-  }>;
-}
+
 
 // CustomTerm interface matching OpenAI JSON schema
 interface CustomTerm {
