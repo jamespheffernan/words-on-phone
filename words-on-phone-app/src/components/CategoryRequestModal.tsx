@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CategoryRequestModal.css';
+import { detectActiveAIService, getAIServiceDisplayName, getAIServiceEmoji, type AIService } from '../config/environment';
 
 interface CategoryRequestModalProps {
   isOpen: boolean;
@@ -14,6 +15,8 @@ interface RequestState {
   sampleWords: string[];
   error: string;
   generatedCount: number;
+  aiService: AIService | null;
+  detectingService: boolean;
 }
 
 export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
@@ -27,8 +30,30 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
     categoryName: '',
     sampleWords: [],
     error: '',
-    generatedCount: 0
+    generatedCount: 0,
+    aiService: null,
+    detectingService: false
   });
+
+  // Detect AI service when modal opens
+  useEffect(() => {
+    if (isOpen && !state.aiService && !state.detectingService) {
+      setState(prev => ({ ...prev, detectingService: true }));
+      detectActiveAIService().then(service => {
+        setState(prev => ({ 
+          ...prev, 
+          aiService: service, 
+          detectingService: false 
+        }));
+      }).catch(() => {
+        setState(prev => ({ 
+          ...prev, 
+          aiService: 'none', 
+          detectingService: false 
+        }));
+      });
+    }
+  }, [isOpen, state.aiService, state.detectingService]);
 
   const handleInputSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +103,9 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
       categoryName: '',
       sampleWords: [],
       error: '',
-      generatedCount: 0
+      generatedCount: 0,
+      aiService: null,
+      detectingService: false
     });
     onClose();
   };
@@ -95,6 +122,34 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
 
   if (!isOpen) return null;
 
+  // AI Service indicator component
+  const AIServiceIndicator = () => {
+    if (state.detectingService) {
+      return (
+        <div className="ai-service-indicator detecting">
+          <span className="service-emoji">🔍</span>
+          <span className="service-text">Detecting AI service...</span>
+        </div>
+      );
+    }
+
+    if (!state.aiService || state.aiService === 'none') {
+      return (
+        <div className="ai-service-indicator error">
+          <span className="service-emoji">❌</span>
+          <span className="service-text">No AI service available</span>
+        </div>
+      );
+    }
+
+    return (
+      <div className={`ai-service-indicator ${state.aiService}`}>
+        <span className="service-emoji">{getAIServiceEmoji(state.aiService)}</span>
+        <span className="service-text">Powered by {getAIServiceDisplayName(state.aiService)}</span>
+      </div>
+    );
+  };
+
   return (
     <div className="category-request-overlay" onClick={handleClose}>
       <div className="category-request-modal" onClick={e => e.stopPropagation()}>
@@ -108,6 +163,8 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
             ✕
           </button>
         </div>
+
+        <AIServiceIndicator />
 
         <div className="modal-content">
           {state.phase === 'input' && (
@@ -126,13 +183,18 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
                   maxLength={50}
                   required
                   autoFocus
+                  disabled={state.aiService === 'none'}
                 />
               </div>
               <div className="form-actions">
                 <button type="button" onClick={handleClose} className="cancel-button">
                   Cancel
                 </button>
-                <button type="submit" className="preview-button" disabled={!state.categoryName.trim()}>
+                <button 
+                  type="submit" 
+                  className="preview-button" 
+                  disabled={!state.categoryName.trim() || state.aiService === 'none' || state.detectingService}
+                >
                   🔍 Get Sample Words
                 </button>
               </div>
@@ -169,7 +231,9 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
             <div className="generating-phase">
               <div className="loading-spinner"></div>
               <p>Generating phrases for "{state.categoryName}"...</p>
-              <p className="loading-note">This may take a few moments while AI creates your custom phrases.</p>
+              <p className="loading-note">
+                This may take a few moments while {state.aiService ? getAIServiceDisplayName(state.aiService) : 'AI'} creates your custom phrases.
+              </p>
             </div>
           )}
 
@@ -179,7 +243,7 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
               <h3>Category Generated!</h3>
               <p>
                 Successfully generated <strong>{state.generatedCount}</strong> phrases 
-                for "<strong>{state.categoryName}</strong>".
+                for "<strong>{state.categoryName}</strong>" using {state.aiService ? getAIServiceDisplayName(state.aiService) : 'AI'}.
               </p>
               <p className="success-note">
                 These phrases are now available in your game! Look for the golden category 
