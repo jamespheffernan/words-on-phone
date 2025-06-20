@@ -257,10 +257,13 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
       throw new Error('No content in OpenAI response');
     }
 
+    console.log('OpenAI raw response content:', content);
+
     // Parse the JSON response
     let parsedResponse: CustomTerm[] | ErrorResponse;
     try {
       parsedResponse = JSON.parse(content);
+      console.log('Parsed OpenAI response:', parsedResponse);
     } catch (parseError) {
       console.error('Failed to parse OpenAI response:', content);
       throw new Error('Invalid JSON in OpenAI response');
@@ -280,7 +283,22 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
 
     // Validate the response is an array
     if (!Array.isArray(parsedResponse)) {
-      throw new Error('OpenAI response is not an array');
+      console.error('OpenAI response is not an array:', typeof parsedResponse, parsedResponse);
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ 
+          error: 'OpenAI response is not an array',
+          debug: {
+            type: typeof parsedResponse,
+            content: content.substring(0, 200) + '...',
+            parsed: parsedResponse
+          }
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      };
     }
 
     // Return the successful response
