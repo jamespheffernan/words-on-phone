@@ -1,1 +1,5 @@
+# Netlify Functions - must come before catch-all
+/.netlify/functions/*  /.netlify/functions/:splat  200
+
+# SPA catch-all - must be last
 /*    /index.html   200 
