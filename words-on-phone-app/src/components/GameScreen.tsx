@@ -130,7 +130,7 @@ export const GameScreen: React.FC = () => {
       }}
     >
       <header className="game-header">
-        <div className="game-controls">
+        <div className="game-header-controls">
           <button 
             className="pause-button"
             onClick={pauseGame}

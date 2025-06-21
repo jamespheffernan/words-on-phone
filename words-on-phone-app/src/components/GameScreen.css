@@ -1,9 +1,12 @@
 .game-screen {
+  /* Flexbox fallback for older browsers */
   display: flex;
   flex-direction: column;
   /* Use dynamic viewport height with fallback for older browsers */
   min-height: 100vh; /* Fallback for browsers without dvh support */
   min-height: 100dvh; /* Dynamic viewport height accounts for mobile browser chrome */
+  max-height: 100vh; /* Prevent overflow */
+  max-height: 100dvh; /* Use dynamic viewport when available */
   padding: 20px;
   /* Safe area insets for notch/home indicator support */
   padding-top: max(20px, env(safe-area-inset-top));
@@ -16,7 +19,25 @@
   overflow: hidden;
 }
 
+/* CSS Grid enhancement for modern browsers */
+@supports (display: grid) {
+  .game-screen {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+      "header"
+      "phrase"
+      "actions";
+  }
+  
+  /* Restore flex: 1 behavior for phrase container in flexbox fallback */
+  .phrase-container {
+    flex: 1;
+  }
+}
+
 .game-header {
+  grid-area: header;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -111,13 +132,15 @@
   }
 }
 
-.score {
-  font-size: 20px;
+.score-display {
+  /* Responsive score text */
+  font-size: clamp(16px, 4vw, 20px);
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .phrase-container {
-  flex: 1;
+  grid-area: phrase;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,6 +149,8 @@
   /* Ensure phrase container can shrink when needed */
   min-height: 0;
   overflow-wrap: anywhere;
+  /* Allow content to overflow with scrolling if absolutely necessary */
+  overflow-y: auto;
 }
 
 .current-phrase {
@@ -147,7 +172,14 @@
   }
 }
 
+.game-header-controls {
+  display: flex;
+  align-items: center;
+  gap: clamp(15px, 4vw, 20px);
+}
+
 .game-actions {
+  grid-area: actions;
   display: flex;
   flex-direction: column;
   /* Responsive gap and margin */
