@@ -53,6 +53,10 @@ These guidelines codify the development workflow for **Words on Phone**.  They c
 
 - All interactive elements require `aria-label` or text content.
 - Honour `prefers-color-scheme` and respect user motion settings.
+- **Mobile Viewport**: Use `100dvh` with `100vh` fallback and JavaScript detection for unsupported browsers.
+- **Safe Areas**: Implement `env(safe-area-inset-*)` with `@supports()` progressive enhancement.
+- **Responsive Design**: Use `clamp(min, preferred, max)` for all sizing instead of fixed pixel values.
+- **Touch Targets**: Maintain minimum 44px touch targets on all interactive elements.
 
 ## 7. Service Worker & Offline
 
