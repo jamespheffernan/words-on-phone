@@ -6,6 +6,7 @@ import { useHaptics } from '../hooks/useHaptics';
 import { useBeepAudio } from '../hooks/useBeepAudio';
 import { useBeepRamp } from '../hooks/useBeepRamp';
 import { useBackgroundWarning } from '../hooks/useBackgroundWarning';
+import { useViewportHeight } from '../hooks/useViewportHeight';
 import './GameScreen.css';
 
 export const GameScreen: React.FC = () => {
@@ -121,12 +122,17 @@ export const GameScreen: React.FC = () => {
     enabled: true // Always enabled for now, will add setting later
   });
 
+  // Viewport height management with fallback
+  const { heightValue, supportsDvh } = useViewportHeight();
+
   return (
     <main 
       className={`game-screen ${!showTimer ? 'hidden-timer-mode' : ''}`}
       style={{
         background: backgroundWarning.backgroundStyle,
-        transition: 'background 0.3s ease-in-out'
+        transition: 'background 0.3s ease-in-out',
+        // Apply JavaScript-calculated height for browsers without dvh support
+        ...(supportsDvh === false && { minHeight: heightValue, maxHeight: heightValue })
       }}
     >
       <header className="game-header">

@@ -8,11 +8,7 @@
   max-height: 100vh; /* Prevent overflow */
   max-height: 100dvh; /* Use dynamic viewport when available */
   padding: 20px;
-  /* Safe area insets for notch/home indicator support */
-  padding-top: max(20px, env(safe-area-inset-top));
-  padding-bottom: max(20px, env(safe-area-inset-bottom));
-  padding-left: max(20px, env(safe-area-inset-left));
-  padding-right: max(20px, env(safe-area-inset-right));
+  /* Safe area insets now handled in @supports block */
   /* Background is now set dynamically via inline styles with warning system */
   color: white;
   /* Prevent any potential overflow */
@@ -33,6 +29,42 @@
   /* Restore flex: 1 behavior for phrase container in flexbox fallback */
   .phrase-container {
     flex: 1;
+  }
+}
+
+/* Enhanced viewport units for browsers that support them */
+@supports (height: 100dvh) {
+  .game-screen {
+    min-height: 100dvh;
+    max-height: 100dvh;
+  }
+}
+
+/* Safe area inset support detection */
+@supports (padding: max(0px, env(safe-area-inset-top))) {
+  .game-screen {
+    padding-top: max(20px, env(safe-area-inset-top));
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+  }
+  
+  @media (max-width: 768px) {
+    .game-screen {
+      padding-top: max(clamp(10px, 3vw, 15px), env(safe-area-inset-top));
+      padding-bottom: max(clamp(10px, 3vw, 15px), env(safe-area-inset-bottom));
+      padding-left: max(clamp(10px, 3vw, 15px), env(safe-area-inset-left));
+      padding-right: max(clamp(10px, 3vw, 15px), env(safe-area-inset-right));
+    }
+  }
+  
+  @media (orientation: landscape) and (max-height: 500px) {
+    .game-screen {
+      padding-top: max(clamp(8px, 2vh, 12px), env(safe-area-inset-top));
+      padding-bottom: max(clamp(8px, 2vh, 12px), env(safe-area-inset-bottom));
+      padding-left: max(clamp(8px, 2vh, 12px), env(safe-area-inset-left));
+      padding-right: max(clamp(8px, 2vh, 12px), env(safe-area-inset-right));
+    }
   }
 }
 
@@ -257,11 +289,7 @@
   .game-screen {
     /* Responsive padding that scales with screen size */
     padding: clamp(10px, 3vw, 15px);
-    /* Safe area insets for mobile */
-    padding-top: max(clamp(10px, 3vw, 15px), env(safe-area-inset-top));
-    padding-bottom: max(clamp(10px, 3vw, 15px), env(safe-area-inset-bottom));
-    padding-left: max(clamp(10px, 3vw, 15px), env(safe-area-inset-left));
-    padding-right: max(clamp(10px, 3vw, 15px), env(safe-area-inset-right));
+    /* Safe area insets now handled in @supports block */
   }
   
   /* Responsive sizing now handled by clamp() values above */
@@ -275,10 +303,7 @@
   .game-screen {
     /* Reduce padding in landscape to maximize space */
     padding: clamp(8px, 2vh, 12px);
-    padding-top: max(clamp(8px, 2vh, 12px), env(safe-area-inset-top));
-    padding-bottom: max(clamp(8px, 2vh, 12px), env(safe-area-inset-bottom));
-    padding-left: max(clamp(8px, 2vh, 12px), env(safe-area-inset-left));
-    padding-right: max(clamp(8px, 2vh, 12px), env(safe-area-inset-right));
+    /* Safe area insets now handled in @supports block */
   }
   
   .game-header {
