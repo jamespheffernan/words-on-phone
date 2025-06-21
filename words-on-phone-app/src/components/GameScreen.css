@@ -20,17 +20,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  /* Responsive margin that scales with screen size */
+  margin-bottom: clamp(15px, 4vw, 20px);
+  /* Ensure header doesn't grow too tall */
+  flex-shrink: 0;
 }
 
 .pause-button {
-  width: 50px;
-  height: 50px;
+  /* Responsive button size */
+  width: clamp(40px, 10vw, 50px);
+  height: clamp(40px, 10vw, 50px);
   border-radius: 50%;
   border: none;
   background: rgba(255, 255, 255, 0.2);
   color: white;
-  font-size: 24px;
+  /* Responsive font size */
+  font-size: clamp(18px, 5vw, 24px);
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -48,8 +53,9 @@
 
 .timer-circle {
   position: relative;
-  width: 80px;
-  height: 80px;
+  /* Responsive timer circle size */
+  width: clamp(60px, 15vw, 80px);
+  height: clamp(60px, 15vw, 80px);
   border-radius: 50%;
   background: conic-gradient(
     from 0deg,
@@ -67,8 +73,9 @@
 .timer-circle::before {
   content: '';
   position: absolute;
-  width: 60px;
-  height: 60px;
+  /* Responsive inner circle size (80% of parent) */
+  width: calc(clamp(60px, 15vw, 80px) * 0.75);
+  height: calc(clamp(60px, 15vw, 80px) * 0.75);
   border-radius: 50%;
   background: inherit;
   /* Background now inherits from parent game-screen background */
@@ -78,7 +85,8 @@
 .timer-text {
   position: relative;
   z-index: 1;
-  font-size: 16px;
+  /* Responsive timer text size */
+  font-size: clamp(12px, 3vw, 16px);
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
@@ -113,7 +121,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  /* Responsive padding that scales with screen size */
+  padding: clamp(20px, 6vw, 40px) clamp(15px, 4vw, 20px);
+  /* Ensure phrase container can shrink when needed */
+  min-height: 0;
+  overflow-wrap: anywhere;
 }
 
 .current-phrase {
@@ -135,17 +147,22 @@
   }
 }
 
-.game-controls {
+.game-actions {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-bottom: 40px;
+  /* Responsive gap and margin */
+  gap: clamp(15px, 4vw, 20px);
+  margin-bottom: clamp(20px, 5vw, 40px);
+  /* Ensure actions don't grow */
+  flex-shrink: 0;
 }
 
 .pass-button,
 .correct-button {
-  padding: 20px 40px;
-  font-size: 24px;
+  /* Responsive button padding */
+  padding: clamp(15px, 4vw, 20px) clamp(25px, 8vw, 40px);
+  /* Responsive font size */
+  font-size: clamp(18px, 5vw, 24px);
   font-weight: bold;
   border: none;
   border-radius: 50px;
@@ -153,6 +170,8 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
+  /* Ensure buttons don't shrink too much */
+  min-height: 44px; /* iOS touch target minimum */
 }
 
 .pass-button {
@@ -213,29 +232,10 @@
     padding-right: max(clamp(10px, 3vw, 15px), env(safe-area-inset-right));
   }
   
-  .timer-circle {
-    width: 60px;
-    height: 60px;
-  }
+  /* Responsive sizing now handled by clamp() values above */
+  /* No need for fixed mobile overrides */
   
-  .timer-circle::before {
-    width: 45px;
-    height: 45px;
-  }
-  
-  .timer-text {
-    font-size: 14px;
-  }
-  
-  .pass-button,
-  .correct-button {
-    padding: 18px 30px;
-    font-size: 20px;
-  }
-  
-  .current-phrase {
-    padding: 20px 10px;
-  }
+  /* Phrase padding now handled by responsive clamp() values */
 }
 
 /* Dark mode support - removed static backgrounds as they're now dynamic */
