@@ -9,7 +9,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [visual-background-warning](implementation-plan/visual-background-warning.md) - **✅ COMPLETE** - Visual Background Warning System (Progressive Red Background)
 - [openai-phrasemachine-migration](implementation-plan/openai-phrasemachine-migration.md) - ✅ **COMPLETED** - OpenAI PhraseMachine Migration (Service Layer Fixed - Now Uses Dynamic AI Detection)
 - [phrasemachine-prompt-upgrade](implementation-plan/phrasemachine-prompt-upgrade.md) - ✅ **COMPLETED** - PhraseMachine Prompt Format Upgrade
-- [multi-batch-phrase-generation](implementation-plan/multi-batch-phrase-generation.md) - 🚧 **PLANNING** - Multi-Batch Phrase Generation (3×15 → 45 Phrases)
+- [multi-batch-phrase-generation](implementation-plan/multi-batch-phrase-generation.md) - ✅ **COMPLETED** - Multi-Batch Phrase Generation (3×15 → 45 Phrases)
 
 ## Current Status / Progress Tracking
 
