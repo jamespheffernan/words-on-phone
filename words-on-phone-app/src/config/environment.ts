@@ -21,6 +21,7 @@ export const env = {
   DAILY_CATEGORY_QUOTA: 5,
   PHRASES_PER_REQUEST: 15,
   PHRASES_PER_CATEGORY: 15, // Reduced from 20 to avoid Netlify 10s timeout
+  TOTAL_PHRASES_PER_CATEGORY: 45, // Target total phrases (3 parallel batches of 15)
   
   // OpenAI specific limits
   OPENAI_MAX_BATCH_SIZE: 100,

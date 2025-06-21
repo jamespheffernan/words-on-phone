@@ -61,6 +61,7 @@ const getApiUrl = async (): Promise<{ url: string; service: AIService }> => {
 const DAILY_QUOTA_LIMIT = env.DAILY_CATEGORY_QUOTA;
 const SAMPLE_WORDS_COUNT = 3;
 const PHRASES_PER_CATEGORY = env.PHRASES_PER_CATEGORY;
+const TOTAL_PHRASES_PER_CATEGORY = env.TOTAL_PHRASES_PER_CATEGORY;
 
 // UUID generation for OpenAI requests
 const generateUUID = (): string => {
@@ -281,15 +282,8 @@ Begin.`;
       // Get the active AI service
       const { url: apiUrl, service } = await getApiUrl();
       
-      let phrases: CustomCategoryPhrase[];
-      
-      if (service === 'openai') {
-        // Use OpenAI format
-        phrases = await this.generatePhrasesFromOpenAI(categoryName, apiUrl);
-      } else {
-        // Use Gemini format
-        phrases = await this.generatePhrasesFromGemini(categoryName, apiUrl);
-      }
+      // Generate phrases using parallel batching strategy
+      const phrases = await this.generatePhrasesWithBatching(categoryName, apiUrl, service);
 
       // Deduplicate phrases
       const deduplicatedPhrases = await this.deduplicateCustomPhrases(phrases);
@@ -315,7 +309,89 @@ Begin.`;
     }
   }
 
-  private async generatePhrasesFromOpenAI(categoryName: string, apiUrl: string): Promise<CustomCategoryPhrase[]> {
+  private async generatePhrasesWithBatching(categoryName: string, apiUrl: string, service: AIService): Promise<CustomCategoryPhrase[]> {
+    console.log(`🚀 Starting parallel batch generation for category: ${categoryName}`);
+    
+    // Launch 3 parallel batch requests
+    const batchPromises = Array.from({ length: 3 }, (_, index) => 
+      this.generateSingleBatch(categoryName, apiUrl, service, index + 1)
+    );
+    
+    // Wait for all batches to complete (or fail)
+    const batchResults = await Promise.allSettled(batchPromises);
+    
+    // Collect successful batches
+    const allPhrases: CustomCategoryPhrase[] = [];
+    let successfulBatches = 0;
+    
+    for (const [index, result] of batchResults.entries()) {
+      if (result.status === 'fulfilled') {
+        allPhrases.push(...result.value);
+        successfulBatches++;
+        console.log(`✅ Batch ${index + 1} succeeded with ${result.value.length} phrases`);
+      } else {
+        console.warn(`❌ Batch ${index + 1} failed:`, result.reason);
+      }
+    }
+    
+    if (successfulBatches === 0) {
+      throw new Error('All batch requests failed. Please try again.');
+    }
+    
+    // Deduplicate across batches using a Set
+    const uniquePhrases = this.deduplicateAcrossBatches(allPhrases);
+    console.log(`🔄 After deduplication: ${uniquePhrases.length} unique phrases from ${allPhrases.length} total`);
+    
+    // If we have fewer than target, try additional sequential batches (max 1 retry)
+    if (uniquePhrases.length < TOTAL_PHRASES_PER_CATEGORY && successfulBatches < 4) {
+      console.log(`📈 Attempting retry batch to reach ${TOTAL_PHRASES_PER_CATEGORY} phrases...`);
+      try {
+        const retryBatch = await this.generateSingleBatch(categoryName, apiUrl, service, 4);
+        const combinedPhrases = [...uniquePhrases, ...retryBatch];
+        const finalUniquePhrases = this.deduplicateAcrossBatches(combinedPhrases);
+        console.log(`✅ Retry batch added ${finalUniquePhrases.length - uniquePhrases.length} new unique phrases`);
+        return finalUniquePhrases;
+      } catch (error) {
+        console.warn('❌ Retry batch failed:', error);
+      }
+    }
+    
+    console.log(`🎯 Final result: ${uniquePhrases.length} unique phrases generated`);
+    return uniquePhrases;
+  }
+
+  private async generateSingleBatch(categoryName: string, apiUrl: string, service: AIService, batchNumber: number): Promise<CustomCategoryPhrase[]> {
+    console.log(`📦 Generating batch ${batchNumber} for ${categoryName}...`);
+    
+    if (service === 'openai') {
+      const phrases = await this.generatePhrasesBatchFromOpenAI(categoryName, apiUrl);
+      // Increment daily usage for this batch
+      await this.incrementDailyUsage();
+      return phrases;
+    } else {
+      const phrases = await this.generatePhrasesBatchFromGemini(categoryName, apiUrl);
+      // Increment daily usage for this batch
+      await this.incrementDailyUsage();
+      return phrases;
+    }
+  }
+
+  private deduplicateAcrossBatches(phrases: CustomCategoryPhrase[]): CustomCategoryPhrase[] {
+    const seenTexts = new Set<string>();
+    const uniquePhrases: CustomCategoryPhrase[] = [];
+    
+    for (const phrase of phrases) {
+      const normalizedText = phrase.text.toLowerCase();
+      if (!seenTexts.has(normalizedText)) {
+        seenTexts.add(normalizedText);
+        uniquePhrases.push(phrase);
+      }
+    }
+    
+    return uniquePhrases;
+  }
+
+  private async generatePhrasesBatchFromOpenAI(categoryName: string, apiUrl: string): Promise<CustomCategoryPhrase[]> {
     const phraseIds = Array.from({ length: PHRASES_PER_CATEGORY }, () => generateUUID());
     
     const response = await fetch(apiUrl, {
@@ -353,7 +429,7 @@ Begin.`;
     }));
   }
 
-  private async generatePhrasesFromGemini(categoryName: string, apiUrl: string): Promise<CustomCategoryPhrase[]> {
+  private async generatePhrasesBatchFromGemini(categoryName: string, apiUrl: string): Promise<CustomCategoryPhrase[]> {
     const prompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
 
 Task  

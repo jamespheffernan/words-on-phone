@@ -17,6 +17,11 @@ interface RequestState {
   generatedCount: number;
   aiService: AIService | null;
   detectingService: boolean;
+  batchProgress?: {
+    current: number;
+    total: number;
+    status: string;
+  };
 }
 
 export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
@@ -230,7 +235,24 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
           {state.phase === 'generating' && (
             <div className="generating-phase">
               <div className="loading-spinner"></div>
-              <p>Generating phrases for "{state.categoryName}"...</p>
+              {state.batchProgress ? (
+                <>
+                  <p>Generating phrases for "{state.categoryName}"...</p>
+                  <div className="batch-progress">
+                    <div className="progress-bar">
+                      <div 
+                        className="progress-fill" 
+                        style={{ width: `${(state.batchProgress.current / state.batchProgress.total) * 100}%` }}
+                      ></div>
+                    </div>
+                    <p className="progress-text">
+                      {state.batchProgress.status} ({state.batchProgress.current}/{state.batchProgress.total})
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <p>Generating phrases for "{state.categoryName}"...</p>
+              )}
               <p className="loading-note">
                 This may take a few moments while {state.aiService ? getAIServiceDisplayName(state.aiService) : 'AI'} creates your custom phrases.
               </p>
