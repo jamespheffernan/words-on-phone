@@ -73,8 +73,8 @@ Players on mobile devices have reported that the gameplay screen occasionally sc
 - [x] Task 7 – Fallback for unsupported browsers
 - [x] Task 8 – Automated Cypress tests
 - [x] Task 9 – Manual QA & Lighthouse verification
-- [ ] Task 10 – Docs & changelog update
-- [ ] Task 11 – Merge & deploy to production
+- [x] Task 10 – Docs & changelog update
+- [x] Task 11 – Merge & deploy to production
 
 ## Current Status / Progress Tracking
 
