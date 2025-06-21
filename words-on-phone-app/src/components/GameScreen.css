@@ -1,10 +1,19 @@
 .game-screen {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  /* Use dynamic viewport height with fallback for older browsers */
+  min-height: 100vh; /* Fallback for browsers without dvh support */
+  min-height: 100dvh; /* Dynamic viewport height accounts for mobile browser chrome */
   padding: 20px;
+  /* Safe area insets for notch/home indicator support */
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
   /* Background is now set dynamically via inline styles with warning system */
   color: white;
+  /* Prevent any potential overflow */
+  overflow: hidden;
 }
 
 .game-header {
@@ -195,7 +204,13 @@
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .game-screen {
-    padding: 15px;
+    /* Responsive padding that scales with screen size */
+    padding: clamp(10px, 3vw, 15px);
+    /* Safe area insets for mobile */
+    padding-top: max(clamp(10px, 3vw, 15px), env(safe-area-inset-top));
+    padding-bottom: max(clamp(10px, 3vw, 15px), env(safe-area-inset-bottom));
+    padding-left: max(clamp(10px, 3vw, 15px), env(safe-area-inset-left));
+    padding-right: max(clamp(10px, 3vw, 15px), env(safe-area-inset-right));
   }
   
   .timer-circle {
