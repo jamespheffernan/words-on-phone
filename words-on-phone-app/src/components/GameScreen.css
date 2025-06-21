@@ -270,6 +270,56 @@
   /* Phrase padding now handled by responsive clamp() values */
 }
 
+/* Landscape orientation optimizations */
+@media (orientation: landscape) and (max-height: 500px) {
+  .game-screen {
+    /* Reduce padding in landscape to maximize space */
+    padding: clamp(8px, 2vh, 12px);
+    padding-top: max(clamp(8px, 2vh, 12px), env(safe-area-inset-top));
+    padding-bottom: max(clamp(8px, 2vh, 12px), env(safe-area-inset-bottom));
+    padding-left: max(clamp(8px, 2vh, 12px), env(safe-area-inset-left));
+    padding-right: max(clamp(8px, 2vh, 12px), env(safe-area-inset-right));
+  }
+  
+  .game-header {
+    /* Reduce header margin in landscape */
+    margin-bottom: clamp(8px, 2vh, 12px);
+  }
+  
+  .phrase-container {
+    /* Reduce phrase padding in landscape */
+    padding: clamp(12px, 3vh, 20px) clamp(10px, 3vw, 15px);
+  }
+  
+  .game-actions {
+    /* Reduce action spacing in landscape */
+    gap: clamp(8px, 2vh, 12px);
+    margin-bottom: clamp(12px, 3vh, 20px);
+  }
+  
+  .current-phrase {
+    /* Slightly smaller phrase text in landscape */
+    font-size: clamp(1.5rem, 6vw, 3rem);
+  }
+}
+
+/* Landscape with sufficient height - use horizontal button layout */
+@media (orientation: landscape) and (min-height: 500px) {
+  .game-actions {
+    /* Horizontal button layout for wider screens */
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(20px, 5vw, 40px);
+  }
+  
+  .pass-button,
+  .correct-button {
+    /* Adjust button size for horizontal layout */
+    flex: 1;
+    max-width: 200px;
+  }
+}
+
 /* Dark mode support - removed static backgrounds as they're now dynamic */
 @media (prefers-color-scheme: dark) {
   /* Dark mode colors are handled by the warning system */
