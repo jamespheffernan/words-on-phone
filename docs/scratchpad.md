@@ -10,6 +10,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [openai-phrasemachine-migration](implementation-plan/openai-phrasemachine-migration.md) - ✅ **COMPLETED** - OpenAI PhraseMachine Migration (Service Layer Fixed - Now Uses Dynamic AI Detection)
 - [phrasemachine-prompt-upgrade](implementation-plan/phrasemachine-prompt-upgrade.md) - ✅ **COMPLETED** - PhraseMachine Prompt Format Upgrade
 - [multi-batch-phrase-generation](implementation-plan/multi-batch-phrase-generation.md) - ✅ **COMPLETED** - Multi-Batch Phrase Generation (3×15 → 45 Phrases)
+- [mobile-gameplay-screen-ux](implementation-plan/mobile-gameplay-screen-ux.md) - 🚧 **PLANNING** - Mobile Gameplay Screen UX Optimization (Full Viewport, No Scroll)
 
 ## Current Status / Progress Tracking
 
