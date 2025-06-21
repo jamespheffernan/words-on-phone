@@ -125,4 +125,107 @@ describe('CategoryRequestService', () => {
     expect(result.difficulty).toBe('easy');
     expect(typeof result.fetchedAt).toBe('number');
   });
+
+  describe('Cross-batch deduplication', () => {
+    it('should deduplicate phrases across batches (case insensitive)', () => {
+      const phrases = [
+        {
+          phraseId: generatePhraseId(),
+          text: 'Test Phrase',
+          customCategory: 'Test',
+          category: 'Everything' as any,
+          source: 'openai' as const,
+          fetchedAt: Date.now()
+        },
+        {
+          phraseId: generatePhraseId(),
+          text: 'test phrase', // Duplicate (different case)
+          customCategory: 'Test',
+          category: 'Everything' as any,
+          source: 'openai' as const,
+          fetchedAt: Date.now()
+        },
+        {
+          phraseId: generatePhraseId(),
+          text: 'Another Phrase',
+          customCategory: 'Test',
+          category: 'Everything' as any,
+          source: 'openai' as const,
+          fetchedAt: Date.now()
+        },
+        {
+          phraseId: generatePhraseId(),
+          text: 'ANOTHER PHRASE', // Duplicate (different case)
+          customCategory: 'Test',
+          category: 'Everything' as any,
+          source: 'openai' as const,
+          fetchedAt: Date.now()
+        }
+      ];
+
+      // Access the private method using bracket notation for testing
+      const deduplicatedPhrases = (service as any).deduplicateAcrossBatches(phrases);
+      
+      expect(deduplicatedPhrases).toHaveLength(2);
+      expect(deduplicatedPhrases[0].text).toBe('Test Phrase');
+      expect(deduplicatedPhrases[1].text).toBe('Another Phrase');
+    });
+
+    it('should handle empty phrase arrays', () => {
+      const deduplicatedPhrases = (service as any).deduplicateAcrossBatches([]);
+      expect(deduplicatedPhrases).toHaveLength(0);
+    });
+
+    it('should preserve original phrases when no duplicates exist', () => {
+      const phrases = [
+        {
+          phraseId: generatePhraseId(),
+          text: 'Unique Phrase One',
+          customCategory: 'Test',
+          category: 'Everything' as any,
+          source: 'openai' as const,
+          fetchedAt: Date.now()
+        },
+        {
+          phraseId: generatePhraseId(),
+          text: 'Unique Phrase Two',
+          customCategory: 'Test',
+          category: 'Everything' as any,
+          source: 'openai' as const,
+          fetchedAt: Date.now()
+        }
+      ];
+
+      const deduplicatedPhrases = (service as any).deduplicateAcrossBatches(phrases);
+      
+      expect(deduplicatedPhrases).toHaveLength(2);
+      expect(deduplicatedPhrases).toEqual(phrases);
+    });
+
+    it('should handle phrases with special characters and whitespace', () => {
+      const phrases = [
+        {
+          phraseId: generatePhraseId(),
+          text: '  Test Phrase!  ',
+          customCategory: 'Test',
+          category: 'Everything' as any,
+          source: 'openai' as const,
+          fetchedAt: Date.now()
+        },
+        {
+          phraseId: generatePhraseId(),
+          text: 'test phrase!', // Should be considered different due to whitespace normalization
+          customCategory: 'Test',
+          category: 'Everything' as any,
+          source: 'openai' as const,
+          fetchedAt: Date.now()
+        }
+      ];
+
+      const deduplicatedPhrases = (service as any).deduplicateAcrossBatches(phrases);
+      
+      // Both should be kept since the normalization only converts to lowercase, doesn't trim
+      expect(deduplicatedPhrases).toHaveLength(2);
+    });
+  });
 }); 
