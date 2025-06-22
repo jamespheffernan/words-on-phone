@@ -103,9 +103,9 @@ Current limitations:
 | Sub-task | Description | Owner | Status |
 |----------|-------------|--------|--------|
 | 10a | Stub `indexedDBStorage` (or mock idb-keyval) inside `phraseService.test.ts` so that `addFetchedPhrases` and `handleWorkerPhrases` resolve immediately, eliminating 10 s timeouts | Executor | ✅ Done |
-| 10b | Convert `useTimer.test.ts` to `vi.useFakeTimers()` and advance timers to deterministic points; adjust assertion tolerances | Executor | ⬜ TODO |
-| 10c | Re-write `phraseWorker.test.ts` to spy on `self.addEventListener('message', …)` instead of expecting `message` handler on mocked worker, then manually `dispatchEvent` messages for START / STATUS / unknown | Executor | ⬜ TODO |
-| 10d | Silence remaining `act()` warnings in `CategorySelector.test.tsx` by wrapping initial renders causing state updates (non-blocking) | Executor | ⬜ TODO |
+| 10b | Convert `useTimer.test.ts` to `vi.useFakeTimers()` and advance timers to deterministic points; adjust assertion tolerances | Executor | ✅ Done |
+| 10c | Re-write `phraseWorker.test.ts` to spy on `self.addEventListener('message', …)` instead of expecting `message` handler on mocked worker, then manually `dispatchEvent` messages for START / STATUS / unknown | Executor | ✅ Done |
+| 10d | Silence remaining `act()` warnings in `CategorySelector.test.tsx` by wrapping initial renders causing state updates (non-blocking) | Executor | ✅ Done |
 
 **Acceptance Criteria for Task 10**
 1. `npm test` exits with zero failures and no unhandled promise rejections.
@@ -153,7 +153,7 @@ Current limitations:
 
 ✅ RESOLVED 2025-06-22 – The corrupted duplicate file (`src/services/phraseService.ts`) was identified as unused legacy code. It has been safely removed, and the fully-featured implementation in `words-on-phone-app/src/services/phraseService.ts` now serves as the single source of truth. Category metadata, default/custom separation, and Everything/Everything+ logic are fully operational. No further corruption observed.
 
-**Current Focus:** Task 10 (comprehensive tests) is in progress. Sub-task 10a complete – IndexedDB interactions are fully stubbed in `phraseService.test.ts`, eliminating 10 s timeouts. Proceeding to sub-task 10b.
+**Current Focus:** Task 10 completed – all sub-tasks done and tests run clean with no warnings/timeouts. Ready for planner review/closure.
 
 ## Lessons Learned
 
