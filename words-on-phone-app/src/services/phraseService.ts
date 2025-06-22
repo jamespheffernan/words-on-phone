@@ -1,5 +1,6 @@
 import { phrases as staticPhrases, categorizedPhrases, PhraseCategory } from '../data/phrases';
 import { categoryRequestService } from './categoryRequestService';
+import { CategoryMetadata } from '../types/category';
 
 interface FetchedPhrase {
   phraseId: string;
@@ -314,6 +315,45 @@ class PhraseService {
     await this.loadCustomPhrases();
     
     console.log(`Handled deletion of custom category: ${categoryName}`);
+  }
+
+  private slugify(name: string): string {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  }
+
+  /**
+   * Return default (built-in) categories with metadata.
+   */
+  getDefaultCategoryMetadata(): CategoryMetadata[] {
+    return (Object.values(PhraseCategory) as string[])
+      .filter((cat) => cat !== PhraseCategory.EVERYTHING)
+      .map((cat) => {
+        const count = this.getPhrasesByCategory(cat as PhraseCategory).length;
+        return {
+          id: this.slugify(cat),
+          name: cat,
+          type: 'default',
+          phraseCount: count,
+          createdAt: 0,
+        } as CategoryMetadata;
+      });
+  }
+
+  /**
+   * Return custom categories with metadata (async because it may need DB access).
+   */
+  async getCustomCategoryMetadata(): Promise<CategoryMetadata[]> {
+    const customCats = await this.getCustomCategories();
+    return customCats.map((cat) => {
+      const phrases = this.customCategoryPhrases[cat] || [];
+      return {
+        id: this.slugify(cat),
+        name: cat,
+        type: 'custom',
+        phraseCount: phrases.length,
+        createdAt:  Date.now(), // Placeholder until proper timestamps are stored
+      } as CategoryMetadata;
+    });
   }
 }
 
