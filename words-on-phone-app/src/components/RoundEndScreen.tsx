@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './RoundEndScreen.css';
 import { useGameStore } from '../store';
+import { useHaptics } from '../hooks/useHaptics';
 
 interface RoundEndScreenProps {
   onTeamWon: (teamIndex: number) => void;
@@ -9,6 +10,7 @@ interface RoundEndScreenProps {
 
 export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onContinue }) => {
   const { teams, currentRoundAnswers, roundNumber, currentTeamIndex, setCurrentTeamIndex } = useGameStore();
+  const { triggerHaptic } = useHaptics();
   const [selectedWinnerIndex, setSelectedWinnerIndex] = useState<number | null>(null);
   const [nextRoundStarterIndex, setNextRoundStarterIndex] = useState<number>(
     // Pre-select the team that would start next based on current rotation
@@ -29,6 +31,7 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
 
   const handleTeamWon = (teamIndex: number) => {
     setSelectedWinnerIndex(teamIndex);
+    triggerHaptic('gameplay', 'team-selection');
   };
 
   const handleContinueToNextRound = () => {
@@ -37,6 +40,7 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
       setCurrentTeamIndex(nextRoundStarterIndex);
       // Complete the round with the winning team
       onTeamWon(selectedWinnerIndex);
+      triggerHaptic('gameplay', 'round-continue');
       onContinue();
     }
   };
@@ -101,7 +105,10 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
                 <button
                   key={index}
                   className={`team-starter-button ${nextRoundStarterIndex === index ? 'selected' : ''}`}
-                  onClick={() => setNextRoundStarterIndex(index)}
+                  onClick={() => {
+                    setNextRoundStarterIndex(index);
+                    triggerHaptic('ui', 'button-tap');
+                  }}
                 >
                   <span className="team-name">{team.name}</span>
                 </button>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { useGameStore, GameStatus } from '../store';
+import { useHaptics } from '../hooks/useHaptics';
 import './EndScreen.css';
 
 export const EndScreen: React.FC = () => {
   const { teams, roundStats, startGame, resetTeams, resetCurrentRoundAnswers } = useGameStore();
+  const { triggerHaptic } = useHaptics();
 
   // Determine if game ended due to victory or timeout
   const winningTeam = teams.find(team => team.score >= 7);
@@ -23,6 +25,7 @@ export const EndScreen: React.FC = () => {
     // Reset teams to start fresh
     resetTeams();
     resetCurrentRoundAnswers();
+    triggerHaptic('ui', 'button-tap');
     startGame();
   };
 
@@ -30,6 +33,7 @@ export const EndScreen: React.FC = () => {
     // Reset teams when going back to menu
     resetTeams();
     resetCurrentRoundAnswers();
+    triggerHaptic('ui', 'menu-open');
     useGameStore.setState({ status: GameStatus.MENU });
   };
 

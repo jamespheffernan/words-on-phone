@@ -4,6 +4,7 @@ import { HowToPlayModal } from './HowToPlayModal';
 import { CategoryRequestModal } from './CategoryRequestModal';
 import { VersionDisplay } from './VersionDisplay';
 import { useAudio } from '../hooks/useAudio';
+import { useHaptics } from '../hooks/useHaptics';
 import { categoryRequestService } from '../services/categoryRequestService';
 import { phraseService } from '../services/phraseService';
 import { trackCategoryRequested, trackCategoryConfirmed, trackCategoryGenerated } from '../firebase/analytics';
@@ -39,13 +40,18 @@ export const MenuScreen: React.FC = () => {
   const [showCategoryRequest, setShowCategoryRequest] = useState(false);
   const { defaultCategories, customCategories, loading: categoriesLoading, reload: reloadCategories } = useCategoryMetadata();
 
-  // Audio hook for testing buzzer sounds
+  // Audio hooks for UI sounds and testing buzzer sounds
   const testBuzzer = useAudio('buzzer', buzzerSound, { volume: 0.4 });
+  const uiAudio = useAudio('ui', 'button-tap');
+  
+  // Haptics for UI feedback
+  const { triggerHaptic } = useHaptics();
 
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
 
   const handleTestBuzzer = () => {
     testBuzzer.play().catch(console.warn);
+    triggerHaptic('ui', 'button-tap');
   };
 
   const handleCategoryRequest = async (categoryName: string): Promise<string[]> => {
@@ -128,7 +134,11 @@ export const MenuScreen: React.FC = () => {
 
         <button
           className="settings-toggle"
-          onClick={() => setShowSettings(!showSettings)}
+          onClick={() => {
+            setShowSettings(!showSettings);
+            uiAudio.play().catch(console.warn);
+            triggerHaptic('ui', 'menu-open');
+          }}
           aria-label="Toggle settings"
         >
           ⚙️ Settings
