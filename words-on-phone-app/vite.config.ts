@@ -24,10 +24,43 @@ export default defineConfig({
     },
 
     manifest: {
-      name: 'words-on-phone-app',
-      short_name: 'words-on-phone-app',
-      description: 'words-on-phone',
-      theme_color: '#ffffff',
+      name: 'Words on Phone',
+      short_name: 'Words on Phone',
+      description: 'A fun party game for teams to guess phrases before the timer runs out. Play offline with customizable settings and categories.',
+      theme_color: '#667eea',
+      background_color: '#667eea',
+      display: 'standalone',
+      start_url: '/',
+      scope: '/',
+      lang: 'en',
+      orientation: 'portrait',
+      categories: ['games', 'entertainment'],
+      icons: [
+        {
+          src: 'icon-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+          purpose: 'any'
+        },
+        {
+          src: 'icon-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any'
+        },
+        {
+          src: 'icon-192x192-maskable.png',
+          sizes: '192x192',
+          type: 'image/png',
+          purpose: 'maskable'
+        },
+        {
+          src: 'icon-512x512-maskable.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'maskable'
+        }
+      ]
     },
 
     workbox: {
