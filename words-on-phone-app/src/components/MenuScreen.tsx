@@ -70,24 +70,24 @@ export const MenuScreen: React.FC = () => {
     }
   };
 
-  const handleConfirmGeneration = async (categoryName: string, sampleWords: string[]): Promise<void> => {
+  const handleConfirmGeneration = async (info: { name: string; description: string; tags: string[] }, sampleWords: string[]): Promise<void> => {
     const startTime = Date.now();
-    const requestId = `req_${categoryName.toLowerCase().replace(/[^a-z0-9]/g, '_')}_${Date.now()}`;
+    const requestId = `req_${info.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}_${Date.now()}`;
     
     try {
       // Track confirmation
       trackCategoryConfirmed({
-        category_name: categoryName,
+        category_name: info.name,
         request_id: requestId,
         sample_words: sampleWords
       });
       
-      const customPhrases = await categoryRequestService.generateFullCategory(categoryName, sampleWords);
+      const customPhrases = await categoryRequestService.generateFullCategory(info.name, sampleWords, info.description, info.tags);
       const generationTime = Date.now() - startTime;
       
       // Track generation completion
       trackCategoryGenerated({
-        category_name: categoryName,
+        category_name: info.name,
         request_id: requestId,
         phrases_generated: customPhrases.length,
         generation_time_ms: generationTime
@@ -97,7 +97,7 @@ export const MenuScreen: React.FC = () => {
       await phraseService.refreshCustomPhrases();
       reloadCategories();
       
-      console.log(`Generated ${customPhrases.length} phrases for category: ${categoryName}`);
+      console.log(`Generated ${customPhrases.length} phrases for category: ${info.name}`);
     } catch (error) {
       console.error('Category generation failed:', error);
       throw error;

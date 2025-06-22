@@ -6,7 +6,7 @@ interface CategoryRequestModalProps {
   isOpen: boolean;
   onClose: () => void;
   onRequestCategory: (categoryName: string) => Promise<string[]>;
-  onConfirmGeneration: (categoryName: string, sampleWords: string[]) => Promise<void>;
+  onConfirmGeneration: (info: { name: string; description: string; tags: string[] }, sampleWords: string[]) => Promise<void>;
 }
 
 interface RequestState {
@@ -22,6 +22,9 @@ interface RequestState {
     total: number;
     status: string;
   };
+  description: string;
+  tags: string[];
+  tagInput: string;
 }
 
 export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
@@ -37,7 +40,10 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
     error: '',
     generatedCount: 0,
     aiService: null,
-    detectingService: false
+    detectingService: false,
+    description: '',
+    tags: [],
+    tagInput: ''
   });
 
   // Detect AI service when modal opens
@@ -87,7 +93,7 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
     setState(prev => ({ ...prev, phase: 'generating' }));
     
     try {
-      await onConfirmGeneration(state.categoryName, state.sampleWords);
+      await onConfirmGeneration({ name: state.categoryName, description: state.description, tags: state.tags }, state.sampleWords);
       setState(prev => ({ 
         ...prev, 
         phase: 'success',
@@ -110,7 +116,10 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
       error: '',
       generatedCount: 0,
       aiService: null,
-      detectingService: false
+      detectingService: false,
+      description: '',
+      tags: [],
+      tagInput: ''
     });
     onClose();
   };
@@ -123,6 +132,13 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
       sampleWords: [], 
       error: '' 
     }));
+  };
+
+  const addTag = () => {
+    if (state.tagInput.trim() && !state.tags.includes(state.tagInput.trim())) {
+      setState(prev => ({ ...prev, tags: [...prev.tags, state.tagInput.trim()] }));
+    }
+    setState(prev => ({ ...prev, tagInput: '' }));
   };
 
   if (!isOpen) return null;
@@ -191,6 +207,18 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
                   disabled={state.aiService === 'none'}
                 />
               </div>
+              <label>
+                Description
+                <textarea value={state.description} onChange={(e)=> setState(prev => ({ ...prev, description: e.target.value }))} />
+              </label>
+              <label>
+                Tags
+                <div className="tag-input">
+                  <input value={state.tagInput} onChange={(e)=> setState(prev => ({ ...prev, tagInput: e.target.value }))} onKeyDown={(e)=> {if(e.key==='Enter'){e.preventDefault();addTag();}}} />
+                  <button type="button" onClick={addTag}>Add</button>
+                </div>
+                <div className="tag-list">{state.tags.map(t=> <span key={t} className="tag">{t}</span>)}</div>
+              </label>
               <div className="form-actions">
                 <button type="button" onClick={handleClose} className="cancel-button">
                   Cancel

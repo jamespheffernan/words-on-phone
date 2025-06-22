@@ -260,7 +260,7 @@ Begin.`;
     return this.parseWordsFromResponse(responseText);
   }
 
-  async generateFullCategory(categoryName: string, sampleWords: string[]): Promise<CustomCategoryPhrase[]> {
+  async generateFullCategory(categoryName: string, sampleWords: string[], description?: string, tags?: string[]): Promise<CustomCategoryPhrase[]> {
     // Find existing request
     const requestId = this.generateRequestId(categoryName);
     let existingRequest = await this.getRequest(requestId);
