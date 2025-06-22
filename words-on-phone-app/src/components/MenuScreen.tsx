@@ -14,7 +14,6 @@ import './MenuScreen.css';
 
 export const MenuScreen: React.FC = () => {
   const {
-    selectedCategory,
     selectedCategories,
     timerDuration,
     showTimer,
@@ -23,7 +22,6 @@ export const MenuScreen: React.FC = () => {
     timerRangeMax,
     skipLimit,
     buzzerSound,
-    setCategory,
     setSelectedCategories,
     setTimerDuration,
     setShowTimer,

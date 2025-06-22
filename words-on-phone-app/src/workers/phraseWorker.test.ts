@@ -6,7 +6,6 @@ const flushPromises = () => new Promise((r) => setTimeout(r, 0));
 describe('PhraseWorker', () => {
   let addEventListenerSpy: any;
   let postMessageSpy: any;
-  let messageHandler: any;
 
   beforeEach(async () => {
     vi.clearAllMocks();
@@ -54,13 +53,8 @@ describe('PhraseWorker', () => {
     ));
 
     // ─── Mock self (WorkerGlobalScope) ────────────────────────────────────
-    messageHandler = undefined;
     postMessageSpy = vi.fn();
-    addEventListenerSpy = vi.fn((type: string, handler: any) => {
-      if (type === 'message') {
-        messageHandler = handler;
-      }
-    });
+    addEventListenerSpy = vi.fn();
 
     vi.stubGlobal('self', {
       addEventListener: addEventListenerSpy,
@@ -69,7 +63,7 @@ describe('PhraseWorker', () => {
     });
 
     // Some libraries (jsdom) rely on window.postMessage having 2 params – stub to avoid errors
-    vi.stubGlobal('postMessage', vi.fn((msg, target) => {}));
+    vi.stubGlobal('postMessage', vi.fn());
 
     // Import the worker (side-effect: sets up listeners and logs)
     // @ts-ignore file is JS module

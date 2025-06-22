@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { vi } from 'vitest';
 import { CategorySelector } from '../CategorySelector';
@@ -80,13 +79,13 @@ test('allows multi-selection and displays phrase counts', () => {
   });
   expect(onChange).toHaveBeenCalledWith(['Movies & TV', 'Music & Artists']);
   // Check phrase count display for default categories before switching tab
-  expect(screen.getByText((content, node) => node?.textContent === '(10)')).toBeInTheDocument();
-  expect(screen.getByText((content, node) => node?.textContent === '(8)')).toBeInTheDocument();
+  expect(screen.getByText((_, node) => node?.textContent === '(10)')).toBeInTheDocument();
+  expect(screen.getByText((_, node) => node?.textContent === '(8)')).toBeInTheDocument();
   // Switch to the Custom tab to see custom category
   const customTab = screen.getByRole('button', { name: /Custom/i });
   act(() => {
     fireEvent.click(customTab);
   });
   // Check phrase count display for custom category only
-  expect(screen.getByText((content, node) => node?.textContent === '(15)')).toBeInTheDocument();
+  expect(screen.getByText((_, node) => node?.textContent === '(15)')).toBeInTheDocument();
 }); 

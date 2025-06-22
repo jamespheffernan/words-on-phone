@@ -304,7 +304,7 @@ export const useGameStore = create<GameState>()(
           selectedCategories: [category]
         }),
         
-        setSelectedCategories: (categories) => set((state)=> ({
+        setSelectedCategories: (categories) => set(()=> ({
           selectedCategories: categories,
           // keep legacy field for backward compatibility
           selectedCategory: categories.length === 1 ? categories[0] : PhraseCategory.EVERYTHING
