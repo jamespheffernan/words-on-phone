@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useGameStore, BUZZER_SOUNDS } from '../store';
-import { PhraseCategory } from '../data/phrases';
 import { HowToPlayModal } from './HowToPlayModal';
 import { CategoryRequestModal } from './CategoryRequestModal';
 import { VersionDisplay } from './VersionDisplay';
@@ -8,6 +7,7 @@ import { useAudio } from '../hooks/useAudio';
 import { categoryRequestService } from '../services/categoryRequestService';
 import { phraseService } from '../services/phraseService';
 import { trackCategoryRequested, trackCategoryConfirmed, trackCategoryGenerated } from '../firebase/analytics';
+import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
 import './MenuScreen.css';
 
 export const MenuScreen: React.FC = () => {
@@ -35,27 +35,12 @@ export const MenuScreen: React.FC = () => {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showCategoryRequest, setShowCategoryRequest] = useState(false);
-  const [customCategories, setCustomCategories] = useState<string[]>([]);
+  const { defaultCategories, customCategories, loading: categoriesLoading, reload: reloadCategories } = useCategoryMetadata();
 
   // Audio hook for testing buzzer sounds
   const testBuzzer = useAudio(buzzerSound, { volume: 0.4 });
 
-  const staticCategories = Object.values(PhraseCategory);
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
-
-  // Load custom categories on component mount
-  useEffect(() => {
-    const loadCustomCategories = async () => {
-      try {
-        const customCats = await phraseService.getCustomCategories();
-        setCustomCategories(customCats);
-      } catch (error) {
-        console.warn('Failed to load custom categories:', error);
-      }
-    };
-
-    loadCustomCategories();
-  }, []);
 
   const handleTestBuzzer = () => {
     testBuzzer.play().catch(console.warn);
@@ -104,12 +89,9 @@ export const MenuScreen: React.FC = () => {
         generation_time_ms: generationTime
       });
       
-      // Refresh phrase service to include new custom phrases
+      // Refresh phrase service cache and reload category metadata
       await phraseService.refreshCustomPhrases();
-      
-      // Refresh custom categories list in UI
-      const updatedCustomCategories = await phraseService.getCustomCategories();
-      setCustomCategories(updatedCustomCategories);
+      reloadCategories();
       
       console.log(`Generated ${customPhrases.length} phrases for category: ${categoryName}`);
     } catch (error) {
@@ -129,24 +111,24 @@ export const MenuScreen: React.FC = () => {
         <section className="category-section">
           <h2>Choose Category</h2>
           <div className="category-grid">
-            {staticCategories.map(category => (
+            {defaultCategories.map(({ name, phraseCount }) => (
               <button
-                key={category}
-                className={`category-button ${selectedCategory === category ? 'selected' : ''}`}
-                onClick={() => setCategory(category)}
-                aria-label={`Select ${category} category`}
+                key={name}
+                className={`category-button ${selectedCategory === name ? 'selected' : ''}`}
+                onClick={() => setCategory(name)}
+                aria-label={`Select ${name} category`}
               >
-                {category}
+                {name} <span className="phrase-count">({phraseCount})</span>
               </button>
             ))}
-            {customCategories.map(category => (
+            {customCategories.map(({ name, phraseCount }) => (
               <button
-                key={`custom-${category}`}
-                className={`category-button custom-category ${selectedCategory === category ? 'selected' : ''}`}
-                onClick={() => setCategory(category)}
-                aria-label={`Select ${category} custom category`}
+                key={`custom-${name}`}
+                className={`category-button custom-category ${selectedCategory === name ? 'selected' : ''}`}
+                onClick={() => setCategory(name)}
+                aria-label={`Select ${name} custom category`}
               >
-                ✨ {category}
+                ✨ {name} <span className="phrase-count">({phraseCount})</span>
               </button>
             ))}
           </div>
