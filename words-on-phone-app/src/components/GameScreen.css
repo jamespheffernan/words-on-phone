@@ -70,9 +70,13 @@
 
 .game-header {
   grid-area: header;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+    "controls"
+    "skip-info";
+  gap: clamp(8px, 2vw, 12px);
   /* Responsive margin that scales with screen size */
   margin-bottom: clamp(15px, 4vw, 20px);
   /* Ensure header doesn't grow too tall */
@@ -205,8 +209,10 @@
 }
 
 .game-header-controls {
+  grid-area: controls;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: clamp(15px, 4vw, 20px);
 }
 
@@ -266,12 +272,17 @@
 }
 
 .skip-counter {
+  grid-area: skip-info;
   text-align: center;
-  font-size: 18px;
-  padding: 10px;
+  /* Responsive font size */
+  font-size: clamp(16px, 4vw, 18px);
+  /* Responsive padding */
+  padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px);
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  border-radius: clamp(8px, 2vw, 10px);
   backdrop-filter: blur(10px);
+  /* Ensure proper spacing and prevent overlap */
+  margin-top: clamp(4px, 1vw, 6px);
 }
 
 .game-footer {
@@ -292,10 +303,16 @@
     /* Safe area insets now handled in @supports block */
   }
   
-  /* Responsive sizing now handled by clamp() values above */
-  /* No need for fixed mobile overrides */
+  .game-header {
+    /* Tighter spacing on mobile */
+    gap: clamp(6px, 1.5vw, 10px);
+  }
   
-  /* Phrase padding now handled by responsive clamp() values */
+  .skip-counter {
+    /* Optimize skip counter for mobile */
+    font-size: clamp(14px, 3.5vw, 16px);
+    padding: clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 12px);
+  }
 }
 
 /* Landscape orientation optimizations */
@@ -309,6 +326,14 @@
   .game-header {
     /* Reduce header margin in landscape */
     margin-bottom: clamp(8px, 2vh, 12px);
+    /* Reduce gap between header elements in landscape */
+    gap: clamp(4px, 1vh, 8px);
+  }
+  
+  .skip-counter {
+    /* Reduce skip counter spacing in landscape */
+    margin-top: clamp(2px, 0.5vh, 4px);
+    padding: clamp(6px, 1.5vh, 8px) clamp(10px, 2.5vh, 12px);
   }
   
   .phrase-container {
