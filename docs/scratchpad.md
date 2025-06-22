@@ -11,7 +11,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [phrasemachine-prompt-upgrade](implementation-plan/phrasemachine-prompt-upgrade.md) - ✅ **COMPLETED** - PhraseMachine Prompt Format Upgrade
 - [multi-batch-phrase-generation](implementation-plan/multi-batch-phrase-generation.md) - ✅ **COMPLETED** - Multi-Batch Phrase Generation (3×15 → 45 Phrases)
 - [mobile-gameplay-screen-ux](implementation-plan/mobile-gameplay-screen-ux.md) - ✅ **COMPLETED** - Mobile Gameplay Screen UX Optimization (Full Viewport, No Scroll)
-- [header-overlap-fix](implementation-plan/header-overlap-fix.md) - 📋 **PLANNING** - Header Overlap Fix - Scoreboard and Skip Counter
+- [header-overlap-fix](implementation-plan/header-overlap-fix.md) - ✅ **COMPLETED** - Header Overlap Fix - Scoreboard and Skip Counter
 
 ## Current Status / Progress Tracking
 
