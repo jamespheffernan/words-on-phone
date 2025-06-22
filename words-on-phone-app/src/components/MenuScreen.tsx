@@ -3,6 +3,7 @@ import { useGameStore, BUZZER_SOUNDS } from '../store';
 import { PhraseCategory } from '../data/phrases';
 import { HowToPlayModal } from './HowToPlayModal';
 import { CategoryRequestModal } from './CategoryRequestModal';
+import { VersionDisplay } from './VersionDisplay';
 import { useAudio } from '../hooks/useAudio';
 import { categoryRequestService } from '../services/categoryRequestService';
 import { phraseService } from '../services/phraseService';
@@ -340,6 +341,8 @@ export const MenuScreen: React.FC = () => {
         onRequestCategory={handleCategoryRequest}
         onConfirmGeneration={handleConfirmGeneration}
       />
+      
+      <VersionDisplay />
     </main>
   );
 }; 

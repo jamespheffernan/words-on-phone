@@ -4,4 +4,5 @@ export { HowToPlayModal } from './HowToPlayModal';
 export { EndScreen } from './EndScreen';
 export { CategoryRequestModal } from './CategoryRequestModal';
 export { TeamSetup } from './TeamSetup';
-export { RoundEndScreen } from './RoundEndScreen'; 
+export { RoundEndScreen } from './RoundEndScreen';
+export { VersionDisplay } from './VersionDisplay'; 
