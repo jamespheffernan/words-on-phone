@@ -328,6 +328,8 @@ export const MenuScreen: React.FC = () => {
             ℹ️ How to Play
           </button>
         </div>
+
+        <VersionDisplay />
       </div>
 
       <HowToPlayModal
@@ -341,8 +343,6 @@ export const MenuScreen: React.FC = () => {
         onRequestCategory={handleCategoryRequest}
         onConfirmGeneration={handleConfirmGeneration}
       />
-      
-      <VersionDisplay />
     </main>
   );
 }; 
