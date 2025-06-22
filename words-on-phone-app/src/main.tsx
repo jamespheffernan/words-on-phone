@@ -3,9 +3,13 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { validateEnvironment, env, isGeminiAvailable } from './config/environment'
+import { soundService } from './services/soundService'
 
 // Validate environment configuration
 validateEnvironment();
+
+// Initialize sound service
+soundService.init();
 
 // Log API configuration status in development
 if (env.IS_DEVELOPMENT) {
