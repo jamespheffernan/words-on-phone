@@ -40,7 +40,7 @@ export const MenuScreen: React.FC = () => {
   const { defaultCategories, customCategories, loading: categoriesLoading, reload: reloadCategories } = useCategoryMetadata();
 
   // Audio hook for testing buzzer sounds
-  const testBuzzer = useAudio(buzzerSound, { volume: 0.4 });
+  const testBuzzer = useAudio('buzzer', buzzerSound, { volume: 0.4 });
 
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
 

@@ -37,7 +37,7 @@ export const GameScreen: React.FC = () => {
   } = useGameStore();
 
   // Audio hook for buzzer sound
-  const buzzer = useAudio(buzzerSound, { volume: 0.6, preload: true });
+  const buzzer = useAudio('buzzer', buzzerSound, { volume: 0.6, preload: true });
 
   // Beep audio hook for ramp beeps
   const beepAudio = useBeepAudio({ 
