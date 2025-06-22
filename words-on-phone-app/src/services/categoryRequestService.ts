@@ -10,6 +10,8 @@ interface CustomCategoryRequest {
   phrasesGenerated: number;
   status: 'pending' | 'confirmed' | 'generated' | 'failed';
   error?: string;
+  description?: string;
+  tags?: string[];
 }
 
 interface FetchedPhrase {
@@ -157,7 +159,9 @@ export class CategoryRequestService {
       requestedAt: Date.now(),
       sampleWords: [],
       phrasesGenerated: 0,
-      status: 'pending'
+      status: 'pending',
+      description: '',
+      tags: [],
     };
 
     await this.saveRequest(request);
@@ -273,10 +277,16 @@ Begin.`;
         requestedAt: Date.now(),
         sampleWords,
         phrasesGenerated: 0,
-        status: 'confirmed'
+        status: 'confirmed',
+        description: description || '',
+        tags: tags || [],
       };
       await this.saveRequest(existingRequest);
     }
+
+    // update metadata if provided
+    if (description) existingRequest.description = description;
+    if (tags) existingRequest.tags = tags;
 
     try {
       // Get the active AI service
