@@ -63,6 +63,7 @@ interface GameState {
   currentPhrase: string;
   selectedCategory: PhraseCategory | string;
   selectedCategories: string[]; // multi-select
+  pinnedCategories: string[]; // favorites
   
   // Game settings
   timerDuration: number; // in seconds (30-90)
@@ -150,6 +151,7 @@ interface GameState {
   recordAnswer: (phrase: string, timeMs: number) => void;
   completeRound: (winningTeamIndex: number) => void;
   resetCurrentRoundAnswers: () => void;
+  togglePinnedCategory: (category: string) => void;
 }
 
 export const useGameStore = create<GameState>()(
@@ -206,6 +208,7 @@ export const useGameStore = create<GameState>()(
         currentPhrase: '',
         selectedCategory: PhraseCategory.EVERYTHING,
         selectedCategories: [PhraseCategory.EVERYTHING],
+        pinnedCategories: [],
         timerDuration: 60,
         showTimer: false,
         useRandomTimer: true,
@@ -608,6 +611,12 @@ export const useGameStore = create<GameState>()(
           };
         }),
         resetCurrentRoundAnswers: () => set({ currentRoundAnswers: [] }),
+        togglePinnedCategory: (category) => set((state)=> {
+          const pinned = state.pinnedCategories.includes(category)
+            ? state.pinnedCategories.filter((c)=> c!==category)
+            : [...state.pinnedCategories, category];
+          return { pinnedCategories: pinned };
+        }),
       };
     },
     {
@@ -616,6 +625,7 @@ export const useGameStore = create<GameState>()(
       partialize: (state) => ({
         selectedCategory: state.selectedCategory,
         selectedCategories: state.selectedCategories,
+        pinnedCategories: state.pinnedCategories,
         timerDuration: state.timerDuration,
         showTimer: state.showTimer,
         useRandomTimer: state.useRandomTimer,
@@ -642,6 +652,7 @@ export const useGameStore = create<GameState>()(
           ...currentState,
           selectedCategory: persisted.selectedCategory ?? currentState.selectedCategory,
           selectedCategories: persisted.selectedCategories ?? currentState.selectedCategories,
+          pinnedCategories: persisted.pinnedCategories ?? currentState.pinnedCategories,
           timerDuration: persisted.timerDuration ?? currentState.timerDuration,
           showTimer: persisted.showTimer ?? currentState.showTimer,
           useRandomTimer: persisted.useRandomTimer ?? currentState.useRandomTimer,

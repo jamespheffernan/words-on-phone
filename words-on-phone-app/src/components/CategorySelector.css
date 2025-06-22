@@ -41,6 +41,7 @@
   gap: 0.25rem;
   background: #f9f9f9;
   cursor: pointer;
+  position: relative;
 }
 .category-tile.selected {
   border-color: var(--accent, #0077ff);
@@ -55,4 +56,15 @@
 .count {
   font-size: 0.8rem;
   color: #666;
+}
+
+.pin-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+  margin-left: auto;
+}
+.pin-btn.pinned {
+  color: var(--accent, #0077ff);
 } 

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { CategoryMetadata } from '../types/category';
+import { useGameStore } from '../store';
 import './CategorySelector.css';
 
 interface Props {
@@ -20,7 +21,14 @@ export const CategorySelector: React.FC<Props> = ({
   const [activeTab, setActiveTab] = useState<'default' | 'custom'>('default');
   const [search, setSearch] = useState('');
 
-  const list = activeTab === 'default' ? defaultCategories : customCategories;
+  const { pinnedCategories, togglePinnedCategory } = useGameStore();
+
+  const rawList = activeTab === 'default' ? defaultCategories : customCategories;
+  const list = useMemo(()=> {
+    const pinned = rawList.filter(c=> pinnedCategories.includes(c.name));
+    const others = rawList.filter(c=> !pinnedCategories.includes(c.name));
+    return [...pinned.sort((a,b)=> a.name.localeCompare(b.name)), ...others.sort((a,b)=> a.name.localeCompare(b.name))];
+  }, [rawList, pinnedCategories]);
 
   const filtered = useMemo(() => {
     if (!search.trim()) return list;
@@ -70,6 +78,12 @@ export const CategorySelector: React.FC<Props> = ({
                 checked={selected.includes(name)}
                 onChange={() => toggleCategory(name)}
               />
+              <button
+                type="button"
+                className={`pin-btn ${pinnedCategories.includes(name)?'pinned':''}`}
+                onClick={(e)=> {e.stopPropagation(); togglePinnedCategory(name);} }
+                aria-label={pinnedCategories.includes(name)?'Unpin':'Pin'}
+              >★</button>
               <span className="name">{name}</span>
               <span className="count">({phraseCount})</span>
             </label>
