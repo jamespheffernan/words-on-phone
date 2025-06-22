@@ -189,4 +189,135 @@ describe('Mobile Viewport Tests', () => {
     cy.get('.game-header').should('be.visible');
     cy.get('.game-actions').should('be.visible');
   });
+
+  // Header Overlap Detection Tests
+  describe('Header Layout - Overlap Prevention', () => {
+    mobileViewports.forEach(({ name, width, height }) => {
+      it(`should prevent header element overlap on ${name} (${width}x${height})`, () => {
+        cy.viewport(width, height);
+        
+        // Wait for layout to settle
+        cy.wait(500);
+        
+        // Verify skip counter is visible when skip limit > 0
+        cy.get('.skip-counter').should('be.visible');
+        
+        // Get positions of score display and skip counter
+        cy.get('.score-display').then(($scoreDisplay) => {
+          const scoreRect = $scoreDisplay[0].getBoundingClientRect();
+          
+          cy.get('.skip-counter').then(($skipCounter) => {
+            const skipRect = $skipCounter[0].getBoundingClientRect();
+            
+            // Verify no vertical overlap - skip counter should be below score display
+            expect(skipRect.top).to.be.greaterThan(scoreRect.bottom - 1, 
+              `Skip counter (top: ${skipRect.top}) should be below score display (bottom: ${scoreRect.bottom})`);
+            
+            // Verify proper spacing between elements
+            const spacing = skipRect.top - scoreRect.bottom;
+            expect(spacing).to.be.greaterThan(4, 
+              `Should have at least 4px spacing between score and skip counter, got ${spacing}px`);
+          });
+        });
+        
+        // Verify both elements are fully within viewport
+        cy.get('.score-display').then(($el) => {
+          const rect = $el[0].getBoundingClientRect();
+          expect(rect.right).to.be.at.most(width, 'Score display should be within viewport width');
+          expect(rect.bottom).to.be.at.most(height, 'Score display should be within viewport height');
+        });
+        
+        cy.get('.skip-counter').then(($el) => {
+          const rect = $el[0].getBoundingClientRect();
+          expect(rect.right).to.be.at.most(width, 'Skip counter should be within viewport width');
+          expect(rect.bottom).to.be.at.most(height, 'Skip counter should be within viewport height');
+        });
+      });
+    });
+
+    landscapeViewports.forEach(({ name, width, height }) => {
+      it(`should prevent header element overlap on ${name} (${width}x${height})`, () => {
+        cy.viewport(width, height);
+        
+        // Wait for layout to settle and orientation change
+        cy.wait(1000);
+        
+        // Verify skip counter is visible when skip limit > 0
+        cy.get('.skip-counter').should('be.visible');
+        
+        // Get positions of score display and skip counter
+        cy.get('.score-display').then(($scoreDisplay) => {
+          const scoreRect = $scoreDisplay[0].getBoundingClientRect();
+          
+          cy.get('.skip-counter').then(($skipCounter) => {
+            const skipRect = $skipCounter[0].getBoundingClientRect();
+            
+            // Verify no vertical overlap in landscape
+            expect(skipRect.top).to.be.greaterThan(scoreRect.bottom - 1, 
+              `Skip counter should be below score display in landscape mode`);
+            
+            // In landscape, spacing might be tighter but should still exist
+            const spacing = skipRect.top - scoreRect.bottom;
+            expect(spacing).to.be.greaterThan(2, 
+              `Should have at least 2px spacing in landscape mode, got ${spacing}px`);
+          });
+        });
+      });
+    });
+
+    it('should maintain header layout when skip counter visibility changes', () => {
+      cy.viewport(375, 667); // iPhone SE - most constrained
+      
+      // Initially skip counter should be visible (default skip limit > 0)
+      cy.get('.skip-counter').should('be.visible');
+      
+      // Record initial score display position
+      cy.get('.score-display').then(($scoreDisplay) => {
+        const initialRect = $scoreDisplay[0].getBoundingClientRect();
+        
+        // Use skips until none remain to test layout changes
+        cy.get('.pass-button').click();
+        cy.wait(200);
+        cy.get('.pass-button').click();
+        cy.wait(200);
+        cy.get('.pass-button').click();
+        cy.wait(200);
+        
+        // Skip counter should now be hidden (assuming 3 skip limit)
+        cy.get('.skip-counter').should('not.exist');
+        
+        // Score display position should remain stable
+        cy.get('.score-display').then(($scoreDisplay) => {
+          const finalRect = $scoreDisplay[0].getBoundingClientRect();
+          
+          // Position should be very close (allowing for minor layout adjustments)
+          expect(Math.abs(finalRect.top - initialRect.top)).to.be.at.most(10, 
+            'Score display position should remain stable when skip counter disappears');
+        });
+      });
+    });
+
+    it('should have proper touch targets for header elements', () => {
+      cy.viewport(375, 667); // iPhone SE
+      
+      // Verify minimum touch target sizes (44px iOS standard)
+      cy.get('.pause-button').then(($btn) => {
+        const rect = $btn[0].getBoundingClientRect();
+        expect(rect.width).to.be.greaterThan(40, 'Pause button should have adequate width');
+        expect(rect.height).to.be.greaterThan(40, 'Pause button should have adequate height');
+      });
+      
+      // Skip counter should be large enough to read easily
+      cy.get('.skip-counter').then(($counter) => {
+        const rect = $counter[0].getBoundingClientRect();
+        expect(rect.height).to.be.greaterThan(20, 'Skip counter should have adequate height for readability');
+      });
+      
+      // Score display should be readable
+      cy.get('.score-display').then(($score) => {
+        const rect = $score[0].getBoundingClientRect();
+        expect(rect.height).to.be.greaterThan(16, 'Score display should have adequate height for readability');
+      });
+    });
+  });
 }); 
