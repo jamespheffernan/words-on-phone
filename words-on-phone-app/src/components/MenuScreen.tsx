@@ -9,6 +9,7 @@ import { phraseService } from '../services/phraseService';
 import { trackCategoryRequested, trackCategoryConfirmed, trackCategoryGenerated } from '../firebase/analytics';
 import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
 import { CategorySelector } from './CategorySelector';
+import { SelectionBanner } from './SelectionBanner';
 import './MenuScreen.css';
 
 export const MenuScreen: React.FC = () => {
@@ -119,6 +120,11 @@ export const MenuScreen: React.FC = () => {
             selected={selectedCategories}
             onChange={(sel) => setSelectedCategories(sel)}
             loading={categoriesLoading}
+          />
+
+          <SelectionBanner
+            categories={selectedCategories}
+            onClear={() => setSelectedCategories([])}
           />
         </section>
 
