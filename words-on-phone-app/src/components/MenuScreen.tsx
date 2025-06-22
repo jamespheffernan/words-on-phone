@@ -8,6 +8,7 @@ import { categoryRequestService } from '../services/categoryRequestService';
 import { phraseService } from '../services/phraseService';
 import { trackCategoryRequested, trackCategoryConfirmed, trackCategoryGenerated } from '../firebase/analytics';
 import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
+import { CategorySelector } from './CategorySelector';
 import './MenuScreen.css';
 
 export const MenuScreen: React.FC = () => {
@@ -110,28 +111,13 @@ export const MenuScreen: React.FC = () => {
       <div className="menu-content">
         <section className="category-section">
           <h2>Choose Category</h2>
-          <div className="category-grid">
-            {defaultCategories.map(({ name, phraseCount }) => (
-              <button
-                key={name}
-                className={`category-button ${selectedCategory === name ? 'selected' : ''}`}
-                onClick={() => setCategory(name)}
-                aria-label={`Select ${name} category`}
-              >
-                {name} <span className="phrase-count">({phraseCount})</span>
-              </button>
-            ))}
-            {customCategories.map(({ name, phraseCount }) => (
-              <button
-                key={`custom-${name}`}
-                className={`category-button custom-category ${selectedCategory === name ? 'selected' : ''}`}
-                onClick={() => setCategory(name)}
-                aria-label={`Select ${name} custom category`}
-              >
-                ✨ {name} <span className="phrase-count">({phraseCount})</span>
-              </button>
-            ))}
-          </div>
+          <CategorySelector
+            defaultCategories={defaultCategories}
+            customCategories={customCategories}
+            selected={[selectedCategory]}
+            onChange={(sel) => setCategory(sel[sel.length - 1] || '')}
+            loading={categoriesLoading}
+          />
         </section>
 
         <button
