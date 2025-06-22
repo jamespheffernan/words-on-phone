@@ -192,8 +192,13 @@ class PhraseService {
   }
 
   getPhrasesByCategory(category: PhraseCategory | string): string[] {
-    if (category === PhraseCategory.EVERYTHING) {
+    if (category === PhraseCategory.EVERYTHING_PLUS) {
       return this.getAllPhrases();
+    }
+
+    if (category === PhraseCategory.EVERYTHING) {
+      // Return only default categories (exclude custom)
+      return [...this.state.staticPhrases, ...this.state.fetchedPhrases.map(p=> p.text)];
     }
 
     // Check if it's a custom category
@@ -326,7 +331,7 @@ class PhraseService {
    */
   getDefaultCategoryMetadata(): CategoryMetadata[] {
     return (Object.values(PhraseCategory) as string[])
-      .filter((cat) => cat !== PhraseCategory.EVERYTHING)
+      .filter((cat) => cat !== PhraseCategory.EVERYTHING_PLUS)
       .map((cat) => {
         const count = this.getPhrasesByCategory(cat as PhraseCategory).length;
         return {
