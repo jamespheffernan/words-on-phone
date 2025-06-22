@@ -62,6 +62,7 @@ interface GameState {
   cursor: PhraseCursor<string>;
   currentPhrase: string;
   selectedCategory: PhraseCategory | string;
+  selectedCategories: string[]; // multi-select
   
   // Game settings
   timerDuration: number; // in seconds (30-90)
@@ -103,6 +104,7 @@ interface GameState {
   nextPhrase: () => void;
   skipPhrase: () => void;
   setCategory: (category: PhraseCategory | string) => void;
+  setSelectedCategories: (categories: string[]) => void;
   setTimerDuration: (seconds: number) => void;
   setShowTimer: (show: boolean) => void;
   setUseRandomTimer: (useRandom: boolean) => void;
@@ -203,6 +205,7 @@ export const useGameStore = create<GameState>()(
         cursor,
         currentPhrase: '',
         selectedCategory: PhraseCategory.EVERYTHING,
+        selectedCategories: [PhraseCategory.EVERYTHING],
         timerDuration: 60,
         showTimer: false,
         useRandomTimer: true,
@@ -293,15 +296,16 @@ export const useGameStore = create<GameState>()(
           return state;
         }),
         
-        setCategory: (category: PhraseCategory | string) => set(() => {
-          const categoryPhrases = phraseService.getPhrasesByCategory(category);
-          const newCursor = new PhraseCursor(categoryPhrases);
-          return {
-            selectedCategory: category,
-            cursor: newCursor,
-            currentPhrase: ''
-          };
+        setCategory: (category) => set({ 
+          selectedCategory: category,
+          selectedCategories: [category]
         }),
+        
+        setSelectedCategories: (categories) => set((state)=> ({
+          selectedCategories: categories,
+          // keep legacy field for backward compatibility
+          selectedCategory: categories.length === 1 ? categories[0] : PhraseCategory.EVERYTHING
+        })),
         
         setTimerDuration: (seconds) => set({ 
           timerDuration: seconds,
@@ -395,15 +399,27 @@ export const useGameStore = create<GameState>()(
             buzzer_sound: state.buzzerSound
           });
           
+          // Build phrase list based on selectedCategories (fallback legacy)
+          const cats = state.selectedCategories && state.selectedCategories.length > 0
+            ? state.selectedCategories
+            : [state.selectedCategory];
+          const phraseSet = new Set<string>();
+          cats.forEach((cat)=> {
+            phraseService.getPhrasesByCategory(cat as any).forEach((p)=> phraseSet.add(p));
+          });
+
+          const newCursor = new PhraseCursor(Array.from(phraseSet));
+
           return {
             status: GameStatus.PLAYING,
-            currentPhrase: state.cursor.next(),
+            currentPhrase: newCursor.next(),
             skipsUsed: 0,
             skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
             timeRemaining: actualDuration,
             actualTimerDuration: actualDuration,
             isTimerRunning: true,
-            phraseStartTime: Date.now()
+            phraseStartTime: Date.now(),
+            cursor: newCursor
           };
         }),
         
@@ -599,6 +615,7 @@ export const useGameStore = create<GameState>()(
       storage: createJSONStorage(() => indexedDBStorage),
       partialize: (state) => ({
         selectedCategory: state.selectedCategory,
+        selectedCategories: state.selectedCategories,
         timerDuration: state.timerDuration,
         showTimer: state.showTimer,
         useRandomTimer: state.useRandomTimer,
@@ -624,6 +641,7 @@ export const useGameStore = create<GameState>()(
         return {
           ...currentState,
           selectedCategory: persisted.selectedCategory ?? currentState.selectedCategory,
+          selectedCategories: persisted.selectedCategories ?? currentState.selectedCategories,
           timerDuration: persisted.timerDuration ?? currentState.timerDuration,
           showTimer: persisted.showTimer ?? currentState.showTimer,
           useRandomTimer: persisted.useRandomTimer ?? currentState.useRandomTimer,

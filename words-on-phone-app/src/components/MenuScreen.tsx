@@ -14,6 +14,7 @@ import './MenuScreen.css';
 export const MenuScreen: React.FC = () => {
   const {
     selectedCategory,
+    selectedCategories,
     timerDuration,
     showTimer,
     useRandomTimer,
@@ -22,6 +23,7 @@ export const MenuScreen: React.FC = () => {
     skipLimit,
     buzzerSound,
     setCategory,
+    setSelectedCategories,
     setTimerDuration,
     setShowTimer,
     setUseRandomTimer,
@@ -114,8 +116,8 @@ export const MenuScreen: React.FC = () => {
           <CategorySelector
             defaultCategories={defaultCategories}
             customCategories={customCategories}
-            selected={[selectedCategory]}
-            onChange={(sel) => setCategory(sel[sel.length - 1] || '')}
+            selected={selectedCategories}
+            onChange={(sel) => setSelectedCategories(sel)}
             loading={categoriesLoading}
           />
         </section>
