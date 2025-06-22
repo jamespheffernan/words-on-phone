@@ -98,6 +98,71 @@ Current limitations:
 - Test UI interactions
 - Performance benchmarks
 
+## Detailed Task Breakdown (v2)
+_(Each task should be treated as a small vertical slice that can be implemented, tested, and merged independently.)_
+
+1. **Branch Setup**
+   1.1 Create and checkout `feature/category-selection-redesign` from `main`
+   1.2 Ensure clean working tree and successful `npm run build` in both root and `words-on-phone-app/`
+
+2. **Data Model Refactor**
+   2.1 Introduce `CategoryMetadata` type to distinguish `default` vs `user` categories, phrase count, createdAt, createdBy
+   2.2 Update `phraseService` to return `{ metadata: CategoryMetadata; phrases: string[] }[]`
+   2.3 Create migration util to convert legacy category storage → new schema
+   2.4 Write unit tests covering default → user separation and backward compatibility
+
+3. **Persistent Storage Layer**
+   3.1 Add `categoryStore` (Zustand) to persist selected categories and user prefs
+   3.2 Sync `categoryStore` with IndexedDB fallback via `indexedDBStorage.ts`
+   3.3 Unit test read/write logic for selection persistence
+
+4. **CategorySelector Component (Skeleton)**
+   4.1 Render tabbed UI (Default | User-Created)
+   4.2 Display list/grid of categories with basic checkbox
+   4.3 Integrate with `categoryStore` for selection state
+   4.4 Cypress component test: selection toggles update store
+
+5. **Multi-Selection Logic & Phrase Combining**
+   5.1 Implement selector helper `getMergedPhrases(selectedIds)` in `phraseService`
+   5.2 Ensure deduplication and randomization
+   5.3 Add unit tests for merging correctness and performance (>10k phrases)
+
+6. **Live Selection Banner**
+   6.1 Floating banner component showing count & categories
+   6.2 Animate in/out on first selection / clear
+   6.3 Add "Clear" & "Select All" buttons
+   6.4 Accessibility: ARIA live region for updates
+
+7. **Category Tile Enhancements**
+   7.1 Display phrase count badge on each tile
+   7.2 Lazy-load counts to avoid blocking UI
+   7.3 Hover/press tooltip with description (for user-created)
+
+8. **"Everything" Logic Refinement**
+   8.1 Update virtual category generator to include only default categories
+   8.2 Add new "Everything+" that includes user categories
+   8.3 Update help text in How-To-Play modal
+
+9. **Category Management Utilities**
+   9.1 Pin/unpin favorites logic in `categoryStore`
+   9.2 Sort modes (name, count, recent)
+   9.3 Bulk operations: select similar, invert selection
+
+10. **User Category Creation Flow Enhancements**
+    10.1 Mark user-created categories in metadata
+    10.2 Optional description field & tag list
+    10.3 Share link generator (deep-link with categoryId)
+
+11. **Comprehensive Test Suite**
+    11.1 Unit tests for services/stores (Jest + RTL)
+    11.2 Cypress e2e tests covering multi-select UX
+    11.3 Performance benchmarks for phrase merging
+
+12. **Documentation & Cleanup**
+    12.1 Update README and in-app help with new UX
+    12.2 Add lessons learned to scratchpad
+    12.3 Final QA pass and accessibility audit
+
 ## Project Status Board
 
 ### TODO:
