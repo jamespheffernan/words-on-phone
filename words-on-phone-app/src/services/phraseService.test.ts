@@ -1,40 +1,79 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { phraseService, type FetchedPhrase } from './phraseService';
+import { describe, it, expect, beforeEach, vi, afterEach, beforeAll, afterAll } from 'vitest';
+import type { FetchedPhrase } from './phraseService';
 import { PhraseCategory } from '../data/phrases';
+import { act } from '@testing-library/react';
 
-// Mock IndexedDB
-const mockDB = {
-  objectStoreNames: {
-    contains: vi.fn(() => false)
-  },
-  createObjectStore: vi.fn(() => ({
-    createIndex: vi.fn()
-  })),
-  transaction: vi.fn(() => ({
-    objectStore: vi.fn(() => ({
-      add: vi.fn(() => ({ onsuccess: null, onerror: null })),
-      getAll: vi.fn(() => ({ 
-        onsuccess: null, 
-        onerror: null,
-        result: []
-      })),
-      delete: vi.fn(() => ({ onsuccess: null, onerror: null }))
-    }))
-  }))
-};
+let phraseService: typeof import('./phraseService').phraseService;
 
-const mockIndexedDB = {
-  open: vi.fn(() => ({
-    onerror: null,
-    onsuccess: null,
-    onupgradeneeded: null,
-    result: mockDB
-  }))
-};
+beforeAll(async () => {
+  global.indexedDB = {
+    open: vi.fn(() => {
+      const request: {
+        onupgradeneeded: null | ((event: any) => void);
+        onsuccess: ((event: any) => void) | undefined;
+        onerror: ((event: any) => void) | undefined;
+        result: any;
+        addEventListener: (...args: any[]) => void;
+        removeEventListener: (...args: any[]) => void;
+        dispatchEvent: (...args: any[]) => void;
+      } = {
+        onupgradeneeded: null,
+        onsuccess: undefined,
+        onerror: undefined,
+        result: {
+          createObjectStore: vi.fn(),
+          transaction: vi.fn(() => ({
+            objectStore: vi.fn(() => ({
+              put: vi.fn((val) => {
+                setTimeout(() => { if (typeof request.onsuccess === 'function') request.onsuccess({ target: { result: val } }); }, 0);
+                return request;
+              }),
+              get: vi.fn(() => {
+                setTimeout(() => { if (typeof request.onsuccess === 'function') request.onsuccess({ target: { result: undefined } }); }, 0);
+                return request;
+              }),
+              getAll: vi.fn(() => {
+                setTimeout(() => { if (typeof request.onsuccess === 'function') request.onsuccess({ target: { result: [] } }); }, 0);
+                return request;
+              }),
+              add: vi.fn((val) => {
+                setTimeout(() => {
+                  if (typeof request.onsuccess === 'function') {
+                    request.onsuccess({ target: { result: val } });
+                  }
+                }, 0);
+                return request;
+              }),
+              delete: vi.fn((key) => {
+                setTimeout(() => {
+                  if (typeof request.onsuccess === 'function') {
+                    request.onsuccess({ target: { result: key } });
+                  }
+                }, 0);
+                return request;
+              }),
+            }))
+          }))
+        },
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      };
+      setTimeout(() => { if (typeof request.onsuccess === 'function') request.onsuccess({ target: { result: request.result } }); }, 0);
+      return request;
+    }),
+  } as any;
 
-// Setup global mocks
-Object.defineProperty(global, 'indexedDB', {
-  value: mockIndexedDB
+  // Dynamically import the module **after** we stub `indexedDB` so that
+  // its constructor sees the mocked implementation and not `undefined`.
+  const module = await import('./phraseService');
+  // eslint-disable-next-line prefer-destructuring
+  phraseService = module.phraseService;
+});
+
+afterAll(() => {
+  // @ts-ignore
+  delete global.indexedDB;
 });
 
 describe('PhraseService', () => {
@@ -44,6 +83,15 @@ describe('PhraseService', () => {
     vi.clearAllMocks();
     // Reset service state by creating a new instance
     service = phraseService;
+    // Stub out internal async persistence methods to avoid IndexedDB timeouts
+    vi.spyOn(service as any, 'saveFetchedPhrasesToDB').mockResolvedValue(undefined);
+    vi.spyOn(service as any, 'getAllFetchedPhrasesFromDB').mockResolvedValue([]);
+    vi.spyOn(service as any, 'deleteFetchedPhrasesFromDB').mockResolvedValue(undefined);
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('should initialize with static phrases', () => {
@@ -82,12 +130,14 @@ describe('PhraseService', () => {
       }
     ];
 
-    // For this test, we expect deduplication to work even without full DB mocking
-    const added = await service.addFetchedPhrases(mockPhrases).catch(() => 0);
-    
+    let added = 0;
+    await act(async () => {
+      added = await service.addFetchedPhrases(mockPhrases).catch(() => 0);
+      vi.runAllTimers();
+    });
     // Should only add the unique phrase, not "The Godfather"
     expect(added).toBeLessThan(mockPhrases.length);
-  });
+  }, 10000);
 
   it('should provide category statistics', () => {
     const stats = service.getStatistics();
@@ -116,12 +166,13 @@ describe('PhraseService', () => {
     // Mock console.log to verify it's called
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
-    await service.handleWorkerPhrases(mockPhrases);
-    
+    await act(async () => {
+      await service.handleWorkerPhrases(mockPhrases);
+      vi.runAllTimers();
+    });
     expect(consoleSpy).toHaveBeenCalledWith(
       expect.stringContaining('Added')
     );
-    
     consoleSpy.mockRestore();
-  });
+  }, 10000);
 }); 

@@ -1,6 +1,7 @@
 // Phrase categories as mentioned in the game rules
 export enum PhraseCategory {
   EVERYTHING = 'Everything',
+  EVERYTHING_PLUS = 'Everything+',
   MOVIES = 'Movies & TV',
   MUSIC = 'Music & Artists',
   SPORTS = 'Sports & Athletes',
@@ -264,5 +265,21 @@ export function getPhrasesByCategory(category: PhraseCategory): string[] {
   if (category === PhraseCategory.EVERYTHING) {
     return phrases;
   }
+  if (category === PhraseCategory.EVERYTHING_PLUS) {
+    return phrases;
+  }
   return categorizedPhrases[category] || [];
-} 
+}
+
+export const DEFAULT_CATEGORIES: PhraseCategory[] = [
+  PhraseCategory.MOVIES,
+  PhraseCategory.MUSIC,
+  PhraseCategory.SPORTS,
+  PhraseCategory.FOOD,
+  PhraseCategory.PLACES,
+  PhraseCategory.PEOPLE,
+  PhraseCategory.TECHNOLOGY,
+  PhraseCategory.HISTORY,
+  PhraseCategory.ENTERTAINMENT,
+  PhraseCategory.NATURE,
+]; 

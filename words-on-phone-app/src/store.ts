@@ -62,6 +62,8 @@ interface GameState {
   cursor: PhraseCursor<string>;
   currentPhrase: string;
   selectedCategory: PhraseCategory | string;
+  selectedCategories: string[]; // multi-select
+  pinnedCategories: string[]; // favorites
   
   // Game settings
   timerDuration: number; // in seconds (30-90)
@@ -103,6 +105,7 @@ interface GameState {
   nextPhrase: () => void;
   skipPhrase: () => void;
   setCategory: (category: PhraseCategory | string) => void;
+  setSelectedCategories: (categories: string[]) => void;
   setTimerDuration: (seconds: number) => void;
   setShowTimer: (show: boolean) => void;
   setUseRandomTimer: (useRandom: boolean) => void;
@@ -148,6 +151,7 @@ interface GameState {
   recordAnswer: (phrase: string, timeMs: number) => void;
   completeRound: (winningTeamIndex: number) => void;
   resetCurrentRoundAnswers: () => void;
+  togglePinnedCategory: (category: string) => void;
 }
 
 export const useGameStore = create<GameState>()(
@@ -203,6 +207,8 @@ export const useGameStore = create<GameState>()(
         cursor,
         currentPhrase: '',
         selectedCategory: PhraseCategory.EVERYTHING,
+        selectedCategories: [PhraseCategory.EVERYTHING],
+        pinnedCategories: [],
         timerDuration: 60,
         showTimer: false,
         useRandomTimer: true,
@@ -293,15 +299,16 @@ export const useGameStore = create<GameState>()(
           return state;
         }),
         
-        setCategory: (category: PhraseCategory | string) => set(() => {
-          const categoryPhrases = phraseService.getPhrasesByCategory(category);
-          const newCursor = new PhraseCursor(categoryPhrases);
-          return {
-            selectedCategory: category,
-            cursor: newCursor,
-            currentPhrase: ''
-          };
+        setCategory: (category) => set({ 
+          selectedCategory: category,
+          selectedCategories: [category]
         }),
+        
+        setSelectedCategories: (categories) => set(()=> ({
+          selectedCategories: categories,
+          // keep legacy field for backward compatibility
+          selectedCategory: categories.length === 1 ? categories[0] : PhraseCategory.EVERYTHING
+        })),
         
         setTimerDuration: (seconds) => set({ 
           timerDuration: seconds,
@@ -395,15 +402,27 @@ export const useGameStore = create<GameState>()(
             buzzer_sound: state.buzzerSound
           });
           
+          // Build phrase list based on selectedCategories (fallback legacy)
+          const cats = state.selectedCategories && state.selectedCategories.length > 0
+            ? state.selectedCategories
+            : [state.selectedCategory];
+          const phraseSet = new Set<string>();
+          cats.forEach((cat)=> {
+            phraseService.getPhrasesByCategory(cat as any).forEach((p)=> phraseSet.add(p));
+          });
+
+          const newCursor = new PhraseCursor(Array.from(phraseSet));
+
           return {
             status: GameStatus.PLAYING,
-            currentPhrase: state.cursor.next(),
+            currentPhrase: newCursor.next(),
             skipsUsed: 0,
             skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
             timeRemaining: actualDuration,
             actualTimerDuration: actualDuration,
             isTimerRunning: true,
-            phraseStartTime: Date.now()
+            phraseStartTime: Date.now(),
+            cursor: newCursor
           };
         }),
         
@@ -592,6 +611,12 @@ export const useGameStore = create<GameState>()(
           };
         }),
         resetCurrentRoundAnswers: () => set({ currentRoundAnswers: [] }),
+        togglePinnedCategory: (category) => set((state)=> {
+          const pinned = state.pinnedCategories.includes(category)
+            ? state.pinnedCategories.filter((c)=> c!==category)
+            : [...state.pinnedCategories, category];
+          return { pinnedCategories: pinned };
+        }),
       };
     },
     {
@@ -599,6 +624,8 @@ export const useGameStore = create<GameState>()(
       storage: createJSONStorage(() => indexedDBStorage),
       partialize: (state) => ({
         selectedCategory: state.selectedCategory,
+        selectedCategories: state.selectedCategories,
+        pinnedCategories: state.pinnedCategories,
         timerDuration: state.timerDuration,
         showTimer: state.showTimer,
         useRandomTimer: state.useRandomTimer,
@@ -624,6 +651,8 @@ export const useGameStore = create<GameState>()(
         return {
           ...currentState,
           selectedCategory: persisted.selectedCategory ?? currentState.selectedCategory,
+          selectedCategories: persisted.selectedCategories ?? currentState.selectedCategories,
+          pinnedCategories: persisted.pinnedCategories ?? currentState.pinnedCategories,
           timerDuration: persisted.timerDuration ?? currentState.timerDuration,
           showTimer: persisted.showTimer ?? currentState.showTimer,
           useRandomTimer: persisted.useRandomTimer ?? currentState.useRandomTimer,

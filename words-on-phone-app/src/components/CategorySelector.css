@@ -1,0 +1,81 @@
+.category-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+.tabs button {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--gray-300, #ccc);
+  background: #fff;
+  cursor: pointer;
+}
+.tabs button.active {
+  background: var(--accent, #0077ff);
+  color: #fff;
+}
+
+.search-input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem;
+}
+
+.category-tile {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  background: #f9f9f9;
+  cursor: pointer;
+  position: relative;
+}
+.category-tile.selected {
+  border-color: var(--accent, #0077ff);
+  background: #e8f2ff;
+}
+.category-tile input {
+  margin-right: 0.25rem;
+}
+.name {
+  font-weight: 600;
+}
+.count {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.pin-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+  margin-left: auto;
+}
+.pin-btn.pinned {
+  color: var(--accent, #0077ff);
+}
+
+.toolbar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.toolbar select, .toolbar button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+} 

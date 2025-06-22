@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useGameStore, BUZZER_SOUNDS } from '../store';
-import { PhraseCategory } from '../data/phrases';
 import { HowToPlayModal } from './HowToPlayModal';
 import { CategoryRequestModal } from './CategoryRequestModal';
 import { VersionDisplay } from './VersionDisplay';
@@ -8,11 +7,14 @@ import { useAudio } from '../hooks/useAudio';
 import { categoryRequestService } from '../services/categoryRequestService';
 import { phraseService } from '../services/phraseService';
 import { trackCategoryRequested, trackCategoryConfirmed, trackCategoryGenerated } from '../firebase/analytics';
+import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
+import { CategorySelector } from './CategorySelector';
+import { SelectionBanner } from './SelectionBanner';
 import './MenuScreen.css';
 
 export const MenuScreen: React.FC = () => {
   const {
-    selectedCategory,
+    selectedCategories,
     timerDuration,
     showTimer,
     useRandomTimer,
@@ -20,7 +22,7 @@ export const MenuScreen: React.FC = () => {
     timerRangeMax,
     skipLimit,
     buzzerSound,
-    setCategory,
+    setSelectedCategories,
     setTimerDuration,
     setShowTimer,
     setUseRandomTimer,
@@ -35,27 +37,12 @@ export const MenuScreen: React.FC = () => {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showCategoryRequest, setShowCategoryRequest] = useState(false);
-  const [customCategories, setCustomCategories] = useState<string[]>([]);
+  const { defaultCategories, customCategories, loading: categoriesLoading, reload: reloadCategories } = useCategoryMetadata();
 
   // Audio hook for testing buzzer sounds
   const testBuzzer = useAudio(buzzerSound, { volume: 0.4 });
 
-  const staticCategories = Object.values(PhraseCategory);
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
-
-  // Load custom categories on component mount
-  useEffect(() => {
-    const loadCustomCategories = async () => {
-      try {
-        const customCats = await phraseService.getCustomCategories();
-        setCustomCategories(customCats);
-      } catch (error) {
-        console.warn('Failed to load custom categories:', error);
-      }
-    };
-
-    loadCustomCategories();
-  }, []);
 
   const handleTestBuzzer = () => {
     testBuzzer.play().catch(console.warn);
@@ -81,37 +68,34 @@ export const MenuScreen: React.FC = () => {
     }
   };
 
-  const handleConfirmGeneration = async (categoryName: string, sampleWords: string[]): Promise<void> => {
+  const handleConfirmGeneration = async (info: { name: string; description: string; tags: string[] }, sampleWords: string[]): Promise<void> => {
     const startTime = Date.now();
-    const requestId = `req_${categoryName.toLowerCase().replace(/[^a-z0-9]/g, '_')}_${Date.now()}`;
+    const requestId = `req_${info.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}_${Date.now()}`;
     
     try {
       // Track confirmation
       trackCategoryConfirmed({
-        category_name: categoryName,
+        category_name: info.name,
         request_id: requestId,
         sample_words: sampleWords
       });
       
-      const customPhrases = await categoryRequestService.generateFullCategory(categoryName, sampleWords);
+      const customPhrases = await categoryRequestService.generateFullCategory(info.name, sampleWords, info.description, info.tags);
       const generationTime = Date.now() - startTime;
       
       // Track generation completion
       trackCategoryGenerated({
-        category_name: categoryName,
+        category_name: info.name,
         request_id: requestId,
         phrases_generated: customPhrases.length,
         generation_time_ms: generationTime
       });
       
-      // Refresh phrase service to include new custom phrases
+      // Refresh phrase service cache and reload category metadata
       await phraseService.refreshCustomPhrases();
+      reloadCategories();
       
-      // Refresh custom categories list in UI
-      const updatedCustomCategories = await phraseService.getCustomCategories();
-      setCustomCategories(updatedCustomCategories);
-      
-      console.log(`Generated ${customPhrases.length} phrases for category: ${categoryName}`);
+      console.log(`Generated ${customPhrases.length} phrases for category: ${info.name}`);
     } catch (error) {
       console.error('Category generation failed:', error);
       throw error;
@@ -128,28 +112,18 @@ export const MenuScreen: React.FC = () => {
       <div className="menu-content">
         <section className="category-section">
           <h2>Choose Category</h2>
-          <div className="category-grid">
-            {staticCategories.map(category => (
-              <button
-                key={category}
-                className={`category-button ${selectedCategory === category ? 'selected' : ''}`}
-                onClick={() => setCategory(category)}
-                aria-label={`Select ${category} category`}
-              >
-                {category}
-              </button>
-            ))}
-            {customCategories.map(category => (
-              <button
-                key={`custom-${category}`}
-                className={`category-button custom-category ${selectedCategory === category ? 'selected' : ''}`}
-                onClick={() => setCategory(category)}
-                aria-label={`Select ${category} custom category`}
-              >
-                ✨ {category}
-              </button>
-            ))}
-          </div>
+          <CategorySelector
+            defaultCategories={defaultCategories}
+            customCategories={customCategories}
+            selected={selectedCategories}
+            onChange={(sel) => setSelectedCategories(sel)}
+            loading={categoriesLoading}
+          />
+
+          <SelectionBanner
+            categories={selectedCategories}
+            onClear={() => setSelectedCategories([])}
+          />
         </section>
 
         <button
