@@ -67,4 +67,15 @@
 }
 .pin-btn.pinned {
   color: var(--accent, #0077ff);
+}
+
+.toolbar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.toolbar select, .toolbar button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
 } 

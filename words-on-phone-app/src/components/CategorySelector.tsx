@@ -3,6 +3,8 @@ import { CategoryMetadata } from '../types/category';
 import { useGameStore } from '../store';
 import './CategorySelector.css';
 
+type SortKey = 'name' | 'count';
+
 interface Props {
   defaultCategories: CategoryMetadata[];
   customCategories: CategoryMetadata[];
@@ -22,13 +24,20 @@ export const CategorySelector: React.FC<Props> = ({
   const [search, setSearch] = useState('');
 
   const { pinnedCategories, togglePinnedCategory } = useGameStore();
+  const [sortKey, setSortKey] = useState<SortKey>('name');
 
   const rawList = activeTab === 'default' ? defaultCategories : customCategories;
   const list = useMemo(()=> {
     const pinned = rawList.filter(c=> pinnedCategories.includes(c.name));
     const others = rawList.filter(c=> !pinnedCategories.includes(c.name));
-    return [...pinned.sort((a,b)=> a.name.localeCompare(b.name)), ...others.sort((a,b)=> a.name.localeCompare(b.name))];
-  }, [rawList, pinnedCategories]);
+    const sortFn = sortKey === 'name'
+      ? (a: CategoryMetadata, b: CategoryMetadata) => a.name.localeCompare(b.name)
+      : (a: CategoryMetadata, b: CategoryMetadata) => b.phraseCount - a.phraseCount;
+    return [
+      ...pinned.sort(sortFn),
+      ...others.sort(sortFn)
+    ];
+  }, [rawList, pinnedCategories, sortKey]);
 
   const filtered = useMemo(() => {
     if (!search.trim()) return list;
@@ -39,6 +48,14 @@ export const CategorySelector: React.FC<Props> = ({
   const toggleCategory = (name: string) => {
     const exists = selected.includes(name);
     const next = exists ? selected.filter((n) => n !== name) : [...selected, name];
+    onChange(next);
+  };
+
+  // Bulk operations
+  const selectAll = () => onChange(list.map(l=> l.name));
+  const clearAll = () => onChange([]);
+  const invertSelection = () => {
+    const next = list.map(l=> l.name).filter(name=> !selected.includes(name));
     onChange(next);
   };
 
@@ -57,6 +74,17 @@ export const CategorySelector: React.FC<Props> = ({
         >
           Custom
         </button>
+      </div>
+
+      <div className="toolbar">
+        <select value={sortKey} onChange={(e)=> setSortKey(e.target.value as SortKey)} aria-label="Sort categories">
+          <option value="name">Sort: A→Z</option>
+          <option value="count">Sort: Phrase Count</option>
+        </select>
+
+        <button onClick={selectAll} type="button">Select All</button>
+        <button onClick={clearAll} type="button">Clear</button>
+        <button onClick={invertSelection} type="button">Invert</button>
       </div>
 
       <input
