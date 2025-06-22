@@ -127,6 +127,16 @@ export const GameScreen: React.FC = () => {
   // Viewport height management with fallback
   const { heightValue, supportsDvh } = useViewportHeight();
 
+  // Obscured countdown for hidden timer mode
+  const getObscuredCountdown = (seconds: number) => {
+    // Convert numbers to decorative symbols that suggest countdown without revealing time
+    const symbols = ['◉', '◎', '○', '◦', '⦿', '⦾', '⊙', '⊚', '⊛', '⊜'];
+    const symbolIndex = Math.floor(seconds) % symbols.length;
+    const intensity = Math.max(0, Math.min(1, (actualTimerDuration - seconds) / actualTimerDuration));
+    const repeatCount = Math.floor(intensity * 5) + 1;
+    return symbols[symbolIndex].repeat(repeatCount);
+  };
+
   return (
     <main 
       className={`game-screen ${!showTimer ? 'hidden-timer-mode' : ''}`}
@@ -163,7 +173,9 @@ export const GameScreen: React.FC = () => {
           ) : (
             <div className="timer-placeholder" aria-hidden="true">
               <div className="hidden-timer-indicator">
-                {useRandomTimer ? '🎲' : '⏱️'}
+                <span className="obscured-countdown">
+                  {getObscuredCountdown(displayTime)}
+                </span>
               </div>
             </div>
           )}

@@ -5,3 +5,4 @@
 - Commit only when all tests are green.
 - PR template must confirm: npm run test && npx cypress run pass.
 - Use vertical slices: UI, logic, tests, docs in one PR. 
+- Before implementing any gameplay changes, consult docs/ruleset.md to ensure compatibility with core game mechanics (7-point scoring, hot-potato passing, timer-based rounds, clue-giving restrictions). If a change conflicts with established rules or introduces new gameplay elements, request user confirmation and clarify how it fits within the ruleset framework.

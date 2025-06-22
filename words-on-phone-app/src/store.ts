@@ -245,11 +245,18 @@ export const useGameStore = create<GameState>()(
             });
           }
           const nextPhrase = state.cursor.next();
+          
+          // Rotate to next team if teams are set up (hot-potato mechanics)
+          const newTeamIndex = state.teams.length > 0 
+            ? (state.currentTeamIndex + 1) % state.teams.length
+            : state.currentTeamIndex;
+          
           return {
             currentPhrase: nextPhrase,
             skipsUsed: 0,
             skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
-            phraseStartTime: Date.now()
+            phraseStartTime: Date.now(),
+            currentTeamIndex: newTeamIndex
           };
         }),
         

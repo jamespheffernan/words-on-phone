@@ -11,7 +11,7 @@ import PWABadge from './PWABadge';
 import './App.css';
 
 function App() {
-  const { status, incrementTeamScore, completeRound, continueFromRoundEnd, startGame } = useGameStore();
+  const { status, completeRound, continueFromRoundEnd, startGame } = useGameStore();
   const { lastFetchResult } = usePhraseWorker();
 
   // Handle new phrases from worker
@@ -22,8 +22,7 @@ function App() {
   }, [lastFetchResult]);
 
   const handleTeamWon = (teamIndex: number) => {
-    // Increment team score and complete round
-    incrementTeamScore(teamIndex);
+    // Complete round (this will increment the team score internally)
     completeRound(teamIndex);
   };
 

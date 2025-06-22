@@ -44,10 +44,11 @@ export const TeamSetup: React.FC<TeamSetupProps> = ({ onStartGame }) => {
 
   return (
     <div className="team-setup">
-      <div className="team-setup__header">
-        <h2>Set Up Teams</h2>
-        <p>Enter team names or use our fun suggestions!</p>
-      </div>
+      <div className="team-setup__content">
+        <div className="team-setup__header">
+          <h2>Set Up Teams</h2>
+          <p>Enter team names or use our fun suggestions!</p>
+        </div>
 
       <div className="team-setup__teams">
         <div className="team-setup__team">
@@ -104,6 +105,7 @@ export const TeamSetup: React.FC<TeamSetupProps> = ({ onStartGame }) => {
           <li>The team <strong>NOT</strong> holding the device when the buzzer sounds scores 1 point</li>
           <li>First team to 7 points wins!</li>
         </ul>
+      </div>
       </div>
     </div>
   );

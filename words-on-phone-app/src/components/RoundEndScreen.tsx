@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './RoundEndScreen.css';
 import { useGameStore } from '../store';
 
@@ -8,7 +8,12 @@ interface RoundEndScreenProps {
 }
 
 export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onContinue }) => {
-  const { teams, currentRoundAnswers, roundNumber } = useGameStore();
+  const { teams, currentRoundAnswers, roundNumber, currentTeamIndex, setCurrentTeamIndex } = useGameStore();
+  const [selectedWinnerIndex, setSelectedWinnerIndex] = useState<number | null>(null);
+  const [nextRoundStarterIndex, setNextRoundStarterIndex] = useState<number>(
+    // Pre-select the team that would start next based on current rotation
+    currentTeamIndex
+  );
   
   // Calculate round statistics
   const totalCorrect = currentRoundAnswers.length;
@@ -23,8 +28,17 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
     : 0;
 
   const handleTeamWon = (teamIndex: number) => {
-    onTeamWon(teamIndex);
-    onContinue();
+    setSelectedWinnerIndex(teamIndex);
+  };
+
+  const handleContinueToNextRound = () => {
+    if (selectedWinnerIndex !== null) {
+      // Set the starting team for next round
+      setCurrentTeamIndex(nextRoundStarterIndex);
+      // Complete the round with the winning team
+      onTeamWon(selectedWinnerIndex);
+      onContinue();
+    }
   };
 
   return (
@@ -65,7 +79,7 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
             {teams.map((team, index) => (
               <button
                 key={index}
-                className="team-win-button"
+                className={`team-win-button ${selectedWinnerIndex === index ? 'selected' : ''}`}
                 onClick={() => handleTeamWon(index)}
               >
                 <span className="team-name">{team.name}</span>
@@ -74,6 +88,34 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
             ))}
           </div>
         </div>
+
+        {selectedWinnerIndex !== null && (
+          <div className="next-round-setup">
+            <h3>Who should start the next round?</h3>
+            <p className="selection-hint">
+              Choose which team will hold the device when the next round begins.
+            </p>
+            
+            <div className="team-buttons">
+              {teams.map((team, index) => (
+                <button
+                  key={index}
+                  className={`team-starter-button ${nextRoundStarterIndex === index ? 'selected' : ''}`}
+                  onClick={() => setNextRoundStarterIndex(index)}
+                >
+                  <span className="team-name">{team.name}</span>
+                </button>
+              ))}
+            </div>
+
+            <button 
+              className="continue-button"
+              onClick={handleContinueToNextRound}
+            >
+              Continue to Next Round
+            </button>
+          </div>
+        )}
         
         <div className="game-progress">
           <p>First team to 7 points wins!</p>
