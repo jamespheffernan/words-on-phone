@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 
 // Haptic pattern types
@@ -52,8 +52,8 @@ const DEFAULT_HAPTIC_CONFIG: HapticConfig = {
 };
 
 export const useHaptics = () => {
-  // Load haptic configuration
-  const getConfig = useCallback((): HapticConfig => {
+  // React state for configuration
+  const [config, setConfig] = useState<HapticConfig>(() => {
     try {
       const saved = localStorage.getItem('words-on-phone-haptic-config');
       if (saved) {
@@ -63,16 +63,16 @@ export const useHaptics = () => {
       console.warn('Failed to load haptic config:', error);
     }
     return DEFAULT_HAPTIC_CONFIG;
-  }, []);
+  });
 
-  // Save haptic configuration
-  const saveConfig = useCallback((config: HapticConfig) => {
+  // Save configuration to localStorage whenever it changes
+  useEffect(() => {
     try {
       localStorage.setItem('words-on-phone-haptic-config', JSON.stringify(config));
     } catch (error) {
       console.warn('Failed to save haptic config:', error);
     }
-  }, []);
+  }, [config]);
 
   // Convert intensity to ImpactStyle
   const getImpactStyle = useCallback((intensity: number): ImpactStyle => {
@@ -83,7 +83,6 @@ export const useHaptics = () => {
 
   // Basic haptic methods (legacy compatibility)
   const triggerImpact = useCallback(async (style: ImpactStyle = ImpactStyle.Medium) => {
-    const config = getConfig();
     if (!config.enabled) return;
 
     try {
@@ -91,10 +90,9 @@ export const useHaptics = () => {
     } catch (error) {
       console.debug('Haptics not available:', error);
     }
-  }, [getConfig]);
+  }, [config.enabled]);
 
   const triggerVibrate = useCallback(async (duration = 300) => {
-    const config = getConfig();
     if (!config.enabled) return;
 
     try {
@@ -102,10 +100,9 @@ export const useHaptics = () => {
     } catch (error) {
       console.debug('Haptics not available:', error);
     }
-  }, [getConfig]);
+  }, [config.enabled]);
 
   const triggerNotification = useCallback(async () => {
-    const config = getConfig();
     if (!config.enabled) return;
 
     try {
@@ -113,11 +110,10 @@ export const useHaptics = () => {
     } catch (error) {
       console.debug('Haptics not available:', error);
     }
-  }, [getConfig]);
+  }, [config.enabled]);
 
   // Enhanced contextual haptic method
   const triggerHaptic = useCallback(async (category: HapticCategory, type: string) => {
-    const config = getConfig();
     if (!config.enabled || !config.categoryEnabled[category]) {
       return;
     }
@@ -137,7 +133,7 @@ export const useHaptics = () => {
     } catch (error) {
       console.debug('Haptics not available:', error);
     }
-  }, [getConfig, getImpactStyle]);
+  }, [config.enabled, config.categoryEnabled, config.intensity, getImpactStyle]);
 
   // UI haptic patterns
   const triggerUIHaptic = async (type: string, style: ImpactStyle) => {
@@ -227,38 +223,35 @@ export const useHaptics = () => {
 
   // Configuration methods
   const isEnabled = useCallback((): boolean => {
-    return getConfig().enabled;
-  }, [getConfig]);
+    return config.enabled;
+  }, [config.enabled]);
 
   const setEnabled = useCallback((enabled: boolean) => {
-    const config = getConfig();
-    saveConfig({ ...config, enabled });
-  }, [getConfig, saveConfig]);
+    setConfig(prev => ({ ...prev, enabled }));
+  }, []);
 
   const getIntensity = useCallback((): number => {
-    return getConfig().intensity;
-  }, [getConfig]);
+    return config.intensity;
+  }, [config.intensity]);
 
   const setIntensity = useCallback((intensity: number) => {
-    const config = getConfig();
-    saveConfig({ ...config, intensity: Math.max(0, Math.min(1, intensity)) });
-  }, [getConfig, saveConfig]);
+    setConfig(prev => ({ ...prev, intensity: Math.max(0, Math.min(1, intensity)) }));
+  }, []);
 
   const isCategoryEnabled = useCallback((category: HapticCategory): boolean => {
-    return getConfig().categoryEnabled[category];
-  }, [getConfig]);
+    return config.categoryEnabled[category];
+  }, [config.categoryEnabled]);
 
   const setCategoryEnabled = useCallback((category: HapticCategory, enabled: boolean) => {
-    const config = getConfig();
-    saveConfig({ 
-      ...config, 
-      categoryEnabled: { ...config.categoryEnabled, [category]: enabled }
-    });
-  }, [getConfig, saveConfig]);
+    setConfig(prev => ({ 
+      ...prev, 
+      categoryEnabled: { ...prev.categoryEnabled, [category]: enabled }
+    }));
+  }, []);
 
   const resetToDefaults = useCallback(() => {
-    saveConfig(DEFAULT_HAPTIC_CONFIG);
-  }, [saveConfig]);
+    setConfig(DEFAULT_HAPTIC_CONFIG);
+  }, []);
 
   return {
     // Legacy methods (backward compatibility)
