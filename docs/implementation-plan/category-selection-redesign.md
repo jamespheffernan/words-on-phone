@@ -98,9 +98,24 @@ Current limitations:
 - Test UI interactions
 - Performance benchmarks
 
+### Task 10 Sub-tasks (detailed)
+
+| Sub-task | Description | Owner | Status |
+|----------|-------------|--------|--------|
+| 10a | Stub `indexedDBStorage` (or mock idb-keyval) inside `phraseService.test.ts` so that `addFetchedPhrases` and `handleWorkerPhrases` resolve immediately, eliminating 10 s timeouts | Executor | ✅ Done |
+| 10b | Convert `useTimer.test.ts` to `vi.useFakeTimers()` and advance timers to deterministic points; adjust assertion tolerances | Executor | ⬜ TODO |
+| 10c | Re-write `phraseWorker.test.ts` to spy on `self.addEventListener('message', …)` instead of expecting `message` handler on mocked worker, then manually `dispatchEvent` messages for START / STATUS / unknown | Executor | ⬜ TODO |
+| 10d | Silence remaining `act()` warnings in `CategorySelector.test.tsx` by wrapping initial renders causing state updates (non-blocking) | Executor | ⬜ TODO |
+
+**Acceptance Criteria for Task 10**
+1. `npm test` exits with zero failures and no unhandled promise rejections.
+2. No React `act()` warnings in console output.
+3. Tests run in <15 s on CI parallel runner.
+
 ## Project Status Board
 
 ### TODO:
+- [ ] Task 1: Create feature branch
 - [ ] Task 2: Refactor category data structure
 - [ ] Task 3: Design new CategorySelector component
 - [ ] Task 4: Implement live selection banner
@@ -109,12 +124,21 @@ Current limitations:
 - [ ] Task 7: Add category management features
 - [ ] Task 8: Update "Everything" category logic
 - [ ] Task 9: Enhance user category creation
-- [ ] Task 10: Add comprehensive tests
+- [ ] Task 10: Add comprehensive tests (see sub-tasks 10a-10d)
 
 ### In Progress:
+- [ ] Task 10: Add comprehensive tests (see sub-tasks 10a-10d)
 
 ### Completed:
 - [x] Task 1: Create feature branch ✅ Branch `feature/category-selection-redesign` created and checked out
+- [x] Task 2: Refactor category data structure ✅ Completed – category metadata added, default vs custom separation implemented in words-on-phone-app/src/services/phraseService.ts
+- [x] Task 3: Design new CategorySelector component
+- [x] Task 4: Implement live selection banner
+- [x] Task 5: Add phrase count indicators
+- [x] Task 6: Implement multi-category phrase loading
+- [x] Task 7: Add category management features
+- [x] Task 8: Update "Everything" category logic
+- [x] Task 9: Enhance user category creation
 
 ## Executor's Feedback or Assistance Requests
 
@@ -127,6 +151,12 @@ Current limitations:
 
 **Current Status**: Task 1 complete, Task 2 blocked due to file corruption issue.
 
+✅ RESOLVED 2025-06-22 – The corrupted duplicate file (`src/services/phraseService.ts`) was identified as unused legacy code. It has been safely removed, and the fully-featured implementation in `words-on-phone-app/src/services/phraseService.ts` now serves as the single source of truth. Category metadata, default/custom separation, and Everything/Everything+ logic are fully operational. No further corruption observed.
+
+**Current Focus:** Task 10 (comprehensive tests) is in progress. Sub-task 10a complete – IndexedDB interactions are fully stubbed in `phraseService.test.ts`, eliminating 10 s timeouts. Proceeding to sub-task 10b.
+
 ## Lessons Learned
 
-_Lessons learned during implementation will be documented here_ 
+_Lessons learned during implementation will be documented here_
+
+* [2025-06-22] Keep an eye out for duplicate legacy files – they can cause confusion and apparent "corruption" when the real implementation lives elsewhere. 
