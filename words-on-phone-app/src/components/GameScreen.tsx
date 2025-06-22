@@ -16,7 +16,9 @@ export const GameScreen: React.FC = () => {
     skipPhrase,
     skipsRemaining,
     skipLimit,
-    correctCount,
+    teams,
+    currentTeamIndex,
+    currentRoundAnswers,
     pauseGame,
     actualTimerDuration,
     showTimer,
@@ -166,8 +168,27 @@ export const GameScreen: React.FC = () => {
             </div>
           )}
           
-          <div className="score-display" role="status" aria-live="polite">
-            Score: {correctCount}
+          <div className="team-display" role="status" aria-live="polite">
+            {teams.length > 0 ? (
+              <div className="current-team">
+                <div className="team-indicator">
+                  <span className="holding-label">Holding:</span>
+                  <span className="team-name">{teams[currentTeamIndex]?.name || 'Team'}</span>
+                </div>
+                <div className="team-scores">
+                  {teams.map((team, index) => (
+                    <span 
+                      key={index} 
+                      className={`team-score ${index === currentTeamIndex ? 'active' : ''}`}
+                    >
+                      {team.name}: {team.score}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="round-counter">Round: {currentRoundAnswers.length}</div>
+            )}
           </div>
         </div>
 

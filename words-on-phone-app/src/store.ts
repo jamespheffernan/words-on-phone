@@ -15,8 +15,10 @@ import {
 
 export enum GameStatus {
   MENU = 'menu',
+  TEAM_SETUP = 'team_setup',
   PLAYING = 'playing',
   PAUSED = 'paused',
+  ROUND_END = 'round_end',
   ENDED = 'ended'
 }
 
@@ -29,6 +31,27 @@ export interface PhraseStats {
   avgMs: number;
   totalMs: number;
   lastSeen: number; // timestamp
+}
+
+// Team and round stats types
+export interface Team {
+  name: string;
+  score: number;
+  color?: string; // Optional for future UI
+}
+
+export interface RoundStats {
+  roundNumber: number;
+  totalCorrect: number;
+  fastestAnswer?: {
+    phrase: string;
+    timeMs: number;
+  };
+  answers: Array<{
+    phrase: string;
+    timeMs: number;
+  }>;
+  winningTeamIndex?: number;
 }
 
 interface GameState {
@@ -60,7 +83,6 @@ interface GameState {
   // Round state
   skipsUsed: number;
   skipsRemaining: number;
-  correctCount: number;
   
   // Timer state
   timeRemaining: number; // in seconds
@@ -69,6 +91,13 @@ interface GameState {
   // Phrase timing and stats
   phraseStartTime: number | null; // timestamp when phrase was shown
   phraseStats: Record<string, PhraseStats>; // phrase statistics
+  
+  // Team-based gameplay
+  teams: Team[];
+  currentTeamIndex: number; // index of team currently holding device
+  roundNumber: number;
+  roundStats: RoundStats[];
+  currentRoundAnswers: Array<{ phrase: string; timeMs: number }>;
   
   // Actions
   nextPhrase: () => void;
@@ -89,10 +118,13 @@ interface GameState {
   setBeepFinalInterval: (ms: number) => void;
   setBeepVolume: (volume: number) => void;
   
+  startTeamSetup: () => void;
   startGame: () => void;
   pauseGame: () => void;
   resumeGame: () => void;
   endGame: () => void;
+  endRound: () => void;
+  continueFromRoundEnd: () => void;
   resetRound: () => void;
   setTimeRemaining: (seconds: number) => void;
   setTimerRunning: (running: boolean) => void;
@@ -105,6 +137,17 @@ interface GameState {
   recordPhraseSkip: () => void;
   recordPhraseTimeout: () => void;
   getPhraseStats: (phraseId: string) => PhraseStats | undefined;
+  // Team actions
+  setTeams: (teams: Team[]) => void;
+  setTeamName: (index: number, name: string) => void;
+  incrementTeamScore: (index: number, delta?: number) => void;
+  rotateTeam: () => void;
+  resetTeams: () => void;
+  setCurrentTeamIndex: (index: number) => void;
+  // Round stats actions
+  recordAnswer: (phrase: string, timeMs: number) => void;
+  completeRound: (winningTeamIndex: number) => void;
+  resetCurrentRoundAnswers: () => void;
 }
 
 export const useGameStore = create<GameState>()(
@@ -148,6 +191,12 @@ export const useGameStore = create<GameState>()(
         }));
       };
       
+      // Helper: default teams
+      const defaultTeams: Team[] = [
+        { name: 'Team 1', score: 0 },
+        { name: 'Team 2', score: 0 }
+      ];
+      
       return {
         // Initial state
         status: GameStatus.MENU,
@@ -169,19 +218,24 @@ export const useGameStore = create<GameState>()(
         beepVolume: 0.5,
         skipsUsed: 0,
         skipsRemaining: initialSkipLimit,
-        correctCount: 0,
         timeRemaining: 60,
         isTimerRunning: false,
         phraseStartTime: null,
         phraseStats: {},
+        // Team-based gameplay
+        teams: defaultTeams,
+        currentTeamIndex: 0,
+        roundNumber: 1,
+        roundStats: [],
+        currentRoundAnswers: [],
         
         // Actions
         nextPhrase: () => set((state) => {
-          // Record success for current phrase
           if (state.currentPhrase && state.phraseStartTime) {
             const duration = Date.now() - state.phraseStartTime;
             updatePhraseStats(state.currentPhrase, true, duration);
-            
+            // Record answer for round stats
+            state.recordAnswer(state.currentPhrase, duration);
             // Track Firebase analytics
             trackPhraseSuccess({
               phrase_id: state.currentPhrase,
@@ -190,14 +244,12 @@ export const useGameStore = create<GameState>()(
               attempts_before_success: state.skipsUsed
             });
           }
-          
           const nextPhrase = state.cursor.next();
           return {
             currentPhrase: nextPhrase,
-            correctCount: state.correctCount + 1,
-            skipsUsed: 0, // Reset skips on correct answer
+            skipsUsed: 0,
             skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
-            phraseStartTime: Date.now() // Start timing new phrase
+            phraseStartTime: Date.now()
           };
         }),
         
@@ -316,6 +368,8 @@ export const useGameStore = create<GameState>()(
           beepVolume: Math.max(0, Math.min(1, volume))
         }),
         
+        startTeamSetup: () => set({ status: GameStatus.TEAM_SETUP }),
+
         startGame: () => set((state) => {
           // Determine actual timer duration based on settings
           const actualDuration = state.useRandomTimer 
@@ -339,9 +393,8 @@ export const useGameStore = create<GameState>()(
             currentPhrase: state.cursor.next(),
             skipsUsed: 0,
             skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
-            correctCount: 0,
-            actualTimerDuration: actualDuration,
             timeRemaining: actualDuration,
+            actualTimerDuration: actualDuration,
             isTimerRunning: true,
             phraseStartTime: Date.now()
           };
@@ -369,17 +422,39 @@ export const useGameStore = create<GameState>()(
             currentPhrase: '',
             skipsUsed: 0,
             skipsRemaining: get().skipLimit === 0 ? Infinity : get().skipLimit,
-            correctCount: 0,
             timeRemaining: get().actualTimerDuration,
             isTimerRunning: false,
             phraseStartTime: null
+          };
+        }),
+
+        endRound: () => set({
+          status: GameStatus.ROUND_END,
+          isTimerRunning: false
+        }),
+
+        continueFromRoundEnd: () => set((state) => {
+          // Check if any team has won (7 points)
+          const winningTeam = state.teams.find(team => team.score >= 7);
+          if (winningTeam) {
+            return { status: GameStatus.ENDED };
+          }
+          
+          // Continue to next round
+          return {
+            status: GameStatus.PLAYING,
+            timeRemaining: state.actualTimerDuration,
+            isTimerRunning: true,
+            phraseStartTime: Date.now(),
+            currentPhrase: state.cursor.next(),
+            skipsUsed: 0,
+            skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit
           };
         }),
         
         resetRound: () => set((state) => ({
           skipsUsed: 0,
           skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
-          correctCount: 0,
           timeRemaining: state.actualTimerDuration,
           isTimerRunning: false,
           phraseStartTime: null
@@ -400,15 +475,24 @@ export const useGameStore = create<GameState>()(
               phrase_id: state.currentPhrase,
               category: state.selectedCategory,
               time_on_phrase_ms: duration,
-              total_phrases_attempted: state.correctCount + state.skipsUsed + 1
+              total_phrases_attempted: state.skipsUsed + 1
             });
           }
           
-          return {
-            status: GameStatus.ENDED,
-            isTimerRunning: false,
-            phraseStartTime: null
-          };
+          // If teams are set up, go to round end; otherwise go directly to game end
+          if (state.teams.length > 0) {
+            return {
+              status: GameStatus.ROUND_END,
+              isTimerRunning: false,
+              phraseStartTime: null
+            };
+          } else {
+            return {
+              status: GameStatus.ENDED,
+              isTimerRunning: false,
+              phraseStartTime: null
+            };
+          }
         }),
         
         // Helper function to generate random timer duration
@@ -452,7 +536,55 @@ export const useGameStore = create<GameState>()(
         
         getPhraseStats: (phraseId: string) => {
           return get().phraseStats[phraseId];
-        }
+        },
+        
+        // Team actions
+        setTeams: (teams) => set({ teams }),
+        setTeamName: (index, name) => set((state) => {
+          const teams = [...state.teams];
+          if (teams[index]) teams[index].name = name;
+          return { teams };
+        }),
+        incrementTeamScore: (index, delta = 1) => set((state) => {
+          const teams = [...state.teams];
+          if (teams[index]) teams[index].score += delta;
+          return { teams };
+        }),
+        rotateTeam: () => set((state) => ({
+          currentTeamIndex: (state.currentTeamIndex + 1) % state.teams.length
+        })),
+        resetTeams: () => set({
+          teams: defaultTeams.map(t => ({ ...t, score: 0 })),
+          currentTeamIndex: 0
+        }),
+        setCurrentTeamIndex: (index) => set({ currentTeamIndex: index }),
+        // Round stats actions
+        recordAnswer: (phrase, timeMs) => set((state) => ({
+          currentRoundAnswers: [...state.currentRoundAnswers, { phrase, timeMs }]
+        })),
+        completeRound: (winningTeamIndex) => set((state) => {
+          const fastest = state.currentRoundAnswers.reduce<undefined | { phrase: string; timeMs: number }>((acc, curr) => {
+            if (!acc || curr.timeMs < acc.timeMs) return curr;
+            return acc;
+          }, undefined);
+          const roundStats: RoundStats = {
+            roundNumber: state.roundNumber,
+            totalCorrect: state.currentRoundAnswers.length,
+            fastestAnswer: fastest,
+            answers: state.currentRoundAnswers,
+            winningTeamIndex
+          };
+          // Increment score for winning team
+          const teams = [...state.teams];
+          if (teams[winningTeamIndex]) teams[winningTeamIndex].score += 1;
+          return {
+            roundStats: [...state.roundStats, roundStats],
+            roundNumber: state.roundNumber + 1,
+            currentRoundAnswers: [],
+            teams
+          };
+        }),
+        resetCurrentRoundAnswers: () => set({ currentRoundAnswers: [] }),
       };
     },
     {
@@ -472,7 +604,12 @@ export const useGameStore = create<GameState>()(
         beepFirstInterval: state.beepFirstInterval,
         beepFinalInterval: state.beepFinalInterval,
         beepVolume: state.beepVolume,
-        phraseStats: state.phraseStats
+        phraseStats: state.phraseStats,
+        teams: state.teams,
+        currentTeamIndex: state.currentTeamIndex,
+        roundNumber: state.roundNumber,
+        roundStats: state.roundStats,
+        currentRoundAnswers: state.currentRoundAnswers
       }),
       // Ensure proper merging of async storage to avoid race conditions
       merge: (persistedState, currentState) => {
@@ -494,7 +631,18 @@ export const useGameStore = create<GameState>()(
           beepVolume: persisted.beepVolume ?? currentState.beepVolume,
           phraseStats: persisted.phraseStats && Object.keys(persisted.phraseStats).length > 0
             ? persisted.phraseStats
-            : currentState.phraseStats
+            : currentState.phraseStats,
+          teams: persisted.teams && Object.keys(persisted.teams).length > 0
+            ? persisted.teams
+            : currentState.teams,
+          currentTeamIndex: persisted.currentTeamIndex ?? currentState.currentTeamIndex,
+          roundNumber: persisted.roundNumber ?? currentState.roundNumber,
+          roundStats: persisted.roundStats && Object.keys(persisted.roundStats).length > 0
+            ? persisted.roundStats
+            : currentState.roundStats,
+          currentRoundAnswers: persisted.currentRoundAnswers && Object.keys(persisted.currentRoundAnswers).length > 0
+            ? persisted.currentRoundAnswers
+            : currentState.currentRoundAnswers
         };
       }
     }

@@ -1,1 +1,1 @@
-{"root":["./cypress/e2e/accessibility.cy.ts","./cypress/e2e/beep-system.cy.ts","./cypress/e2e/skip-limit.cy.ts","./cypress/support/commands.ts","./cypress/support/component.ts","./cypress/support/e2e.ts"],"version":"5.7.3"}
+{"root":["./cypress/e2e/accessibility.cy.ts","./cypress/e2e/beep-system.cy.ts","./cypress/e2e/mobile-viewport.cy.ts","./cypress/e2e/skip-limit.cy.ts","./cypress/e2e/team-gameplay.cy.ts","./cypress/support/commands.ts","./cypress/support/component.ts","./cypress/support/e2e.ts"],"version":"5.7.3"}

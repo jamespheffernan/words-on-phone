@@ -27,6 +27,7 @@ export const MenuScreen: React.FC = () => {
     setTimerRangeMax,
     setSkipLimit,
     setBuzzerSound,
+    startTeamSetup,
     startGame
   } = useGameStore();
 
@@ -303,11 +304,19 @@ export const MenuScreen: React.FC = () => {
 
         <div className="menu-actions">
           <button
-            className="start-button"
-            onClick={startGame}
-            aria-label="Start game"
+            className="start-button team-game"
+            onClick={startTeamSetup}
+            aria-label="Start team game"
           >
-            Start Game
+            🏆 Team Game
+          </button>
+
+          <button
+            className="start-button solo-game"
+            onClick={startGame}
+            aria-label="Start solo game"
+          >
+            👤 Solo Game
           </button>
 
           <button

@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useGameStore, GameStatus } from './store';
 import { MenuScreen } from './components/MenuScreen';
 import { GameScreen } from './components/GameScreen';
 import { EndScreen } from './components/EndScreen';
-import { ScoreTracker } from './components/ScoreTracker';
+import { TeamSetup } from './components/TeamSetup';
+import { RoundEndScreen } from './components/RoundEndScreen';
 import { usePhraseWorker } from './hooks/usePhraseWorker';
 import { phraseService } from './services/phraseService';
 import PWABadge from './PWABadge';
 import './App.css';
 
 function App() {
-  const { status } = useGameStore();
-  const [showScoreTracker, setShowScoreTracker] = useState(false);
+  const { status, incrementTeamScore, completeRound, continueFromRoundEnd, startGame } = useGameStore();
   const { lastFetchResult } = usePhraseWorker();
 
   // Handle new phrases from worker
@@ -21,10 +21,33 @@ function App() {
     }
   }, [lastFetchResult]);
 
+  const handleTeamWon = (teamIndex: number) => {
+    // Increment team score and complete round
+    incrementTeamScore(teamIndex);
+    completeRound(teamIndex);
+  };
+
+  const handleContinueFromRoundEnd = () => {
+    continueFromRoundEnd();
+  };
+
+  const handleStartGame = () => {
+    startGame();
+  };
+
   return (
     <div className="app">
       {status === GameStatus.MENU && <MenuScreen />}
+      {status === GameStatus.TEAM_SETUP && (
+        <TeamSetup onStartGame={handleStartGame} />
+      )}
       {status === GameStatus.PLAYING && <GameScreen />}
+      {status === GameStatus.ROUND_END && (
+        <RoundEndScreen 
+          onTeamWon={handleTeamWon}
+          onContinue={handleContinueFromRoundEnd}
+        />
+      )}
       {status === GameStatus.ENDED && <EndScreen />}
       {status === GameStatus.PAUSED && (
         <div className="paused-overlay">
@@ -37,10 +60,6 @@ function App() {
           </button>
         </div>
       )}
-      <ScoreTracker 
-        isVisible={showScoreTracker}
-        onToggle={() => setShowScoreTracker(!showScoreTracker)}
-      />
       <PWABadge />
     </div>
   );

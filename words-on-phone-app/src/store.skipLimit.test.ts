@@ -21,7 +21,11 @@ function resetStore() {
     skipLimit: 3,
     skipsUsed: 0,
     skipsRemaining: 3,
-    correctCount: 0,
+    teams: [],
+    currentTeamIndex: 0,
+    roundNumber: 1,
+    roundStats: [],
+    currentRoundAnswers: [],
     phraseStartTime: null,
     phraseStats: {}
   });
