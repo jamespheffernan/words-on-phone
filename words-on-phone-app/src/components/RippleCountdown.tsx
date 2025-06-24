@@ -27,6 +27,12 @@ export const RippleCountdown: React.FC<RippleCountdownProps> = ({
     return maxSpeed - (intensity * (maxSpeed - minSpeed));
   }, [intensity]);
 
+  // Calculate tempo speed based on intensity
+  const tempoSpeed = useMemo(() => {
+    // tempo ranges from 2s (start) -> 1s (end)
+    return 2 - intensity; // 2 to 1 seconds
+  }, [intensity]);
+
   // Calculate number of visible countdown objects based on time remaining
   const visibleObjects = useMemo(() => {
     if (total <= 0) return 3; // Default to 3 objects if no timer
@@ -57,6 +63,7 @@ export const RippleCountdown: React.FC<RippleCountdownProps> = ({
         '--ripple-speed': `${rippleSpeed}s`,
         '--dot-opacity': dotOpacity,
         '--animation-delay': `${delay}s`,
+        '--tempo': `${tempoSpeed}s`,
       } as React.CSSProperties}
     >
       {/* Central dots in diamond pattern */}
