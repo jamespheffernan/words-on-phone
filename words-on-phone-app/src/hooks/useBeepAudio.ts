@@ -41,22 +41,37 @@ export const useBeepAudio = (options: BeepAudioOptions) => {
       // Set volume
       gainNodeRef.current.gain.value = options.volume;
 
-      // Create oscillator for tick-tock sound
+      // Create oscillator for metronome-like tick sound
       const oscillator = audioContextRef.current.createOscillator();
-      oscillator.connect(gainNodeRef.current);
+      const envelope = audioContextRef.current.createGain();
       
-      // Alternate between tick (higher) and tock (lower) frequencies
+      // Connect: oscillator -> envelope -> main gain -> destination
+      oscillator.connect(envelope);
+      envelope.connect(gainNodeRef.current);
+      
+      // Alternate between tick (higher, woody) and tock (lower, woody) sounds
       const isTick = !tickTockStateRef.current;
-      const frequency = isTick ? 1200 : 800; // Tick is higher, tock is lower
       
-      // Configure sound
+      // More metronome-like frequencies - closer together, less piercing
+      const frequency = isTick ? 800 : 600; // Tick slightly higher, tock lower
+      
+      // Use a triangle wave for a softer, more wooden sound
       oscillator.frequency.setValueAtTime(frequency, audioContextRef.current.currentTime);
-      oscillator.type = 'sine'; // Softer than square wave
+      oscillator.type = 'triangle'; // Softer than sine, much softer than square
       
-      // Play for 80ms - shorter and sharper
-      const duration = 0.08;
-      oscillator.start(audioContextRef.current.currentTime);
-      oscillator.stop(audioContextRef.current.currentTime + duration);
+      // Create a gentle envelope for a more natural tick sound
+      const now = audioContextRef.current.currentTime;
+      const duration = 0.12; // Slightly longer for more natural sound
+      
+      // Quick attack, gentle decay - like a wooden metronome
+      envelope.gain.setValueAtTime(0, now);
+      envelope.gain.linearRampToValueAtTime(0.8, now + 0.005); // Quick attack
+      envelope.gain.exponentialRampToValueAtTime(0.1, now + 0.04); // Quick initial decay
+      envelope.gain.exponentialRampToValueAtTime(0.001, now + duration); // Gentle tail
+      
+      // Start and stop
+      oscillator.start(now);
+      oscillator.stop(now + duration);
       
       // Toggle tick-tock state for next call
       tickTockStateRef.current = !tickTockStateRef.current;

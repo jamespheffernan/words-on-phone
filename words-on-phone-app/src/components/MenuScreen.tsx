@@ -282,7 +282,7 @@ export const MenuScreen: React.FC = () => {
               
               <div className="setting-item">
                 <p className="setting-description">
-                  ⏰ Tick-tock countdown sounds are automatically enabled during the final 30 seconds
+                  ⏰ Metronome-style tick-tock sounds automatically play throughout each round, getting faster as time runs out
                 </p>
               </div>
             </div>

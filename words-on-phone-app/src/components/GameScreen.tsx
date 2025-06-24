@@ -65,11 +65,11 @@ export const GameScreen: React.FC = () => {
     }
   });
 
-  // Beep ramp system
+  // Beep ramp system - start from beginning of timer
   const beepRamp = useBeepRamp({
     remainingMs: timer.timeRemainingMs,
     beepConfig: {
-      rampStartMs: beepRampStart * 1000, // convert seconds to ms
+      rampStartMs: actualTimerDuration * 1000, // Start from full timer duration
       firstInterval: beepFirstInterval,
       finalInterval: beepFinalInterval
     },
