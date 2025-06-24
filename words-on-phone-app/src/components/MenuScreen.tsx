@@ -45,8 +45,16 @@ export const MenuScreen: React.FC = () => {
   // Audio hooks for testing buzzer sounds (using current working approach)
   const testBuzzer = useAudio('buzzer', buzzerSound, { volume: 0.4, preload: true });
   
-  // Basic haptics using current implementation
-  const { triggerImpact, triggerNotification } = useHaptics();
+  // Basic haptics using current implementation  
+  const { 
+    triggerImpact, 
+    triggerNotification, 
+    triggerHaptic,
+    isEnabled: isHapticsEnabled,
+    setEnabled: setHapticsEnabled,
+    getIntensity: getHapticIntensity,
+    setIntensity: setHapticIntensity
+  } = useHaptics();
 
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
 
@@ -307,6 +315,62 @@ export const MenuScreen: React.FC = () => {
                   Volume for accelerating beeps during the final countdown
                 </p>
               </div>
+            </div>
+
+            {/* Haptic Settings Section */}
+            <div className="setting-section haptic-settings">
+              <h3 className="setting-section-title">📳 Haptic Feedback</h3>
+              
+              <div className="setting-item">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={isHapticsEnabled()}
+                    onChange={(e) => setHapticsEnabled(e.target.checked)}
+                    className="setting-checkbox"
+                  />
+                  Enable Haptic Feedback
+                </label>
+                <p className="setting-description">
+                  Vibration feedback for mobile devices and UI interactions
+                </p>
+              </div>
+
+              {isHapticsEnabled() && (
+                <>
+                  <div className="setting-item">
+                    <label htmlFor="haptic-intensity">
+                      Haptic Intensity: {Math.round(getHapticIntensity() * 100)}%
+                    </label>
+                    <div className="volume-controls">
+                      <input
+                        id="haptic-intensity"
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.1"
+                        value={getHapticIntensity()}
+                        onChange={(e) => setHapticIntensity(Number(e.target.value))}
+                        className="slider"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          // Test haptic feedback at current intensity
+                          triggerHaptic('ui', 'button-tap');
+                        }}
+                        className="test-volume-button"
+                        aria-label="Test haptic intensity"
+                      >
+                        📳 Test
+                      </button>
+                    </div>
+                    <p className="setting-description">
+                      Intensity of vibration feedback (Light to Heavy)
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="setting-item custom-category-section">
