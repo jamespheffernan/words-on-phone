@@ -5,4 +5,5 @@ export { EndScreen } from './EndScreen';
 export { CategoryRequestModal } from './CategoryRequestModal';
 export { TeamSetup } from './TeamSetup';
 export { RoundEndScreen } from './RoundEndScreen';
-export { VersionDisplay } from './VersionDisplay'; 
+export { VersionDisplay } from './VersionDisplay';
+export { RippleCountdown } from './RippleCountdown'; 

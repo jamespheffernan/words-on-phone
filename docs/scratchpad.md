@@ -35,6 +35,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [phrase-database-upgrade](implementation-plan/phrase-database-upgrade.md) - 📋 **READY** - Enhanced Phrase Database with Monthly Updates
 - [sound-and-haptics](implementation-plan/sound-and-haptics.md) - ✅ **100% COMPLETE** - Sound Effects and Haptic Feedback (READY FOR MERGE TO MAIN)
 - [app-icon-implementation](implementation-plan/app-icon-implementation.md) - 📋 **READY** - iOS App Icon Implementation
+- [countdown-ripple-redesign](implementation-plan/countdown-ripple-redesign.md) - 📝 **PLANNED** - Countdown Ripple Redesign (Hidden Timer Indicator)
 
 ## Current Status / Progress Tracking
 
