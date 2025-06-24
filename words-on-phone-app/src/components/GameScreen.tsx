@@ -54,18 +54,31 @@ export const GameScreen: React.FC = () => {
   // Timer with buzzer callback
   const timer = useTimer({
     duration: actualTimerDuration,
-    onComplete: () => {
+    onComplete: async () => {
       console.log('🚨 TIMER COMPLETED! Playing buzzer...', { buzzerSound, volume: 1.0 });
-      buzzer.play()
-        .then(() => console.log('✅ Buzzer played successfully'))
-        .catch((error) => {
-          console.warn('❌ Buzzer failed to play:', error);
-          // Try to initialize audio context and play again
-          buzzer.preloadSound();
-          setTimeout(() => buzzer.play().catch(console.warn), 100);
-        });
-      triggerNotification(); // Add haptic feedback on timeout
-      onTimerComplete();
+      
+      // Play buzzer FIRST, before any state changes
+      try {
+        await buzzer.play();
+        console.log('✅ Buzzer played successfully');
+      } catch (error) {
+        console.warn('❌ Buzzer failed to play:', error);
+        // Try to reinitialize and play again
+        buzzer.preloadSound();
+        try {
+          await buzzer.play();
+        } catch (retryError) {
+          console.warn('❌ Buzzer retry also failed:', retryError);
+        }
+      }
+      
+      // Add haptic feedback
+      triggerNotification();
+      
+      // Small delay to ensure buzzer has time to play before state changes
+      setTimeout(() => {
+        onTimerComplete();
+      }, 100);
     },
     onTick: (remaining) => {
       setTimeRemaining(remaining);
