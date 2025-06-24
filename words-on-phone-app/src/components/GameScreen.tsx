@@ -37,7 +37,7 @@ export const GameScreen: React.FC = () => {
   } = useGameStore();
 
   // Audio hook for buzzer sound
-  const buzzer = useAudio(buzzerSound, { volume: 0.6, preload: true });
+  const buzzer = useAudio('buzzer', buzzerSound, { volume: 0.6, preload: true });
 
   // Beep audio hook for ramp beeps
   const beepAudio = useBeepAudio({ 
@@ -45,8 +45,12 @@ export const GameScreen: React.FC = () => {
     enabled: enableBeepRamp 
   });
 
+  // Gameplay audio hooks
+  const correctAudio = useAudio('gameplay', 'correct');
+  const skipAudio = useAudio('gameplay', 'skip');
+
   // Haptics hook for mobile feedback
-  const { triggerNotification } = useHaptics();
+  const { triggerNotification, triggerHaptic } = useHaptics();
 
   // Timer with buzzer callback
   const timer = useTimer({
@@ -151,7 +155,10 @@ export const GameScreen: React.FC = () => {
         <div className="game-header-controls">
           <button 
             className="pause-button"
-            onClick={pauseGame}
+            onClick={() => {
+              pauseGame();
+              triggerHaptic('ui', 'menu-open');
+            }}
             aria-label="Pause game"
           >
             ⏸️
@@ -218,7 +225,11 @@ export const GameScreen: React.FC = () => {
       <section className="game-actions">
         <button 
           className="correct-button"
-          onClick={nextPhrase}
+          onClick={() => {
+            nextPhrase();
+            correctAudio.play().catch(console.warn);
+            triggerHaptic('gameplay', 'correct');
+          }}
           aria-label="Mark phrase as correct and get next phrase"
         >
           ✓ Correct
@@ -226,7 +237,11 @@ export const GameScreen: React.FC = () => {
         
         <button 
           className={`pass-button ${skipsRemaining === 0 ? 'disabled' : ''}`}
-          onClick={skipPhrase}
+          onClick={() => {
+            skipPhrase();
+            skipAudio.play().catch(console.warn);
+            triggerHaptic('gameplay', 'skip');
+          }}
           disabled={skipsRemaining === 0}
           aria-label={skipsRemaining === 0 ? 'No skips remaining' : 'Skip this phrase'}
         >

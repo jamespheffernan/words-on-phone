@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './TeamSetup.css';
 import { useGameStore } from '../store';
+import { useHaptics } from '../hooks/useHaptics';
 import { getRandomTeamNames } from '../data/teamNames';
 
 interface TeamSetupProps {
@@ -9,6 +10,7 @@ interface TeamSetupProps {
 
 export const TeamSetup: React.FC<TeamSetupProps> = ({ onStartGame }) => {
   const { setTeams, resetTeams, resetCurrentRoundAnswers } = useGameStore();
+  const { triggerHaptic } = useHaptics();
   
   // Initialize with random team names
   const [teamNames, setTeamNames] = useState<[string, string]>(() => getRandomTeamNames());
@@ -27,6 +29,7 @@ export const TeamSetup: React.FC<TeamSetupProps> = ({ onStartGame }) => {
 
   const shuffleTeamNames = () => {
     setTeamNames(getRandomTeamNames());
+    triggerHaptic('ui', 'button-tap');
   };
 
   const handleStartGame = () => {
@@ -37,6 +40,7 @@ export const TeamSetup: React.FC<TeamSetupProps> = ({ onStartGame }) => {
     ];
     
     setTeams(teams);
+    triggerHaptic('gameplay', 'game-start');
     onStartGame();
   };
 

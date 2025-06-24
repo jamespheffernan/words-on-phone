@@ -241,6 +241,43 @@
   transform: scale(0.95);
 }
 
+/* Audio Settings Styles */
+.volume-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 8px;
+}
+
+.volume-controls .slider {
+  flex: 1;
+  margin: 0;
+}
+
+.test-volume-button {
+  padding: 8px 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  min-width: 60px;
+}
+
+.test-volume-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.test-volume-button:active {
+  transform: scale(0.95);
+}
+
 /* Custom Category Section */
 .custom-category-section {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -465,4 +502,64 @@
   border-color: #ffed4e;
   box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
   color: #2c1810;
+}
+
+/* Settings Sections */
+.setting-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.setting-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.setting-section .setting-item {
+  margin-bottom: 18px;
+}
+
+.setting-section .setting-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Audio/Haptic Settings Specific Styles */
+.setting-section .setting-checkbox {
+  margin-right: 12px;
+  transform: scale(1.2);
+}
+
+.setting-section .slider {
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.setting-section .slider::-webkit-slider-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 2px solid white;
+}
+
+.setting-section .slider::-moz-range-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 2px solid white;
+}
+
+/* Responsive adjustments for settings sections */
+@media (max-width: 768px) {
+  .setting-section {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .setting-section-title {
+    font-size: 18px;
+  }
 } 
