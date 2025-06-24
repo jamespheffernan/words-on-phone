@@ -220,7 +220,7 @@ export const useGameStore = create<GameState>()(
         enableBeepRamp: true,
         beepRampStart: 30,
         beepFirstInterval: 2000,
-        beepFinalInterval: 1000,
+        beepFinalInterval: 200,
         beepVolume: 0.6,
         skipsUsed: 0,
         skipsRemaining: initialSkipLimit,
