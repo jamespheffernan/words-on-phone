@@ -1,5 +1,16 @@
 .ripple-countdown {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: auto;
+  height: 60px;
+}
+
+/* Individual countdown object */
+.ripple-countdown__object {
+  position: relative;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -83,15 +94,15 @@
 }
 
 .ripple-countdown__ripple--1 {
-  animation-delay: 0s;
+  animation-delay: calc(0s + var(--animation-delay, 0s));
 }
 
 .ripple-countdown__ripple--2 {
-  animation-delay: calc(var(--ripple-speed, 2s) * 0.33);
+  animation-delay: calc(var(--ripple-speed, 2s) * 0.33 + var(--animation-delay, 0s));
 }
 
 .ripple-countdown__ripple--3 {
-  animation-delay: calc(var(--ripple-speed, 2s) * 0.66);
+  animation-delay: calc(var(--ripple-speed, 2s) * 0.66 + var(--animation-delay, 0s));
 }
 
 /* Keyframe animations */
@@ -109,21 +120,22 @@
 /* Fix dot positioning transforms */
 .ripple-countdown__dot--top {
   animation: dotPulseTop 1.5s ease-in-out infinite;
+  animation-delay: calc(0s + var(--animation-delay, 0s));
 }
 
 .ripple-countdown__dot--right {
   animation: dotPulseRight 1.5s ease-in-out infinite;
-  animation-delay: 0.375s;
+  animation-delay: calc(0.375s + var(--animation-delay, 0s));
 }
 
 .ripple-countdown__dot--bottom {
   animation: dotPulseBottom 1.5s ease-in-out infinite;
-  animation-delay: 0.75s;
+  animation-delay: calc(0.75s + var(--animation-delay, 0s));
 }
 
 .ripple-countdown__dot--left {
   animation: dotPulseLeft 1.5s ease-in-out infinite;
-  animation-delay: 1.125s;
+  animation-delay: calc(1.125s + var(--animation-delay, 0s));
 }
 
 @keyframes dotPulseTop {

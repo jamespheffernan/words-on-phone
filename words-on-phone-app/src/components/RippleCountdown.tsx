@@ -27,15 +27,15 @@ export const RippleCountdown: React.FC<RippleCountdownProps> = ({
     return maxSpeed - (intensity * (maxSpeed - minSpeed));
   }, [intensity]);
 
-  // Calculate number of visible ripple circles based on time remaining
-  const visibleRipples = useMemo(() => {
-    if (total <= 0) return 3; // Default to 3 ripples if no timer
+  // Calculate number of visible countdown objects based on time remaining
+  const visibleObjects = useMemo(() => {
+    if (total <= 0) return 3; // Default to 3 objects if no timer
     
     const timePercent = remaining / total;
     
-    // 3 ripples when > 66% time remaining
-    // 2 ripples when 33-66% time remaining  
-    // 1 ripple when < 33% time remaining
+    // 3 objects when > 66% time remaining
+    // 2 objects when 33-66% time remaining  
+    // 1 object when < 33% time remaining
     if (timePercent > 0.66) return 3;
     if (timePercent > 0.33) return 2;
     return 1;
@@ -49,16 +49,17 @@ export const RippleCountdown: React.FC<RippleCountdownProps> = ({
     return minOpacity + (intensity * (maxOpacity - minOpacity));
   }, [intensity]);
 
-  return (
+  // Create a single countdown object
+  const CountdownObject = ({ delay = 0 }: { delay?: number }) => (
     <div 
-      className={`ripple-countdown ripple-countdown--${variant}`}
+      className="ripple-countdown__object"
       style={{
         '--ripple-speed': `${rippleSpeed}s`,
         '--dot-opacity': dotOpacity,
+        '--animation-delay': `${delay}s`,
       } as React.CSSProperties}
-      aria-hidden="true"
     >
-      {/* Central dots in diamond pattern - always show all 4 */}
+      {/* Central dots in diamond pattern */}
       <div className="ripple-countdown__dots">
         <div className="ripple-countdown__dot ripple-countdown__dot--top" />
         <div className="ripple-countdown__dot ripple-countdown__dot--right" />
@@ -66,12 +67,24 @@ export const RippleCountdown: React.FC<RippleCountdownProps> = ({
         <div className="ripple-countdown__dot ripple-countdown__dot--left" />
       </div>
 
-      {/* Ripple layers - show only the number based on time remaining */}
+      {/* Ripple layers */}
       <div className="ripple-countdown__ripples">
-        {visibleRipples >= 1 && <div className="ripple-countdown__ripple ripple-countdown__ripple--1" />}
-        {visibleRipples >= 2 && <div className="ripple-countdown__ripple ripple-countdown__ripple--2" />}
-        {visibleRipples >= 3 && <div className="ripple-countdown__ripple ripple-countdown__ripple--3" />}
+        <div className="ripple-countdown__ripple ripple-countdown__ripple--1" />
+        <div className="ripple-countdown__ripple ripple-countdown__ripple--2" />
+        <div className="ripple-countdown__ripple ripple-countdown__ripple--3" />
       </div>
+    </div>
+  );
+
+  return (
+    <div 
+      className={`ripple-countdown ripple-countdown--${variant}`}
+      aria-hidden="true"
+    >
+      {/* Show multiple countdown objects based on time remaining */}
+      {visibleObjects >= 1 && <CountdownObject delay={0} />}
+      {visibleObjects >= 2 && <CountdownObject delay={0.5} />}
+      {visibleObjects >= 3 && <CountdownObject delay={1} />}
     </div>
   );
 }; 
