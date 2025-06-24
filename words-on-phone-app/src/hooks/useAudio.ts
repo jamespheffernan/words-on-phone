@@ -71,7 +71,7 @@ export const useAudio = (soundCategory: SoundCategory, soundName: string, option
     const sampleRate = ctx.sampleRate;
     
     // Different durations for different sound types
-    const duration = category === 'ui' ? 0.1 : category === 'gameplay' ? 0.5 : 1.5;
+    const duration = category === 'ui' ? 0.1 : category === 'gameplay' ? 0.5 : category === 'buzzer' ? 2.0 : 1.5;
     const bufferLength = sampleRate * duration;
     const buffer = ctx.createBuffer(1, bufferLength, sampleRate);
     const channelData = buffer.getChannelData(0);
@@ -91,9 +91,12 @@ export const useAudio = (soundCategory: SoundCategory, soundName: string, option
         sample = createBuzzerSound(type, t, duration);
       }
 
-      // Apply envelope to avoid clicking
-      const envelope = Math.min(1, t * 20) * Math.min(1, (duration - t) * 20);
-      channelData[i] = sample * envelope * 0.3; // Reduce volume to prevent distortion
+      // Apply envelope to avoid clicking - less dampening for buzzers
+      const envelope = category === 'buzzer' 
+        ? Math.min(1, t * 50) * Math.min(1, (duration - t) * 10) // Gentler fade for buzzers
+        : Math.min(1, t * 20) * Math.min(1, (duration - t) * 20);
+      const volume = category === 'buzzer' ? 0.7 : 0.3; // Louder buzzers
+      channelData[i] = sample * envelope * volume;
     }
 
     return buffer;
@@ -171,17 +174,23 @@ export const useAudio = (soundCategory: SoundCategory, soundName: string, option
   const createBuzzerSound = (type: string, t: number, _duration: number): number => {
     switch (type) {
       case 'classic':
-        return Math.sin(2 * Math.PI * (800 - 400 * t) * t) * Math.exp(-t * 2);
+        // Much more noticeable classic buzzer - loud, attention-grabbing
+        return Math.sin(2 * Math.PI * (600 - 200 * t) * t) * (1 - Math.exp(-t * 3)) * 0.8;
       case 'airhorn':
-        return Math.sin(2 * Math.PI * 200 * t) * Math.exp(-t * 0.5);
+        // Dramatic airhorn blast
+        return Math.sin(2 * Math.PI * 150 * t) * (1 - Math.exp(-t * 0.8)) * 0.9;
       case 'alarm':
-        return Math.sin(2 * Math.PI * (400 + 200 * Math.sin(8 * Math.PI * t)) * t) * Math.exp(-t);
+        // Urgent alarm sound
+        return Math.sin(2 * Math.PI * (400 + 300 * Math.sin(12 * Math.PI * t)) * t) * (1 - Math.exp(-t * 2));
       case 'game-show':
-        return Math.sin(2 * Math.PI * 150 * t) * (1 - Math.exp(-t * 10));
+        // Game show buzzer - starts quiet, gets LOUD
+        return Math.sin(2 * Math.PI * 120 * t) * (1 - Math.exp(-t * 8)) * Math.min(1, t * 4);
       case 'electronic':
-        return Math.sin(2 * Math.PI * 1000 * t) * Math.exp(-t * 3);
+        // Sharp electronic buzz
+        return Math.sin(2 * Math.PI * 800 * t) * Math.exp(-t * 1.5);
       default:
-        return Math.sin(2 * Math.PI * 600 * t) * Math.exp(-t * 1.5);
+        // Default buzzer - make it very noticeable
+        return Math.sin(2 * Math.PI * 500 * t) * (1 - Math.exp(-t * 2)) * 0.7;
     }
   };
 

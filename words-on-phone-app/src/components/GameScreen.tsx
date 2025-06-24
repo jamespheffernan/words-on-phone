@@ -36,7 +36,7 @@ export const GameScreen: React.FC = () => {
   } = useGameStore();
 
   // Audio hook for buzzer sound
-  const buzzer = useAudio('buzzer', buzzerSound, { volume: 0.6, preload: true });
+  const buzzer = useAudio('buzzer', buzzerSound, { volume: 1.0, preload: true });
 
   // Beep audio hook for ramp beeps
   const beepAudio = useBeepAudio({ 
@@ -55,7 +55,15 @@ export const GameScreen: React.FC = () => {
   const timer = useTimer({
     duration: actualTimerDuration,
     onComplete: () => {
-      buzzer.play().catch(console.warn);
+      console.log('🚨 TIMER COMPLETED! Playing buzzer...', { buzzerSound, volume: 1.0 });
+      buzzer.play()
+        .then(() => console.log('✅ Buzzer played successfully'))
+        .catch((error) => {
+          console.warn('❌ Buzzer failed to play:', error);
+          // Try to initialize audio context and play again
+          buzzer.preloadSound();
+          setTimeout(() => buzzer.play().catch(console.warn), 100);
+        });
       triggerNotification(); // Add haptic feedback on timeout
       onTimerComplete();
     },
