@@ -5,7 +5,6 @@ import { CategoryRequestModal } from './CategoryRequestModal';
 import { VersionDisplay } from './VersionDisplay';
 import { useAudio } from '../hooks/useAudio';
 import { useHaptics } from '../hooks/useHaptics';
-import { useSoundService } from '../services/soundService';
 import { categoryRequestService } from '../services/categoryRequestService';
 import { phraseService } from '../services/phraseService';
 import { trackCategoryRequested, trackCategoryConfirmed, trackCategoryGenerated } from '../firebase/analytics';
@@ -24,6 +23,7 @@ export const MenuScreen: React.FC = () => {
     timerRangeMax,
     skipLimit,
     buzzerSound,
+    beepVolume,
     setSelectedCategories,
     setTimerDuration,
     setShowTimer,
@@ -32,6 +32,7 @@ export const MenuScreen: React.FC = () => {
     setTimerRangeMax,
     setSkipLimit,
     setBuzzerSound,
+    setBeepVolume,
     startTeamSetup,
     startGame
   } = useGameStore();
@@ -41,27 +42,17 @@ export const MenuScreen: React.FC = () => {
   const [showCategoryRequest, setShowCategoryRequest] = useState(false);
   const { defaultCategories, customCategories, loading: categoriesLoading, reload: reloadCategories } = useCategoryMetadata();
 
-  // Audio hooks for UI sounds and testing buzzer sounds
-  const testBuzzer = useAudio('buzzer', buzzerSound, { volume: 0.4 });
-  const uiAudio = useAudio('ui', 'button-tap');
+  // Audio hooks for testing buzzer sounds (using current working approach)
+  const testBuzzer = useAudio('buzzer', buzzerSound, { volume: 0.4, preload: true });
   
-  // Haptics for UI feedback and configuration
-  const { 
-    triggerHaptic, 
-    isEnabled: isHapticsEnabled, 
-    setEnabled: setHapticsEnabled,
-    getIntensity: getHapticIntensity,
-    setIntensity: setHapticIntensity
-  } = useHaptics();
-  
-  // Sound service for audio settings
-  const soundService = useSoundService();
+  // Basic haptics using current implementation
+  const { triggerImpact, triggerNotification } = useHaptics();
 
   const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
 
   const handleTestBuzzer = () => {
     testBuzzer.play().catch(console.warn);
-    triggerHaptic('ui', 'button-tap');
+    triggerImpact();
   };
 
   const handleCategoryRequest = async (categoryName: string): Promise<string[]> => {
@@ -146,8 +137,7 @@ export const MenuScreen: React.FC = () => {
           className="settings-toggle"
           onClick={() => {
             setShowSettings(!showSettings);
-            uiAudio.play().catch(console.warn);
-            triggerHaptic('ui', 'menu-open');
+            triggerNotification();
           }}
           aria-label="Toggle settings"
         >
@@ -281,129 +271,42 @@ export const MenuScreen: React.FC = () => {
             </div>
 
             {/* Audio Settings Section */}
-            <div className="setting-section">
+            <div className="setting-section audio-settings">
               <h3 className="setting-section-title">🔊 Audio Settings</h3>
               
               <div className="setting-item">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={soundService.isEnabled()}
-                    onChange={(e) => soundService.setEnabled(e.target.checked)}
-                    className="setting-checkbox"
-                  />
-                  Enable Sound Effects
+                <label htmlFor="beep-volume">
+                  Timer Beep Volume: {Math.round(beepVolume * 100)}%
                 </label>
-                <p className="setting-description">
-                  Play audio feedback for UI interactions and gameplay
-                </p>
-              </div>
-
-              {soundService.isEnabled() && (
-                <>
-                  <div className="setting-item">
-                    <label htmlFor="master-volume">
-                      Master Volume: {Math.round(soundService.getVolume() * 100)}%
-                    </label>
-                    <input
-                      id="master-volume"
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.1"
-                      value={soundService.getVolume()}
-                      onChange={(e) => soundService.setVolume(Number(e.target.value))}
-                      className="slider"
-                    />
-                  </div>
-
-                  <div className="setting-item">
-                    <label htmlFor="ui-volume">
-                      UI Sounds: {Math.round(soundService.getCategoryVolume('ui') * 100)}%
-                    </label>
-                    <input
-                      id="ui-volume"
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.1"
-                      value={soundService.getCategoryVolume('ui')}
-                      onChange={(e) => soundService.setCategoryVolume('ui', Number(e.target.value))}
-                      className="slider"
-                    />
-                  </div>
-
-                  <div className="setting-item">
-                    <label htmlFor="gameplay-volume">
-                      Gameplay Sounds: {Math.round(soundService.getCategoryVolume('gameplay') * 100)}%
-                    </label>
-                    <input
-                      id="gameplay-volume"
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.1"
-                      value={soundService.getCategoryVolume('gameplay')}
-                      onChange={(e) => soundService.setCategoryVolume('gameplay', Number(e.target.value))}
-                      className="slider"
-                    />
-                  </div>
-
-                  <div className="setting-item">
-                    <label htmlFor="alerts-volume">
-                      Alert Sounds: {Math.round(soundService.getCategoryVolume('alerts') * 100)}%
-                    </label>
-                    <input
-                      id="alerts-volume"
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.1"
-                      value={soundService.getCategoryVolume('alerts')}
-                      onChange={(e) => soundService.setCategoryVolume('alerts', Number(e.target.value))}
-                      className="slider"
-                    />
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* Haptic Settings Section */}
-            <div className="setting-section">
-              <h3 className="setting-section-title">📳 Haptic Feedback</h3>
-              
-              <div className="setting-item">
-                <label>
+                <div className="volume-controls">
                   <input
-                    type="checkbox"
-                    checked={isHapticsEnabled()}
-                    onChange={(e) => setHapticsEnabled(e.target.checked)}
-                    className="setting-checkbox"
-                  />
-                  Enable Haptic Feedback
-                </label>
-                <p className="setting-description">
-                  Vibration feedback for mobile devices
-                </p>
-              </div>
-
-              {isHapticsEnabled() && (
-                <div className="setting-item">
-                  <label htmlFor="haptic-intensity">
-                    Haptic Intensity: {Math.round(getHapticIntensity() * 100)}%
-                  </label>
-                  <input
-                    id="haptic-intensity"
+                    id="beep-volume"
                     type="range"
                     min="0"
                     max="1"
                     step="0.1"
-                    value={getHapticIntensity()}
-                    onChange={(e) => setHapticIntensity(Number(e.target.value))}
+                    value={beepVolume}
+                    onChange={(e) => setBeepVolume(Number(e.target.value))}
                     className="slider"
                   />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // Play a test beep at current volume
+                      // For now, just use the buzzer as a test - we'll add proper beep test later
+                      testBuzzer.play().catch(console.warn);
+                      triggerImpact();
+                    }}
+                    className="test-volume-button"
+                    aria-label="Test beep volume"
+                  >
+                    🔔 Test
+                  </button>
                 </div>
-              )}
+                <p className="setting-description">
+                  Volume for accelerating beeps during the final countdown
+                </p>
+              </div>
             </div>
 
             <div className="setting-item custom-category-section">
