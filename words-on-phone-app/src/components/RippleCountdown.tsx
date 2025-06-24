@@ -27,10 +27,24 @@ export const RippleCountdown: React.FC<RippleCountdownProps> = ({
     return maxSpeed - (intensity * (maxSpeed - minSpeed));
   }, [intensity]);
 
+  // Calculate number of visible dots based on time remaining
+  const visibleDots = useMemo(() => {
+    if (total <= 0) return 3; // Default to 3 dots if no timer
+    
+    const timePercent = remaining / total;
+    
+    // 3 dots when > 66% time remaining
+    // 2 dots when 33-66% time remaining  
+    // 1 dot when < 33% time remaining
+    if (timePercent > 0.66) return 3;
+    if (timePercent > 0.33) return 2;
+    return 1;
+  }, [remaining, total]);
+
   // Calculate dot opacity based on intensity
   const dotOpacity = useMemo(() => {
-    // From 0.4 at start to 0.9 at end
-    const minOpacity = 0.4;
+    // From 0.6 at start to 0.9 at end
+    const minOpacity = 0.6;
     const maxOpacity = 0.9;
     return minOpacity + (intensity * (maxOpacity - minOpacity));
   }, [intensity]);
@@ -44,12 +58,11 @@ export const RippleCountdown: React.FC<RippleCountdownProps> = ({
       } as React.CSSProperties}
       aria-hidden="true"
     >
-      {/* Central dots in diamond pattern */}
+      {/* Central dots - show only the number based on time remaining */}
       <div className="ripple-countdown__dots">
-        <div className="ripple-countdown__dot ripple-countdown__dot--top" />
-        <div className="ripple-countdown__dot ripple-countdown__dot--right" />
-        <div className="ripple-countdown__dot ripple-countdown__dot--bottom" />
-        <div className="ripple-countdown__dot ripple-countdown__dot--left" />
+        {visibleDots >= 1 && <div className="ripple-countdown__dot ripple-countdown__dot--center" />}
+        {visibleDots >= 2 && <div className="ripple-countdown__dot ripple-countdown__dot--left" />}
+        {visibleDots >= 3 && <div className="ripple-countdown__dot ripple-countdown__dot--right" />}
       </div>
 
       {/* Ripple layers with staggered animations */}
