@@ -15,36 +15,47 @@
 /* Central dots container */
 .ripple-countdown__dots {
   position: relative;
-  width: 20px;
-  height: 4px;
+  width: 12px;
+  height: 12px;
   z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
 }
 
-/* Individual dots positioned horizontally */
+/* Individual dots positioned in diamond pattern */
 .ripple-countdown__dot {
-  position: relative;
+  position: absolute;
   width: 4px;
   height: 4px;
   background: rgba(255, 255, 255, var(--dot-opacity, 0.6));
   border-radius: 50%;
   animation: dotPulse 1.5s ease-in-out infinite;
-  flex-shrink: 0;
 }
 
-.ripple-countdown__dot--center {
+.ripple-countdown__dot--top {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   animation-delay: 0s;
 }
 
-.ripple-countdown__dot--left {
-  animation-delay: 0.25s;
+.ripple-countdown__dot--right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  animation-delay: 0.375s;
 }
 
-.ripple-countdown__dot--right {
-  animation-delay: 0.5s;
+.ripple-countdown__dot--bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 0.75s;
+}
+
+.ripple-countdown__dot--left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  animation-delay: 1.125s;
 }
 
 /* Ripples container */
@@ -87,11 +98,75 @@
 @keyframes dotPulse {
   0%, 100% {
     opacity: 0.4;
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
   50% {
     opacity: 1;
-    transform: scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+/* Fix dot positioning transforms */
+.ripple-countdown__dot--top {
+  animation: dotPulseTop 1.5s ease-in-out infinite;
+}
+
+.ripple-countdown__dot--right {
+  animation: dotPulseRight 1.5s ease-in-out infinite;
+  animation-delay: 0.375s;
+}
+
+.ripple-countdown__dot--bottom {
+  animation: dotPulseBottom 1.5s ease-in-out infinite;
+  animation-delay: 0.75s;
+}
+
+.ripple-countdown__dot--left {
+  animation: dotPulseLeft 1.5s ease-in-out infinite;
+  animation-delay: 1.125s;
+}
+
+@keyframes dotPulseTop {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.2);
+  }
+}
+
+@keyframes dotPulseRight {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.2);
+  }
+}
+
+@keyframes dotPulseBottom {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.2);
+  }
+}
+
+@keyframes dotPulseLeft {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.2);
   }
 }
 
@@ -121,29 +196,66 @@
     animation: dotPulseReduced 3s ease-in-out infinite;
   }
   
-  .ripple-countdown__dot--center {
-    animation: dotPulseReduced 3s ease-in-out infinite;
-    animation-delay: 0s;
-  }
-  
-  .ripple-countdown__dot--left {
-    animation: dotPulseReduced 3s ease-in-out infinite;
-    animation-delay: 0.75s;
+  .ripple-countdown__dot--top {
+    animation: dotPulseReducedTop 3s ease-in-out infinite;
   }
   
   .ripple-countdown__dot--right {
-    animation: dotPulseReduced 3s ease-in-out infinite;
+    animation: dotPulseReducedRight 3s ease-in-out infinite;
+    animation-delay: 0.75s;
+  }
+  
+  .ripple-countdown__dot--bottom {
+    animation: dotPulseReducedBottom 3s ease-in-out infinite;
     animation-delay: 1.5s;
+  }
+  
+  .ripple-countdown__dot--left {
+    animation: dotPulseReducedLeft 3s ease-in-out infinite;
+    animation-delay: 2.25s;
   }
 }
 
-@keyframes dotPulseReduced {
+@keyframes dotPulseReducedTop {
   0%, 90%, 100% {
     opacity: var(--dot-opacity, 0.6);
-    transform: scale(1);
+    transform: translateX(-50%) scale(1);
   }
   5% {
     opacity: 1;
-    transform: scale(1);
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes dotPulseReducedRight {
+  0%, 90%, 100% {
+    opacity: var(--dot-opacity, 0.6);
+    transform: translateY(-50%) scale(1);
+  }
+  5% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+@keyframes dotPulseReducedBottom {
+  0%, 90%, 100% {
+    opacity: var(--dot-opacity, 0.6);
+    transform: translateX(-50%) scale(1);
+  }
+  5% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes dotPulseReducedLeft {
+  0%, 90%, 100% {
+    opacity: var(--dot-opacity, 0.6);
+    transform: translateY(-50%) scale(1);
+  }
+  5% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
   }
 } 

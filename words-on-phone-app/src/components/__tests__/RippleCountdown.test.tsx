@@ -11,36 +11,46 @@ describe('RippleCountdown', () => {
     const container = document.querySelector('.ripple-countdown');
     expect(container).not.toBeNull();
     
-    // At 50% time remaining (30/60), should show 2 dots
+    // Always show 4 dots in diamond pattern
     const dots = document.querySelectorAll('.ripple-countdown__dot');
-    expect(dots).toHaveLength(2);
+    expect(dots).toHaveLength(4);
     
-    // Check that ripples are rendered
+    // At 50% time remaining (30/60), should show 2 ripples
     const ripples = document.querySelectorAll('.ripple-countdown__ripple');
-    expect(ripples).toHaveLength(3);
+    expect(ripples).toHaveLength(2);
   });
 
-  it('shows correct number of dots based on time remaining', () => {
+  it('shows correct number of ripples based on time remaining', () => {
     const { rerender } = render(<RippleCountdown remaining={60} total={60} />);
     
-    // At start (100% time remaining), should show 3 dots
+    // At start (100% time remaining), should show 3 ripples
+    let ripples = document.querySelectorAll('.ripple-countdown__ripple');
+    expect(ripples).toHaveLength(3);
+    
+    // Always show 4 dots regardless of time
     let dots = document.querySelectorAll('.ripple-countdown__dot');
-    expect(dots).toHaveLength(3);
+    expect(dots).toHaveLength(4);
     
-    // At 50% time remaining, should show 2 dots
+    // At 50% time remaining, should show 2 ripples
     rerender(<RippleCountdown remaining={30} total={60} />);
+    ripples = document.querySelectorAll('.ripple-countdown__ripple');
+    expect(ripples).toHaveLength(2);
     dots = document.querySelectorAll('.ripple-countdown__dot');
-    expect(dots).toHaveLength(2);
+    expect(dots).toHaveLength(4);
     
-    // At 20% time remaining, should show 1 dot
+    // At 20% time remaining, should show 1 ripple
     rerender(<RippleCountdown remaining={12} total={60} />);
+    ripples = document.querySelectorAll('.ripple-countdown__ripple');
+    expect(ripples).toHaveLength(1);
     dots = document.querySelectorAll('.ripple-countdown__dot');
-    expect(dots).toHaveLength(1);
+    expect(dots).toHaveLength(4);
     
-    // At 0% time remaining, should still show 1 dot
+    // At 0% time remaining, should still show 1 ripple
     rerender(<RippleCountdown remaining={0} total={60} />);
+    ripples = document.querySelectorAll('.ripple-countdown__ripple');
+    expect(ripples).toHaveLength(1);
     dots = document.querySelectorAll('.ripple-countdown__dot');
-    expect(dots).toHaveLength(1);
+    expect(dots).toHaveLength(4);
   });
 
   it('calculates ripple speed correctly', () => {
@@ -57,10 +67,14 @@ describe('RippleCountdown', () => {
   });
 
   it('handles edge cases gracefully', () => {
-    // Test with zero total duration - should default to 3 dots
+    // Test with zero total duration - should always show 4 dots
     render(<RippleCountdown remaining={0} total={0} />);
     let dots = document.querySelectorAll('.ripple-countdown__dot');
-    expect(dots).toHaveLength(3);
+    expect(dots).toHaveLength(4);
+    
+    // Should also default to 3 ripples and 2s speed
+    let ripples = document.querySelectorAll('.ripple-countdown__ripple');
+    expect(ripples).toHaveLength(3);
     
     let container = document.querySelector('.ripple-countdown') as HTMLElement;
     expect(container.style.getPropertyValue('--ripple-speed')).toBe('2s');
