@@ -30,7 +30,6 @@ export const GameScreen: React.FC = () => {
     buzzerSound,
     // Beep ramp settings
     enableBeepRamp,
-    beepRampStart,
     beepFirstInterval,
     beepFinalInterval,
     beepVolume
