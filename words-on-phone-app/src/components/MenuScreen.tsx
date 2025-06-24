@@ -23,7 +23,6 @@ export const MenuScreen: React.FC = () => {
     timerRangeMax,
     skipLimit,
     buzzerSound,
-    beepVolume,
     setSelectedCategories,
     setTimerDuration,
     setShowTimer,
@@ -32,7 +31,6 @@ export const MenuScreen: React.FC = () => {
     setTimerRangeMax,
     setSkipLimit,
     setBuzzerSound,
-    setBeepVolume,
     startTeamSetup,
     startGame
   } = useGameStore();
@@ -283,36 +281,8 @@ export const MenuScreen: React.FC = () => {
               <h3 className="setting-section-title">🔊 Audio Settings</h3>
               
               <div className="setting-item">
-                <label htmlFor="beep-volume">
-                  Timer Beep Volume: {Math.round(beepVolume * 100)}%
-                </label>
-                <div className="volume-controls">
-                  <input
-                    id="beep-volume"
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.1"
-                    value={beepVolume}
-                    onChange={(e) => setBeepVolume(Number(e.target.value))}
-                    className="slider"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      // Play a test beep at current volume
-                      // For now, just use the buzzer as a test - we'll add proper beep test later
-                      testBuzzer.play().catch(console.warn);
-                      triggerImpact();
-                    }}
-                    className="test-volume-button"
-                    aria-label="Test beep volume"
-                  >
-                    🔔 Test
-                  </button>
-                </div>
                 <p className="setting-description">
-                  Volume for accelerating beeps during the final countdown
+                  ⏰ Tick-tock countdown sounds are automatically enabled during the final 30 seconds
                 </p>
               </div>
             </div>
