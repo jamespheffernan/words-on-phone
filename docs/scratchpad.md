@@ -37,6 +37,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [app-icon-implementation](implementation-plan/app-icon-implementation.md) - 📋 **READY** - iOS App Icon Implementation
 - [countdown-ripple-redesign](implementation-plan/countdown-ripple-redesign.md) - 📝 **PLANNED** - Countdown Ripple Redesign (Hidden Timer Indicator)
 - [phrase-review-interface](implementation-plan/phrase-review-interface.md) - 📝 **PLANNED** - Keyboard-Driven Phrase Review Tool
+- [phrase-database-builder-tool](implementation-plan/phrase-database-builder-tool.md) - 📝 **PLANNED** - Phrase Database Builder Tool with SQLite Persistence
 
 ## Current Bug Fix / Executor Work
 
