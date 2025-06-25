@@ -1,0 +1,38 @@
+{
+  "name": "phrase-database",
+  "version": "1.0.0",
+  "description": "SQLite-based phrase database builder tool with normalization and validation",
+  "main": "src/cli.js",
+  "bin": {
+    "phrase-database": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "dev": "nodemon src/cli.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/ lib/"
+  },
+  "keywords": [
+    "phrases",
+    "database",
+    "sqlite",
+    "cli",
+    "words-on-phone"
+  ],
+  "author": "Words on Phone Team",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^14.0.0",
+    "fs-extra": "^11.3.0",
+    "sqlite3": "^5.1.7",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.29.0",
+    "jest": "^30.0.3",
+    "nodemon": "^3.1.10"
+  }
+}
