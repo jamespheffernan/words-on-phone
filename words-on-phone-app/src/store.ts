@@ -18,6 +18,7 @@ export enum GameStatus {
   TEAM_SETUP = 'team_setup',
   PLAYING = 'playing',
   PAUSED = 'paused',
+  BUZZER_PLAYING = 'buzzer_playing',
   ROUND_END = 'round_end',
   ENDED = 'ended'
 }
@@ -132,6 +133,7 @@ interface GameState {
   setTimeRemaining: (seconds: number) => void;
   setTimerRunning: (running: boolean) => void;
   onTimerComplete: () => void;
+  onBuzzerComplete: () => void;
   // Helper function to generate random timer duration
   generateRandomTimerDuration: () => number;
   // Stats actions
@@ -505,18 +507,24 @@ export const useGameStore = create<GameState>()(
             });
           }
           
+          // Immediately go to BUZZER_PLAYING state to disable UI
+          return {
+            status: GameStatus.BUZZER_PLAYING,
+            isTimerRunning: false,
+            phraseStartTime: null
+          };
+        }),
+
+        // New method to handle buzzer completion and final state transition
+        onBuzzerComplete: () => set((state) => {
           // If teams are set up, go to round end; otherwise go directly to game end
           if (state.teams.length > 0) {
             return {
-              status: GameStatus.ROUND_END,
-              isTimerRunning: false,
-              phraseStartTime: null
+              status: GameStatus.ROUND_END
             };
           } else {
             return {
-              status: GameStatus.ENDED,
-              isTimerRunning: false,
-              phraseStartTime: null
+              status: GameStatus.ENDED
             };
           }
         }),

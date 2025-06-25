@@ -38,6 +38,14 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [countdown-ripple-redesign](implementation-plan/countdown-ripple-redesign.md) - 📝 **PLANNED** - Countdown Ripple Redesign (Hidden Timer Indicator)
 - [phrase-review-interface](implementation-plan/phrase-review-interface.md) - 📝 **PLANNED** - Keyboard-Driven Phrase Review Tool
 
+## Current Bug Fix / Executor Work
+
+- 🔧 **ACTIVE BUG FIX**: End-of-Game Buzzer Truncation Issue
+  - **Problem**: Buzzer sound is cut off when game ends because UI state changes after only 100ms, but buzzer duration is 2.0 seconds
+  - **Root Cause**: `setTimeout(() => { onTimerComplete(); }, 100)` in GameScreen.tsx interrupts buzzer playback
+  - **Solution**: Add BUZZER_PLAYING game state to disable UI immediately but allow full buzzer playback before state transition
+  - **Status**: 🚧 In Progress - implementing solution
+
 ## Current Status / Progress Tracking
 
 **Completed Phases:**

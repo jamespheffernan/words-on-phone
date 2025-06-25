@@ -1,0 +1,473 @@
+[
+  {
+    "phrase": "Flashy Outfit",
+    "status": "rejected",
+    "reason": "just not a phrase that people use often enough."
+  },
+  {
+    "phrase": "Mic Drop",
+    "status": "accepted"
+  },
+  {
+    "phrase": "VSCO Girl",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Rickroll Prank",
+    "status": "rejected",
+    "reason": "should simply be 'rickroll'"
+  },
+  {
+    "phrase": "Talent Show",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Fred Flintstone",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Iron Man",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Time Travel",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Viral Meme",
+    "status": "rejected",
+    "reason": "viral and meme would be okay on their own, but i dont believe this phrase is common enough or distinct enough"
+  },
+  {
+    "phrase": "Hide And Seek",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Reality TV Show",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Ferris Wheel Ride",
+    "status": "rejected",
+    "reason": "'ferris wheel' is good, ferris wheel ride is just too obscure a combination of words"
+  },
+  {
+    "phrase": "Arm Wrestling",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Cookie Monster",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Snow White",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Paparazzi Chase",
+    "status": "rejected",
+    "reason": "again, paparazzi is good but paparazzi chase is too obscure"
+  },
+  {
+    "phrase": "Tug Of War",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Stunt Show",
+    "status": "rejected",
+    "reason": "stunt show is not a common enough phrase"
+  },
+  {
+    "phrase": "Game Night",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Speed Dating",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Hoverboard Ride",
+    "status": "rejected",
+    "reason": "not a common enough phrase"
+  },
+  {
+    "phrase": "UFO Sighting",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Shopping Spree",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Red Carpet",
+    "status": "accepted"
+  },
+  {
+    "phrase": "The Avengers",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Clark Kent",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Daffy Duck",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Open Mic Night",
+    "status": "accepted"
+  },
+  {
+    "phrase": "King Arthur",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Escape Room",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Surprise Party",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Puppet Show",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Rock And Roll",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Super Bowl Halftime",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Nyan Cat",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Magic Trick",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Trapeze Swing",
+    "status": "rejected",
+    "reason": "i think trapeze artists or trapeze is good but i dont think trapeze swing is a common enough phrase"
+  },
+  {
+    "phrase": "Karate Kick",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Bottle Cap Challenge",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Black Panther",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Carnival Parade",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Godzilla Monster",
+    "status": "rejected",
+    "reason": "should simply godzilla"
+  },
+  {
+    "phrase": "Sleeping Beauty",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Orchestra Concert",
+    "status": "rejected",
+    "reason": "not a common enough combination of words -- ochestra is good, concert is good. you could even think of good enough words to combine withb orchestra (maybe conductor) maybe sympony, but orchestra concert isnt one of them"
+  },
+  {
+    "phrase": "Food Coma",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Chewbacca Wookiee",
+    "status": "rejected",
+    "reason": "chewbacca is good, wookie is good, but \"chewbacca wookie\" isnt something anyone says"
+  },
+  {
+    "phrase": "Wedding Dance",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Scavenger Hunt",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Area 51",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Ice Bucket Challenge",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Lord Voldemort",
+    "status": "accepted"
+  },
+  {
+    "phrase": "E Sports Tournament",
+    "status": "rejected",
+    "reason": "just esports or even esports team would be better"
+  },
+  {
+    "phrase": "Tag You're It",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Rap Battle",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Dragon Slayer",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Big Bad Wolf",
+    "status": "accepted"
+  },
+  {
+    "phrase": "The Joker",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Mad Hatter",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Robin Hood",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Mannequin Challenge",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Guitar Solo",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Sandcastle Contest",
+    "status": "rejected",
+    "reason": "sand castles are common, but sand castle contests are not sufficiently common as a phrase"
+  },
+  {
+    "phrase": "Renaissance Fair",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Wicked Witch",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Zoom Meeting",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Board Game Night",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Donkey Kong",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Talent Scout",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Harry Potter",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Facepalm Moment",
+    "status": "rejected",
+    "reason": "facepalm is good"
+  },
+  {
+    "phrase": "Red Carpet Walk",
+    "status": "rejected",
+    "reason": "red carpet is good but red carpet walk is not"
+  },
+  {
+    "phrase": "Bart Simpson",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Silent Disco",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Miss Piggy",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Lightning McQueen",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Keyboard Cat",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Little Red Riding Hood",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Olaf Snowman",
+    "status": "rejected",
+    "reason": "contingently rejecting unless this is what people actually call the character"
+  },
+  {
+    "phrase": "Toga Party",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Mime Act",
+    "status": "rejected",
+    "reason": "street mime or just mime would be better"
+  },
+  {
+    "phrase": "Rock Paper Scissors",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Science Fair",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Flash Mob Dance",
+    "status": "rejected",
+    "reason": "just flash mob"
+  },
+  {
+    "phrase": "Face Mask Fashion",
+    "status": "rejected",
+    "reason": "never heard of this"
+  },
+  {
+    "phrase": "Wonder Woman",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Tap Dance",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Battle Of The Bands",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Pizza Party",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Sword Swallower",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Paintball Battle",
+    "status": "rejected",
+    "reason": "just paintball"
+  },
+  {
+    "phrase": "Princess Leia",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Mechanical Bull Ride",
+    "status": "rejected",
+    "reason": "just mechanical bull"
+  },
+  {
+    "phrase": "Comedy Roast",
+    "status": "rejected",
+    "reason": "i think probably celebrity roast instead"
+  },
+  {
+    "phrase": "Pillow Fort",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Simon Says",
+    "status": "accepted"
+  },
+  {
+    "phrase": "YouTube Vlogger",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Beach Party",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Dracula Vampire",
+    "status": "rejected",
+    "reason": "nobody calls him this -- dracula and vampire are good but nobody says 'dracula vampire'"
+  },
+  {
+    "phrase": "Pinata Party",
+    "status": "rejected",
+    "reason": "pinata good, but nobody says pinata party"
+  },
+  {
+    "phrase": "Awards Show",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Pool Party",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Karaoke Night",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Yearbook Photo",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Anime Convention",
+    "status": "rejected",
+    "reason": "not a common enough phrase"
+  },
+  {
+    "phrase": "Laser Tag",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Open Air Concert",
+    "status": "rejected",
+    "reason": "not a common enough phrase"
+  },
+  {
+    "phrase": "Cosplay Contest",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Little Mermaid",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Murder Mystery Party",
+    "status": "accepted"
+  },
+  {
+    "phrase": "Pen Pineapple Apple Pen",
+    "status": "rejected",
+    "reason": "what the hell is this"
+  },
+  {
+    "phrase": "Yo Yo Trick",
+    "status": "accepted"
+  }
+]

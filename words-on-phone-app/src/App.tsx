@@ -40,7 +40,7 @@ function App() {
       {status === GameStatus.TEAM_SETUP && (
         <TeamSetup onStartGame={handleStartGame} />
       )}
-      {status === GameStatus.PLAYING && <GameScreen />}
+      {(status === GameStatus.PLAYING || status === GameStatus.BUZZER_PLAYING) && <GameScreen />}
       {status === GameStatus.ROUND_END && (
         <RoundEndScreen 
           onTeamWon={handleTeamWon}

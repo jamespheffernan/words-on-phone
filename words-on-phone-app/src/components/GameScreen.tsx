@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useGameStore } from '../store';
+import { useGameStore, GameStatus } from '../store';
 import { useTimer } from '../hooks/useTimer';
 import { useAudio } from '../hooks/useAudio';
 import { useHaptics } from '../hooks/useHaptics';
@@ -28,7 +28,9 @@ export const GameScreen: React.FC = () => {
     isTimerRunning,
     setTimeRemaining,
     onTimerComplete,
+    onBuzzerComplete,
     buzzerSound,
+    status,
     // Beep ramp settings
     enableBeepRamp,
     beepFirstInterval,
@@ -76,10 +78,13 @@ export const GameScreen: React.FC = () => {
       // Add haptic feedback
       triggerNotification();
       
-      // Small delay to ensure buzzer has time to play before state changes
+      // Immediately disable UI by setting BUZZER_PLAYING state
+      onTimerComplete();
+      
+      // Extended delay to allow full buzzer playback (2 seconds + buffer)
       setTimeout(() => {
-        onTimerComplete();
-      }, 100);
+        onBuzzerComplete();
+      }, 2200);
     },
     onTick: (remaining) => {
       setTimeRemaining(remaining);
@@ -141,6 +146,9 @@ export const GameScreen: React.FC = () => {
   // Calculate progress percentage for visual timer
   const progress = (displayTime / actualTimerDuration) * 100;
   const isLowTime = displayTime <= 10;
+  
+  // Check if game interaction should be disabled (buzzer playing)
+  const isGameInteractionDisabled = status === GameStatus.BUZZER_PLAYING;
 
   // Background warning system
   const backgroundWarning = useBackgroundWarning({
@@ -236,26 +244,37 @@ export const GameScreen: React.FC = () => {
 
       <section className="game-actions">
         <button 
-          className="correct-button"
+          className={`correct-button ${isGameInteractionDisabled ? 'disabled' : ''}`}
           onClick={() => {
-            nextPhrase();
-            correctAudio.play().catch(console.warn);
-            triggerHaptic('gameplay', 'correct');
+            if (!isGameInteractionDisabled) {
+              nextPhrase();
+              correctAudio.play().catch(console.warn);
+              triggerHaptic('gameplay', 'correct');
+            }
           }}
-          aria-label="Mark phrase as correct and get next phrase"
+          disabled={isGameInteractionDisabled}
+          aria-label={isGameInteractionDisabled ? 'Game ended - no more input allowed' : 'Mark phrase as correct and get next phrase'}
         >
           ✓ Correct
         </button>
         
         <button 
-          className={`pass-button ${skipsRemaining === 0 ? 'disabled' : ''}`}
+          className={`pass-button ${skipsRemaining === 0 || isGameInteractionDisabled ? 'disabled' : ''}`}
           onClick={() => {
-            skipPhrase();
-            skipAudio.play().catch(console.warn);
-            triggerHaptic('gameplay', 'skip');
+            if (!isGameInteractionDisabled) {
+              skipPhrase();
+              skipAudio.play().catch(console.warn);
+              triggerHaptic('gameplay', 'skip');
+            }
           }}
-          disabled={skipsRemaining === 0}
-          aria-label={skipsRemaining === 0 ? 'No skips remaining' : 'Skip this phrase'}
+          disabled={skipsRemaining === 0 || isGameInteractionDisabled}
+          aria-label={
+            isGameInteractionDisabled 
+              ? 'Game ended - no more input allowed'
+              : skipsRemaining === 0 
+                ? 'No skips remaining' 
+                : 'Skip this phrase'
+          }
         >
           ⏭️ Pass
         </button>
