@@ -56,42 +56,40 @@ export const RippleCountdown: React.FC<RippleCountdownProps> = ({
   }, [intensity]);
 
   // Create a single countdown object
-  const CountdownObject = ({ delay = 0 }: { delay?: number }) => (
-    <div 
-      className="ripple-countdown__object"
-      style={{
-        '--ripple-speed': `${rippleSpeed}s`,
-        '--dot-opacity': dotOpacity,
-        '--animation-delay': `${delay}s`,
-        '--tempo': `${tempoSpeed}s`,
-      } as React.CSSProperties}
-    >
-      {/* Central dots in diamond pattern */}
-      <div className="ripple-countdown__dots">
-        <div className="ripple-countdown__dot ripple-countdown__dot--top" />
-        <div className="ripple-countdown__dot ripple-countdown__dot--right" />
-        <div className="ripple-countdown__dot ripple-countdown__dot--bottom" />
-        <div className="ripple-countdown__dot ripple-countdown__dot--left" />
+  const CountdownObject = ({ index, delay }: { index: number; delay: number }) => {
+    const isActive = index < visibleObjects;
+    return (
+      <div
+        className={`ripple-countdown__object${isActive ? '' : ' ripple-countdown__object--inactive'}`}
+        style={{
+          '--ripple-speed': `${rippleSpeed}s`,
+          '--dot-opacity': dotOpacity,
+          '--animation-delay': `${delay}s`,
+          '--tempo': `${tempoSpeed}s`,
+        } as React.CSSProperties}
+      >
+        {/* Central dots */}
+        <div className="ripple-countdown__dots">
+          <div className="ripple-countdown__dot ripple-countdown__dot--top" />
+          <div className="ripple-countdown__dot ripple-countdown__dot--right" />
+          <div className="ripple-countdown__dot ripple-countdown__dot--bottom" />
+          <div className="ripple-countdown__dot ripple-countdown__dot--left" />
+        </div>
+        {/* Ripples */}
+        <div className="ripple-countdown__ripples">
+          <div className="ripple-countdown__ripple ripple-countdown__ripple--1" />
+          <div className="ripple-countdown__ripple ripple-countdown__ripple--2" />
+          <div className="ripple-countdown__ripple ripple-countdown__ripple--3" />
+        </div>
       </div>
-
-      {/* Ripple layers */}
-      <div className="ripple-countdown__ripples">
-        <div className="ripple-countdown__ripple ripple-countdown__ripple--1" />
-        <div className="ripple-countdown__ripple ripple-countdown__ripple--2" />
-        <div className="ripple-countdown__ripple ripple-countdown__ripple--3" />
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
-    <div 
-      className={`ripple-countdown ripple-countdown--${variant}`}
-      aria-hidden="true"
-    >
-      {/* Show multiple countdown objects based on time remaining */}
-      {visibleObjects >= 1 && <CountdownObject delay={0} />}
-      {visibleObjects >= 2 && <CountdownObject delay={0.5} />}
-      {visibleObjects >= 3 && <CountdownObject delay={1} />}
+    <div className={`ripple-countdown ripple-countdown--${variant}`} aria-hidden="true">
+      <CountdownObject index={0} delay={0} />
+      <CountdownObject index={1} delay={0.5} />
+      <CountdownObject index={2} delay={1} />
     </div>
   );
 }; 

@@ -1,0 +1,267 @@
+/* Phrase Review Tool - Accessibility & Styling */
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* High contrast focus rings for accessibility */
+.phrase-list-item:focus-visible,
+.search-input:focus-visible,
+.reject-textarea:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Ensure sufficient contrast for selected items */
+.phrase-list-item.selected {
+  background: #1e40af !important;
+  color: white !important;
+}
+
+.phrase-list-item.selected .status-badge {
+  filter: brightness(1.2);
+}
+
+/* Status indicators with better contrast */
+.status-accepted {
+  background: #065f46;
+  color: #d1fae5;
+}
+
+.status-rejected {
+  background: #991b1b;
+  color: #fecaca;
+}
+
+/* Modal overlays with proper z-index and backdrop */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #059669;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  font-weight: 500;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .phrase-list-item {
+    scroll-behavior: auto !important;
+  }
+  
+  .toast {
+    transition: none !important;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .phrase-list-item.selected {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff;
+  }
+  
+  .modal-content {
+    border: 2px solid #000000;
+  }
+  
+  .search-input,
+  .reject-textarea {
+    border: 2px solid #000000 !important;
+  }
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Keyboard navigation hints */
+.keyboard-hints {
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.keyboard-hints strong {
+  color: #374151;
+  font-weight: 600;
+}
+
+/* Progress indicators */
+.progress-stats {
+  font-size: 12px;
+  font-weight: 400;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.progress-stats.pending {
+  color: #d97706;
+  font-weight: 500;
+}
+
+/* Ensure proper spacing and alignment */
+.app-container {
+  display: flex;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.sidebar {
+  width: 320px;
+  overflow-y: auto;
+  border-right: 1px solid #e5e7eb;
+  background: #f9fafb;
+  padding: 0;
+}
+
+.sidebar-header {
+  font-weight: 700;
+  padding: 16px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.phrase-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.phrase-list-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.phrase-list-item:hover {
+  background: #f3f4f6;
+}
+
+.phrase-text {
+  flex: 1;
+  word-break: break-word;
+}
+
+.status-badge {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.center-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: #ffffff;
+}
+
+.current-phrase {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 32px;
+  line-height: 1.2;
+  color: #111827;
+}
+
+.decision-status {
+  padding: 12px 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+/* Input styling */
+.search-input,
+.reject-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.search-input:focus,
+.reject-textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.reject-textarea {
+  font-size: 14px;
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Modal help text */
+.modal-help {
+  margin-top: 16px;
+  text-align: right;
+  font-size: 12px;
+  color: #6b7280;
+}

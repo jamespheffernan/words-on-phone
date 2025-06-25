@@ -61,20 +61,33 @@ color/opacity) as time progresses, preserving the mystique of the hidden timer w
 
 **Success Criteria:** Hidden-timer mode shows ripples; no layout shifts or console errors.
 
-### Task 4 – Dynamic Intensity Hook
+### Task 4 – Debug “Frozen Animations” Bug
+- [ ] Reproduce the issue in local dev (vite) and confirm that countdown objects are completely static.
+- [ ] Check if the user's OS is reporting `prefers-reduced-motion: reduce` which disables our keyframes.  Use `window.matchMedia('(prefers-reduced-motion: reduce)')`.
+- [ ] Inspect computed styles to ensure `animation` properties (e.g. `rippleExpand`, `bounceFlow`) are present and not being overridden by the reduced-motion media query.
+- [ ] Verify CSS custom properties (`--ripple-speed`, `--tempo`) propagate from the inline style to child elements and correctly adjust `animation-duration`.
+- [ ] Confirm React re-renders are occurring on every timer tick (look for changing `remaining` prop) and that DOM receives updated inline styles.
+- [ ] Implement fix:
+  - If reduced-motion is the culprit, add an explicit override (e.g. `data-force-animate` attr) or provide a settings toggle so animations run during gameplay even when the OS prefers reduced motion.
+  - If variable scoping is the issue, move custom properties to the parent `.ripple-countdown` container or explicitly set them on ripple layers.
+  - If React re-render frequency is too low (1 s), consider using requestAnimationFrame to add subtle in-between movement, but only if necessary.
+
+**Success Criteria:** Ripples and dots animate continuously on default settings; toggling the OS reduced-motion preference disables them; no regression in accessibility tests.
+
+### Task 5 – Dynamic Intensity Hook
 - [ ] Reuse `beepRamp` config or implement a `useRippleIntensity` hook that returns animation speed based on `remaining`.
 - [ ] Update component to adjust CSS variables (e.g. `--ripple-delay`) in real time.
 
 **Success Criteria:** Ripples pulse faster as time dwindles (≤10 s) mirroring beep ramp cadence.
 
-### Task 5 – Accessibility & Reduced Motion
+### Task 6 – Accessibility & Reduced Motion
 - [ ] Add `aria-hidden="true"` to purely decorative ripples.
 - [ ] Provide screen-reader-only timer announcements (already exists) – ensure still intact.
 - [ ] Honour `prefers-reduced-motion`: static dots with subtle opacity shift.
 
 **Success Criteria:** Axe reports 0 violations; reduced-motion users see no scale animation.
 
-### Task 6 – Testing & QA
+### Task 7 – Testing & QA
 - [ ] Jest/RTL snapshot test for component structure at various `remaining` values.
 - [ ] Unit test for `useRippleIntensity` mapping.
 - [ ] Cypress visual regression screenshot for ripple countdown.
@@ -84,7 +97,7 @@ color/opacity) as time progresses, preserving the mystique of the hidden timer w
 ## Project Status Board
 
 ### 🟢 Ready to Start
-- [ ] **Task 4** – Dynamic Intensity Hook
+- [ ] **Task 4** – Debug “Frozen Animations” Bug
 
 ### 🚧 In Progress
 
@@ -99,6 +112,7 @@ color/opacity) as time progresses, preserving the mystique of the hidden timer w
 |------|------|--------|
 | 2025-07-05 | Planner | Initial plan drafted – pending user review |
 | 2025-07-05 | Executor | **Tasks 1-3 Complete** - Core RippleCountdown implementation finished |
+| 2025-07-06 | Planner | Added Task 4 to investigate static countdown issue reported by user; dynamic-intensity now Task 5 |
 
 **✅ Major Milestone Reached:**
 - Visual design specification completed (4 dots in diamond pattern, ripple expansion)
