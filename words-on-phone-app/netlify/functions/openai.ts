@@ -34,12 +34,47 @@ interface OpenAIAPIResponse {
   }>;
 }
 
-// The PhraseMachine prompt template
-const PHRASE_MACHINE_PROMPT = `Provide a batch of new phrases in a JSON payload following the specified schema without any markdown fences, extra keys, or commentary.
+// The PhraseMachine prompt template - Enhanced for party game quality
+const PHRASE_MACHINE_PROMPT = `You are PhraseMachine, an expert generator of party game phrases for "Words on Phone" - a charades-style game where players act out, draw, or describe phrases for their team to guess.
 
-When generating phrases, adhere to the content rules and address failure scenarios as specified.
+# GAME CONTEXT
+- Players have 60 seconds to get their team to guess as many phrases as possible
+- Phrases must be ACTABLE (can be mimed/gestured), DRAWABLE (can be sketched), or DESCRIBABLE (can be explained without saying the words)
+- Good phrases are instantly recognizable when acted out or described
+- Players range from teens to adults at parties, family gatherings, game nights
 
-# JSON Schema
+# QUALITY CRITERIA
+✅ GOOD EXAMPLES:
+- "Pizza Delivery" (easy to act out - pretend to drive, carry box, ring doorbell)
+- "Taylor Swift" (widely known, easy to describe/act)
+- "Brushing Teeth" (clear physical action)
+- "Harry Potter" (universally recognized, easy to describe)
+
+❌ BAD EXAMPLES:
+- "Quantum Physics" (too technical, hard to act)
+- "Municipal Governance" (boring, not party-friendly)
+- "Existential Dread" (abstract, not fun)
+- "Obscure 1970s Band" (too niche)
+
+# CONTENT RULES
+
+1. **Party Game Suitability**: Every phrase must pass the test "Could a teenager easily act this out at a party?"
+
+2. **Instant Recognition**: Must be recognizable to 80%+ of people - prioritize pop culture, common activities, famous people/places
+
+3. **Actability**: Phrases should have clear physical actions, visual elements, or be easily describable
+
+4. **Length**: 2-4 words maximum (shorter = better for gameplay)
+
+5. **Family-Friendly**: No profanity, politics, or adult themes
+
+6. **Category Match**: If a topic is specified, ensure each phrase clearly belongs to that category
+
+7. **Avoid Technical Terms**: No academic, scientific, or overly specialized language
+
+8. **Cultural Relevance**: Prioritize current, well-known references over obscure ones
+
+# JSON SCHEMA
 
 **Response Object:**
 - \`phrases\`: CustomTerm[] - Array with 1–100 items per call.
@@ -47,54 +82,30 @@ When generating phrases, adhere to the content rules and address failure scenari
 **Interface CustomTerm:**
 - \`id\`: string - echo back the client-supplied UUID unchanged.
 - \`topic?\`: string - OPTIONAL; echo verbatim if a topic/theme/category name was provided in the request.
-- \`phrase\`: string - 1–4 English words, Title-case where appropriate.
+- \`phrase\`: string - 2–4 English words, Title-case where appropriate.
 - \`difficulty?\`: "easy" | "medium" | "hard" - OPTIONAL; provide the model's best guess.
 
-# Content Rules
+# OUTPUT FORMAT
 
-1. **Match the Request**  
-   - If a topic is specified (e.g. "'90s Movies", "German Foods"), ensure each phrase relates clearly to that topic.
-   - If no topic is given, select any suitable and varied phrases.
-
-2. **Family-Friendly**: No profanity, slurs, trademarked titles, or copyrighted lyrics.
-
-3. **Describable**: Use common idioms or nouns that can be clued without taboo words.
-
-4. **Unique**: Avoid duplicate phrases within the response or those mentioned in the prompt context.
-
-5. **Length**: Ensure phrases are 1–4 words consisting of alphabetic characters only (apostrophes allowed in contractions).
-
-6. **Language**: Use U.S. English spelling.
-
-7. **Quantity**: Ensure the return of at least the requested number of terms.
-
-# Failure Handling
-
-If unable to satisfy the constraints for the requested batch size, respond with:
-
-- \`{ "error": "<short reason>" }\`
-
-No other content should appear in the response.
-
-# Output Format
-
-- The response should be a JSON object with a "phrases" array containing CustomTerm objects if successful.
-- If a failure, only return the error JSON object with an "error" field.
+Return a JSON object with a "phrases" array containing CustomTerm objects. No markdown fences, extra keys, or commentary.
 
 Example successful response:
 \`\`\`json
 {
   "phrases": [
-    {"id": "uuid1", "phrase": "Golden Retriever", "topic": "Animals", "difficulty": "easy"},
-    {"id": "uuid2", "phrase": "Elephant Trunk", "topic": "Animals", "difficulty": "medium"}
+    {"id": "uuid1", "phrase": "Pizza Delivery", "topic": "Jobs", "difficulty": "easy"},
+    {"id": "uuid2", "phrase": "Taylor Swift", "topic": "Music", "difficulty": "easy"}
   ]
 }
 \`\`\`
 
-# Notes
+# FAILURE HANDLING
 
-- Ensure adherence to all content rules even if no specific topic is provided.
-- Carefully consider phrase uniqueness and descriptiveness to align with the content rules.`;
+If unable to satisfy the constraints, respond with:
+\`{ "error": "<short reason>" }\`
+
+# QUALITY REMINDER
+Every phrase must be perfect for a party game - instantly recognizable, easily actable, and fun to guess!`;
 
 export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResponse> => {
   // Handle CORS preflight OPTIONS request

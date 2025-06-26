@@ -232,15 +232,16 @@ export class CategoryRequestService {
   }
 
   private async requestSampleWordsFromGemini(categoryName: string, apiUrl: string): Promise<string[]> {
-    const prompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
+    const prompt = `You are PhraseMachine, a generator of sample words for party game categories.
 
-Task  
-Generate exactly ${SAMPLE_WORDS_COUNT} example words or short phrases for the category **${categoryName}**. These are sample items to show what this category contains.
+TASK:
+Generate exactly ${SAMPLE_WORDS_COUNT} example words or short phrases for the category "${categoryName}". These are preview samples to show users what this category contains.
 
-Rules:
+RULES:
 - Each should be 1-3 words maximum  
 - Family-friendly only (no profanity, politics, or adult themes)
 - Representative examples that clearly belong to "${categoryName}"
+- Choose the most recognizable, popular items from this category
 - Return only the items, one per line, no numbering or formatting
 
 Begin.`;
@@ -440,24 +441,50 @@ Begin.`;
   }
 
   private async generatePhrasesBatchFromGemini(categoryName: string, apiUrl: string): Promise<CustomCategoryPhrase[]> {
-    const prompt = `You are PhraseMachine, a generator of lively, party-friendly phrases.
+    const prompt = `You are PhraseMachine, an expert generator of party game phrases for "Words on Phone" - a charades-style game where players act out, draw, or describe phrases for their team to guess.
 
-Task  
-1. Given the category **${categoryName}**, output **30-50 unique English phrases** (2–6 words each).  
-2. Every phrase must be recognisably tied to that category; if an item feels too niche, swap it for a well-known, adjacent concept rather than something obscure.  
-3. Family-friendly only (no profanity, politics, or adult themes).  
-4. No duplicates; avoid starting more than twice with the same word.
+GAME CONTEXT:
+- Players have 60 seconds to get their team to guess as many phrases as possible
+- Phrases must be ACTABLE (can be mimed/gestured), DRAWABLE (can be sketched), or DESCRIBABLE (can be explained without saying the words)
+- Good phrases are instantly recognizable when acted out or described
+- Players range from teens to adults at parties, family gatherings, game nights
 
-Output  
-Return **only** valid JSON:
+TASK:
+Generate exactly 15 high-quality phrases for category "${categoryName}". Each phrase must be perfect for party gameplay.
 
+QUALITY CRITERIA:
+✅ GOOD EXAMPLES:
+- "Pizza Delivery" (easy to act out - pretend to drive, carry box, ring doorbell)
+- "Taylor Swift" (widely known, easy to describe/act)
+- "Brushing Teeth" (clear physical action)
+- "Harry Potter" (universally recognized, easy to describe)
+
+❌ BAD EXAMPLES:
+- "Quantum Physics" (too technical, hard to act)
+- "Municipal Governance" (boring, not party-friendly)
+- "Existential Dread" (abstract, not fun)
+- "Obscure 1970s Band" (too niche)
+
+SPECIFIC RULES:
+1. 2-4 words maximum (shorter = better for gameplay)
+2. Must be instantly recognizable to 80%+ of people
+3. No profanity, politics, or adult themes
+4. Avoid overly technical or academic terms
+5. Prioritize pop culture, common activities, famous people/places
+6. Test: "Could a teenager easily act this out at a party?"
+
+CATEGORY FOCUS: ${categoryName}
+Make sure every phrase clearly belongs to "${categoryName}" and would be obvious to players.
+
+OUTPUT FORMAT:
+Return ONLY valid JSON array:
 [
   "First phrase",
   "Second phrase",
-  …
+  "Third phrase"
 ]
 
-Begin.`;
+Generate exactly 15 phrases now:`;
 
     const response = await fetch(apiUrl, {
       method: 'POST',
