@@ -130,17 +130,17 @@ program
             }
             
             // Check quota
-            const quotaStatus = await quotaTracker.checkCategoryQuota(item.category);
-            if (quotaStatus.status === 'EXCEEDED' && !options.force) {
+            const quotaStatus = await quotaTracker.canAddPhrase(item.category);
+            if (!quotaStatus.canAdd && !options.force) {
               results.skipped++;
               progressBar.update();
               continue;
             }
             
-            // Score phrase
-            const score = await scorer.score(normalized.phrase, item.category);
+            // Score phrase (skip Reddit for faster import)
+            const score = await scorer.scorePhrase(normalized.phrase, item.category, { skipReddit: true });
             
-            if (score.total < 20 && !options.force) {
+            if (score.totalScore < 20 && !options.force) {
               results.skipped++;
               progressBar.update();
               continue;
@@ -149,7 +149,7 @@ program
             if (!options.dryRun) {
               await db.addPhrase(normalized.phrase, item.category, {
                 recent: options.recent || false,
-                score: score.total,
+                score: score.totalScore,
                 firstWord: normalized.firstWord
               });
             }
@@ -198,13 +198,13 @@ program
                 return;
               }
               
-              const score = await scorer.score(normalized.phrase, category);
-              console.log(chalk.gray(`Score: ${score.total}/100`));
+              const score = await scorer.scorePhrase(normalized.phrase, category);
+              console.log(chalk.gray(`Score: ${score.totalScore}/100`));
               
               if (!options.dryRun) {
                 await db.addPhrase(normalized.phrase, category, {
                   recent: options.recent || false,
-                  score: score.total,
+                  score: score.totalScore,
                   firstWord: normalized.firstWord
                 });
               }
@@ -288,10 +288,10 @@ program
           }
           
           // Score phrase
-          const score = await scorer.score(normalized.phrase, category);
-          if (score.total < parseInt(options.threshold)) {
+          const score = await scorer.scorePhrase(normalized.phrase, category);
+          if (score.totalScore < parseInt(options.threshold)) {
             results.lowScore++;
-            issues.push({ phrase, category, issue: `Low score: ${score.total}`, score: score.total });
+            issues.push({ phrase, category, issue: `Low score: ${score.totalScore}`, score: score.totalScore });
             progressBar.update();
             continue;
           }
@@ -574,7 +574,7 @@ program
           
           if (options.quota) {
             const quotaTracker = new QuotaTracker(db);
-            const quotaStatus = await quotaTracker.checkCategoryQuota(options.category);
+            const quotaStatus = await quotaTracker.getCategoryStatus(options.category);
             console.log(chalk.gray(`  Quota: ${quotaStatus.current}/${quotaStatus.limit} (${quotaStatus.percentage}%)`));
             console.log(chalk.gray(`  Status: ${quotaStatus.status}`));
           }
@@ -1047,9 +1047,9 @@ program
                 
               case 's':
               case 'score':
-                const newScore = await scorer.score(phrase.phrase, phrase.category);
-                await db.db.run('UPDATE phrases SET score = ? WHERE id = ?', [newScore.total, phrase.id]);
-                console.log(chalk.blue(`📊 Rescored: ${newScore.total}`));
+                const newScore = await scorer.scorePhrase(phrase.phrase, phrase.category);
+                await db.db.run('UPDATE phrases SET score = ? WHERE id = ?', [newScore.totalScore, phrase.id]);
+                console.log(chalk.blue(`📊 Rescored: ${newScore.totalScore}`));
                 break;
                 
               case 'q':
