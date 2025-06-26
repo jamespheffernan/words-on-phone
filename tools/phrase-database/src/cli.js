@@ -5,6 +5,7 @@ const chalk = require('chalk');
 const winston = require('winston');
 const PhraseDatabase = require('./database');
 const PhraseNormalizer = require('./normalizer');
+const DuplicateDetector = require('./duplicateDetector');
 
 // Configure logger
 const logger = winston.createLogger({
@@ -161,6 +162,44 @@ program
       
     } catch (error) {
       console.error(chalk.red('❌ Failed to normalize phrase:'), error.message);
+      process.exit(1);
+    }
+  });
+
+// Check-duplicate command
+program
+  .command('check-duplicate')
+  .description('Check if a phrase can be added (duplicate detection)')
+  .argument('<phrase>', 'Phrase to check')
+  .argument('<category>', 'Category to check in')
+  .option('-v, --verbose', 'Show detailed duplicate analysis')
+  .action(async (phrase, category, options) => {
+    try {
+      console.log(chalk.blue('🔍 Checking for duplicates...'));
+      console.log(chalk.gray('='.repeat(40)));
+      
+      const db = new PhraseDatabase();
+      await db.initialize();
+      
+      const detector = new DuplicateDetector(db);
+      const result = await detector.checkDuplicate(phrase, category);
+      
+      console.log(chalk.cyan('Phrase:'), phrase);
+      console.log(chalk.cyan('Category:'), category);
+      console.log(chalk.blue('Status:'), result.canAdd ? chalk.green('✅ Can Add') : chalk.red('❌ Cannot Add'));
+      
+      if (!result.canAdd) {
+        console.log(chalk.red('Reason:'), result.reason);
+        
+        if (options.verbose && result.details) {
+          console.log(chalk.gray('\\nDetails:'));
+          console.log(chalk.gray(JSON.stringify(result.details, null, 2)));
+        }
+      }
+      
+      await db.close();
+    } catch (error) {
+      console.error(chalk.red('Error checking duplicates:'), error.message);
       process.exit(1);
     }
   });

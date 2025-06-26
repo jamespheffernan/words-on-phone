@@ -2,6 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs-extra');
 const winston = require('winston');
+const PhraseNormalizer = require('./normalizer');
 
 // Database configuration
 const DB_PATH = path.join(__dirname, '..', 'data', 'phrases.db');
@@ -26,6 +27,7 @@ class PhraseDatabase {
   constructor(dbPath = null) {
     this.db = null;
     this.dbPath = dbPath || DB_PATH;
+    this.normalizer = new PhraseNormalizer();
   }
 
   async initialize() {
@@ -195,7 +197,7 @@ class PhraseDatabase {
     return !!existing;
   }
 
-  async checkFirstWordLimit(category, firstWord, limit = 2) {
+  async checkFirstWordLimit(category, firstWord, limit = 5) {
     const count = await this.get(
       'SELECT COUNT(*) as count FROM phrases WHERE category = ? AND first_word = ?',
       [category, firstWord]
@@ -217,7 +219,7 @@ class PhraseDatabase {
   }
 
   extractFirstWord(phrase) {
-    return phrase.trim().split(/\s+/)[0].toLowerCase();
+    return this.normalizer.extractFirstWord(phrase);
   }
 
   async close() {
