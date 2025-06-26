@@ -12,6 +12,7 @@ const QuotaTracker = require('./quotaTracker');
 const DuplicateDetector = require('./duplicateDetector');
 const PhraseScorer = require('./phraseScorer');
 const PhraseNormalizer = require('./normalizer');
+const GameExporter = require('./gameExporter');
 
 // Configure logger
 const logger = winston.createLogger({
@@ -121,7 +122,8 @@ program
             const normalized = normalizer.process(item.phrase);
             
             // Check duplicates
-            if (await duplicateDetector.checkDuplicate(normalized.phrase, item.category)) {
+            const validation = await duplicateDetector.validatePhrase(item.phrase, item.category);
+          if (!validation.valid) {
               results.skipped++;
               progressBar.update();
               continue;
@@ -189,8 +191,8 @@ program
                 rl.question('Enter category: ', resolve);
               });
               
-              const isDuplicate = await duplicateDetector.checkDuplicate(normalized.phrase, category);
-              if (isDuplicate) {
+              const validation = await duplicateDetector.validatePhrase(phrase, category);
+              if (!validation.valid) {
                 console.log(chalk.yellow('⚠️  Phrase already exists or violates first-word limit'));
                 askPhrase();
                 return;
@@ -277,8 +279,8 @@ program
           const normalized = normalizer.process(phrase);
           
           // Check duplicates
-          const isDuplicate = await duplicateDetector.checkDuplicate(normalized.phrase, category);
-          if (isDuplicate) {
+          const validation = await duplicateDetector.validatePhrase(phrase, category);
+          if (!validation.valid) {
             results.duplicates++;
             issues.push({ phrase, category, issue: 'Duplicate or first-word limit' });
             progressBar.update();
@@ -719,16 +721,43 @@ program
         }
         
       } else if (options.format === 'game') {
-        // Game format (matches existing game structure)
-        const categorizedPhrases = {};
-        phrases.forEach(phrase => {
-          if (!categorizedPhrases[phrase.category]) {
-            categorizedPhrases[phrase.category] = [];
-          }
-          categorizedPhrases[phrase.category].push(phrase.phrase);
-        });
+        // Game format (exact match to existing game structure)
+        const gameExporter = new GameExporter(db);
         
-        exportData = JSON.stringify(categorizedPhrases, null, 2);
+        // Build game export options
+        const gameOptions = {
+          category: options.category || "Entertainment & Pop Culture",
+          recentOnly: options.recentOnly,
+          minScore: options.minScore ? parseInt(options.minScore) : undefined,
+          shuffle: true // Default to shuffled for game use
+        };
+        
+        // If specific category filter, use it
+        if (options.category) {
+          gameOptions.categories = [options.category];
+        }
+        
+        const gameFormat = await gameExporter.exportGameFormat(gameOptions);
+        
+        // Validate the export
+        const validation = gameExporter.validateGameFormat(gameFormat);
+        if (!validation.valid) {
+          console.log(chalk.red('❌ Export validation failed:'));
+          validation.errors.forEach(error => {
+            console.log(chalk.red(`  • ${error}`));
+          });
+          await db.close();
+          return;
+        }
+        
+        if (validation.warnings.length > 0) {
+          console.log(chalk.yellow('⚠️  Export warnings:'));
+          validation.warnings.forEach(warning => {
+            console.log(chalk.yellow(`  • ${warning}`));
+          });
+        }
+        
+        exportData = JSON.stringify(gameFormat, null, 2);
         
         if (!outputPath.endsWith('.json')) {
           outputPath = outputPath.replace(/\.[^.]+$/, '') + '.json';
@@ -754,6 +783,170 @@ program
       
     } catch (error) {
       console.error(chalk.red('❌ Export failed:'), error.message);
+      process.exit(1);
+    }
+  });
+
+// Game export command
+program
+  .command('game-export')
+  .description('Export phrases in exact game format')
+  .option('-o, --output <path>', 'Output file path', 'game-phrases.json')
+  .option('-c, --category <name>', 'Category name for the export', 'Entertainment & Pop Culture')
+  .option('--categories <list>', 'Specific database categories to include (comma-separated)')
+  .option('--recent-only', 'Export only recent phrases')
+  .option('--min-score <number>', 'Minimum score threshold')
+  .option('--max-score <number>', 'Maximum score threshold')
+  .option('--limit <number>', 'Maximum number of phrases to export')
+  .option('--no-shuffle', 'Don\'t shuffle phrases (keep alphabetical order)')
+  .option('--backup', 'Create backup before export')
+  .option('--validate', 'Validate export format (default: true)')
+  .option('--stats', 'Show export statistics')
+  .option('--multiple', 'Export each database category as separate game format')
+  .action(async (options) => {
+    try {
+      const db = new PhraseDatabase();
+      await db.initialize();
+      const gameExporter = new GameExporter(db);
+      
+      console.log(chalk.blue('🎮 Exporting phrases in game format...'));
+      
+      // Create backup if requested
+      if (options.backup) {
+        const backup = await gameExporter.createBackup();
+        console.log(chalk.gray(`Backup created: ${backup.path}`));
+      }
+      
+      // Show stats if requested
+      if (options.stats) {
+        const stats = await gameExporter.getExportStats();
+        console.log(chalk.blue('\n📊 Export Statistics:'));
+        console.log(chalk.gray(`Total phrases: ${stats.total}`));
+        console.log(chalk.gray(`Recent phrases: ${stats.recent} (${stats.recentPercentage}%)`));
+        console.log(chalk.gray(`Average score: ${stats.scoreDistribution.average}`));
+        console.log(chalk.gray(`Categories: ${stats.categories.length}`));
+      }
+      
+      // Parse categories if provided
+      let categoriesFilter = null;
+      if (options.categories) {
+        categoriesFilter = options.categories.split(',').map(cat => cat.trim());
+      }
+      
+      // Build export options
+      const exportOptions = {
+        category: options.category,
+        recentOnly: options.recentOnly,
+        minScore: options.minScore ? parseInt(options.minScore) : undefined,
+        maxScore: options.maxScore ? parseInt(options.maxScore) : undefined,
+        limit: options.limit ? parseInt(options.limit) : undefined,
+        shuffle: !options.noShuffle,
+        categories: categoriesFilter
+      };
+      
+      let exportData;
+      let outputPath = options.output;
+      
+      if (options.multiple) {
+        // Export multiple categories as separate game formats
+        const gameFormats = await gameExporter.exportMultipleCategories(exportOptions);
+        
+        if (gameFormats.length === 0) {
+          console.log(chalk.yellow('⚠️  No phrases found matching export criteria'));
+          await db.close();
+          return;
+        }
+        
+        console.log(chalk.gray(`Found ${gameFormats.length} categories to export`));
+        
+        // Validate each format if requested
+        if (options.validate !== false) {
+          let allValid = true;
+          gameFormats.forEach((gameFormat, index) => {
+            const validation = gameExporter.validateGameFormat(gameFormat);
+            if (!validation.valid) {
+              console.log(chalk.red(`❌ Validation failed for category "${gameFormat.category}":`));
+              validation.errors.forEach(error => {
+                console.log(chalk.red(`  • ${error}`));
+              });
+              allValid = false;
+            }
+          });
+          
+          if (!allValid) {
+            console.log(chalk.red('❌ Export validation failed'));
+            await db.close();
+            return;
+          }
+        }
+        
+        exportData = JSON.stringify(gameFormats, null, 2);
+        
+        if (!outputPath.endsWith('.json')) {
+          outputPath = outputPath.replace(/\.[^.]+$/, '') + '.json';
+        }
+        
+      } else {
+        // Export single game format
+        const gameFormat = await gameExporter.exportGameFormat(exportOptions);
+        
+        if (gameFormat.phrases.length === 0) {
+          console.log(chalk.yellow('⚠️  No phrases found matching export criteria'));
+          await db.close();
+          return;
+        }
+        
+        console.log(chalk.gray(`Found ${gameFormat.phrases.length} phrases to export`));
+        
+        // Validate export if requested
+        if (options.validate !== false) {
+          const validation = gameExporter.validateGameFormat(gameFormat);
+          if (!validation.valid) {
+            console.log(chalk.red('❌ Export validation failed:'));
+            validation.errors.forEach(error => {
+              console.log(chalk.red(`  • ${error}`));
+            });
+            await db.close();
+            return;
+          }
+          
+          if (validation.warnings.length > 0) {
+            console.log(chalk.yellow('⚠️  Export warnings:'));
+            validation.warnings.forEach(warning => {
+              console.log(chalk.yellow(`  • ${warning}`));
+            });
+          }
+        }
+        
+        exportData = JSON.stringify(gameFormat, null, 2);
+        
+        if (!outputPath.endsWith('.json')) {
+          outputPath = outputPath.replace(/\.[^.]+$/, '') + '.json';
+        }
+      }
+      
+      // Write export file
+      await fs.writeFile(outputPath, exportData);
+      
+      console.log(chalk.green(`✅ Game export complete!`));
+      console.log(chalk.gray(`File: ${outputPath}`));
+      console.log(chalk.gray(`Format: Game-compatible JSON`));
+      
+      if (options.multiple) {
+        const gameFormats = JSON.parse(exportData);
+        const totalPhrases = gameFormats.reduce((sum, gf) => sum + gf.phrases.length, 0);
+        console.log(chalk.gray(`Categories: ${gameFormats.length}`));
+        console.log(chalk.gray(`Total phrases: ${totalPhrases}`));
+      } else {
+        const gameFormat = JSON.parse(exportData);
+        console.log(chalk.gray(`Category: ${gameFormat.category}`));
+        console.log(chalk.gray(`Phrases: ${gameFormat.phrases.length}`));
+      }
+      
+      await db.close();
+      
+    } catch (error) {
+      console.error(chalk.red('❌ Game export failed:'), error.message);
       process.exit(1);
     }
   });
