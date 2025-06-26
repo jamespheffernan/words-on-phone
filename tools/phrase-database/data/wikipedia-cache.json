@@ -1,0 +1,151 @@
+{
+  "harry potter": {
+    "isTooCommon": true,
+    "reason": "Phrase exists as Wikipedia article",
+    "details": {
+      "type": "WIKIPEDIA_ARTICLE",
+      "title": "Harry Potter",
+      "extract": "Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling......",
+      "wikipediaUrl": "https://en.wikipedia.org/wiki/Harry_Potter"
+    }
+  },
+  "mercury": {
+    "isTooCommon": true,
+    "reason": "Phrase is Wikipedia disambiguation page",
+    "details": {
+      "type": "WIKIPEDIA_DISAMBIGUATION",
+      "title": "Mercury",
+      "wikipediaUrl": "https://en.wikipedia.org/wiki/Mercury"
+    }
+  },
+  "unlikely phrase that does not exist": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Unlikely_Phrase_That_Does_Not_Exist"
+    }
+  },
+  "test phrase": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Test_Phrase"
+    }
+  },
+  "cached phrase": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Cached_Phrase"
+    }
+  },
+  "café français": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Café_Français"
+    }
+  },
+  "señor josé": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Señor_José"
+    }
+  },
+  "münchen germany": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "München_Germany"
+    }
+  },
+  "title with \"quotes\"": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Title_With_\"quotes\""
+    }
+  },
+  "symbol & company": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Symbol_&_Company"
+    }
+  },
+  "this is a very long phrase that contains many words and should be handled gracefully by the common phrase detector": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "This_Is_A_Very_Long_Phrase_That_Contains_Many_Words_And_Should_Be_Handled_Gracefully_By_The_Common_Phrase_Detector"
+    }
+  },
+  "": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": ""
+    }
+  },
+  "phrase 1": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Phrase_1"
+    }
+  },
+  "phrase 2": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Phrase_2"
+    }
+  },
+  "test cache phrase": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Test_Cache_Phrase"
+    }
+  },
+  "cached phrase from disk": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Cached_Phrase_From_Disk"
+    }
+  },
+  "quantum computing": {
+    "isTooCommon": true,
+    "reason": "Phrase exists as Wikipedia article",
+    "details": {
+      "type": "WIKIPEDIA_ARTICLE",
+      "title": "Quantum computing",
+      "extract": "A quantum computer is a computer that exploits quantum mechanical phenomena. On small scales, physic...",
+      "wikipediaUrl": "https://en.wikipedia.org/wiki/Quantum_computing"
+    }
+  },
+  "purple elephant dancing": {
+    "isTooCommon": false,
+    "reason": "No Wikipedia page found",
+    "details": {
+      "type": "WIKIPEDIA_NOT_FOUND",
+      "searchTerm": "Purple_Elephant_Dancing"
+    }
+  }
+}
