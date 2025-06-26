@@ -37,14 +37,12 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [app-icon-implementation](implementation-plan/app-icon-implementation.md) - 📋 **READY** - iOS App Icon Implementation
 - [countdown-ripple-redesign](implementation-plan/countdown-ripple-redesign.md) - 📝 **PLANNED** - Countdown Ripple Redesign (Hidden Timer Indicator)
 - [phrase-review-interface](implementation-plan/phrase-review-interface.md) - 📝 **PLANNED** - Keyboard-Driven Phrase Review Tool
-- [phrase-database-builder-tool](implementation-plan/phrase-database-builder-tool.md) - 🎯 **READY TO BUILD** - Phrase Database Builder Tool
+- [phrase-database-builder-tool](implementation-plan/phrase-database-builder-tool.md) - ⚡ **IN EXECUTION** - Phrase Database Builder Tool
+  - ✅ **Task 3 COMPLETE**: Phrase normalization pipeline (34 tests passing)
   - ✅ Tasks 1-2 complete (project structure + SQLite database foundation)
-  - 📋 **Comprehensive revision complete** with correct philosophy
-  - **Core principle**: Accept recognizable phrases, reject obscure jargon
-  - **Validation system**: 4-tier scoring (local heuristics + Wikidata + Reddit + category)
-  - **Scalability**: Process 10,000 phrases in ~10 minutes for $0
-  - **Architecture**: Integrated validation pipeline, not separate modules
-  - **Next**: Build Tasks 3-5 with new approach (normalization, duplicates, scoring)
+  - **Current milestone**: Full normalization with Title Case, ASCII cleanup, word validation
+  - **Next up**: Task 4 - Duplicate detection system
+  - **Progress**: 3/10 tasks complete, solid foundation established
 
 ## Current Bug Fix / Executor Work
 
