@@ -145,7 +145,7 @@ export class PhraseScorer {
    * @param category - Category context
    * @returns Local heuristics score
    */
-  private async scoreLocalHeuristics(phrase: string, category: string): Promise<number> {
+  private async scoreLocalHeuristics(phrase: string, _category: string): Promise<number> {
     // Handle empty phrases
     if (!phrase || phrase.trim().length === 0) {
       return 0;

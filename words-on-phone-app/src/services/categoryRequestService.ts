@@ -1,6 +1,7 @@
 import { PhraseCategory } from '../data/phrases';
 import { env } from '../config/environment';
 import { detectActiveAIService, type AIService } from '../config/environment';
+import { PhraseScorer, type PhraseScore } from './phraseScorer';
 
 interface CustomCategoryRequest {
   id: string;
@@ -26,6 +27,8 @@ interface FetchedPhrase {
 interface CustomCategoryPhrase extends Omit<FetchedPhrase, 'category'> {
   customCategory: string;
   category: PhraseCategory.EVERYTHING; // Custom phrases go in "Everything" category
+  qualityScore?: number; // Total quality score (0-100)
+  qualityBreakdown?: PhraseScore['breakdown']; // Detailed scoring breakdown
 }
 
 // Gemini API Response Interface
@@ -85,8 +88,10 @@ export class CategoryRequestService {
   private dbName = 'words-on-phone-categories';
   private requestsStoreName = 'categoryRequests';
   private phrasesStoreName = 'customPhrases';
+  private phraseScorer: PhraseScorer;
 
   constructor() {
+    this.phraseScorer = new PhraseScorer();
     this.initializeDB();
   }
 
@@ -403,6 +408,9 @@ Begin.`;
   }
 
   private async generatePhrasesBatchFromOpenAI(categoryName: string, apiUrl: string): Promise<CustomCategoryPhrase[]> {
+    const startTime = Date.now();
+    console.log(`📝 Generating OpenAI batch for ${categoryName}`);
+
     const phraseIds = Array.from({ length: PHRASES_PER_CATEGORY }, () => generateUUID());
     
     const response = await fetch(apiUrl, {
@@ -429,18 +437,82 @@ Begin.`;
       throw new Error('OpenAI response is not an array');
     }
 
-    return data.map((term: CustomTerm) => ({
-      phraseId: term.id,
-      text: term.phrase,
-      customCategory: categoryName,
-      category: PhraseCategory.EVERYTHING,
-      source: 'openai' as const,
-      fetchedAt: Date.now(),
-      difficulty: term.difficulty
-    }));
+    // Score phrases and add quality metrics
+    const scoredPhrases: CustomCategoryPhrase[] = [];
+    const qualityMetrics = {
+      totalGenerated: data.length,
+      highQuality: 0,
+      mediumQuality: 0,
+      lowQuality: 0,
+      averageScore: 0
+    };
+
+    for (const term of data) {
+      try {
+        // Use local scoring only for speed
+        const scoreResult = await this.phraseScorer.scorePhrase(term.phrase, categoryName, false, false);
+        
+        const customPhrase: CustomCategoryPhrase = {
+          phraseId: term.id,
+          text: term.phrase,
+          customCategory: categoryName,
+          category: PhraseCategory.EVERYTHING,
+          source: 'openai' as const,
+          fetchedAt: Date.now(),
+          difficulty: term.difficulty,
+          qualityScore: scoreResult.totalScore,
+          qualityBreakdown: scoreResult.breakdown
+        };
+
+        scoredPhrases.push(customPhrase);
+
+        // Update quality metrics
+        if (scoreResult.totalScore >= 60) {
+          qualityMetrics.highQuality++;
+        } else if (scoreResult.totalScore >= 40) {
+          qualityMetrics.mediumQuality++;
+        } else {
+          qualityMetrics.lowQuality++;
+        }
+
+      } catch (error) {
+        console.warn(`Failed to score OpenAI phrase "${term.phrase}":`, error);
+        // Add phrase without scoring as fallback
+        scoredPhrases.push({
+          phraseId: term.id,
+          text: term.phrase,
+          customCategory: categoryName,
+          category: PhraseCategory.EVERYTHING,
+          source: 'openai' as const,
+          fetchedAt: Date.now(),
+          difficulty: term.difficulty,
+          qualityScore: 30, // Conservative fallback
+          qualityBreakdown: { localHeuristics: 30, categoryBoost: 0, error: 'Scoring failed' }
+        });
+        qualityMetrics.lowQuality++;
+      }
+    }
+
+    qualityMetrics.averageScore = scoredPhrases.reduce((sum, p) => sum + (p.qualityScore || 30), 0) / scoredPhrases.length;
+    const totalTime = Date.now() - startTime;
+
+    console.log(`📊 OpenAI quality metrics for ${categoryName}:`, {
+      ...qualityMetrics,
+      highQualityPercentage: `${((qualityMetrics.highQuality / qualityMetrics.totalGenerated) * 100).toFixed(1)}%`,
+      totalTime: `${totalTime}ms`
+    });
+
+    // Sort by quality score (best first)
+    scoredPhrases.sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
+
+    return scoredPhrases;
   }
 
-  private async generatePhrasesBatchFromGemini(categoryName: string, apiUrl: string): Promise<CustomCategoryPhrase[]> {
+  private async generatePhrasesBatchFromGemini(categoryName: string, apiUrl: string, retryAttempt: number = 0): Promise<CustomCategoryPhrase[]> {
+    const startTime = Date.now();
+    console.log(`📝 Generating batch for ${categoryName} (attempt ${retryAttempt + 1})`);
+
+    // Enhanced prompt with quality focus
     const prompt = `You are PhraseMachine, an expert generator of party game phrases for "Words on Phone" - a charades-style game where players act out, draw, or describe phrases for their team to guess.
 
 GAME CONTEXT:
@@ -450,20 +522,24 @@ GAME CONTEXT:
 - Players range from teens to adults at parties, family gatherings, game nights
 
 TASK:
-Generate exactly 15 high-quality phrases for category "${categoryName}". Each phrase must be perfect for party gameplay.
+Generate exactly 15 HIGH-QUALITY phrases for category "${categoryName}". Each phrase must be perfect for party gameplay and score highly on recognition and fun factor.
 
 QUALITY CRITERIA:
-✅ GOOD EXAMPLES:
+✅ EXCELLENT EXAMPLES (aim for these):
 - "Pizza Delivery" (easy to act out - pretend to drive, carry box, ring doorbell)
 - "Taylor Swift" (widely known, easy to describe/act)
 - "Brushing Teeth" (clear physical action)
 - "Harry Potter" (universally recognized, easy to describe)
+- "Breaking Bad" (popular TV show, easy to act out)
+- "McDonald's" (globally recognized, easy to mime)
 
-❌ BAD EXAMPLES:
+❌ AVOID THESE:
 - "Quantum Physics" (too technical, hard to act)
 - "Municipal Governance" (boring, not party-friendly)
 - "Existential Dread" (abstract, not fun)
 - "Obscure 1970s Band" (too niche)
+- "Complex Medical Procedure" (too technical)
+- "Philosophy Concept" (too abstract)
 
 SPECIFIC RULES:
 1. 2-4 words maximum (shorter = better for gameplay)
@@ -472,6 +548,7 @@ SPECIFIC RULES:
 4. Avoid overly technical or academic terms
 5. Prioritize pop culture, common activities, famous people/places
 6. Test: "Could a teenager easily act this out at a party?"
+7. Focus on FUN, RECOGNIZABLE, and ACTABLE phrases
 
 CATEGORY FOCUS: ${categoryName}
 Make sure every phrase clearly belongs to "${categoryName}" and would be obvious to players.
@@ -502,16 +579,91 @@ Generate exactly 15 phrases now:`;
     const data: GeminiResponse = await response.json();
     const responseText = data.candidates[0]?.content?.parts[0]?.text || '';
     
-    const phrases = this.parsePhrasesFromResponse(responseText);
+    const rawPhrases = this.parsePhrasesFromResponse(responseText);
+    console.log(`🎯 Generated ${rawPhrases.length} raw phrases`);
+
+    // Score all phrases with local heuristics only for speed
+    const scoredPhrases: CustomCategoryPhrase[] = [];
+    const qualityMetrics = {
+      totalGenerated: rawPhrases.length,
+      highQuality: 0, // score >= 60
+      mediumQuality: 0, // score 40-59
+      lowQuality: 0, // score < 40
+      averageScore: 0,
+      scoringTime: 0
+    };
+
+    const scoringStartTime = Date.now();
     
-    return phrases.map(phrase => ({
-      phraseId: this.generatePhraseId(phrase, categoryName),
-      text: phrase,
-      customCategory: categoryName,
-      category: PhraseCategory.EVERYTHING,
-      source: 'gemini' as const,
-      fetchedAt: Date.now()
-    }));
+    for (const phrase of rawPhrases) {
+      try {
+        // Use local scoring only for speed (no Wikipedia/Reddit)
+        const scoreResult = await this.phraseScorer.scorePhrase(phrase, categoryName, false, false);
+        
+        const customPhrase: CustomCategoryPhrase = {
+          phraseId: this.generatePhraseId(phrase, categoryName),
+          text: phrase,
+          customCategory: categoryName,
+          category: PhraseCategory.EVERYTHING,
+          source: 'gemini' as const,
+          fetchedAt: Date.now(),
+          qualityScore: scoreResult.totalScore,
+          qualityBreakdown: scoreResult.breakdown
+        };
+
+        scoredPhrases.push(customPhrase);
+
+        // Update quality metrics
+        if (scoreResult.totalScore >= 60) {
+          qualityMetrics.highQuality++;
+        } else if (scoreResult.totalScore >= 40) {
+          qualityMetrics.mediumQuality++;
+        } else {
+          qualityMetrics.lowQuality++;
+        }
+
+      } catch (error) {
+        console.warn(`Failed to score phrase "${phrase}":`, error);
+        // Add phrase without scoring as fallback
+        scoredPhrases.push({
+          phraseId: this.generatePhraseId(phrase, categoryName),
+          text: phrase,
+          customCategory: categoryName,
+          category: PhraseCategory.EVERYTHING,
+          source: 'gemini' as const,
+          fetchedAt: Date.now(),
+          qualityScore: 30, // Conservative fallback score
+          qualityBreakdown: { localHeuristics: 30, categoryBoost: 0, error: 'Scoring failed' }
+        });
+        qualityMetrics.lowQuality++;
+      }
+    }
+
+    qualityMetrics.scoringTime = Date.now() - scoringStartTime;
+    qualityMetrics.averageScore = scoredPhrases.reduce((sum, p) => sum + (p.qualityScore || 30), 0) / scoredPhrases.length;
+
+    const highQualityPercentage = (qualityMetrics.highQuality / qualityMetrics.totalGenerated) * 100;
+    const totalTime = Date.now() - startTime;
+
+    console.log(`📊 Quality metrics for ${categoryName}:`, {
+      ...qualityMetrics,
+      highQualityPercentage: `${highQualityPercentage.toFixed(1)}%`,
+      totalTime: `${totalTime}ms`
+    });
+
+    // Check if we need to retry (less than 50% high quality phrases and haven't exceeded max retries)
+    const needsRetry = highQualityPercentage < 50 && retryAttempt < 2 && totalTime < 7000; // Allow retry if under 7s
+
+    if (needsRetry) {
+      console.log(`🔄 Retrying batch for ${categoryName} - only ${highQualityPercentage.toFixed(1)}% high quality`);
+      return this.generatePhrasesBatchFromGemini(categoryName, apiUrl, retryAttempt + 1);
+    }
+
+    // Sort by quality score (best first) and return all phrases
+    scoredPhrases.sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
+    
+    console.log(`✅ Completed batch for ${categoryName}: ${qualityMetrics.highQuality}/${qualityMetrics.totalGenerated} high quality (${highQualityPercentage.toFixed(1)}%)`);
+    return scoredPhrases;
   }
 
   async getCustomPhrases(): Promise<CustomCategoryPhrase[]> {
