@@ -217,7 +217,12 @@ class PhraseDatabase {
   }
 
   extractFirstWord(phrase) {
-    return phrase.trim().split(/\s+/)[0].toLowerCase();
+    const firstWord = phrase.trim().split(/\s+/)[0].toLowerCase();
+    // Remove possessive endings for consistency with normalizer
+    if (firstWord.endsWith("'s")) {
+      return firstWord.slice(0, -2);
+    }
+    return firstWord;
   }
 
   async close() {
