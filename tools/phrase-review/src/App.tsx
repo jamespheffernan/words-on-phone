@@ -322,6 +322,71 @@ function App() {
         <h2 className="current-phrase" id="current-phrase">
           {current?.phrase}
         </h2>
+
+        {/* Quality Score Display */}
+        {current?.qualityScore !== undefined && (
+          <div className="quality-info">
+            <div className="quality-score">
+              <span className="score-value">{current.qualityScore}</span>
+              <span className="score-label">/ 100</span>
+              {current.verdict && (
+                <span className={`verdict verdict-${current.verdict.toLowerCase().replace(/\s/g, '-')}`}>
+                  {current.verdict}
+                </span>
+              )}
+            </div>
+            
+            {current.qualityBreakdown && (
+              <div className="score-breakdown">
+                <h4>Score Breakdown</h4>
+                <div className="breakdown-grid">
+                  <div className="breakdown-item">
+                    <span className="breakdown-label">Local Heuristics:</span>
+                    <span className="breakdown-value">{current.qualityBreakdown.localHeuristics}</span>
+                  </div>
+                  {current.qualityBreakdown.wikidata !== undefined && (
+                    <div className="breakdown-item">
+                      <span className="breakdown-label">Wikipedia:</span>
+                      <span className="breakdown-value">{current.qualityBreakdown.wikidata}</span>
+                    </div>
+                  )}
+                  {current.qualityBreakdown.reddit !== undefined && (
+                    <div className="breakdown-item">
+                      <span className="breakdown-label">Reddit:</span>
+                      <span className="breakdown-value">{current.qualityBreakdown.reddit}</span>
+                    </div>
+                  )}
+                  <div className="breakdown-item">
+                    <span className="breakdown-label">Category Boost:</span>
+                    <span className="breakdown-value">{current.qualityBreakdown.categoryBoost}</span>
+                  </div>
+                </div>
+                {current.qualityBreakdown.error && (
+                  <div className="breakdown-error">
+                    ⚠️ Scoring Error: {current.qualityBreakdown.error}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Source and Category Info */}
+        {(current?.category || current?.source || current?.fetchedAt) && (
+          <div className="phrase-meta">
+            {current.category && (
+              <span className="meta-item">📁 {current.category}</span>
+            )}
+            {current.source && (
+              <span className="meta-item">🤖 {current.source}</span>
+            )}
+            {current.fetchedAt && (
+              <span className="meta-item">
+                📅 {new Date(current.fetchedAt).toLocaleDateString()}
+              </span>
+            )}
+          </div>
+        )}
         
         {currentDecision && (
           <div className={`decision-status ${currentDecision.status === 'accepted' ? 'status-accepted' : 'status-rejected'}`}>

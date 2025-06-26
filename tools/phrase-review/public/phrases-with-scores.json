@@ -1,0 +1,138 @@
+{
+  "category": "Entertainment & Pop Culture - Quality Scored",
+  "phrases": [
+    {
+      "phrase": "Planking Challenge",
+      "qualityScore": 73,
+      "qualityBreakdown": {
+        "localHeuristics": 28,
+        "wikidata": 15,
+        "categoryBoost": 15,
+        "reddit": 15
+      },
+      "verdict": "Good",
+      "source": "gemini",
+      "fetchedAt": 1703116800000
+    },
+    {
+      "phrase": "Ice Bucket Challenge",
+      "qualityScore": 89,
+      "qualityBreakdown": {
+        "localHeuristics": 32,
+        "wikidata": 27,
+        "categoryBoost": 15,
+        "reddit": 15
+      },
+      "verdict": "Excellent",
+      "source": "gemini",
+      "fetchedAt": 1703116800000
+    },
+    {
+      "phrase": "Abstract Conceptual Framework",
+      "qualityScore": 23,
+      "qualityBreakdown": {
+        "localHeuristics": 8,
+        "wikidata": 0,
+        "categoryBoost": 0,
+        "reddit": 0,
+        "error": "Too abstract for charades gameplay"
+      },
+      "verdict": "Reject",
+      "source": "openai",
+      "fetchedAt": 1703116800000
+    },
+    {
+      "phrase": "TikTok Challenge",
+      "qualityScore": 82,
+      "qualityBreakdown": {
+        "localHeuristics": 30,
+        "wikidata": 22,
+        "categoryBoost": 15,
+        "reddit": 15
+      },
+      "verdict": "Excellent",
+      "source": "gemini",
+      "fetchedAt": 1703116800000
+    },
+    {
+      "phrase": "Mannequin Challenge",
+      "qualityScore": 76,
+      "qualityBreakdown": {
+        "localHeuristics": 29,
+        "wikidata": 17,
+        "categoryBoost": 15,
+        "reddit": 15
+      },
+      "verdict": "Good",
+      "source": "gemini",
+      "fetchedAt": 1703116800000
+    },
+    {
+      "phrase": "Interdisciplinary Synergy",
+      "qualityScore": 18,
+      "qualityBreakdown": {
+        "localHeuristics": 3,
+        "wikidata": 0,
+        "categoryBoost": 0,
+        "reddit": 0,
+        "error": "Complex academic term - not suitable for party game"
+      },
+      "verdict": "Reject",
+      "source": "openai",
+      "fetchedAt": 1703116800000
+    },
+    {
+      "phrase": "Baby Shark Dance",
+      "qualityScore": 95,
+      "qualityBreakdown": {
+        "localHeuristics": 35,
+        "wikidata": 30,
+        "categoryBoost": 15,
+        "reddit": 15
+      },
+      "verdict": "Excellent",
+      "source": "gemini",
+      "fetchedAt": 1703116800000
+    },
+    {
+      "phrase": "Flash Mob Dance",
+      "qualityScore": 78,
+      "qualityBreakdown": {
+        "localHeuristics": 31,
+        "wikidata": 17,
+        "categoryBoost": 15,
+        "reddit": 15
+      },
+      "verdict": "Good",
+      "source": "gemini",
+      "fetchedAt": 1703116800000
+    },
+    {
+      "phrase": "Existential Methodology",
+      "qualityScore": 14,
+      "qualityBreakdown": {
+        "localHeuristics": 2,
+        "wikidata": 2,
+        "categoryBoost": 0,
+        "reddit": 0,
+        "error": "Too philosophical - difficult to act out"
+      },
+      "verdict": "Reject",
+      "source": "openai",
+      "fetchedAt": 1703116800000
+    },
+    {
+      "phrase": "Viral Meme",
+      "qualityScore": 71,
+      "qualityBreakdown": {
+        "localHeuristics": 26,
+        "wikidata": 15,
+        "categoryBoost": 15,
+        "reddit": 15
+      },
+      "verdict": "Good",
+      "source": "gemini",
+      "fetchedAt": 1703116800000
+    }
+  ]
+} 
