@@ -1,7 +1,7 @@
 // Environment configuration for the app
 export const env = {
   // Gemini API configuration - API key now handled by serverless function
-  GEMINI_MODEL: import.meta.env.VITE_GEMINI_MODEL || 'gemini-1.5-flash',
+  GEMINI_MODEL: import.meta.env.VITE_GEMINI_MODEL || 'gemini-2.5-flash',
   GEMINI_API_URL: import.meta.env.DEV 
     ? 'http://localhost:8888/.netlify/functions/gemini'  // Development: Netlify Dev on port 8888
     : '/api/gemini', // Production: uses _redirects to route to /.netlify/functions/gemini

@@ -77,7 +77,7 @@ export const handler: Handler = async (event: HandlerEvent): Promise<HandlerResp
     }
 
     // Use the provided model or default
-    const model = process.env.GEMINI_MODEL || 'gemini-1.5-flash-latest';
+    const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
     const requestBody = {
