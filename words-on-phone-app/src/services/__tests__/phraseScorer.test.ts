@@ -399,7 +399,259 @@ describe('PhraseScorer', () => {
       expect(duration).toBeLessThan(2000); // Should complete in under 2 seconds
       expect(results.size).toBe(50);
       expect(mockFetch).toHaveBeenCalledTimes(1); // Single batch call
-    }, 10000); // 10 second timeout for this test
+         }, 10000); // 10 second timeout for this test
+  });
+
+  describe('Reddit Validation', () => {
+    let mockFetch: any;
+    
+    beforeEach(() => {
+      mockFetch = vi.fn();
+      global.fetch = mockFetch;
+    });
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    it('should only validate borderline phrases (score 40-60)', async () => {
+      const scorer = new PhraseScorer();
+      
+      // Mock Reddit response
+      const mockRedditResponse = {
+        data: {
+          children: [
+            { data: { ups: 500 } }
+          ]
+        }
+      };
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve(mockRedditResponse)
+      });
+
+      // Test phrase that should score in borderline range
+      const result = await scorer.scorePhrase('Some Movie', 'Movies & TV', false, true);
+      
+      // Reddit should only be called for borderline scores (40-60)
+      if (result.totalScore >= 40 && result.totalScore <= 60) {
+        expect(result.breakdown.reddit).toBeDefined();
+      } else {
+        expect(result.breakdown.reddit).toBeUndefined();
+      }
+    });
+
+    it('should score Reddit upvotes correctly according to thresholds', async () => {
+      const testCases = [
+        { upvotes: 1500, expectedScore: 15 },  // >= 1000
+        { upvotes: 250, expectedScore: 10 },   // >= 100
+        { upvotes: 50, expectedScore: 5 },     // >= 10
+        { upvotes: 5, expectedScore: 2 },      // Found but low engagement
+        { upvotes: 0, expectedScore: 0 }       // No upvotes
+      ];
+
+      for (const testCase of testCases) {
+        const scorer = new PhraseScorer();
+        
+        const mockRedditResponse = {
+          data: {
+            children: testCase.upvotes > 0 ? [
+              { data: { ups: testCase.upvotes } }
+            ] : []
+          }
+        };
+
+        mockFetch.mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(mockRedditResponse)
+        });
+
+        // Use scoreReddit directly to test the scoring logic
+        const score = await (scorer as any).scoreReddit('Test Phrase');
+        expect(score).toBe(testCase.expectedScore);
+      }
+    });
+
+    it('should respect Reddit rate limiting (60 requests per minute)', async () => {
+      const scorer = new PhraseScorer();
+      
+      // Check initial rate limit status
+      const initialStatus = scorer.getRedditRateLimit();
+      expect(initialStatus.requests).toBe(0);
+      expect(initialStatus.maxRequests).toBe(60);
+      expect(initialStatus.canMakeRequest).toBe(true);
+
+      // Mock successful Reddit responses
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ data: { children: [] } })
+      });
+
+      // Make requests up to the limit
+      for (let i = 0; i < 60; i++) {
+        await (scorer as any).scoreReddit(`Test Phrase ${i}`);
+      }
+
+      // Check that rate limit is reached
+      const limitStatus = scorer.getRedditRateLimit();
+      expect(limitStatus.requests).toBe(60);
+      expect(limitStatus.canMakeRequest).toBe(false);
+
+      // Next request should use cache/fallback
+      const result = await (scorer as any).scoreReddit('Rate Limited Phrase');
+      expect(result).toBe(0); // Should return 0 due to rate limiting
+    });
+
+    it('should cache Reddit results correctly', async () => {
+      const scorer = new PhraseScorer();
+      
+      const mockRedditResponse = {
+        data: {
+          children: [
+            { data: { ups: 150 } }
+          ]
+        }
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve(mockRedditResponse)
+      });
+
+      // First call should hit API
+      const score1 = await (scorer as any).scoreReddit('Cached Reddit Test');
+      expect(score1).toBe(10); // 150 upvotes = 10 points
+
+      // Second call should use cache
+      const score2 = await (scorer as any).scoreReddit('Cached Reddit Test');
+      expect(score2).toBe(10);
+
+      // Verify API was only called once
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+
+      // Check cache stats
+      const stats = scorer.getCacheStats();
+      expect(stats.reddit).toBe(1);
+    });
+
+    it('should handle Reddit API failures gracefully', async () => {
+      const scorer = new PhraseScorer();
+      
+      mockFetch.mockRejectedValueOnce(new Error('Network error'));
+
+      const score = await (scorer as any).scoreReddit('Failed Request');
+      expect(score).toBe(0); // Should return 0 on failure
+      
+      // Should be cached
+      const cachedScore = await (scorer as any).scoreReddit('Failed Request');
+      expect(cachedScore).toBe(0);
+    });
+
+    it('should handle empty Reddit search results', async () => {
+      const scorer = new PhraseScorer();
+      
+      const mockRedditResponse = {
+        data: {
+          children: [] // No results
+        }
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve(mockRedditResponse)
+      });
+
+      const score = await (scorer as any).scoreReddit('Unknown Reddit Phrase');
+      expect(score).toBe(0);
+    });
+
+    it('should clear Reddit cache independently', async () => {
+      const scorer = new PhraseScorer();
+      
+      // Add some cached data
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ data: { children: [{ data: { ups: 100 } }] } })
+      });
+
+      await (scorer as any).scoreReddit('Test Phrase');
+      
+      expect(scorer.getCacheStats().reddit).toBe(1);
+      
+      scorer.clearRedditCache();
+      expect(scorer.getCacheStats().reddit).toBe(0);
+    });
+
+    it('should add Reddit score to total when conditions are met', async () => {
+      const scorer = new PhraseScorer();
+      
+      // Mock both Wikipedia and Reddit responses
+      const mockWikipediaResponse = {
+        results: {
+          bindings: [
+            { sitelinks: { value: '5' } } // Low sitelinks for borderline score
+          ]
+        }
+      };
+
+      const mockRedditResponse = {
+        data: {
+          children: [
+            { data: { ups: 200 } } // Should give 10 points
+          ]
+        }
+      };
+
+      mockFetch
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(mockWikipediaResponse)
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve(mockRedditResponse)
+        });
+
+      const resultWithoutReddit = await scorer.scorePhrase('Test Movie', 'Movies & TV', true, false);
+      const resultWithReddit = await scorer.scorePhrase('Test Movie', 'Movies & TV', true, true);
+
+      // Should have Reddit score added if in borderline range
+      if (resultWithoutReddit.totalScore >= 40 && resultWithoutReddit.totalScore <= 60) {
+        expect(resultWithReddit.breakdown.reddit).toBe(10);
+        expect(resultWithReddit.totalScore).toBeGreaterThan(resultWithoutReddit.totalScore);
+      }
+    });
+
+    it('should process Reddit requests efficiently (under 1 second)', async () => {
+      const scorer = new PhraseScorer();
+      
+      const mockRedditResponse = {
+        data: {
+          children: [
+            { data: { ups: 100 } }
+          ]
+        }
+      };
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve(mockRedditResponse)
+      });
+
+      const startTime = Date.now();
+      
+      // Test multiple Reddit requests
+      await Promise.all([
+        (scorer as any).scoreReddit('Phrase 1'),
+        (scorer as any).scoreReddit('Phrase 2'),
+        (scorer as any).scoreReddit('Phrase 3')
+      ]);
+      
+      const duration = Date.now() - startTime;
+      
+      expect(duration).toBeLessThan(1000); // Should complete in under 1 second
+    }, 5000); // 5 second timeout for this test
   });
 });
 

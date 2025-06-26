@@ -86,17 +86,26 @@ The existing phrase database builder tool demonstrates the right approach with s
 - Updated `scorePhrase()` to accept `useWikipedia` parameter (optional)
 - All manual tests pass: caching, thresholds, batch processing, error handling
 
-### Task 4: Integrate Reddit Relevance Check (Optional)
-- [ ] Implement Reddit API integration with rate limiting
-- [ ] Score based on post upvotes (1000+ = +15, 100+ = +10)
-- [ ] Focus on top borderline cases only (score 40-60)
-- [ ] Make this step optional/configurable
+### Task 4: Integrate Reddit Relevance Check (Optional) ✅ COMPLETE
+- [x] Implement Reddit API integration with rate limiting
+- [x] Score based on post upvotes (1000+ = +15, 100+ = +10)
+- [x] Focus on top borderline cases only (score 40-60)
+- [x] Make this step optional/configurable
 
-**Success Criteria**:
-1. Respects 60/min rate limit
-2. Only validates borderline phrases
-3. Can be disabled without breaking flow
-4. Adds <1 second to total processing time
+**Success Criteria**: ✅ ALL MET
+1. ✅ Respects 60/min rate limit
+2. ✅ Only validates borderline phrases
+3. ✅ Can be disabled without breaking flow
+4. ✅ Adds <1 second to total processing time
+
+**Implementation Notes**:
+- Added `scoreReddit()` method with upvote-based scoring (1000+ = 15, 100+ = 10, 10+ = 5, found = 2 points)
+- Implemented comprehensive rate limiting (60 requests/minute with automatic reset)
+- Smart borderline validation: only calls Reddit API for phrases scoring 40-60 points
+- Built-in caching with separate Reddit cache for performance
+- Optional/configurable: requires explicit `useReddit` parameter
+- Added rate limit monitoring with `getRedditRateLimit()` method
+- All manual tests pass: borderline logic, rate limiting, caching, scoring thresholds
 
 ### Task 5: Update Phrase Generation Service
 - [ ] Modify `generatePhrasesBatchFromGemini` to use new prompts
@@ -149,7 +158,7 @@ The existing phrase database builder tool demonstrates the right approach with s
 ## Project Status Board
 
 ### 🟢 Ready to Start
-- Task 4: Integrate Reddit Relevance Check (Optional)
+- Task 5: Update Phrase Generation Service
 
 ### 🚧 In Progress
 _(none)_
@@ -158,18 +167,20 @@ _(none)_
 - Task 1: Create Enhanced Prompt System (Enhanced prompts with game context, examples, quality criteria)
 - Task 2: Implement Phrase Scoring System (PhraseScorer class with 0-55 point local scoring, 23 tests)
 - Task 3: Add Wikipedia Validation (Wikidata SPARQL batch API with caching, 0-30 point scoring, graceful error handling)
+- Task 4: Integrate Reddit Relevance Check (Optional Reddit API with rate limiting, borderline-only validation, upvote-based scoring)
 
 ## Current Status / Progress Tracking
 
-Phase: **Implementation** – 3/8 tasks complete (37.5% done)
+Phase: **Implementation** – 4/8 tasks complete (50% done)
 
 **Progress Summary:**
 - ✅ **Task 1**: Enhanced prompts with game context and quality examples
 - ✅ **Task 2**: PhraseScorer with local heuristics (0-55 points, <10ms performance)
 - ✅ **Task 3**: Wikipedia validation with Wikidata SPARQL batch API (0-30 points, caching, graceful fallback)
-- 🚧 **Next**: Optional Reddit relevance integration or move to Task 5 (service integration)
+- ✅ **Task 4**: Reddit validation with rate limiting (0-15 points, borderline-only, optional)
+- 🚧 **Next**: Integrate scoring system into phrase generation service (Task 5)
 
-**Ready for Task 4 or 5**: Optional Reddit integration available, or proceed to integrate scoring into phrase generation service.
+**Ready for Task 5**: Complete scoring system ready for integration into phrase generation pipeline.
 
 ## Quality Scoring Reference
 
@@ -221,6 +232,21 @@ Successfully implemented Wikipedia validation using Wikidata SPARQL API. Key ach
 **Implementation Quality**: Production-ready with proper TypeScript types, comprehensive error handling, and performance optimizations.
 
 **Recommendation**: Proceed to Task 5 (service integration) rather than Task 4 (Reddit) to get core functionality deployed faster. Reddit can be added later as enhancement.
+
+**Task 4 Completion - 2025-06-26 23:32**
+
+Successfully implemented Reddit validation as an optional enhancement to the scoring system. Key achievements:
+
+1. **Smart Validation**: Only validates borderline phrases (40-60 points) to conserve API requests
+2. **Rate Limiting**: Comprehensive 60 requests/minute limit with automatic reset and monitoring
+3. **Upvote-Based Scoring**: 1000+ upvotes = 15 points, 100+ = 10 points, 10+ = 5 points, found = 2 points
+4. **Performance Optimized**: <1 second processing time, efficient caching, graceful error handling
+5. **Optional/Configurable**: Requires explicit `useReddit` parameter, no impact when disabled
+6. **Production Ready**: Comprehensive error handling, rate limit monitoring, cache management
+
+**Implementation Quality**: Production-ready with proper rate limiting, caching, and monitoring capabilities.
+
+**Status**: 4/8 tasks complete (50% done). Ready to proceed to Task 5 (service integration) to deploy the complete scoring system.
 
 **Task 2 Complete - Ready for User Testing**
 

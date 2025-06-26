@@ -33,6 +33,16 @@ export class PhraseScorer {
   // Cache for Wikipedia results to avoid redundant API calls
   private wikidataCache = new Map<string, number>();
   
+  // Cache for Reddit results to avoid redundant API calls
+  private redditCache = new Map<string, number>();
+  
+  // Rate limiting for Reddit API (60 requests per minute)
+  private redditRateLimit = {
+    requests: 0,
+    resetTime: Date.now() + 60000, // Reset every minute
+    maxRequests: 60
+  };
+  
   // Common words that are usually well-known
   private readonly COMMON_WORDS = new Set([
     'the', 'and', 'you', 'that', 'was', 'for', 'are', 'with', 'his', 'they',
@@ -59,13 +69,14 @@ export class PhraseScorer {
   ];
 
   /**
-   * Score a phrase for party game suitability (with optional Wikipedia validation)
+   * Score a phrase for party game suitability (with optional Wikipedia and Reddit validation)
    * @param phrase - Phrase to score
    * @param category - Category context
    * @param useWikipedia - Whether to include Wikipedia validation
+   * @param useReddit - Whether to include Reddit validation (only for borderline scores 40-60)
    * @returns Score breakdown and total
    */
-  async scorePhrase(phrase: string, category: string, useWikipedia: boolean = false): Promise<PhraseScore> {
+  async scorePhrase(phrase: string, category: string, useWikipedia: boolean = false, useReddit: boolean = false): Promise<PhraseScore> {
     try {
       const breakdown: PhraseScore['breakdown'] = {
         localHeuristics: await this.scoreLocalHeuristics(phrase, category),
@@ -77,10 +88,21 @@ export class PhraseScorer {
         breakdown.wikidata = await this.scoreWikidata(phrase);
       }
 
+      // Calculate preliminary score to determine if Reddit validation is needed
+      const preliminaryScore = breakdown.localHeuristics + 
+                              breakdown.categoryBoost + 
+                              (breakdown.wikidata || 0);
+
+      // Add Reddit validation if requested and score is borderline (40-60)
+      if (useReddit && preliminaryScore >= 40 && preliminaryScore <= 60) {
+        breakdown.reddit = await this.scoreReddit(phrase);
+      }
+
       const total = Math.min(
         breakdown.localHeuristics + 
         breakdown.categoryBoost + 
-        (breakdown.wikidata || 0),
+        (breakdown.wikidata || 0) +
+        (breakdown.reddit || 0),
         this.MAX_SCORE
       );
 
@@ -91,7 +113,7 @@ export class PhraseScorer {
         breakdown,
         verdict: this.getVerdict(total),
         timestamp: new Date().toISOString(),
-        cached: this.wikidataCache.has(phrase.toLowerCase())
+        cached: this.wikidataCache.has(phrase.toLowerCase()) || this.redditCache.has(phrase.toLowerCase())
       };
 
       return result;
@@ -377,6 +399,95 @@ export class PhraseScorer {
   }
 
   /**
+   * Score based on Reddit cultural relevance (0-15 points)
+   * Only called for borderline phrases (score 40-60) to avoid rate limiting
+   * @param phrase - Phrase to check
+   * @returns Reddit score
+   */
+  private async scoreReddit(phrase: string): Promise<number> {
+    const cacheKey = phrase.toLowerCase();
+    
+    // Check cache first
+    if (this.redditCache.has(cacheKey)) {
+      return this.redditCache.get(cacheKey)!;
+    }
+
+    // Check rate limit
+    if (!this.canMakeRedditRequest()) {
+      console.warn(`Reddit rate limit exceeded for "${phrase}", using cached/default score`);
+      this.redditCache.set(cacheKey, 0);
+      return 0;
+    }
+
+    try {
+      const searchUrl = `https://www.reddit.com/search.json?q=${encodeURIComponent(`"${phrase}"`)}&sort=relevance&limit=5&restrict_sr=false`;
+      
+      this.incrementRedditRequests();
+      
+      const response = await fetch(searchUrl, {
+        headers: {
+          'User-Agent': 'WordsOnPhone-PhraseValidator/1.0 (https://github.com/jamespheffernan/words-on-phone)',
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const posts = data.data?.children || [];
+      
+      if (posts.length === 0) {
+        this.redditCache.set(cacheKey, 0);
+        return 0;
+      }
+      
+      // Score based on upvotes and number of results
+      const totalUpvotes = posts.reduce((sum: number, post: any) => 
+        sum + (post.data?.ups || 0), 0
+      );
+      
+      let score = 0;
+      if (totalUpvotes >= 1000) score = 15;
+      else if (totalUpvotes >= 100) score = 10;
+      else if (totalUpvotes >= 10) score = 5;
+      else if (posts.length > 0) score = 2; // Found but low engagement
+      
+      this.redditCache.set(cacheKey, score);
+      return score;
+      
+    } catch (error) {
+      console.warn(`Reddit query failed for "${phrase}":`, error);
+      this.redditCache.set(cacheKey, 0);
+      return 0;
+    }
+  }
+
+  /**
+   * Check if we can make a Reddit API request (rate limiting)
+   * @returns Whether a request can be made
+   */
+  private canMakeRedditRequest(): boolean {
+    const now = Date.now();
+    
+    // Reset rate limit counter if time window has passed
+    if (now >= this.redditRateLimit.resetTime) {
+      this.redditRateLimit.requests = 0;
+      this.redditRateLimit.resetTime = now + 60000; // Reset for next minute
+    }
+    
+    return this.redditRateLimit.requests < this.redditRateLimit.maxRequests;
+  }
+
+  /**
+   * Increment Reddit request counter for rate limiting
+   */
+  private incrementRedditRequests(): void {
+    this.redditRateLimit.requests++;
+  }
+
+  /**
    * Get verdict based on score
    * @param score - Total score
    * @returns Human-readable verdict
@@ -390,35 +501,37 @@ export class PhraseScorer {
   }
 
   /**
-   * Batch score multiple phrases with optional Wikipedia validation
+   * Batch score multiple phrases with optional Wikipedia and Reddit validation
    * @param phrases - Array of phrases to score
    * @param category - Category context
    * @param useWikipedia - Whether to include Wikipedia validation
+   * @param useReddit - Whether to include Reddit validation (only for borderline scores)
    * @returns Array of scores
    */
-  async batchScore(phrases: string[], category: string, useWikipedia: boolean = false): Promise<PhraseScore[]> {
+  async batchScore(phrases: string[], category: string, useWikipedia: boolean = false, useReddit: boolean = false): Promise<PhraseScore[]> {
     if (useWikipedia) {
       // Pre-populate Wikipedia cache for better performance
       await this.batchScoreWikidata(phrases);
     }
     
     const scores = await Promise.all(
-      phrases.map(phrase => this.scorePhrase(phrase, category, useWikipedia))
+      phrases.map(phrase => this.scorePhrase(phrase, category, useWikipedia, useReddit))
     );
     
     return scores.sort((a, b) => b.totalScore - a.totalScore); // Sort by score descending
   }
 
   /**
-   * Filter phrases by minimum score threshold with optional Wikipedia validation
+   * Filter phrases by minimum score threshold with optional Wikipedia and Reddit validation
    * @param phrases - Array of phrases to filter
    * @param category - Category context
    * @param minScore - Minimum acceptable score (default: 25)
    * @param useWikipedia - Whether to include Wikipedia validation
+   * @param useReddit - Whether to include Reddit validation (only for borderline scores)
    * @returns Filtered phrases with scores
    */
-  async filterByQuality(phrases: string[], category: string, minScore: number = 25, useWikipedia: boolean = false): Promise<{phrase: string, score: PhraseScore}[]> {
-    const scores = await this.batchScore(phrases, category, useWikipedia);
+  async filterByQuality(phrases: string[], category: string, minScore: number = 25, useWikipedia: boolean = false, useReddit: boolean = false): Promise<{phrase: string, score: PhraseScore}[]> {
+    const scores = await this.batchScore(phrases, category, useWikipedia, useReddit);
     
     return scores
       .filter(score => score.totalScore >= minScore)
@@ -427,19 +540,44 @@ export class PhraseScorer {
 
   /**
    * Get cache statistics for monitoring
-   * @returns Cache statistics
+   * @returns Cache statistics including Wikipedia and Reddit caches
    */
-  getCacheStats(): { size: number; hitRate?: number } {
+  getCacheStats(): { wikipedia: number; reddit: number; rateLimitStatus: { requests: number; resetTime: number } } {
     return {
-      size: this.wikidataCache.size,
-      hitRate: undefined // Could implement hit rate tracking if needed
+      wikipedia: this.wikidataCache.size,
+      reddit: this.redditCache.size,
+      rateLimitStatus: {
+        requests: this.redditRateLimit.requests,
+        resetTime: this.redditRateLimit.resetTime
+      }
     };
   }
 
   /**
-   * Clear the Wikipedia cache
+   * Clear all caches (Wikipedia and Reddit)
    */
   clearCache(): void {
     this.wikidataCache.clear();
+    this.redditCache.clear();
+  }
+
+  /**
+   * Clear Reddit cache specifically
+   */
+  clearRedditCache(): void {
+    this.redditCache.clear();
+  }
+
+  /**
+   * Get Reddit rate limit status
+   * @returns Current rate limit information
+   */
+  getRedditRateLimit(): { requests: number; maxRequests: number; resetTime: number; canMakeRequest: boolean } {
+    return {
+      requests: this.redditRateLimit.requests,
+      maxRequests: this.redditRateLimit.maxRequests,
+      resetTime: this.redditRateLimit.resetTime,
+      canMakeRequest: this.canMakeRedditRequest()
+    };
   }
 } 
