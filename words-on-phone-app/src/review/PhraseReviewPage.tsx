@@ -9,4 +9,6 @@ const PhraseReviewPage: React.FC = () => {
   );
 };
 
+export default PhraseReviewPage;
+
  

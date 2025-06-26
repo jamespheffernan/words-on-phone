@@ -7,7 +7,7 @@ export interface Phrase {
 export function usePhrases(): { phrases: Phrase[]; loading: boolean; error: string | null } {
   const [phrases, setPhrases] = useState<Phrase[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   useEffect(() => {
     // TODO: Replace with actual fetch from phrases.json
