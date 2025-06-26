@@ -4,6 +4,7 @@ const { Command } = require('commander');
 const chalk = require('chalk');
 const winston = require('winston');
 const PhraseDatabase = require('./database');
+const PhraseNormalizer = require('./normalizer');
 
 // Configure logger
 const logger = winston.createLogger({
@@ -121,6 +122,45 @@ program
       
     } catch (error) {
       console.error(chalk.red('❌ Failed to initialize database:'), error.message);
+      process.exit(1);
+    }
+  });
+
+// Normalize command
+program
+  .command('normalize')
+  .description('Test phrase normalization')
+  .argument('<phrase>', 'Phrase to normalize')
+  .option('-v, --verbose', 'Show detailed normalization steps')
+  .action((phrase, options) => {
+    try {
+      console.log(chalk.blue('🔧 Normalizing phrase...'));
+      console.log(chalk.gray('='.repeat(40)));
+      
+      const normalizer = new PhraseNormalizer();
+      const result = normalizer.normalize(phrase);
+      
+      console.log(chalk.cyan('Original:'), phrase);
+      console.log(chalk.green('Normalized:'), result.normalized);
+      console.log(chalk.blue('Valid:'), result.isValid ? '✅' : '❌');
+      console.log(chalk.gray('Word Count:'), result.wordCount);
+      
+      if (options.verbose) {
+        console.log(chalk.gray('\nDetailed Info:'));
+        console.log(chalk.gray('Original Length:'), result.originalLength);
+        console.log(chalk.gray('Normalized Length:'), result.normalizedLength);
+        console.log(chalk.gray('First Word:'), normalizer.extractFirstWord(result.normalized));
+      }
+      
+      if (result.errors.length > 0) {
+        console.log(chalk.red('\nErrors:'));
+        result.errors.forEach(error => {
+          console.log(chalk.red(`  • ${error}`));
+        });
+      }
+      
+    } catch (error) {
+      console.error(chalk.red('❌ Failed to normalize phrase:'), error.message);
       process.exit(1);
     }
   });
