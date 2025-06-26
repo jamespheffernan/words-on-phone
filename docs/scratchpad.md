@@ -37,11 +37,14 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [app-icon-implementation](implementation-plan/app-icon-implementation.md) - 📋 **READY** - iOS App Icon Implementation
 - [countdown-ripple-redesign](implementation-plan/countdown-ripple-redesign.md) - 📝 **PLANNED** - Countdown Ripple Redesign (Hidden Timer Indicator)
 - [phrase-review-interface](implementation-plan/phrase-review-interface.md) - 📝 **PLANNED** - Keyboard-Driven Phrase Review Tool
-- [phrase-database-builder-tool](implementation-plan/phrase-database-builder-tool.md) - 🔄 **PIVOT IN PROGRESS** - Phrase Database Builder Tool
-  - Tasks 1-2 complete (project structure + SQLite database)
-  - Tasks 3-5 need re-implementation with corrected understanding
-  - **KEY INSIGHT**: We want to ACCEPT recognizable/common phrases, not reject them
-  - Previous "common phrase detection" was backwards - now building "phrase accessibility validation"
+- [phrase-database-builder-tool](implementation-plan/phrase-database-builder-tool.md) - 🎯 **READY TO BUILD** - Phrase Database Builder Tool
+  - ✅ Tasks 1-2 complete (project structure + SQLite database foundation)
+  - 📋 **Comprehensive revision complete** with correct philosophy
+  - **Core principle**: Accept recognizable phrases, reject obscure jargon
+  - **Validation system**: 4-tier scoring (local heuristics + Wikidata + Reddit + category)
+  - **Scalability**: Process 10,000 phrases in ~10 minutes for $0
+  - **Architecture**: Integrated validation pipeline, not separate modules
+  - **Next**: Build Tasks 3-5 with new approach (normalization, duplicates, scoring)
 
 ## Current Bug Fix / Executor Work
 
@@ -113,3 +116,24 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-06-22] **PROJECT RULE**: Version numbers must be updated automatically as part of every commit to enable easy identification of cached vs. current versions during development and production. This is critical for debugging deployment issues and ensuring users are viewing the intended version. Auto-versioning should be integrated into the build process and made visible on the main screen.
 - [2025-06-22] **CATEGORY SELECTION REDESIGN SUCCESS**: Complex multi-component feature (10 tasks) completed successfully by leveraging existing partial implementation and systematic task breakdown. Key factors: (1) Thorough assessment of existing code before starting, (2) Detailed sub-task breakdown with clear success criteria, (3) Focus on production-ready quality over quick fixes, (4) Comprehensive testing approach. The feature provides significant UX improvement with multi-select categories, real-time phrase counting, and smart default/custom separation. Ready for production deployment with 104/105 tests passing and clean builds.
 - [2025-01-15] **BUZZER TRUNCATION FIX**: When implementing audio feedback with state transitions, ensure the audio duration doesn't conflict with UI state changes. Audio elements (especially buzzer sounds) should complete before any state changes that might affect playback. Solution: Add intermediate game states (e.g., BUZZER_PLAYING) that disable user interaction immediately but allow audio to complete before final state transition. This preserves game mechanics (no input after time expires) while ensuring complete audio feedback. Key implementation: immediate UI disable + extended timeout (audio duration + buffer) before final state change.
+
+## Phrase Validation Quick Reference
+
+### Scoring System (0-100 points)
+1. **Local Heuristics (0-40)**: Word simplicity + cultural relevance patterns
+2. **Wikidata (0-30)**: Has entry + language versions + sitelinks
+3. **Reddit (0-15)**: Upvotes indicate cultural relevance
+4. **Category (0-15)**: Pop culture categories get boost
+
+### Thresholds
+- **80-100**: Auto-accept (clearly recognizable)
+- **60-79**: Accept (good for gameplay)
+- **40-59**: Manual review suggested
+- **20-39**: Warning (likely too obscure)
+- **0-19**: Auto-reject (too technical)
+
+### Examples
+- "Pizza" → 85 (simple + universal)
+- "Taylor Swift" → 88 (simple + Wikipedia + trending)
+- "Barbenheimer" → 80 (recent phenomenon)
+- "Quantum Chromodynamics" → 15 (too technical)
