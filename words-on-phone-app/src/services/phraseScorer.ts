@@ -30,6 +30,9 @@ export class PhraseScorer {
     CATEGORY_BOOST: 15      // 0-15 points
   };
   
+  // Cache for Wikipedia results to avoid redundant API calls
+  private wikidataCache = new Map<string, number>();
+  
   // Common words that are usually well-known
   private readonly COMMON_WORDS = new Set([
     'the', 'and', 'you', 'that', 'was', 'for', 'are', 'with', 'his', 'they',
@@ -56,21 +59,29 @@ export class PhraseScorer {
   ];
 
   /**
-   * Score a phrase for party game suitability (local heuristics only)
+   * Score a phrase for party game suitability (with optional Wikipedia validation)
    * @param phrase - Phrase to score
    * @param category - Category context
+   * @param useWikipedia - Whether to include Wikipedia validation
    * @returns Score breakdown and total
    */
-  async scorePhrase(phrase: string, category: string): Promise<PhraseScore> {
+  async scorePhrase(phrase: string, category: string, useWikipedia: boolean = false): Promise<PhraseScore> {
     try {
-      const breakdown = {
+      const breakdown: PhraseScore['breakdown'] = {
         localHeuristics: await this.scoreLocalHeuristics(phrase, category),
         categoryBoost: this.scoreCategoryBoost(phrase, category)
       };
 
+      // Add Wikipedia validation if requested
+      if (useWikipedia) {
+        breakdown.wikidata = await this.scoreWikidata(phrase);
+      }
+
       const total = Math.min(
-        breakdown.localHeuristics + breakdown.categoryBoost,
-        this.WEIGHTS.LOCAL_HEURISTICS + this.WEIGHTS.CATEGORY_BOOST // Max 55 for local-only scoring
+        breakdown.localHeuristics + 
+        breakdown.categoryBoost + 
+        (breakdown.wikidata || 0),
+        this.MAX_SCORE
       );
 
       const result: PhraseScore = {
@@ -80,7 +91,7 @@ export class PhraseScorer {
         breakdown,
         verdict: this.getVerdict(total),
         timestamp: new Date().toISOString(),
-        cached: false
+        cached: this.wikidataCache.has(phrase.toLowerCase())
       };
 
       return result;
@@ -198,6 +209,174 @@ export class PhraseScorer {
   }
 
   /**
+   * Score based on Wikidata presence (0-30 points)
+   * @param phrase - Phrase to check
+   * @returns Wikidata score
+   */
+  private async scoreWikidata(phrase: string): Promise<number> {
+    const cacheKey = phrase.toLowerCase();
+    
+    // Check cache first
+    if (this.wikidataCache.has(cacheKey)) {
+      return this.wikidataCache.get(cacheKey)!;
+    }
+
+    try {
+      const query = `
+        SELECT ?item ?itemLabel ?sitelinks WHERE {
+          ?item rdfs:label "${phrase}"@en .
+          ?item wikibase:sitelinks ?sitelinks .
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+        }
+        LIMIT 1
+      `;
+      
+      const result = await this.querySparql(query);
+      
+      if (!result.results?.bindings?.length) {
+        this.wikidataCache.set(cacheKey, 0);
+        return 0;
+      }
+      
+      const binding = result.results.bindings[0];
+      const sitelinks = parseInt(binding.sitelinks?.value || '0');
+      
+      // Score based on number of Wikipedia language versions
+      let score = 0;
+      if (sitelinks >= 50) score = 30;
+      else if (sitelinks >= 20) score = 25;
+      else if (sitelinks >= 10) score = 20;
+      else if (sitelinks >= 5) score = 15;
+      else if (sitelinks >= 1) score = 10;
+      else score = 5; // Has Wikidata entry but no Wikipedia articles
+      
+      this.wikidataCache.set(cacheKey, score);
+      return score;
+      
+    } catch (error) {
+      console.warn(`Wikidata query failed for "${phrase}":`, error);
+      this.wikidataCache.set(cacheKey, 0);
+      return 0;
+    }
+  }
+
+  /**
+   * Batch score Wikipedia validation for multiple phrases
+   * @param phrases - Array of phrases to validate
+   * @returns Map of phrase to Wikipedia score
+   */
+  async batchScoreWikidata(phrases: string[]): Promise<Map<string, number>> {
+    const results = new Map<string, number>();
+    const phrasesToQuery: string[] = [];
+    
+    // Check cache first, collect uncached phrases
+    for (const phrase of phrases) {
+      const cacheKey = phrase.toLowerCase();
+      if (this.wikidataCache.has(cacheKey)) {
+        results.set(phrase, this.wikidataCache.get(cacheKey)!);
+      } else {
+        phrasesToQuery.push(phrase);
+      }
+    }
+    
+    // Batch query uncached phrases (max 50 per request for performance)
+    if (phrasesToQuery.length > 0) {
+      const batchSize = 50;
+      for (let i = 0; i < phrasesToQuery.length; i += batchSize) {
+        const batch = phrasesToQuery.slice(i, i + batchSize);
+        
+        try {
+          const batchResults = await this.queryWikidataBatch(batch);
+          for (const [phrase, score] of batchResults) {
+            results.set(phrase, score);
+            this.wikidataCache.set(phrase.toLowerCase(), score);
+          }
+        } catch (error) {
+          console.warn(`Batch Wikidata query failed for batch ${i / batchSize + 1}:`, error);
+          // Add zero scores for failed batch
+          for (const phrase of batch) {
+            results.set(phrase, 0);
+            this.wikidataCache.set(phrase.toLowerCase(), 0);
+          }
+        }
+      }
+    }
+    
+    return results;
+  }
+
+  /**
+   * Query Wikidata SPARQL endpoint for batch of phrases
+   * @param phrases - Array of phrases to query
+   * @returns Map of phrase to score
+   */
+  private async queryWikidataBatch(phrases: string[]): Promise<Map<string, number>> {
+    const values = phrases.map(phrase => `"${phrase}"`).join(' ');
+    
+    const query = `
+      SELECT ?phrase ?item ?itemLabel ?sitelinks WHERE {
+        VALUES ?phrase { ${values} }
+        ?item rdfs:label ?phrase@en .
+        ?item wikibase:sitelinks ?sitelinks .
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+      }
+    `;
+    
+    const result = await this.querySparql(query);
+    const scoreMap = new Map<string, number>();
+    
+    // Initialize all phrases with score 0
+    for (const phrase of phrases) {
+      scoreMap.set(phrase, 0);
+    }
+    
+    // Process results and calculate scores
+    if (result.results?.bindings) {
+      for (const binding of result.results.bindings) {
+        const phrase = binding.phrase?.value;
+        const sitelinks = parseInt(binding.sitelinks?.value || '0');
+        
+        if (phrase) {
+          let score = 0;
+          if (sitelinks >= 50) score = 30;
+          else if (sitelinks >= 20) score = 25;
+          else if (sitelinks >= 10) score = 20;
+          else if (sitelinks >= 5) score = 15;
+          else if (sitelinks >= 1) score = 10;
+          else score = 5; // Has Wikidata entry but no Wikipedia articles
+          
+          scoreMap.set(phrase, score);
+        }
+      }
+    }
+    
+    return scoreMap;
+  }
+
+  /**
+   * Query Wikidata SPARQL endpoint
+   * @param query - SPARQL query
+   * @returns Query results
+   */
+  private async querySparql(query: string): Promise<any> {
+    const endpoint = 'https://query.wikidata.org/sparql';
+    const url = `${endpoint}?query=${encodeURIComponent(query)}&format=json`;
+    
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'WordsOnPhone-PhraseValidator/1.0 (https://github.com/jamespheffernan/words-on-phone)',
+        'Accept': 'application/json'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    return response.json();
+  }
+
+  /**
    * Get verdict based on score
    * @param score - Total score
    * @returns Human-readable verdict
@@ -211,31 +390,56 @@ export class PhraseScorer {
   }
 
   /**
-   * Batch score multiple phrases
+   * Batch score multiple phrases with optional Wikipedia validation
    * @param phrases - Array of phrases to score
    * @param category - Category context
+   * @param useWikipedia - Whether to include Wikipedia validation
    * @returns Array of scores
    */
-  async batchScore(phrases: string[], category: string): Promise<PhraseScore[]> {
+  async batchScore(phrases: string[], category: string, useWikipedia: boolean = false): Promise<PhraseScore[]> {
+    if (useWikipedia) {
+      // Pre-populate Wikipedia cache for better performance
+      await this.batchScoreWikidata(phrases);
+    }
+    
     const scores = await Promise.all(
-      phrases.map(phrase => this.scorePhrase(phrase, category))
+      phrases.map(phrase => this.scorePhrase(phrase, category, useWikipedia))
     );
     
     return scores.sort((a, b) => b.totalScore - a.totalScore); // Sort by score descending
   }
 
   /**
-   * Filter phrases by minimum score threshold
+   * Filter phrases by minimum score threshold with optional Wikipedia validation
    * @param phrases - Array of phrases to filter
    * @param category - Category context
    * @param minScore - Minimum acceptable score (default: 25)
+   * @param useWikipedia - Whether to include Wikipedia validation
    * @returns Filtered phrases with scores
    */
-  async filterByQuality(phrases: string[], category: string, minScore: number = 25): Promise<{phrase: string, score: PhraseScore}[]> {
-    const scores = await this.batchScore(phrases, category);
+  async filterByQuality(phrases: string[], category: string, minScore: number = 25, useWikipedia: boolean = false): Promise<{phrase: string, score: PhraseScore}[]> {
+    const scores = await this.batchScore(phrases, category, useWikipedia);
     
     return scores
       .filter(score => score.totalScore >= minScore)
       .map(score => ({ phrase: score.phrase, score }));
+  }
+
+  /**
+   * Get cache statistics for monitoring
+   * @returns Cache statistics
+   */
+  getCacheStats(): { size: number; hitRate?: number } {
+    return {
+      size: this.wikidataCache.size,
+      hitRate: undefined // Could implement hit rate tracking if needed
+    };
+  }
+
+  /**
+   * Clear the Wikipedia cache
+   */
+  clearCache(): void {
+    this.wikidataCache.clear();
   }
 } 
