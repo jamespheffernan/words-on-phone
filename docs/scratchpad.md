@@ -4,6 +4,12 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 ## Active Implementation Plans
 
+- [phrase-database-generation](implementation-plan/phrase-database-generation.md) - 🚧 **IN PROGRESS** - Phrase Database Generation - Rebuild to 1000+ High-Quality Phrases
+  - 🎯 **GOAL**: Scale from 173 to 1000+ high-quality phrases using existing quality infrastructure
+  - ✅ **1/8 TASKS COMPLETE** (12.5%): Feature branch created, implementation plan improved
+  - **REVISED APPROACH**: Leverage existing phrase database tool + production APIs instead of building new infrastructure
+  - Key insight: We have 3 separate systems that need coordination (database tool, production service, batch generator)
+  - 📋 **NEXT TASKS**: Design balanced category distribution, setup database tool integration, begin core category generation
 - [phrase-quality-upgrade](implementation-plan/phrase-quality-upgrade.md) - 🚧 **IN PROGRESS** - Phrase Generation Quality Upgrade
   - ✅ **6/8 TASKS COMPLETE** (75% done): Enhanced prompts, scoring system, Wikipedia/Reddit validation, phrase generation service integration, phrase review interface
   - Comprehensive plan to fix low-quality phrase generation through better prompts, scoring system, and validation
