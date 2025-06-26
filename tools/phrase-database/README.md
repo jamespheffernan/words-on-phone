@@ -1,119 +1,338 @@
 # Phrase Database Builder Tool
 
-A powerful CLI tool for building and managing phrase databases with SQLite persistence, normalization, and validation.
+A comprehensive SQLite-based phrase database management system for the Words on Phone game. This tool provides phrase normalization, duplicate detection, quota management, quality scoring, recency tracking, and JSON export capabilities.
 
 ## Features
 
-- **SQLite Database**: Persistent storage with proper schema and indexing
-- **Phrase Normalization**: Automatic Title Case, ASCII filtering, and whitespace cleanup
-- **Duplicate Detection**: Prevent exact duplicates and enforce first-word limits per category
-- **Common Phrase Filtering**: Reject overly common phrases using Wikipedia/n-gram checks
-- **Category Quotas**: Track and enforce phrase limits per category
-- **Recency Tracking**: Maintain 10% recent phrases for fresh content
-- **JSON Export**: Export to game-compatible format
-- **CLI Interface**: Command-line interface for all operations
+✅ **SQLite Database Management**: Persistent storage with proper indexing  
+✅ **Phrase Normalization**: Consistent formatting and first-word extraction  
+✅ **Duplicate Detection**: Prevents duplicate phrases and first-word conflicts  
+✅ **Quality Scoring**: AI-powered phrase evaluation with caching  
+✅ **Quota Management**: Per-category phrase limits with warnings  
+✅ **Recency Tracking**: Tracks when phrases were last used in games  
+✅ **Common Phrase Detection**: Filters out overly common phrases  
+✅ **JSON Export**: Generate game-ready phrase files  
+✅ **Comprehensive CLI**: Full command-line interface  
+✅ **Extensive Testing**: 161+ tests with 88%+ coverage
 
 ## Installation
 
 ```bash
-# Install dependencies
+cd tools/phrase-database
 npm install
-
-# Make CLI globally available (optional)
-npm link
 ```
 
-## Usage
+## Quick Start
 
-### Initialize Database
 ```bash
+# Initialize a new database
 npm start init
+
+# Add phrases
+npm start add "The Lion King" "Movies & TV"
+npm start add "Pizza" "Food & Drink"
+
+# Check status
+npm start status
+
+# Export for game
+npm start export --output game-phrases.json
 ```
 
-### Add Phrases
-```bash
-# Add phrases interactively
-npm start add --interactive --category "Movies & TV"
+## CLI Commands
 
-# Import from file
-npm start add --file phrases.json --category "Sports"
+### Database Management
+```bash
+# Initialize new database
+npm start init [--db-path ./data/phrases.db]
+
+# Get database status
+npm start status
+
+# Backup database
+npm start backup --output backup.db
 ```
 
-### View Statistics
+### Phrase Management
 ```bash
-npm start stats
+# Add single phrase
+npm start add "phrase text" "category"
+
+# Add multiple phrases from file
+npm start batch-add --file phrases.txt --category "Movies & TV"
+
+# List phrases
+npm start list [--category "Movies & TV"] [--limit 50]
+
+# Remove phrase
+npm start remove "phrase text"
 ```
 
-### Export Database
+### Quality and Validation
 ```bash
-# Export all phrases
-npm start export --output phrases-export.json
+# Score phrases
+npm start score "phrase text" "category"
+npm start batch-score --category "Movies & TV"
 
-# Export specific category
-npm start export --category "Movies & TV" --output movies-export.json
+# Check for duplicates
+npm start check-duplicates [--category "Movies & TV"]
+
+# Detect common phrases
+npm start check-common "phrase text"
+```
+
+### Quota Management
+```bash
+# Check quotas
+npm start quota-status
+
+# Update quota
+npm start quota-set "Movies & TV" 1500
+
+# Reset quotas to defaults
+npm start quota-reset
+```
+
+### Export
+```bash
+# Export to JSON (Words on Phone format)
+npm start export --output game-phrases.json [--min-per-category 50]
+
+# Export raw data
+npm start export-raw --output raw-data.json
 ```
 
 ## Database Schema
 
 ```sql
+-- Main phrases table
 CREATE TABLE phrases (
-    phrase TEXT PRIMARY KEY,
-    category TEXT,
-    first_word TEXT,
-    recent BOOLEAN DEFAULT FALSE,
-    added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    original_text TEXT NOT NULL,
+    normalized_text TEXT NOT NULL,
+    first_word TEXT NOT NULL,
+    category TEXT NOT NULL,
+    score INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_used DATETIME
 );
 
-CREATE INDEX idx_category ON phrases(category);
-CREATE INDEX idx_first_word_category ON phrases(first_word, category);
+-- Indexes for performance
+CREATE INDEX idx_phrases_category ON phrases(category);
+CREATE INDEX idx_phrases_first_word ON phrases(first_word);
+CREATE INDEX idx_phrases_normalized ON phrases(normalized_text);
+CREATE INDEX idx_phrases_last_used ON phrases(last_used);
 ```
 
-## Validation Rules
+## API Usage
 
-1. **Length**: Maximum 6 words per phrase
-2. **Duplicates**: No exact phrase duplicates
-3. **First Word Limit**: Maximum 2 phrases per category with same first word
-4. **Common Phrases**: Reject overly common phrases (Wikipedia titles, high n-gram frequency)
-5. **ASCII Only**: Strip non-ASCII characters during normalization
+### Database Operations
+```javascript
+const Database = require('./src/database');
+const db = new Database('./data/phrases.db');
 
-## Development
+await db.addPhrase('The Lion King', 'Movies & TV');
+const phrases = await db.getByCategory('Movies & TV');
+```
+
+### Phrase Normalization
+```javascript
+const Normalizer = require('./src/normalizer');
+const normalizer = new Normalizer();
+
+const result = normalizer.normalize('  THE LION king  ');
+// { normalized: 'The Lion King', firstWord: 'lion' }
+```
+
+### Duplicate Detection
+```javascript
+const DuplicateDetector = require('./src/duplicateDetector');
+const detector = new DuplicateDetector(database);
+
+const result = await detector.checkPhrase('The Lion King', 'Movies & TV');
+// { isDuplicate: boolean, reason: string, conflictingPhrase: object }
+```
+
+### Quality Scoring
+```javascript
+const PhraseScorer = require('./src/phraseScorer');
+const scorer = new PhraseScorer();
+
+const result = await scorer.scorePhrase('The Lion King', 'Movies & TV');
+// { score: 85, recommendation: 'ACCEPT', details: {...} }
+```
+
+### Quota Management
+```javascript
+const QuotaTracker = require('./src/quotaTracker');
+const tracker = new QuotaTracker('./data/quota-config.json');
+
+const status = await tracker.checkQuota(database, 'Movies & TV', 1);
+// { allowed: true, current: 150, limit: 1000, remaining: 850 }
+```
+
+## Configuration
+
+### Default Quotas
+```javascript
+{
+  "Movies & TV": 1000,
+  "Music": 800,
+  "Sports": 600,
+  "Food & Drink": 500,
+  "Books": 400,
+  "Science": 300,
+  "History": 250,
+  "Geography": 200
+}
+```
+
+### Scoring Criteria
+- **Length**: Optimal 2-4 words (5-25 characters)
+- **Complexity**: Balanced syllable count
+- **Uniqueness**: Not overly common phrases
+- **Category Relevance**: Fits category appropriately
+- **Game Suitability**: Good for charades-style gameplay
+
+## File Structure
+
+```
+tools/phrase-database/
+├── src/
+│   ├── cli.js              # Command-line interface
+│   ├── database.js         # SQLite database operations
+│   ├── normalizer.js       # Text normalization
+│   ├── duplicateDetector.js # Duplicate detection logic
+│   ├── phraseScorer.js     # Quality scoring system
+│   ├── quotaTracker.js     # Quota management
+│   ├── recencyTracker.js   # Usage tracking
+│   └── gameExporter.js     # JSON export functionality
+├── tests/
+│   └── *.test.js           # Comprehensive test suite
+├── data/
+│   ├── common-phrases.json # Common phrases database
+│   └── wikipedia-cache.json # Wikipedia title cache
+├── package.json
+└── README.md
+```
+
+## Testing
+
+Run the comprehensive test suite:
 
 ```bash
-# Run in development mode
-npm run dev
-
-# Run tests
+# Run all tests
 npm test
+
+# Run tests with coverage
+npm test -- --coverage
 
 # Run tests in watch mode
 npm run test:watch
 
+# Run specific test file
+npm test tests/database.test.js
+```
+
+**Test Coverage**: 161 tests with 88%+ overall coverage
+
+## Development
+
+### Adding New Features
+
+1. **Add source file** in `src/`
+2. **Create test file** in `tests/`
+3. **Update CLI** in `src/cli.js`
+4. **Add documentation** here
+
+### Code Quality
+
+```bash
 # Lint code
 npm run lint
+
+# Run in development mode
+npm run dev
 ```
 
-## Project Structure
+### Database Migrations
 
+The database auto-initializes with proper schema and indexes. For migrations:
+
+```javascript
+// Add to database.js initialize() method
+await this.db.exec(`ALTER TABLE phrases ADD COLUMN new_field TEXT;`);
 ```
-src/
-├── cli.js              # Main CLI entry point
-├── database.js         # Database operations
-├── normalizer.js       # Phrase normalization
-├── validator.js        # Validation rules
-└── exporter.js         # JSON export functionality
 
-lib/
-├── common-phrases.js   # Common phrase detection
-└── utils.js           # Utility functions
+## Integration with Words on Phone
 
-tests/
-├── *.test.js          # Unit tests
-
-data/
-├── phrases.db         # SQLite database file
-└── *.json            # Import/export files
+### Export Format
+```javascript
+{
+  "Entertainment & Pop Culture": [
+    "The Lion King",
+    "Star Wars",
+    "Pizza"
+  ],
+  "Movies & TV": [
+    "Avatar",
+    "Friends"
+  ]
+}
 ```
+
+### Usage in Main App
+```bash
+# Export phrases for production
+npm start export --output ../../words-on-phone-app/src/data/phrases.json --min-per-category 50
+
+# The main app imports this file automatically
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Database locked**: Ensure no other processes are using the database
+```bash
+# Kill any hanging processes
+pkill -f "phrase-database"
+```
+
+**Missing dependencies**: Reinstall packages
+```bash
+npm ci
+```
+
+**Test failures**: Check database permissions
+```bash
+chmod 755 data/
+```
+
+**Low scores**: Review scoring criteria and adjust phrase selection
+
+### Debugging
+
+Enable verbose logging:
+```bash
+DEBUG=phrase-database:* npm start <command>
+```
+
+## Performance
+
+- **Database**: Optimized with proper indexes
+- **Scoring**: Results cached to avoid API rate limits
+- **Batch Operations**: Efficient bulk processing
+- **Memory**: Minimal footprint with streaming for large datasets
+
+## Contributing
+
+1. Add comprehensive tests for new features
+2. Maintain >85% test coverage
+3. Update documentation
+4. Follow existing code patterns
+5. Test CLI commands thoroughly
 
 ## License
 
-ISC 
+ISC - Part of the Words on Phone project 
