@@ -6,6 +6,7 @@ const winston = require('winston');
 const PhraseDatabase = require('./database');
 const PhraseNormalizer = require('./normalizer');
 const DuplicateDetector = require('./duplicateDetector');
+const CommonPhraseDetector = require('./commonPhraseDetector');
 
 // Configure logger
 const logger = winston.createLogger({
@@ -200,6 +201,65 @@ program
       await db.close();
     } catch (error) {
       console.error(chalk.red('Error checking duplicates:'), error.message);
+      process.exit(1);
+    }
+  });
+
+// Check-common command
+program
+  .command('check-common')
+  .description('Check if a phrase is too common for the game')
+  .argument('<phrase>', 'Phrase to check for commonality')
+  .option('-v, --verbose', 'Show detailed commonality analysis')
+  .option('--no-wikipedia', 'Disable Wikipedia checking')
+  .action(async (phrase, options) => {
+    try {
+      console.log(chalk.blue('🔍 Checking phrase commonality...'));
+      console.log(chalk.gray('='.repeat(40)));
+      
+      const detector = new CommonPhraseDetector({
+        enableWikipediaCheck: options.wikipedia,
+        requestDelay: 200 // Be nice to Wikipedia
+      });
+      
+      const result = await detector.checkCommonality(phrase);
+      
+      console.log(chalk.cyan('Phrase:'), phrase);
+      console.log(chalk.blue('Status:'), result.isTooCommon ? chalk.red('❌ Too Common') : chalk.green('✅ Acceptable'));
+      console.log(chalk.yellow('Reason:'), result.reason);
+      
+      if (options.verbose && result.details) {
+        console.log(chalk.gray('\\nDetailed Analysis:'));
+        console.log(chalk.gray('='.repeat(20)));
+        
+        if (result.details.localCheck) {
+          console.log(chalk.gray('Local Check:'), result.details.localCheck.type);
+        }
+        
+        if (result.details.wikipediaCheck) {
+          console.log(chalk.gray('Wikipedia Check:'), result.details.wikipediaCheck.type);
+          if (result.details.wikipediaCheck.title) {
+            console.log(chalk.gray('Wikipedia Title:'), result.details.wikipediaCheck.title);
+          }
+          if (result.details.wikipediaCheck.extract) {
+            console.log(chalk.gray('Extract:'), result.details.wikipediaCheck.extract);
+          }
+        }
+        
+        console.log(chalk.gray('Timestamp:'), result.details.timestamp);
+      }
+      
+      // Show detector statistics
+      const stats = detector.getStats();
+      console.log(chalk.gray('\\nDetector Info:'));
+      console.log(chalk.gray('- Common phrases database:'), stats.commonPhrasesCount, 'entries');
+      console.log(chalk.gray('- Wikipedia cache:'), stats.cacheSize, 'entries');
+      console.log(chalk.gray('- Wikipedia enabled:'), stats.wikipediaEnabled);
+      console.log(chalk.gray('- Local checking enabled:'), stats.localCheckEnabled);
+      
+    } catch (error) {
+      console.error(chalk.red('❌ Error checking commonality:'), error.message);
+      logger.error('CLI check-common error:', error);
       process.exit(1);
     }
   });
