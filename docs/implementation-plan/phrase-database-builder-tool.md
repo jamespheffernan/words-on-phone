@@ -58,12 +58,15 @@ This tool will enable systematic phrase database construction with quality contr
 
 ### Task 5: Create phrase recognition validation
 **Success Criteria**:
-- Implement Wikipedia title check (phrases WITH Wikipedia pages are GOOD)
-- Add validation for extremely obscure/technical terms
-- Create "recognition score" system (higher = more recognizable)
-- Warn about potentially obscure phrases
-- Allow manual override for edge cases
-- Log validation results with reasoning
+- Implement local heuristics scoring (word complexity, recency indicators)
+- Integrate Wikidata SPARQL API for batch validation
+- Add Reddit API integration for cultural relevance checking
+- Create tiered scoring system (0-100 with auto-accept/reject thresholds)
+- Build efficient batch processing for thousands of phrases
+- Implement caching to avoid redundant API calls
+- Add manual override capability with reason tracking
+- Generate detailed validation reports with score breakdowns
+- Achieve <10 minute processing time for 10,000 phrases
 
 ### Task 6: Build quota tracking system
 **Success Criteria**:
@@ -270,9 +273,163 @@ Instead of "common phrase detection" (which implies filtering out common phrases
    - Track overrides for pattern analysis
    - Learn from override decisions
 
-### Next Steps for Task 5
-Since the previous implementation was backwards, we need to:
-1. Remove the old "common phrase detector" logic
-2. Build new "phrase accessibility validator"
-3. Update CLI to use validation correctly
-4. Add appropriate warnings and scoring display 
+### Revised Task 5 Approach - Scalable Recognition System
+Instead of "common phrase detection", we need **"phrase accessibility validation"** that can handle thousands of phrases efficiently:
+
+#### Scoring Components (0-100 points)
+
+1. **Local Heuristics** (0-40 points) - Instant, no API
+   ```javascript
+   // Word simplicity (0-20)
+   - Syllable count, word length
+   - No technical suffixes (-ology, -itis, -osis)
+   - Basic readability score
+   
+   // Recency indicators (0-20)
+   - Contains years 2020-2025: +15 points
+   - Platform names (TikTok, Netflix, iPhone): +10 points
+   - Sequel patterns (Part 2, Season 3): +10 points
+   - Brand + Number patterns: +10 points
+   ```
+
+2. **Wikidata SPARQL** (0-30 points) - Free, unlimited
+   ```javascript
+   // Batch query up to 50 phrases at once
+   - Has Wikidata item: +20 points
+   - 10+ language versions: +5 points
+   - High sitelink count: +5 points
+   // Returns rich metadata (film, person, place, etc.)
+   ```
+
+3. **Reddit Mentions** (0-15 points) - 60 requests/min
+   ```javascript
+   // Check cultural relevance
+   - Post with 1000+ upvotes: +15 points
+   - Post with 100+ upvotes: +10 points
+   - Any recent mentions: +5 points
+   ```
+
+4. **Category Context** (0-15 points) - Local
+   ```javascript
+   categoryBoosts = {
+     "Movies & TV": +10,     // Pop culture
+     "Food & Drink": +10,    // Universal
+     "Sports": +8,           // Widely known
+     "Music": +8,            // Popular culture
+     "Science & Technology": -5  // Often technical
+   }
+   ```
+
+#### Implementation Strategy
+
+```javascript
+class ScalablePhraseScorer {
+  async processBatch(phrases) {
+    // Step 1: Local scoring for ALL phrases (instant)
+    const localScores = phrases.map(p => ({
+      phrase: p.phrase,
+      category: p.category,
+      localScore: this.getLocalScore(p.phrase, p.category),
+      needsValidation: null
+    }));
+    
+    // Step 2: Sort into buckets
+    const autoAccept = localScores.filter(p => p.localScore >= 70);
+    const autoReject = localScores.filter(p => p.localScore <= 20);
+    const needsChecking = localScores.filter(p => p.localScore > 20 && p.localScore < 70);
+    
+    // Step 3: Batch API validation for borderline cases only
+    if (needsChecking.length > 0) {
+      // Wikidata: Check 50 at a time
+      for (let i = 0; i < needsChecking.length; i += 50) {
+        const batch = needsChecking.slice(i, i + 50);
+        await this.checkWikidataBatch(batch);
+      }
+      
+      // Reddit: Rate limited, check highest priority first
+      const prioritized = needsChecking
+        .sort((a, b) => b.localScore - a.localScore)
+        .slice(0, 60); // One minute worth
+      
+      for (const phrase of prioritized) {
+        phrase.redditScore = await this.checkReddit(phrase.phrase);
+        await this.sleep(1000); // Respect rate limit
+      }
+    }
+    
+    return {
+      autoAccepted: autoAccept.length,
+      autoRejected: autoReject.length,
+      validated: needsChecking.length,
+      results: [...autoAccept, ...autoReject, ...needsChecking]
+    };
+  }
+}
+```
+
+#### Scoring Thresholds
+- **80-100**: Auto-accept (highly recognizable)
+- **60-79**: Accept with confidence
+- **40-59**: Manual review recommended
+- **20-39**: Likely too obscure (warn)
+- **0-19**: Auto-reject (too technical/obscure)
+
+#### Cost Efficiency
+- **Phase 1**: Process 10,000 phrases with local scoring only (~1 second)
+- **Phase 2**: ~2,000 borderline cases need Wikidata validation (~40 batch queries)
+- **Phase 3**: ~500 highest priority get Reddit validation (~8 minutes)
+- **Total time**: ~10 minutes for 10,000 phrases
+- **Total cost**: $0 (all APIs used are free)
+
+#### Scoring Examples
+
+**"Taylor Swift" (Music)**
+```
+Local Heuristics: 35/40
+  - Word simplicity: 20/20 (simple name)
+  - Recency: 15/20 (current artist, no year but trending)
+Wikidata: 30/30 (exists, 100+ languages, musician)
+Reddit: 15/15 (thousands of upvotes)
+Category: 8/15 (Music boost)
+Total: 88/100 → AUTO-ACCEPT
+```
+
+**"Barbenheimer" (Movies & TV)**
+```
+Local Heuristics: 30/40
+  - Word simplicity: 15/20 (blend word, pronounceable)
+  - Recency: 15/20 (2023 phenomenon)
+Wikidata: 25/30 (exists, cultural event)
+Reddit: 15/15 (viral posts)
+Category: 10/15 (Movies boost)
+Total: 80/100 → AUTO-ACCEPT
+```
+
+**"Pizza" (Food & Drink)**
+```
+Local Heuristics: 35/40
+  - Word simplicity: 20/20 (simple, common)
+  - Recency: 15/20 (timeless food)
+(No API needed - auto-accepted locally)
+Total: 85/100 → AUTO-ACCEPT
+```
+
+**"Quantum Chromodynamics" (Science & Technology)**
+```
+Local Heuristics: 5/40
+  - Word simplicity: 0/20 (complex, technical)
+  - Recency: 5/20 (no recent indicators)
+Category: -5/15 (Science penalty)
+Total: 0/100 → AUTO-REJECT
+```
+
+**"Among Us" (borderline case)**
+```
+Local Heuristics: 25/40
+  - Word simplicity: 20/20 (simple words)
+  - Recency: 5/20 (no year indicator)
+Wikidata: 25/30 (video game, 50+ languages)
+Reddit: 15/15 (viral game 2020-2021)
+Category: 10/15 (assuming Games category)
+Total: 75/100 → ACCEPT
+``` 

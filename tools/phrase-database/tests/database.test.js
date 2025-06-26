@@ -82,10 +82,10 @@ describe('PhraseDatabase', () => {
       await db.addPhrase('Harry Potter', 'Movies & TV');
       await db.addPhrase('Harry and Sally', 'Movies & TV');
       
-          const limitReached = await db.checkFirstWordLimit('Movies & TV', 'harry', 2);
-    expect(limitReached).toBe(true);
-    
-    const limitNotReached = await db.checkFirstWordLimit('Movies & TV', 'lord', 5);
+      const limitReached = await db.checkFirstWordLimit('Movies & TV', 'harry', 2);
+      expect(limitReached).toBe(true);
+      
+      const limitNotReached = await db.checkFirstWordLimit('Movies & TV', 'lord', 2);
       expect(limitNotReached).toBe(false);
     });
 
