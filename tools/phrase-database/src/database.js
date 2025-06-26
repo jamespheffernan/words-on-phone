@@ -57,10 +57,12 @@ class PhraseDatabase {
     const tables = [
       // Main phrases table
       `CREATE TABLE IF NOT EXISTS phrases (
-        phrase TEXT PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        phrase TEXT UNIQUE NOT NULL,
         category TEXT NOT NULL,
         first_word TEXT NOT NULL,
         recent BOOLEAN DEFAULT FALSE,
+        score INTEGER DEFAULT 0,
         added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )`,
       
@@ -148,13 +150,41 @@ class PhraseDatabase {
     });
   }
 
+  // Transaction methods
+  async beginTransaction() {
+    return this.run('BEGIN TRANSACTION');
+  }
+
+  async commit() {
+    return this.run('COMMIT');
+  }
+
+  async rollback() {
+    return this.run('ROLLBACK');
+  }
+
   // Database operations
-  async addPhrase(phrase, category, firstWord = null, recent = false) {
+  async addPhrase(phrase, category, options = {}) {
+    // Handle both old signature and new options object
+    let firstWord, recent, score;
+    
+    if (typeof options === 'string' || options === null) {
+      // Old signature: addPhrase(phrase, category, firstWord, recent)
+      firstWord = options;
+      recent = arguments[3] || false;
+      score = 0;
+    } else {
+      // New signature: addPhrase(phrase, category, options)
+      firstWord = options.firstWord;
+      recent = options.recent || false;
+      score = options.score || 0;
+    }
+    
     const extractedFirstWord = firstWord || this.extractFirstWord(phrase);
     
     const result = await this.run(
-      `INSERT INTO phrases (phrase, category, first_word, recent) VALUES (?, ?, ?, ?)`,
-      [phrase, category, extractedFirstWord, recent]
+      `INSERT INTO phrases (phrase, category, first_word, recent, score) VALUES (?, ?, ?, ?, ?)`,
+      [phrase, category, extractedFirstWord, recent, score]
     );
 
     logger.info(`Added phrase: "${phrase}" to category "${category}"`);
