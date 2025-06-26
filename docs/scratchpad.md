@@ -37,7 +37,11 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [app-icon-implementation](implementation-plan/app-icon-implementation.md) - 📋 **READY** - iOS App Icon Implementation
 - [countdown-ripple-redesign](implementation-plan/countdown-ripple-redesign.md) - 📝 **PLANNED** - Countdown Ripple Redesign (Hidden Timer Indicator)
 - [phrase-review-interface](implementation-plan/phrase-review-interface.md) - 📝 **PLANNED** - Keyboard-Driven Phrase Review Tool
-- [phrase-database-builder-tool](implementation-plan/phrase-database-builder-tool.md) - 📝 **PLANNED** - Phrase Database Builder Tool with SQLite Persistence
+- [phrase-database-builder-tool](implementation-plan/phrase-database-builder-tool.md) - 🔄 **PIVOT IN PROGRESS** - Phrase Database Builder Tool
+  - Tasks 1-2 complete (project structure + SQLite database)
+  - Tasks 3-5 need re-implementation with corrected understanding
+  - **KEY INSIGHT**: We want to ACCEPT recognizable/common phrases, not reject them
+  - Previous "common phrase detection" was backwards - now building "phrase accessibility validation"
 
 ## Current Bug Fix / Executor Work
 
