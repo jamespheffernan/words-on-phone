@@ -81,7 +81,7 @@ export const MenuScreen: React.FC = () => {
     }
   };
 
-  const handleConfirmGeneration = async (info: { name: string; description: string; tags: string[] }, sampleWords: string[]): Promise<void> => {
+  const handleConfirmGeneration = async (info: { name: string; description: string; tags: string[] }, sampleWords: string[]) => {
     const startTime = Date.now();
     const requestId = `req_${info.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}_${Date.now()}`;
     
@@ -109,6 +109,9 @@ export const MenuScreen: React.FC = () => {
       reloadCategories();
       
       console.log(`Generated ${customPhrases.length} phrases for category: ${info.name}`);
+      
+      // Return the generated phrases for review
+      return customPhrases;
     } catch (error) {
       console.error('Category generation failed:', error);
       throw error;

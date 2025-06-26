@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import './CategoryRequestModal.css';
 import { detectActiveAIService, getAIServiceDisplayName, getAIServiceEmoji, type AIService } from '../config/environment';
+import { type PhraseScore } from '../services/phraseScorer';
+
+interface CustomCategoryPhrase {
+  phraseId: string;
+  text: string;
+  customCategory: string;
+  source: 'openai' | 'gemini';
+  fetchedAt: number;
+  difficulty?: "easy" | "medium" | "hard";
+  qualityScore?: number;
+  qualityBreakdown?: PhraseScore['breakdown'];
+}
 
 interface CategoryRequestModalProps {
   isOpen: boolean;
   onClose: () => void;
   onRequestCategory: (categoryName: string) => Promise<string[]>;
-  onConfirmGeneration: (info: { name: string; description: string; tags: string[] }, sampleWords: string[]) => Promise<void>;
+  onConfirmGeneration: (info: { name: string; description: string; tags: string[] }, sampleWords: string[]) => Promise<CustomCategoryPhrase[]>;
 }
 
 interface RequestState {
-  phase: 'input' | 'confirming' | 'generating' | 'success' | 'error';
+  phase: 'input' | 'confirming' | 'generating' | 'reviewing' | 'success' | 'error';
   categoryName: string;
   sampleWords: string[];
   error: string;
@@ -25,6 +37,9 @@ interface RequestState {
   description: string;
   tags: string[];
   tagInput: string;
+  generatedPhrases: CustomCategoryPhrase[];
+  reviewedPhrases: CustomCategoryPhrase[];
+  rejectedPhrases: string[];
 }
 
 export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
@@ -43,7 +58,10 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
     detectingService: false,
     description: '',
     tags: [],
-    tagInput: ''
+    tagInput: '',
+    generatedPhrases: [],
+    reviewedPhrases: [],
+    rejectedPhrases: []
   });
 
   // Detect AI service when modal opens
@@ -93,11 +111,13 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
     setState(prev => ({ ...prev, phase: 'generating' }));
     
     try {
-      await onConfirmGeneration({ name: state.categoryName, description: state.description, tags: state.tags }, state.sampleWords);
+      const generatedPhrases = await onConfirmGeneration({ name: state.categoryName, description: state.description, tags: state.tags }, state.sampleWords);
       setState(prev => ({ 
         ...prev, 
-        phase: 'success',
-        generatedCount: 50 // Default expected count
+        phase: 'reviewing',
+        generatedPhrases,
+        reviewedPhrases: generatedPhrases, // Default to all approved for now
+        generatedCount: generatedPhrases.length
       }));
     } catch (error) {
       setState(prev => ({ 
@@ -106,6 +126,30 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
         error: error instanceof Error ? error.message : 'Failed to generate phrases'
       }));
     }
+  };
+
+  const handleApprovePhrase = (phrase: CustomCategoryPhrase) => {
+    setState(prev => ({
+      ...prev,
+      reviewedPhrases: [...prev.reviewedPhrases.filter(p => p.phraseId !== phrase.phraseId), phrase],
+      rejectedPhrases: prev.rejectedPhrases.filter(text => text !== phrase.text)
+    }));
+  };
+
+  const handleRejectPhrase = (phrase: CustomCategoryPhrase) => {
+    setState(prev => ({
+      ...prev,
+      reviewedPhrases: prev.reviewedPhrases.filter(p => p.phraseId !== phrase.phraseId),
+      rejectedPhrases: [...prev.rejectedPhrases.filter(text => text !== phrase.text), phrase.text]
+    }));
+  };
+
+  const handleFinishReview = () => {
+    setState(prev => ({
+      ...prev,
+      phase: 'success',
+      generatedCount: prev.reviewedPhrases.length
+    }));
   };
 
   const handleClose = () => {
@@ -119,7 +163,10 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
       detectingService: false,
       description: '',
       tags: [],
-      tagInput: ''
+      tagInput: '',
+      generatedPhrases: [],
+      reviewedPhrases: [],
+      rejectedPhrases: []
     });
     onClose();
   };
@@ -284,6 +331,118 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
               <p className="loading-note">
                 This may take a few moments while {state.aiService ? getAIServiceDisplayName(state.aiService) : 'AI'} creates your custom phrases.
               </p>
+            </div>
+          )}
+
+          {state.phase === 'reviewing' && (
+            <div className="reviewing-phase">
+              <div className="review-header">
+                <h3>📝 Review Generated Phrases</h3>
+                <p className="review-description">
+                  Review the {state.generatedPhrases.length} generated phrases for "{state.categoryName}". 
+                  Each phrase has been scored for party game suitability.
+                </p>
+                <div className="review-stats">
+                  <span className="stat approved">✅ Approved: {state.reviewedPhrases.length}</span>
+                  <span className="stat rejected">❌ Rejected: {state.rejectedPhrases.length}</span>
+                </div>
+              </div>
+              
+              <div className="phrases-list">
+                {state.generatedPhrases.map((phrase) => {
+                  const isApproved = state.reviewedPhrases.some(p => p.phraseId === phrase.phraseId);
+                  const isRejected = state.rejectedPhrases.includes(phrase.text);
+                  const qualityScore = phrase.qualityScore || 0;
+                  
+                  return (
+                    <div key={phrase.phraseId} className={`phrase-review-item ${isApproved ? 'approved' : ''} ${isRejected ? 'rejected' : ''}`}>
+                      <div className="phrase-content">
+                        <div className="phrase-text">{phrase.text}</div>
+                        <div className="phrase-metadata">
+                          <span className={`quality-score score-${qualityScore >= 60 ? 'high' : qualityScore >= 40 ? 'medium' : 'low'}`}>
+                            Score: {qualityScore}/100
+                          </span>
+                          <span className="difficulty-badge">
+                            {phrase.difficulty || 'medium'}
+                          </span>
+                        </div>
+                        {phrase.qualityBreakdown && (
+                          <div className="quality-breakdown">
+                            <small>
+                              Local: {phrase.qualityBreakdown.localHeuristics}/40
+                              {phrase.qualityBreakdown.wikidata && `, Wiki: ${phrase.qualityBreakdown.wikidata}/30`}
+                              {phrase.qualityBreakdown.reddit && `, Reddit: ${phrase.qualityBreakdown.reddit}/15`}
+                              , Category: {phrase.qualityBreakdown.categoryBoost}/15
+                            </small>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="phrase-actions">
+                        {!isApproved && !isRejected && (
+                          <>
+                            <button 
+                              onClick={() => handleApprovePhrase(phrase)} 
+                              className="approve-button"
+                              title="Keep this phrase"
+                            >
+                              ✅ Keep
+                            </button>
+                            <button 
+                              onClick={() => handleRejectPhrase(phrase)} 
+                              className="reject-button"
+                              title="Remove this phrase"
+                            >
+                              ❌ Remove
+                            </button>
+                          </>
+                        )}
+                        {isApproved && (
+                          <button 
+                            onClick={() => handleRejectPhrase(phrase)} 
+                            className="undo-approve-button"
+                            title="Remove this phrase"
+                          >
+                            ↩️ Remove
+                          </button>
+                        )}
+                        {isRejected && (
+                          <button 
+                            onClick={() => handleApprovePhrase(phrase)} 
+                            className="undo-reject-button"
+                            title="Keep this phrase"
+                          >
+                            ↩️ Keep
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              
+              <div className="review-summary">
+                <p>
+                  {state.reviewedPhrases.length > 0 ? (
+                    <>✨ {state.reviewedPhrases.length} phrases ready to add to your game!</>
+                  ) : (
+                    <>⚠️ No phrases selected yet. Review phrases above to continue.</>
+                  )}
+                </p>
+              </div>
+              
+              <div className="form-actions">
+                <button onClick={handleStartOver} className="back-button">
+                  ← Try Different Category
+                </button>
+                <button 
+                  onClick={handleFinishReview} 
+                  className="finish-review-button"
+                  disabled={state.reviewedPhrases.length === 0}
+                >
+                  🎯 Add {state.reviewedPhrases.length} Phrases to Game
+                </button>
+              </div>
             </div>
           )}
 

@@ -1,5 +1,42 @@
-import { vi } from 'vitest';
+import { vi, beforeEach, afterEach, describe, it, expect } from 'vitest';
 import { PhraseScorer, PhraseScore } from '../phraseScorer';
+
+// Mock implementations for reliable testing
+const mockWikipediaResponse = (sitelinks: number = 25) => ({
+  results: {
+    bindings: [
+      { sitelinks: { value: sitelinks.toString() } }
+    ]
+  }
+});
+
+const mockRedditResponse = (upvotes: number = 150) => ({
+  data: {
+    children: [
+      {
+        data: {
+          ups: upvotes,
+          title: 'Mock Reddit Post'
+        }
+      }
+    ]
+  }
+});
+
+// Global fetch mock
+let mockFetch = vi.fn();
+
+beforeEach(() => {
+  mockFetch = vi.fn();
+  global.fetch = mockFetch as any;
+  
+  // Clear any existing caches between tests
+  vi.clearAllMocks();
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 describe('PhraseScorer', () => {
   let scorer: PhraseScorer;
@@ -8,7 +45,7 @@ describe('PhraseScorer', () => {
     scorer = new PhraseScorer();
   });
 
-  describe('scorePhrase', () => {
+  describe('Core Scoring (Local Heuristics)', () => {
     it('should score simple, well-known phrases highly', async () => {
       const result = await scorer.scorePhrase('Pizza', 'Food');
       
@@ -203,17 +240,6 @@ describe('PhraseScorer', () => {
   });
 
   describe('Wikipedia Validation', () => {
-    let mockFetch: any;
-    
-    beforeEach(() => {
-      mockFetch = vi.fn();
-      global.fetch = mockFetch;
-    });
-
-    afterEach(() => {
-      vi.restoreAllMocks();
-    });
-
     it('should score Wikipedia validation correctly for well-known phrases', async () => {
       const mockResponse = {
         results: {
@@ -403,17 +429,6 @@ describe('PhraseScorer', () => {
   });
 
   describe('Reddit Validation', () => {
-    let mockFetch: any;
-    
-    beforeEach(() => {
-      mockFetch = vi.fn();
-      global.fetch = mockFetch;
-    });
-
-    afterEach(() => {
-      vi.restoreAllMocks();
-    });
-
     it('should only validate borderline phrases (score 40-60)', async () => {
       const scorer = new PhraseScorer();
       
@@ -656,15 +671,15 @@ describe('PhraseScorer', () => {
 });
 
 describe('Wikipedia Validation Tests', () => {
-  let mockFetch: jest.MockedFunction<typeof fetch>;
+  let mockFetch: typeof vi.fn;
   
   beforeEach(() => {
-    mockFetch = jest.fn();
+    mockFetch = vi.fn();
     global.fetch = mockFetch;
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   test('should score Wikipedia validation correctly for well-known phrases', async () => {
