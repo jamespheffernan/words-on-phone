@@ -69,18 +69,18 @@ This avoids duplicating infrastructure and leverages tested systems.
 - [x] Current state documented (173 phrases analyzed)
 - [x] Implementation plan committed to repository
 
-### Task 2: Design Generation Strategy ⬜
-- [ ] Define target phrase counts per category based on game balance
-- [ ] Plan batch generation approach (15 phrases/batch due to timeout)
-- [ ] Establish quality thresholds and review workflows
-- [ ] Create monitoring and progress tracking system
-- [ ] Design integration between database tool and production APIs
+### Task 2: Design Generation Strategy ✅
+- [x] Define target phrase counts per category based on game balance
+- [x] Plan batch generation approach (15 phrases/batch due to timeout)
+- [x] Establish quality thresholds and review workflows
+- [x] Create monitoring and progress tracking system
+- [x] Design integration between database tool and production APIs
 
 **Success Criteria:**
-- [ ] Category distribution plan documented (balanced across 11 categories)
-- [ ] Batch workflow designed: Generate → Score → Filter → Review → Import
-- [ ] Integration path clear between tools
-- [ ] Quality control process established (auto-accept 60+, review 40-59, reject <40)
+- [x] Category distribution plan documented (balanced across 11 categories)
+- [x] Batch workflow designed: Generate → Score → Filter → Review → Import
+- [x] Integration path clear between tools
+- [x] Quality control process established (auto-accept 60+, review 40-59, reject <40)
 
 ### Task 3: Setup Database Tool and Integration ⬜
 - [ ] Initialize phrase database in tools/phrase-database
@@ -169,28 +169,21 @@ This avoids duplicating infrastructure and leverages tested systems.
 ## Project Status Board
 
 ### 🟢 Ready to Start
-- Task 2: Design Generation Strategy
 - Task 3: Setup Database Tool and Integration
 
 ### 🚧 In Progress
 - Task 1: Create Feature Branch and Setup (analyzing current state)
 
 ### ✅ Completed
-- _(none yet)_
+- Task 2: Design Generation Strategy (category distribution, batch workflow, quality control, monitoring system, integration architecture)
 
 ## Current Status / Progress Tracking
 
-**Phase**: Planning and Setup
-**Progress**: 1/8 tasks started (12.5%)
+**Phase**: Setup and Strategy Design
+**Progress**: 2/8 tasks complete (25%)
 **Target**: 1000+ high-quality phrases
 **Current Database**: 173 phrases (40+ points)
-**Remaining to Generate**: 827+ phrases
-
-**Current Analysis:**
-- Database cleaned from 1,491 to 173 phrases (88.4% reduction)
-- All remaining phrases score 40+ points (high quality)
-- Need to analyze category distribution of remaining phrases
-- Generation infrastructure ready and tested
+**Strategy**: Leverage existing phrase database tool + production APIs
 
 ## Quality Standards Reference
 
@@ -241,16 +234,34 @@ User has requested to rebuild the phrase database from the current 173 high-qual
 - Manual review interface in CategoryRequestModal
 - Netlify functions for AI generation (Gemini and OpenAI)
 
-**Immediate Next Steps:**
-1. Analyze current database category distribution
-2. Design generation strategy with target counts per category
-3. Create batch generation system for efficient scaling
+**Task 2 Completion - 2025-01-15**
+
+✅ **TASK 2 COMPLETE**: Design Generation Strategy
+
+**Deliverables:**
+1. **Category Distribution Plan**: 11 categories with balanced targets (60-100 phrases each)
+2. **Batch Workflow**: 4-step process (Generate → Score → Review → Import)
+3. **Quality Control**: Auto-accept 60+, review 40-59, reject <40
+4. **Progress Tracking**: Real-time dashboard with category status and quality metrics
+5. **Integration Architecture**: Clear flow between database tool, APIs, and scoring
+
+**Key Insights:**
+- Entertainment category needs reduction from 173 to 100 (keep only best phrases)
+- 60 total batches needed (~900 new phrases at 15 per batch)
+- Expected 50%+ acceptance rate from AI generation
+- 4-week timeline with weekly phase milestones
+
+**Next Steps:**
+Ready to proceed with Task 3: Setup Database Tool and Integration. This will involve:
+- Initializing phrase database tool
+- Creating API integration scripts
+- Testing end-to-end workflow with small batch
+- Setting up progress monitoring
 
 **Questions for Planning:**
-- Should we prioritize certain categories over others?
-- What batch sizes work best with our timeout limits?
-- How much manual review vs. automated filtering?
-- Should we aim for 60+ point average or accept 40+ point threshold?
+- Should we proceed immediately with Task 3 implementation?
+- Any adjustments needed to category targets or quality thresholds?
+- Preference for starting with specific categories for testing?
 
 ## Lessons Learned
 
@@ -258,4 +269,162 @@ _(To be updated during implementation)_
 
 ## Branch Name
 
-`feature/phrase-database-generation` 
+`feature/phrase-database-generation`
+
+## Detailed Generation Strategy
+
+### Category Distribution Plan ✅
+Based on game balance analysis and existing 173 phrases (all in Entertainment):
+
+| Category | Current | Target | Batches | Priority | Notes |
+|----------|---------|--------|---------|----------|-------|
+| Entertainment & Pop Culture | 173 | 100 | -5 batches | 1 | Reduce from 173 to 100 best |
+| Movies & TV | 0 | 100 | 7 batches | 1 | Core gameplay category |
+| Music & Artists | 0 | 100 | 7 batches | 1 | High player engagement |
+| Sports & Athletes | 0 | 100 | 7 batches | 1 | Universal appeal |
+| Food & Drink | 0 | 100 | 7 batches | 1 | Easy to act out |
+| Places & Travel | 0 | 80 | 6 batches | 2 | Good variety |
+| Famous People | 0 | 80 | 6 batches | 2 | Recognizable names |
+| Technology & Science | 0 | 60 | 4 batches | 3 | Accessible tech terms |
+| History & Events | 0 | 60 | 4 batches | 3 | Major historical moments |
+| Nature & Animals | 0 | 60 | 4 batches | 3 | Animal names, nature |
+| Everything | 0 | 80 | 6 batches | 2 | Mixed topics |
+| Everything+ | 0 | 80 | 6 batches | 3 | Challenging variety |
+
+**Total Target**: 1,073 phrases (excluding Entertainment reduction)
+**Net New**: ~900 phrases needed
+**Total Batches**: ~60 batches at 15 phrases each
+
+### Batch Generation Workflow ✅
+
+**Step 1: Generate (via Production API)**
+- Call Netlify function: `/.netlify/functions/gemini` (primary) or `/openai` (fallback)
+- Request 15 phrases per batch (proven timeout limit)
+- Use category-specific prompts with party game context
+- Expected success rate: 60-80% quality phrases per batch
+
+**Step 2: Score & Filter (Automatic)**
+- Use PhraseScorer service (0-100 scale)
+- Apply filters:
+  - **Auto-Accept**: Score ≥ 60 (good for gameplay)
+  - **Review Queue**: Score 40-59 (manual review needed)
+  - **Auto-Reject**: Score < 40 (too obscure/inappropriate)
+
+**Step 3: Manual Review (for 40-59 scores)**
+- Use existing phrase review interface
+- Focus on party game suitability
+- Accept hidden gems, reject borderline cases
+
+**Step 4: Import to Database**
+- Add accepted phrases to phrase database tool
+- Automatic duplicate detection
+- Category quota tracking
+- Quality statistics logging
+
+### Quality Control Process ✅
+
+**Acceptance Criteria:**
+- **Excellent (80-100)**: Instantly recognizable, perfect for parties
+- **Good (60-79)**: Solid gameplay phrases, auto-accept
+- **Borderline (40-59)**: Manual review required
+- **Poor (20-39)**: Likely too obscure, auto-reject
+- **Terrible (0-19)**: Inappropriate/technical, auto-reject
+
+**Review Guidelines:**
+1. Can most people recognize this phrase?
+2. Is it fun to act out or describe?
+3. Appropriate for all ages/audiences?
+4. Fits the category well?
+5. Not too specific/technical?
+
+**Quality Targets:**
+- Average score per category: 65+ 
+- Acceptance rate from AI: 50%+ (8+ phrases per 15-phrase batch)
+- Manual review rate: <30% of generated phrases
+
+### Progress Tracking System ✅
+
+**Real-time Metrics:**
+- Category completion percentage (target vs current)
+- Quality score distribution per category
+- Acceptance/rejection rates by batch
+- API success rates (Gemini vs OpenAI)
+- Manual review queue size
+
+**Progress Dashboard Format:**
+```
+📊 PHRASE GENERATION PROGRESS
+================================
+Total Progress: 234/1,073 phrases (22%)
+Quality Average: 67.2/100
+
+CATEGORY STATUS:
+✅ Entertainment: 100/100 (100%) - Avg: 72.1
+🚧 Movies & TV: 45/100 (45%) - Avg: 68.3  
+🔄 Music: 32/100 (32%) - Avg: 65.9
+⏸️ Sports: 0/100 (0%) - Pending
+
+DAILY METRICS:
+- Batches Generated: 5
+- Phrases Accepted: 38/75 (51%)
+- Review Queue: 12 phrases
+- API Success Rate: 94%
+```
+
+**Milestone Tracking:**
+- Phase 1: Core Categories (400 phrases) - Target: Week 1
+- Phase 2: Secondary Categories (240 phrases) - Target: Week 2  
+- Phase 3: Specialized Categories (180 phrases) - Target: Week 3
+- Phase 4: Variety & Polish (253 phrases) - Target: Week 4
+
+### Integration Architecture ✅
+
+**System Integration Flow:**
+```
+[Manual Request] → [Phrase Database CLI] → [Production API] → [PhraseScorer] → [Database]
+      ↓                     ↓                    ↓              ↓            ↓
+   Category +         Generate 15          Score 0-100      Filter by      Store +
+   Batch Size    →    phrases via     →    threshold   →    quality   →   Track
+                      Netlify Func                         (60+/40-59/<40)  Progress
+```
+
+**Key Integration Points:**
+
+1. **API Wrapper Script** (`tools/phrase-database/api-client.js`):
+   - Calls production Netlify functions
+   - Handles Gemini/OpenAI fallback logic
+   - Manages rate limiting and retries
+   - Returns structured phrase data
+
+2. **Quality Pipeline** (`tools/phrase-database/quality-pipeline.js`):
+   - Integrates PhraseScorer service
+   - Applies auto-accept/review/reject logic
+   - Queues phrases for manual review
+   - Tracks quality statistics
+
+3. **CLI Integration** (extends existing `tools/phrase-database/src/cli.js`):
+   - New command: `npm start generate-batch "Movies & TV" 15`
+   - New command: `npm start batch-process --category "Sports" --target 100`
+   - Progress reporting: `npm start generation-status`
+   - Review interface: `npm start review-queue`
+
+4. **Export Pipeline** (existing `tools/phrase-database/src/gameExporter.js`):
+   - Export final JSON for production
+   - Verify category balance
+   - Quality check before export
+
+**File Structure:**
+```
+tools/phrase-database/
+├── src/
+│   ├── api-client.js          # NEW: Production API wrapper
+│   ├── quality-pipeline.js    # NEW: Scoring & filtering
+│   ├── generation-tracker.js  # NEW: Progress monitoring
+│   └── cli.js                 # EXTEND: Add generation commands
+├── scripts/
+│   ├── generate-category.js   # NEW: Category batch generation
+│   └── monitor-progress.js    # NEW: Real-time progress dashboard
+└── data/
+    ├── generation-log.json    # NEW: Track all generation activity
+    └── quality-stats.json     # NEW: Quality metrics by category
+``` 
