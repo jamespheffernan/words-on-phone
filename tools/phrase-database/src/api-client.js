@@ -21,16 +21,17 @@ class APIClient {
    * @param {string} category - The category to generate phrases for
    * @param {number} count - Number of phrases to generate (max 15 due to timeout)
    * @param {string} service - 'gemini' or 'openai'
+   * @param {Array} existingPhrases - Existing phrases to avoid duplicates
    * @returns {Promise<string[]>} Array of generated phrases
    */
-  async generatePhrases(category, count = 15, service = 'gemini') {
+  async generatePhrases(category, count = 15, service = 'gemini', existingPhrases = []) {
     if (count > 15) {
       throw new Error('Maximum 15 phrases per request due to timeout limits');
     }
 
     const endpoint = service === 'gemini' ? '/gemini' : '/openai';
     const payload = {
-      prompt: this.createCategoryPrompt(category, count),
+      prompt: this.createCategoryPrompt(category, count, existingPhrases),
       category: category,
       phraseCount: count
     };
@@ -60,12 +61,14 @@ class APIClient {
    * Generate phrases with automatic fallback
    * @param {string} category - The category to generate phrases for
    * @param {number} count - Number of phrases to generate
+   * @param {Array} existingPhrases - Existing phrases to avoid duplicates
+   * @param {string} preferredService - Preferred AI service
    * @returns {Promise<{phrases: string[], service: string}>} Generated phrases and service used
    */
-  async generatePhrasesWithFallback(category, count = 15) {
+  async generatePhrasesWithFallback(category, count = 15, existingPhrases = [], preferredService = 'gemini') {
     // Try Gemini first (primary service)
     try {
-      const phrases = await this.generatePhrases(category, count, 'gemini');
+      const phrases = await this.generatePhrases(category, count, 'gemini', existingPhrases);
       return { phrases, service: 'gemini' };
     } catch (geminiError) {
       if (this.debug) {
@@ -74,7 +77,7 @@ class APIClient {
 
       // Fallback to OpenAI
       try {
-        const phrases = await this.generatePhrases(category, count, 'openai');
+        const phrases = await this.generatePhrases(category, count, 'openai', existingPhrases);
         return { phrases, service: 'openai' };
       } catch (openaiError) {
         throw new Error(`Both services failed - Gemini: ${geminiError.message}, OpenAI: ${openaiError.message}`);
@@ -86,19 +89,30 @@ class APIClient {
    * Create optimized prompt for specific category
    * @param {string} category - The category name
    * @param {number} count - Number of phrases requested
+   * @param {Array} existingPhrases - Existing phrases to avoid duplicates
    * @returns {string} Formatted prompt
    */
-  createCategoryPrompt(category, count) {
+  createCategoryPrompt(category, count, existingPhrases = []) {
+    // Create sample of existing phrases to avoid
+    const sampleExisting = existingPhrases.length > 0 
+      ? existingPhrases.slice(0, 15).map(p => `"${p.phrase}"`).join(', ')
+      : '';
+    
+    const avoidText = sampleExisting 
+      ? `\n\nIMPORTANT: Avoid these existing phrases and create NEW, UNIQUE ones: ${sampleExisting}${existingPhrases.length > 15 ? '... and others' : ''}`
+      : '';
+
     return `Generate ${count} short, fun phrases perfect for a party guessing game like Heads Up or Charades.
 
 CATEGORY: ${category}
 
 REQUIREMENTS:
-- 2-4 words maximum
+- 2-4 words maximum  
 - Instantly recognizable to most people
 - Perfect for acting out, describing, or guessing
 - Fun and engaging for party games
 - No offensive, political, or controversial content
+- Be creative and diverse - avoid obvious/common choices${avoidText}
 
 EXAMPLES OF EXCELLENT PHRASES:
 ${this.getCategoryExamples(category)}
@@ -258,6 +272,96 @@ Return ONLY a JSON array of phrases: ["phrase1", "phrase2", ...]`;
     }
 
     return results;
+  }
+
+  /**
+   * Generate category-specific prompts for AI services
+   * @param {string} category - Category name
+   * @param {number} count - Number of phrases requested
+   * @param {Array} existingPhrases - Array of existing phrases to avoid duplicates
+   * @returns {object} Prompt configuration
+   */
+  generateCategoryPrompt(category, count, existingPhrases = []) {
+    // Create a unique subset to avoid repetition in prompts
+    const sampleExisting = existingPhrases.slice(0, 10).map(p => `"${p.phrase}"`).join(', ');
+    const avoidText = existingPhrases.length > 0 
+      ? `\n\nIMPORTANT: Avoid these existing phrases: ${sampleExisting}${existingPhrases.length > 10 ? '... and others' : ''}`
+      : '';
+    
+    const basePrompts = {
+      "Movies & TV": {
+        system: `You are an expert entertainment curator creating charades phrases for a party game. Generate ${count} diverse movie titles, TV shows, and streaming content that are excellent for acting out in charades.
+
+REQUIREMENTS:
+- Mix of classic and modern content (1970s-2024)
+- Include movies, TV series, documentaries, animated shows
+- Range from obvious crowd-pleasers to interesting challenges
+- 2-4 words each, clear and recognizable
+- Avoid obscure, inappropriate, or overly niche content
+- Focus on titles people can ACT OUT physically
+- Include variety: action, comedy, drama, sci-fi, animation, reality TV
+
+Return ONLY a numbered list of ${count} phrases, one per line.
+Example format:
+1. Back to the Future
+2. Breaking Bad`,
+        
+        user: `Generate ${count} charades-friendly movie and TV titles. Focus on variety across genres, decades, and difficulty levels.${avoidText}`
+      },
+
+      "Music & Artists": {
+        system: `You are a music expert creating charades phrases for a party game. Generate ${count} diverse song titles, artist names, and music-related phrases that are excellent for acting out.
+
+REQUIREMENTS:
+- Mix of classic hits and modern popular songs
+- Include artist names, song titles, album names, music genres
+- Range from easy crowd-pleasers to fun challenges  
+- 2-4 words each, widely recognizable
+- Avoid obscure, inappropriate, or overly niche content
+- Focus on terms people can ACT OUT or MIME
+- Include variety: pop, rock, hip-hop, country, R&B, electronic
+
+Return ONLY a numbered list of ${count} phrases, one per line.`,
+        
+        user: `Generate ${count} charades-friendly music titles and artists. Focus on variety across genres, eras, and difficulty levels.${avoidText}`
+      },
+
+      "Sports & Athletes": {
+        system: `You are a sports expert creating charades phrases for a party game. Generate ${count} diverse sports terms, athlete names, and sporting activities that are excellent for acting out.
+
+REQUIREMENTS:
+- Mix of popular sports, famous athletes, sporting terms
+- Include team names, individual sports, Olympic events, sports equipment
+- Range from obvious actions to interesting challenges
+- 2-4 words each, widely recognizable
+- Avoid overly niche or inappropriate content
+- Focus on terms people can ACT OUT physically
+- Include variety: major league sports, Olympics, recreational activities
+
+Return ONLY a numbered list of ${count} phrases, one per line.`,
+        
+        user: `Generate ${count} charades-friendly sports terms and athletes. Focus on variety across sports types and difficulty levels.${avoidText}`
+      },
+
+      "Food & Drink": {
+        system: `You are a culinary expert creating charades phrases for a party game. Generate ${count} diverse food items, drinks, and cooking-related terms that are excellent for acting out.
+
+REQUIREMENTS:
+- Mix of common foods, exotic dishes, cooking techniques, beverages
+- Include specific dishes, cooking methods, restaurant types, kitchen tools
+- Range from simple foods to interesting culinary challenges
+- 2-4 words each, recognizable to most people
+- Avoid overly obscure or inappropriate content
+- Focus on terms people can ACT OUT or MIME eating/cooking
+- Include variety: international cuisine, desserts, drinks, cooking styles
+
+Return ONLY a numbered list of ${count} phrases, one per line.`,
+        
+        user: `Generate ${count} charades-friendly food and drink terms. Focus on variety across cuisines, meal types, and difficulty levels.${avoidText}`
+      }
+    };
+
+    return basePrompts[category] || basePrompts["Movies & TV"];
   }
 }
 
