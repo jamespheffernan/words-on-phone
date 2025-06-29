@@ -168,8 +168,13 @@ class PhraseDatabase {
     return new Promise((resolve, reject) => {
       this.db.run(sql, params, function(err) {
         if (err) {
-          logger.error(`SQL Error: ${err.message}`);
-          logger.error(`SQL: ${sql}`);
+          // Handle constraint violations more gracefully (expected for duplicates)
+          if (err.message.includes('UNIQUE constraint failed')) {
+            logger.debug(`Duplicate constraint (expected): ${err.message}`);
+          } else {
+            logger.error(`SQL Error: ${err.message}`);
+            logger.error(`SQL: ${sql}`);
+          }
           reject(err);
         } else {
           resolve({ lastID: this.lastID, changes: this.changes });
@@ -240,14 +245,38 @@ class PhraseDatabase {
     
     const extractedFirstWord = firstWord || this.extractFirstWord(phrase);
     
-    const result = await this.run(
-      `INSERT INTO phrases (phrase, category, first_word, recent, score, source_provider, model_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [phrase, category, extractedFirstWord, recent, score, sourceProvider, modelId]
-    );
+    try {
+      const result = await this.run(
+        `INSERT INTO phrases (phrase, category, first_word, recent, score, source_provider, model_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [phrase, category, extractedFirstWord, recent, score, sourceProvider, modelId]
+      );
 
-    const providerInfo = sourceProvider ? ` (${sourceProvider}${modelId ? `/${modelId}` : ''})` : '';
-    logger.info(`Added phrase: "${phrase}" to category "${category}"${providerInfo}`);
-    return result;
+      const providerInfo = sourceProvider ? ` (${sourceProvider}${modelId ? `/${modelId}` : ''})` : '';
+      logger.info(`Added phrase: "${phrase}" to category "${category}"${providerInfo}`);
+      return result;
+    } catch (error) {
+      // Re-throw constraint violations with clearer context
+      if (error.message.includes('UNIQUE constraint failed')) {
+        const duplicateError = new Error(`Duplicate phrase: "${phrase}" already exists in category "${category}"`);
+        duplicateError.code = 'DUPLICATE_PHRASE';
+        duplicateError.originalError = error;
+        throw duplicateError;
+      }
+      throw error;
+    }
+  }
+
+  // Helper method for bulk operations that expect duplicates
+  async addPhraseIgnoreDuplicates(phrase, category, options = {}) {
+    try {
+      return await this.addPhrase(phrase, category, options);
+    } catch (error) {
+      if (error.code === 'DUPLICATE_PHRASE') {
+        logger.debug(`Skipping duplicate phrase: "${phrase}"`);
+        return { skipped: true, reason: 'duplicate' };
+      }
+      throw error;
+    }
   }
 
   async getPhrasesByCategory(category) {

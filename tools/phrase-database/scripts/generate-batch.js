@@ -108,33 +108,40 @@ class BatchGenerator {
         // Store accepted phrases with provider attribution
         const acceptedPhrases = qualityResult.processed.filter(p => p.decision === 'accept');
         let storedCount = 0;
+        let duplicateCount = 0;
         
         for (const item of acceptedPhrases) {
           try {
-            await this.database.addPhrase(item.phrase, category, { 
+            const result = await this.database.addPhraseIgnoreDuplicates(item.phrase, category, { 
               score: item.score,
               sourceProvider: item.sourceProvider,
               modelId: item.modelId
             });
-            storedCount++;
-            totalAccepted++;
-            allScores.push(item.score);
             
-            if (this.debug) {
-              console.log(`  ✅ Stored: "${item.phrase}" (${item.score}/100, ${item.sourceProvider})`);
-            }
-          } catch (error) {
-            if (error.message.includes('UNIQUE constraint failed')) {
+            if (result.skipped) {
+              duplicateCount++;
               if (this.debug) {
                 console.log(`  ⚠️  Duplicate: "${item.phrase}"`);
               }
             } else {
-              console.log(`  ❌ Failed: "${item.phrase}" - ${error.message}`);
+              storedCount++;
+              totalAccepted++;
+              allScores.push(item.score);
+              
+              if (this.debug) {
+                console.log(`  ✅ Stored: "${item.phrase}" (${item.score}/100, ${item.sourceProvider})`);
+              }
             }
+          } catch (error) {
+            console.log(`  ❌ Failed: "${item.phrase}" - ${error.message}`);
           }
         }
         
-        console.log(`💾 Stored ${storedCount}/${acceptedPhrases.length} accepted phrases`);
+        if (duplicateCount > 0) {
+          console.log(`💾 Stored ${storedCount}/${acceptedPhrases.length} accepted phrases (${duplicateCount} duplicates skipped)`);
+        } else {
+          console.log(`💾 Stored ${storedCount}/${acceptedPhrases.length} accepted phrases`);
+        }
         
         // Update running statistics
         this.stats.totalGenerated += result.phrases.length;
