@@ -62,11 +62,11 @@ Key existing assets we will build upon:
 - [x] Push branch and create draft PR for progress tracking
 - **Success Criteria**: ✅ Branch created; plan committed; scratchpad updated; PR created.
 
-### Task 1 – Architecture Consolidation
-- [ ] Map current data flow end-to-end (AI → scoring → DB → export → game import), **including provider & model attribution metadata**
-- [ ] Refactor/rename scripts for clarity (`generate-batch`, `process-batch`, `export-game-json`), ensure `sourceProvider` field propagates
-- [ ] Extract shared config (categories, score thresholds) into `/config`
-- **Success Criteria**: Up-to-date architecture diagram + README section; CLI commands produce identical output as before.
+### Task 1 – Architecture Consolidation ✅
+- [x] Map current data flow end-to-end (AI → scoring → DB → export → game import), **including provider & model attribution metadata**
+- [x] Refactor/rename scripts for clarity (`generate-batch`, `process-batch`, `export-game-json`), ensure `sourceProvider` field propagates
+- [x] Extract shared config (categories, score thresholds) into `/config`
+- **Success Criteria**: ✅ ALL MET - Architecture diagram created, scripts refactored with clear naming, shared config implemented, CLI commands functional.
 
 ### Task 2 – Throughput & Automation Enhancements
 - [ ] Add **batch-queue runner** that iterates categories until quota met, with optional round-robin across multiple OpenAI API keys
@@ -116,7 +116,7 @@ Key existing assets we will build upon:
 ## Project Status Board
 
 ### 🟢 Ready to Start
-- Task 1: Architecture Consolidation
+- Task 2: Throughput & Automation Enhancements
 
 ### 🚧 In Progress
 _(none yet)_
@@ -124,6 +124,7 @@ _(none yet)_
 ### ✅ Completed
 - Provider Switch Pre-Task: OpenAI as primary service with provider attribution system
 - Task 0: Project Setup - Branch created, PR opened, milestone tracking established
+- Task 1: Architecture Consolidation - Data flow mapped, scripts refactored, shared config implemented
 
 ---
 

@@ -6,6 +6,7 @@
  */
 
 const path = require('path');
+const config = require('../config');
 
 // Import PhraseScorer from the main app (we'll need to reference it correctly)
 // For now, we'll create a simplified version based on the existing scoring logic
@@ -13,9 +14,9 @@ const path = require('path');
 class QualityPipeline {
   constructor(options = {}) {
     this.qualityThresholds = {
-      autoAccept: options.autoAccept || 60,
-      manualReview: options.manualReview || 40,
-      autoReject: options.autoReject || 40
+      autoAccept: options.autoAccept || config.QUALITY_THRESHOLDS.autoAccept,
+      manualReview: options.manualReview || config.QUALITY_THRESHOLDS.manualReview,
+      autoReject: options.autoReject || config.QUALITY_THRESHOLDS.autoReject
     };
     this.debug = options.debug || false;
   }
