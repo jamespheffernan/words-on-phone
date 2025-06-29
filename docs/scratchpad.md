@@ -61,9 +61,10 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
   - Ready for merge to main branch
 - [phrase-pool-expansion](implementation-plan/phrase-pool-expansion.md) - 🚧 **IN PROGRESS** - Phrase Pool Expansion to 5,000+ Phrases (OpenAI default)
   - 🎯 **GOAL**: Scale from current ~2 phrases to 5,000+ high-quality phrases using OpenAI-first infrastructure
-  - ✅ **1/8 TASKS COMPLETE** (12.5%): Project setup complete with feature branch, PR tracking, milestone documentation
+  - ✅ **2/8 TASKS COMPLETE** (25%): Project setup and architecture consolidation complete
   - **INFRASTRUCTURE READY**: OpenAI primary service, Gemini fallback, database schema v2 with provider attribution
-  - 📋 **NEXT TASKS**: Architecture consolidation, throughput enhancements, review workflow upgrade
+  - **ARCHITECTURE CONSOLIDATED**: Shared config system, refactored scripts (generate-batch, process-batch, export-game-json), documented data flow
+  - 📋 **NEXT TASKS**: Throughput & automation enhancements, review workflow upgrade, phase I expansion
 
 ## Current Bug Fix / Executor Work
 
