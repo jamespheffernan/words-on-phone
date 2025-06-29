@@ -60,11 +60,12 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
   - Production-ready phrase database system
   - Ready for merge to main branch
 - [phrase-pool-expansion](implementation-plan/phrase-pool-expansion.md) - 🚧 **IN PROGRESS** - Phrase Pool Expansion to 5,000+ Phrases (OpenAI default)
-  - 🎯 **GOAL**: Scale from current ~2 phrases to 5,000+ high-quality phrases using OpenAI-first infrastructure
-  - ✅ **2/8 TASKS COMPLETE** (25%): Project setup and architecture consolidation complete
+  - 🎯 **GOAL**: Scale from current ~67 phrases to 5,000+ high-quality phrases using OpenAI-first infrastructure
+  - ✅ **3/8 TASKS COMPLETE** (37.5%): Project setup, architecture consolidation, and throughput automation complete
   - **INFRASTRUCTURE READY**: OpenAI primary service, Gemini fallback, database schema v2 with provider attribution
   - **ARCHITECTURE CONSOLIDATED**: Shared config system, refactored scripts (generate-batch, process-batch, export-game-json), documented data flow
-  - 📋 **NEXT TASKS**: Throughput & automation enhancements, review workflow upgrade, phase I expansion
+  - **AUTOMATION COMPLETE**: Batch queue runner with concurrent generation, rate limiting, crash recovery, graceful duplicate handling
+  - 📋 **NEXT TASKS**: Review workflow upgrade, phase I expansion (2,000 phrases), continuous generation pipeline
 
 ## Current Bug Fix / Executor Work
 
@@ -137,6 +138,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-01-15] **BUZZER TRUNCATION FIX**: When implementing audio feedback with state transitions, ensure the audio duration doesn't conflict with UI state changes. Audio elements (especially buzzer sounds) should complete before any state changes that might affect playback. Solution: Add intermediate game states (e.g., BUZZER_PLAYING) that disable user interaction immediately but allow audio to complete before final state transition. This preserves game mechanics (no input after time expires) while ensuring complete audio feedback. Key implementation: immediate UI disable + extended timeout (audio duration + buffer) before final state change.
 - [2025-06-26] **GEMINI 2.5 FLASH UPGRADE SUCCESS**: Model version upgrade from gemini-1.5-flash to gemini-2.5-flash completed successfully with significant performance improvements. Key benefits: (1) Enhanced reasoning capabilities with "thinking budget" control, (2) 22% greater computational efficiency, (3) Better multimodal understanding and performance benchmarks, (4) Advanced reasoning with controllable thinking depth. Upgrade process was straightforward - only required updating model name in environment.ts and netlify function. All builds pass, 131/135 tests pass (4 pre-existing failures unrelated to upgrade). Backward compatible with existing API structure. No breaking changes required in service layer or UI components.
 - [2025-01-15] **PROVIDER ATTRIBUTION SYSTEM**: When implementing AI provider switching with quality tracking, database schema migrations are essential for provider attribution. Key components: (1) Schema versioning with automatic migration system, (2) Service-specific API payload handling (OpenAI uses {topic, batchSize, phraseIds} vs Gemini's {prompt, category}), (3) Response format differences (OpenAI returns direct arrays vs Gemini's nested structure), (4) Provider attribution in quality pipeline for analytics, (5) Comprehensive end-to-end testing validates complete workflow. Database migration system must handle both new installs and existing data gracefully. Provider attribution enables data-driven quality comparison between AI models during large-scale generation.
+- [2025-01-15] **DATABASE ERROR HANDLING FOR BULK OPERATIONS**: When building systems that expect duplicate entries (like phrase generation), database constraint violations should be handled gracefully at the application layer, not logged as errors. Solution: (1) Modify database layer to log UNIQUE constraint failures at DEBUG level instead of ERROR level, (2) Add specialized methods like `addPhraseIgnoreDuplicates()` that handle expected duplicates gracefully, (3) Provide clear duplicate statistics in user-facing output ("5 duplicates skipped"), (4) Use custom error codes (DUPLICATE_PHRASE) for better error handling. This eliminates confusing SQL error messages during normal bulk operations while maintaining proper error logging for genuine database issues.
 
 ## Phrase Validation Quick Reference
 
