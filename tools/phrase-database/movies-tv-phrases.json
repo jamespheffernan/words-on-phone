@@ -1,0 +1,11 @@
+2025-06-29T02:03:14.792Z [DB-INFO]: Database tables created successfully
+2025-06-29T02:03:14.793Z [DB-INFO]: Current schema version: 2, target: 2
+2025-06-29T02:03:14.794Z [DB-INFO]: Database indexes created successfully
+2025-06-29T02:03:14.794Z [DB-INFO]: Database initialized at /Users/jamesheffernan/Documents/GitHub/words-on-phone/tools/phrase-database/data/phrases.db
+📤 Exporting phrases...
+Found undefined phrases to export
+✅ Export complete!
+File: phrases-export.json
+Format: JSON
+Phrases: undefined
+2025-06-29T02:03:14.795Z [DB-INFO]: Database connection closed

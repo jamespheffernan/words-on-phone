@@ -71,14 +71,14 @@ const CATEGORIES = {
 
 // Quality scoring thresholds
 const QUALITY_THRESHOLDS = {
-  autoAccept: 60,     // Auto-accept phrases with score >= 60
-  manualReview: 40,   // Queue for manual review: 40-59
-  autoReject: 40,     // Auto-reject phrases with score < 40
+  autoAccept: 70,     // Auto-accept phrases with score >= 70 (Task 3 upgrade)
+  manualReview: 40,   // Queue for manual review: 40-69 (Task 3 upgrade)
+  autoReject: 40,     // Auto-reject phrases with score < 40 (Task 3 upgrade)
   
   // Additional thresholds for different use cases
-  highQuality: 70,    // Consider high quality
+  highQuality: 80,    // Consider high quality
   export: 50,         // Minimum score for game export
-  bulk: 65           // Bulk approval threshold
+  bulk: 75           // Bulk approval threshold (upgraded for Task 3)
 };
 
 // Generation settings

@@ -1125,4 +1125,61 @@ program
     }
   });
 
+// Bulk review command  
+program
+  .command('bulk-review')
+  .description('Start bulk review session for phrases needing manual review (scores 40-69)')
+  .option('-c, --category <name>', 'Review specific category only')
+  .option('--debug', 'Enable debug logging')
+  .option('--export <path>', 'Export phrases to CSV instead of reviewing')
+  .option('--import <path>', 'Import reviewed phrases from CSV')
+  .action(async (options) => {
+    const BulkReviewTool = require('../scripts/bulk-review');
+    
+    try {
+      const reviewer = new BulkReviewTool(options);
+      
+      if (options.import) {
+        // Import CSV reviews
+        await reviewer.database.initialize();
+        console.log(chalk.blue(`📄 Importing reviews from: ${options.import}`));
+        // TODO: Implement CSV import
+        console.log(chalk.yellow('⚠️  CSV import not yet implemented'));
+        await reviewer.cleanup();
+        return;
+      }
+      
+      const queueSize = await reviewer.loadReviewQueue(options.category);
+      
+      if (options.export) {
+        // Export to CSV
+        if (queueSize > 0) {
+          await reviewer.exportCSV();
+          console.log(chalk.green(`📄 Exported ${queueSize} phrases for review`));
+        } else {
+          console.log(chalk.yellow('📄 No phrases need review - nothing to export'));
+        }
+        await reviewer.cleanup();
+        return;
+      }
+      
+      if (queueSize > 0) {
+        console.log(chalk.blue(`\n📋 Found ${queueSize} phrases needing review (scores 40-69)`));
+        console.log(chalk.gray('💡 TIP: Use batch operations [b] for efficiency!'));
+        console.log(chalk.gray('🎯 TARGET: 10+ phrases per minute\n'));
+        
+        await reviewer.startReview();
+      } else {
+        console.log(chalk.green('🎉 No phrases need review!'));
+        await reviewer.cleanup();
+      }
+    } catch (error) {
+      console.error(chalk.red('❌ Bulk review failed:'), error.message);
+      if (options.debug) {
+        console.error(error.stack);
+      }
+      process.exit(1);
+    }
+  });
+
 program.parse(); 
