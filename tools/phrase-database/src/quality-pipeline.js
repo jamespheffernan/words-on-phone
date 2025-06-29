@@ -24,10 +24,11 @@ class QualityPipeline {
    * Process a batch of phrases through the quality pipeline
    * @param {string[]} phrases - Raw phrases from AI
    * @param {string} category - Category for context
-   * @param {string} service - AI service used ('gemini' or 'openai')
+   * @param {string} service - AI service used ('openai' or 'gemini')
+   * @param {string} modelId - Model ID used for generation
    * @returns {Promise<Object>} Processing results
    */
-  async processBatch(phrases, category, service = 'gemini') {
+  async processBatch(phrases, category, service = 'openai', modelId = null) {
     if (this.debug) {
       console.log(`🔄 Processing ${phrases.length} phrases for "${category}"...`);
     }
@@ -36,7 +37,8 @@ class QualityPipeline {
       input: {
         count: phrases.length,
         category,
-        service
+        service,
+        modelId
       },
       processed: [],
       summary: {
@@ -52,7 +54,7 @@ class QualityPipeline {
 
     for (const phrase of phrases) {
       try {
-        const processed = await this.processSinglePhrase(phrase, category);
+        const processed = await this.processSinglePhrase(phrase, category, service, modelId);
         results.processed.push(processed);
 
         // Update summary counts
@@ -73,7 +75,9 @@ class QualityPipeline {
           score: 0,
           decision: 'reject',
           reason: `Processing error: ${error.message}`,
-          category
+          category,
+          sourceProvider: service,
+          modelId
         });
         results.summary.autoRejected++;
       }
@@ -102,9 +106,11 @@ class QualityPipeline {
    * Process a single phrase through quality scoring
    * @param {string} phrase - The phrase to score
    * @param {string} category - Category context
+   * @param {string} service - AI service used
+   * @param {string} modelId - Model ID used
    * @returns {Promise<Object>} Processed phrase with score and decision
    */
-  async processSinglePhrase(phrase, category) {
+  async processSinglePhrase(phrase, category, service = 'openai', modelId = null) {
     // For now, use a simplified scoring algorithm
     // In production, this would use the full PhraseScorer from the main app
     const score = await this.scorePhrase(phrase, category);
@@ -115,6 +121,8 @@ class QualityPipeline {
       category,
       decision: this.makeDecision(score),
       reason: this.getDecisionReason(score),
+      sourceProvider: service,
+      modelId,
       timestamp: new Date().toISOString()
     };
 

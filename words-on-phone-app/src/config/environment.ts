@@ -54,9 +54,9 @@ export const detectActiveAIService = async (): Promise<AIService> => {
 
   console.log('🔍 Testing AI services...');
 
-  // Test OpenAI first (preferred service)
+  // Test OpenAI first (now PRIMARY service)
   try {
-    console.log('🧪 Testing OpenAI service...');
+    console.log('🧪 Testing OpenAI service (PRIMARY)...');
     const openaiResponse = await fetch(env.OPENAI_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -78,7 +78,7 @@ export const detectActiveAIService = async (): Promise<AIService> => {
       
       // Check if it's not an error response
       if (!data.error) {
-        console.log('✅ OpenAI service detected as working!');
+        console.log('✅ OpenAI service detected as working (PRIMARY)!');
         cachedActiveService = 'openai';
         cacheTimestamp = now;
         return 'openai';
@@ -92,9 +92,9 @@ export const detectActiveAIService = async (): Promise<AIService> => {
     console.log('❌ OpenAI service test failed:', error);
   }
 
-  // Test Gemini as fallback
+  // Test Gemini as fallback (now SECONDARY service)
   try {
-    console.log('🧪 Testing Gemini service...');
+    console.log('🧪 Testing Gemini service (FALLBACK)...');
     const geminiResponse = await fetch(env.GEMINI_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

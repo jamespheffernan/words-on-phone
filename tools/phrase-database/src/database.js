@@ -5,7 +5,7 @@ const winston = require('winston');
 
 // Database configuration
 const DB_PATH = path.join(__dirname, '..', 'data', 'phrases.db');
-const SCHEMA_VERSION = 1;
+const SCHEMA_VERSION = 2; // Updated for provider attribution
 
 // Configure logger
 const logger = winston.createLogger({
@@ -42,6 +42,9 @@ class PhraseDatabase {
       // Create tables if they don't exist
       await this.createTables();
       
+      // Run migrations if needed
+      await this.runMigrations();
+      
       // Set up indexes
       await this.createIndexes();
       
@@ -63,6 +66,8 @@ class PhraseDatabase {
         first_word TEXT NOT NULL,
         recent BOOLEAN DEFAULT FALSE,
         score INTEGER DEFAULT 0,
+        source_provider TEXT,
+        model_id TEXT,
         added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )`,
       
@@ -92,6 +97,55 @@ class PhraseDatabase {
     );
 
     logger.info('Database tables created successfully');
+  }
+
+  async runMigrations() {
+    // Get current schema version
+    let currentVersion = 0;
+    try {
+      const result = await this.get('SELECT version FROM schema_info ORDER BY version DESC LIMIT 1');
+      currentVersion = result ? result.version : 0;
+    } catch (error) {
+      // schema_info table doesn't exist yet, assume version 0
+      currentVersion = 0;
+    }
+
+    logger.info(`Current schema version: ${currentVersion}, target: ${SCHEMA_VERSION}`);
+
+    // Run migrations sequentially
+    if (currentVersion < 2) {
+      await this.migrateToVersion2();
+    }
+
+    // Update schema version
+    await this.run(
+      'INSERT OR REPLACE INTO schema_info (version) VALUES (?)',
+      [SCHEMA_VERSION]
+    );
+  }
+
+  async migrateToVersion2() {
+    logger.info('Migrating to schema version 2: Adding provider attribution columns');
+    
+    try {
+      // Add new columns to existing phrases table
+      await this.run('ALTER TABLE phrases ADD COLUMN source_provider TEXT');
+      await this.run('ALTER TABLE phrases ADD COLUMN model_id TEXT');
+      
+      logger.info('Schema migration to version 2 completed successfully');
+    } catch (error) {
+      // Columns might already exist, check if they do
+      const tableInfo = await this.all('PRAGMA table_info(phrases)');
+      const hasSourceProvider = tableInfo.some(col => col.name === 'source_provider');
+      const hasModelId = tableInfo.some(col => col.name === 'model_id');
+      
+      if (hasSourceProvider && hasModelId) {
+        logger.info('Provider attribution columns already exist, skipping migration');
+      } else {
+        logger.error('Failed to add provider attribution columns:', error);
+        throw error;
+      }
+    }
   }
 
   async createIndexes() {
@@ -166,28 +220,33 @@ class PhraseDatabase {
   // Database operations
   async addPhrase(phrase, category, options = {}) {
     // Handle both old signature and new options object
-    let firstWord, recent, score;
+    let firstWord, recent, score, sourceProvider, modelId;
     
     if (typeof options === 'string' || options === null) {
       // Old signature: addPhrase(phrase, category, firstWord, recent)
       firstWord = options;
       recent = arguments[3] || false;
       score = 0;
+      sourceProvider = null;
+      modelId = null;
     } else {
       // New signature: addPhrase(phrase, category, options)
       firstWord = options.firstWord;
       recent = options.recent || false;
       score = options.score || 0;
+      sourceProvider = options.sourceProvider || null;
+      modelId = options.modelId || null;
     }
     
     const extractedFirstWord = firstWord || this.extractFirstWord(phrase);
     
     const result = await this.run(
-      `INSERT INTO phrases (phrase, category, first_word, recent, score) VALUES (?, ?, ?, ?, ?)`,
-      [phrase, category, extractedFirstWord, recent, score]
+      `INSERT INTO phrases (phrase, category, first_word, recent, score, source_provider, model_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [phrase, category, extractedFirstWord, recent, score, sourceProvider, modelId]
     );
 
-    logger.info(`Added phrase: "${phrase}" to category "${category}"`);
+    const providerInfo = sourceProvider ? ` (${sourceProvider}${modelId ? `/${modelId}` : ''})` : '';
+    logger.info(`Added phrase: "${phrase}" to category "${category}"${providerInfo}`);
     return result;
   }
 

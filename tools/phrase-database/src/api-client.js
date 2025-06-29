@@ -2,8 +2,8 @@
  * API Client for Production Netlify Functions
  * 
  * Integrates with the production phrase generation APIs:
- * - Primary: Gemini 2.5 Flash via /.netlify/functions/gemini
- * - Fallback: OpenAI via /.netlify/functions/openai
+ * - Primary: OpenAI GPT-4o via /.netlify/functions/openai
+ * - Fallback: Gemini 2.5 Flash via /.netlify/functions/gemini
  */
 
 const https = require('https');
@@ -20,21 +20,34 @@ class APIClient {
    * Generate phrases using the production API
    * @param {string} category - The category to generate phrases for
    * @param {number} count - Number of phrases to generate (max 15 due to timeout)
-   * @param {string} service - 'gemini' or 'openai'
+   * @param {string} service - 'openai' or 'gemini'
    * @param {Array} existingPhrases - Existing phrases to avoid duplicates
    * @returns {Promise<string[]>} Array of generated phrases
    */
-  async generatePhrases(category, count = 15, service = 'gemini', existingPhrases = []) {
+  async generatePhrases(category, count = 15, service = 'openai', existingPhrases = []) {
     if (count > 15) {
       throw new Error('Maximum 15 phrases per request due to timeout limits');
     }
 
-    const endpoint = service === 'gemini' ? '/gemini' : '/openai';
-    const payload = {
-      prompt: this.createCategoryPrompt(category, count, existingPhrases),
-      category: category,
-      phraseCount: count
-    };
+    const endpoint = service === 'openai' ? '/openai' : '/gemini';
+    
+    // Create service-specific payload
+    let payload;
+    if (service === 'openai') {
+      // OpenAI expects: { topic, batchSize, phraseIds }
+      payload = {
+        topic: category,
+        batchSize: count,
+        phraseIds: Array.from({ length: count }, (_, i) => `phrase-${Date.now()}-${i}`)
+      };
+    } else {
+      // Gemini expects: { prompt, category, phraseCount }
+      payload = {
+        prompt: this.createCategoryPrompt(category, count, existingPhrases),
+        category: category,
+        phraseCount: count
+      };
+    }
 
     try {
       if (this.debug) {
@@ -63,24 +76,32 @@ class APIClient {
    * @param {number} count - Number of phrases to generate
    * @param {Array} existingPhrases - Existing phrases to avoid duplicates
    * @param {string} preferredService - Preferred AI service
-   * @returns {Promise<{phrases: string[], service: string}>} Generated phrases and service used
+   * @returns {Promise<{phrases: string[], service: string, modelId?: string}>} Generated phrases, service used, and model ID
    */
-  async generatePhrasesWithFallback(category, count = 15, existingPhrases = [], preferredService = 'gemini') {
-    // Try Gemini first (primary service)
+  async generatePhrasesWithFallback(category, count = 15, existingPhrases = [], preferredService = 'openai') {
+    // Try OpenAI first (now primary service)
     try {
-      const phrases = await this.generatePhrases(category, count, 'gemini', existingPhrases);
-      return { phrases, service: 'gemini' };
-    } catch (geminiError) {
+      const phrases = await this.generatePhrases(category, count, 'openai', existingPhrases);
+      return { 
+        phrases, 
+        service: 'openai',
+        modelId: 'gpt-4o' // TODO: Extract from actual response
+      };
+    } catch (openaiError) {
       if (this.debug) {
-        console.warn('🔄 Gemini failed, falling back to OpenAI');
+        console.warn('🔄 OpenAI failed, falling back to Gemini');
       }
 
-      // Fallback to OpenAI
+      // Fallback to Gemini
       try {
-        const phrases = await this.generatePhrases(category, count, 'openai', existingPhrases);
-        return { phrases, service: 'openai' };
-      } catch (openaiError) {
-        throw new Error(`Both services failed - Gemini: ${geminiError.message}, OpenAI: ${openaiError.message}`);
+        const phrases = await this.generatePhrases(category, count, 'gemini', existingPhrases);
+        return { 
+          phrases, 
+          service: 'gemini',
+          modelId: 'gemini-2.5-flash' // TODO: Extract from actual response
+        };
+      } catch (geminiError) {
+        throw new Error(`Both services failed - OpenAI: ${openaiError.message}, Gemini: ${geminiError.message}`);
       }
     }
   }
@@ -147,19 +168,27 @@ Return ONLY a JSON array of phrases: ["phrase1", "phrase2", ...]`;
   /**
    * Parse phrases from API response based on service type
    * @param {Object} response - API response
-   * @param {string} service - Service type ('gemini' or 'openai')
+   * @param {string} service - Service type ('openai' or 'gemini')
    * @returns {string[]} Parsed phrases
    */
   parsePhrasesFromResponse(response, service) {
     try {
       let content;
       
-      if (service === 'gemini') {
+      if (service === 'openai') {
+        // OpenAI function returns: [{ id, phrase, topic?, difficulty? }] (direct array)
+        if (Array.isArray(response)) {
+          return response.map(item => item.phrase).filter(phrase => phrase && typeof phrase === 'string');
+        }
+        // Alternative: { phrases: [{ id, phrase, topic?, difficulty? }] }
+        if (response.phrases && Array.isArray(response.phrases)) {
+          return response.phrases.map(item => item.phrase).filter(phrase => phrase && typeof phrase === 'string');
+        }
+        // Fallback: try to parse from choices format
+        content = response.choices?.[0]?.message?.content;
+      } else {
         // Gemini response format: { candidates: [{ content: { parts: [{ text: "..." }] } }] }
         content = response.candidates?.[0]?.content?.parts?.[0]?.text;
-      } else {
-        // OpenAI response format: { choices: [{ message: { content: "..." } }] }
-        content = response.choices?.[0]?.message?.content;
       }
 
       if (!content) {
