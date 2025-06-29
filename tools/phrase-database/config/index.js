@@ -66,6 +66,33 @@ const CATEGORIES = {
     description: 'Advanced/complex content for experienced players',
     quota: 200,
     examples: ['Quantum Physics', 'Ancient Mythology', 'Abstract Art', 'Philosophy Book']
+  },
+  
+  // Phase 1 Category Expansion - Task 5e
+  'Occupations & Jobs': {
+    description: 'Professions, careers, job roles, workplace activities',
+    quota: 200,
+    examples: ['Police Officer', 'Software Engineer', 'Restaurant Chef', 'School Teacher']
+  },
+  'Brands & Companies': {
+    description: 'Famous brands, companies, products, logos, retail stores',
+    quota: 200,
+    examples: ['Apple Store', 'Nike Shoes', 'Tesla Car', 'Starbucks Coffee']
+  },
+  'Holidays & Celebrations': {
+    description: 'Holidays, festivals, special occasions, party themes',
+    quota: 150,
+    examples: ['Christmas Morning', 'Birthday Party', 'New Year', 'Halloween Costume']
+  },
+  'Emotions & Feelings': {
+    description: 'Emotions, moods, expressions, reactions, body language',
+    quota: 150,
+    examples: ['Happy Dance', 'Angry Face', 'Nervous Laugh', 'Surprised Look']
+  },
+  'Actions & Verbs': {
+    description: 'Common actions, activities, daily tasks, physical movements',
+    quota: 200,
+    examples: ['Running Late', 'Taking Selfie', 'Cooking Dinner', 'Walking Dog']
   }
 };
 

@@ -1,0 +1,66 @@
+{
+  "sessionId": "nightly-2025-06-29-1751198477502",
+  "startTime": "2025-06-29T12:01:17.501Z",
+  "preGeneration": {
+    "totalPhrases": 589,
+    "recentPhrases": 0,
+    "categoryCounts": {
+      "Movies & TV": 65,
+      "Entertainment & Pop Culture": 63,
+      "Music & Artists": 60,
+      "Everything+": 56,
+      "Places & Travel": 52,
+      "Nature & Animals": 48,
+      "Technology & Science": 48,
+      "Sports & Athletes": 46,
+      "History & Events": 43,
+      "Everything": 38,
+      "Food & Drink": 36,
+      "Famous People": 34
+    },
+    "recentQuality": {
+      "averageScore": 0,
+      "sampleSize": 0
+    }
+  },
+  "postGeneration": {
+    "totalPhrases": 602,
+    "recentPhrases": 0,
+    "categoryCounts": {
+      "Movies & TV": 70,
+      "Music & Artists": 68,
+      "Entertainment & Pop Culture": 63,
+      "Everything+": 56,
+      "Places & Travel": 52,
+      "Nature & Animals": 48,
+      "Technology & Science": 48,
+      "Sports & Athletes": 46,
+      "History & Events": 43,
+      "Everything": 38,
+      "Food & Drink": 36,
+      "Famous People": 34
+    },
+    "newPhrases": 13
+  },
+  "generation": {
+    "batchesRun": 0,
+    "phrasesGenerated": 0,
+    "phrasesAccepted": 0,
+    "phrasesStored": 0,
+    "duplicateRate": 0,
+    "averageScore": 75,
+    "categoriesUpdated": 0,
+    "timeElapsed": 267
+  },
+  "qualityCheck": {
+    "passed": false,
+    "averageScore": 0,
+    "scoreRegression": false,
+    "duplicateRateOk": true,
+    "issues": [
+      "Average score 0 below threshold 65"
+    ]
+  },
+  "success": true,
+  "errors": []
+}

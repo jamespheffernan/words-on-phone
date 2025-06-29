@@ -10,6 +10,8 @@
 const APIClient = require('../src/api-client');
 const QualityPipeline = require('../src/quality-pipeline');
 const PhraseDatabase = require('../src/database');
+const CategoryBloomFilter = require('../src/bloomFilter');
+const PromptBuilder = require('../src/promptBuilder');
 const config = require('../config');
 const path = require('path');
 const fs = require('fs-extra');
@@ -27,6 +29,8 @@ class BatchQueueRunner {
       autoReject: config.QUALITY_THRESHOLDS.autoReject
     });
     this.database = new PhraseDatabase();
+    this.bloomFilter = null; // Will be initialized after database
+    this.promptBuilder = null; // Will be initialized after database
     this.debug = options.debug || false;
     
     // Configuration
@@ -59,7 +63,13 @@ class BatchQueueRunner {
       providersUsed: {},
       categoriesUpdated: {},
       timeElapsed: 0,
-      estimatedTimeRemaining: 0
+      estimatedTimeRemaining: 0,
+      bloomFilterStats: {
+        totalCandidates: 0,
+        bloomHits: 0,
+        bloomMisses: 0,
+        filterEfficiency: 0
+      }
     };
     
     // Generation log for crash recovery
@@ -172,6 +182,20 @@ class BatchQueueRunner {
   async getCategoryQueue() {
     await this.database.initialize();
     
+    // Initialize Bloom filters and prompt builder if not already done
+    if (!this.bloomFilter) {
+      console.log('🔍 Initializing Bloom filters for duplicate pre-filtering...');
+      this.bloomFilter = new CategoryBloomFilter(this.database);
+      await this.bloomFilter.initialize();
+      console.log('✅ Bloom filters ready');
+    }
+    
+    if (!this.promptBuilder) {
+      console.log('📝 Initializing enhanced prompt builder...');
+      this.promptBuilder = new PromptBuilder(this.database);
+      console.log('✅ Prompt builder ready');
+    }
+    
     const queue = [];
     
     for (const categoryName of this.categories) {
@@ -235,16 +259,34 @@ class BatchQueueRunner {
       // Get current phrases to avoid duplicates
       const currentPhrases = await this.database.getPhrasesByCategory(category);
       
-      // Generate phrases with provider attribution
-      const result = await this.apiClient.generatePhrasesWithFallback(category, this.batchSize, currentPhrases);
+      // Build enhanced prompt with duplicate avoidance
+      const enhancedPrompt = await this.promptBuilder.buildEnhancedPrompt(category, this.batchSize);
+      
+      // Generate phrases with enhanced prompt and provider attribution
+      const result = await this.apiClient.generatePhrasesWithFallback(category, this.batchSize, currentPhrases, {
+        customPrompt: enhancedPrompt
+      });
       console.log(`📝 Generated ${result.phrases.length} phrases via ${result.service.toUpperCase()} (${result.modelId})`);
+      
+      // Pre-filter candidates with Bloom filter
+      const candidates = result.phrases.map(phrase => ({ phrase, category }));
+      const bloomResult = this.bloomFilter.filterCandidates(candidates);
+      
+      // Update Bloom filter statistics
+      this.stats.bloomFilterStats.totalCandidates += bloomResult.stats.totalCandidates;
+      this.stats.bloomFilterStats.bloomHits += bloomResult.stats.possibleDuplicates;
+      this.stats.bloomFilterStats.bloomMisses += bloomResult.stats.likelyNew;
+      this.stats.bloomFilterStats.filterEfficiency = this.stats.bloomFilterStats.bloomHits / this.stats.bloomFilterStats.totalCandidates;
+      
+      console.log(`🔍 Bloom filter: ${bloomResult.stats.likelyNew} likely new, ${bloomResult.stats.possibleDuplicates} possible duplicates (${(bloomResult.stats.filterEfficiency * 100).toFixed(1)}% efficiency)`);
       
       // Track provider usage
       this.stats.providersUsed[result.service] = (this.stats.providersUsed[result.service] || 0) + 1;
       
-      // Process through quality pipeline
+      // Process only likely-new phrases through quality pipeline (skip Bloom filter hits)
+      const phrasesToProcess = bloomResult.filtered.map(candidate => candidate.phrase);
       const qualityResult = await this.qualityPipeline.processBatch(
-        result.phrases, 
+        phrasesToProcess, 
         category, 
         result.service,
         result.modelId
@@ -273,6 +315,8 @@ class BatchQueueRunner {
              }
            } else {
              storedCount++;
+             // Update Bloom filter with newly stored phrase
+             this.bloomFilter.addPhrase(item.phrase, category);
              if (this.debug) {
                console.log(`  ✅ Stored: "${item.phrase}" (${item.score}/100, ${item.sourceProvider})`);
              }
@@ -469,6 +513,23 @@ class BatchQueueRunner {
         .forEach(([category, count]) => {
           console.log(`   ${category}: +${count} phrases`);
         });
+    }
+    
+    // Show Bloom filter efficiency stats
+    if (this.stats.bloomFilterStats.totalCandidates > 0) {
+      console.log(`\n🔍 Bloom Filter Performance:`);
+      console.log(`   Total candidates processed: ${this.stats.bloomFilterStats.totalCandidates}`);
+      console.log(`   Likely duplicates filtered: ${this.stats.bloomFilterStats.bloomHits}`);
+      console.log(`   Likely new phrases processed: ${this.stats.bloomFilterStats.bloomMisses}`);
+      console.log(`   Filter efficiency: ${(this.stats.bloomFilterStats.filterEfficiency * 100).toFixed(1)}%`);
+      
+      if (this.stats.bloomFilterStats.filterEfficiency > 0.4) {
+        console.log(`   🎯 High duplicate detection rate - Bloom filters working effectively!`);
+      } else if (this.stats.bloomFilterStats.filterEfficiency > 0.2) {
+        console.log(`   ⚡ Moderate duplicate detection - some efficiency gains`);
+      } else {
+        console.log(`   📈 Low duplicate detection - categories may need more phrases to see efficiency`);
+      }
     }
   }
 
