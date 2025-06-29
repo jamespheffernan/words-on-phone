@@ -219,7 +219,7 @@ class GameExporter {
       const finalBackupPath = backupPath || `phrases-backup-${timestamp}.json`;
       
       const allPhrases = await this.db.db.all(`
-        SELECT phrase, category, recent, score, first_word, created_at 
+        SELECT phrase, category, recent, score, first_word, added as created_at 
         FROM phrases 
         ORDER BY category, phrase
       `);

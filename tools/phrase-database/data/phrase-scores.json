@@ -19318,5 +19318,33 @@
     "verdict": "WARNING - Likely Too Obscure",
     "timestamp": "2025-06-26T16:12:26.677Z",
     "cached": true
+  },
+  "beyonce dance:Music & Artists": {
+    "phrase": "Beyonce Dance",
+    "category": "Music & Artists",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-29T04:05:36.766Z",
+    "cached": true
+  },
+  "beyonce performance:Music & Artists": {
+    "phrase": "Beyonce Performance",
+    "category": "Music & Artists",
+    "totalScore": 33,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-29T04:05:39.296Z",
+    "cached": true
   }
 }
