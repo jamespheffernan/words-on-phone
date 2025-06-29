@@ -89,7 +89,26 @@ class PromptBuilder {
       'Brands & Companies': `Generate ${batchSize} diverse brand names, company names, products, services, or business-related phrases that are well-known and suitable for charades/acting games.`,
       'Holidays & Celebrations': `Generate ${batchSize} diverse holidays, festivals, celebrations, special occasions, or party-related phrases that are widely recognized and fun to act out.`,
       'Emotions & Feelings': `Generate ${batchSize} diverse emotions, feelings, moods, expressions, or emotional states that can be clearly expressed through facial expressions and body language in charades.`,
-      'Actions & Verbs': `Generate ${batchSize} diverse actions, activities, verbs, or physical movements that are common, recognizable, and perfect for acting out in charades games.`
+      'Actions & Verbs': `Generate ${batchSize} diverse actions, activities, verbs, or physical movements that are common, recognizable, and perfect for acting out in charades games.`,
+      
+      // Phase 2 Category Expansion - Task 5e
+      'Clothing & Fashion': `Generate ${batchSize} diverse clothing items, fashion accessories, style trends, or wardrobe pieces that are easily recognizable and can be acted out or mimed in charades.`,
+      'Weather & Seasons': `Generate ${batchSize} diverse weather conditions, seasonal activities, climate phenomena, or seasonal changes that can be clearly expressed through gestures and actions in charades.`,
+      'School & Education': `Generate ${batchSize} diverse educational activities, school subjects, academic events, or learning concepts that are widely recognized and suitable for charades/acting games.`,
+      'Health & Medical': `Generate ${batchSize} diverse medical procedures, health activities, body care concepts, or wellness activities that are commonly known and appropriate for charades.`,
+      'Hobbies & Activities': `Generate ${batchSize} diverse recreational activities, pastimes, creative pursuits, or leisure activities that are popular and perfect for acting out in charades.`,
+      'Transportation': `Generate ${batchSize} diverse vehicles, travel methods, transportation activities, or commuting concepts that are easily recognizable and suitable for charades/acting games.`,
+      'Household Items': `Generate ${batchSize} diverse home appliances, furniture, kitchen items, or daily household objects that are commonly found in homes and perfect for charades.`,
+      
+      // Phase 3 Category Expansion - Task 5e (Final Phase)
+      'Body Parts & Gestures': `Generate ${batchSize} diverse body parts, physical gestures, movements, expressions, or sign language that can be clearly demonstrated through body language and gestures in charades.`,
+      'Colors & Shapes': `Generate ${batchSize} diverse colors, geometric shapes, patterns, visual designs, or artistic elements that can be effectively communicated through visual gestures and actions in charades.`,
+      'Numbers & Time': `Generate ${batchSize} diverse numbers, time concepts, calendar events, mathematical operations, or measurements that can be expressed through gestures and actions in charades games.`,
+      'Fantasy & Magic': `Generate ${batchSize} diverse fantasy creatures, magical concepts, mythical beings, or supernatural elements that are widely recognized and perfect for creative acting in charades.`,
+      'Crime & Mystery': `Generate ${batchSize} diverse detective stories, crime scenes, mystery solving concepts, police work, or investigation activities that are suitable for dramatic acting in charades.`,
+      'Romance & Relationships': `Generate ${batchSize} diverse romance, dating, relationship, love, marriage, or family connection concepts that are appropriate and can be acted out in charades games.`,
+      'Kids & Baby': `Generate ${batchSize} diverse children activities, baby items, toys, playground concepts, parenting activities, or childhood experiences that are perfect for charades and family-friendly.`,
+      'Internet & Social Media': `Generate ${batchSize} diverse online activities, social media concepts, digital life, technology interactions, or web culture phenomena that are widely recognized and suitable for charades.`
     };
 
     return categoryPrompts[category] || `Generate ${batchSize} diverse phrases for the "${category}" category that are suitable for charades/acting games.`;

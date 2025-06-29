@@ -93,6 +93,85 @@ const CATEGORIES = {
     description: 'Common actions, activities, daily tasks, physical movements',
     quota: 200,
     examples: ['Running Late', 'Taking Selfie', 'Cooking Dinner', 'Walking Dog']
+  },
+  
+  // Phase 2 Category Expansion - Task 5e
+  'Clothing & Fashion': {
+    description: 'Clothing items, fashion accessories, style trends, wardrobe pieces',
+    quota: 150,
+    examples: ['High Heels', 'Winter Coat', 'Baseball Cap', 'Evening Dress']
+  },
+  'Weather & Seasons': {
+    description: 'Weather conditions, seasonal activities, climate phenomena, seasonal changes',
+    quota: 100,
+    examples: ['Thunder Storm', 'Snow Day', 'Heat Wave', 'Spring Rain']
+  },
+  'School & Education': {
+    description: 'Educational activities, school subjects, academic events, learning concepts',
+    quota: 150,
+    examples: ['Math Test', 'Science Fair', 'Graduation Day', 'Library Book']
+  },
+  'Health & Medical': {
+    description: 'Medical procedures, health activities, body care, wellness concepts',
+    quota: 150,
+    examples: ['Doctor Visit', 'Broken Arm', 'Eye Exam', 'Taking Medicine']
+  },
+  'Hobbies & Activities': {
+    description: 'Recreational activities, pastimes, creative pursuits, leisure activities',
+    quota: 200,
+    examples: ['Video Gaming', 'Book Club', 'Yoga Class', 'Garden Work']
+  },
+  'Transportation': {
+    description: 'Vehicles, travel methods, transportation activities, commuting',
+    quota: 150,
+    examples: ['Road Trip', 'Airplane Landing', 'Subway Ride', 'Bicycle Race']
+  },
+  'Household Items': {
+    description: 'Home appliances, furniture, kitchen items, daily household objects',
+    quota: 200,
+    examples: ['Coffee Maker', 'Washing Machine', 'TV Remote', 'Vacuum Cleaner']
+  },
+  
+  // Phase 3 Category Expansion - Task 5e (Final Phase)
+  'Body Parts & Gestures': {
+    description: 'Body parts, physical gestures, movements, expressions, sign language',
+    quota: 100,
+    examples: ['Thumbs Up', 'Eye Roll', 'High Five', 'Shoulder Shrug']
+  },
+  'Colors & Shapes': {
+    description: 'Colors, geometric shapes, patterns, visual designs, artistic elements',
+    quota: 100,
+    examples: ['Red Circle', 'Blue Sky', 'Yellow Sun', 'Green Triangle']
+  },
+  'Numbers & Time': {
+    description: 'Numbers, time concepts, calendar events, mathematical operations, measurements',
+    quota: 100,
+    examples: ['Five Minutes', 'Midnight Hour', 'Lucky Seven', 'Half Past Two']
+  },
+  'Fantasy & Magic': {
+    description: 'Fantasy creatures, magical concepts, mythical beings, supernatural elements',
+    quota: 150,
+    examples: ['Magic Wand', 'Dragon Fire', 'Fairy Tale', 'Wizard Hat']
+  },
+  'Crime & Mystery': {
+    description: 'Detective stories, crime scenes, mystery solving, police work, investigations',
+    quota: 150,
+    examples: ['Detective Story', 'Bank Robbery', 'Secret Agent', 'Crime Scene']
+  },
+  'Romance & Relationships': {
+    description: 'Romance, dating, relationships, love, marriage, family connections',
+    quota: 150,
+    examples: ['First Date', 'Wedding Day', 'Love Letter', 'Anniversary']
+  },
+  'Kids & Baby': {
+    description: 'Children activities, baby items, toys, playground, parenting, childhood',
+    quota: 150,
+    examples: ['Baby Bottle', 'Playground Slide', 'Bedtime Story', 'Toy Box']
+  },
+  'Internet & Social Media': {
+    description: 'Online activities, social media, digital life, technology interactions, web culture',
+    quota: 150,
+    examples: ['Instagram Post', 'Viral Video', 'Text Message', 'Online Shopping']
   }
 };
 
