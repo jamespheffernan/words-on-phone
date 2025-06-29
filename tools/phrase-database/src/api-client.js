@@ -22,31 +22,48 @@ class APIClient {
    * @param {number} count - Number of phrases to generate (max 15 due to timeout)
    * @param {string} service - 'openai' or 'gemini'
    * @param {Array} existingPhrases - Existing phrases to avoid duplicates
+   * @param {Object} options - Additional options (e.g., customPrompt)
    * @returns {Promise<string[]>} Array of generated phrases
    */
-  async generatePhrases(category, count = 15, service = 'openai', existingPhrases = []) {
+  async generatePhrases(category, count = 15, service = 'openai', existingPhrases = [], options = {}) {
     if (count > 15) {
       throw new Error('Maximum 15 phrases per request due to timeout limits');
     }
 
+    const { customPrompt } = options;
     const endpoint = service === 'openai' ? '/openai' : '/gemini';
     
     // Create service-specific payload
     let payload;
     if (service === 'openai') {
-      // OpenAI expects: { topic, batchSize, phraseIds }
-      payload = {
-        topic: category,
-        batchSize: count,
-        phraseIds: Array.from({ length: count }, (_, i) => `phrase-${Date.now()}-${i}`)
-      };
+      // OpenAI expects: { topic, batchSize, phraseIds } or custom prompt as user message
+      if (customPrompt) {
+        payload = {
+          customPrompt,
+          topic: category,
+          batchSize: count,
+          phraseIds: Array.from({ length: count }, (_, i) => `phrase-${Date.now()}-${i}`)
+        };
+        if (this.debug) {
+          console.log(`📝 [OpenAI] Using customPrompt:`, customPrompt);
+        }
+      } else {
+        payload = {
+          topic: category,
+          batchSize: count,
+          phraseIds: Array.from({ length: count }, (_, i) => `phrase-${Date.now()}-${i}`)
+        };
+      }
     } else {
       // Gemini expects: { prompt, category, phraseCount }
       payload = {
-        prompt: this.createCategoryPrompt(category, count, existingPhrases),
+        prompt: customPrompt || this.createCategoryPrompt(category, count, existingPhrases),
         category: category,
         phraseCount: count
       };
+      if (this.debug && customPrompt) {
+        console.log(`📝 [Gemini] Using customPrompt:`, customPrompt);
+      }
     }
 
     try {
@@ -75,13 +92,13 @@ class APIClient {
    * @param {string} category - The category to generate phrases for
    * @param {number} count - Number of phrases to generate
    * @param {Array} existingPhrases - Existing phrases to avoid duplicates
-   * @param {string} preferredService - Preferred AI service
+   * @param {Object} options - Additional options (e.g., customPrompt)
    * @returns {Promise<{phrases: string[], service: string, modelId?: string}>} Generated phrases, service used, and model ID
    */
-  async generatePhrasesWithFallback(category, count = 15, existingPhrases = [], preferredService = 'openai') {
+  async generatePhrasesWithFallback(category, count = 15, existingPhrases = [], options = {}) {
     // Try OpenAI first (now primary service)
     try {
-      const phrases = await this.generatePhrases(category, count, 'openai', existingPhrases);
+      const phrases = await this.generatePhrases(category, count, 'openai', existingPhrases, options);
       return { 
         phrases, 
         service: 'openai',
@@ -94,7 +111,7 @@ class APIClient {
 
       // Fallback to Gemini
       try {
-        const phrases = await this.generatePhrases(category, count, 'gemini', existingPhrases);
+        const phrases = await this.generatePhrases(category, count, 'gemini', existingPhrases, options);
         return { 
           phrases, 
           service: 'gemini',

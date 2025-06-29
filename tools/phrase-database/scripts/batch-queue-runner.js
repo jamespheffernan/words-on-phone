@@ -261,7 +261,10 @@ class BatchQueueRunner {
       
       // Build enhanced prompt with duplicate avoidance
       const enhancedPrompt = await this.promptBuilder.buildEnhancedPrompt(category, this.batchSize);
-      
+
+      if (this.debug) {
+        console.log(`📝 [BatchQueueRunner] Enhanced prompt for category '${category}':\n${enhancedPrompt}`);
+      }
       // Generate phrases with enhanced prompt and provider attribution
       const result = await this.apiClient.generatePhrasesWithFallback(category, this.batchSize, currentPhrases, {
         customPrompt: enhancedPrompt
