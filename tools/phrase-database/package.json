@@ -11,7 +11,11 @@
     "dev": "nodemon src/cli.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint src/ lib/"
+    "lint": "eslint src/ lib/",
+    "generate-nightly": "node scripts/generate-nightly.js",
+    "generate-nightly:dry": "node scripts/generate-nightly.js --dry-run",
+    "generate-nightly:debug": "node scripts/generate-nightly.js --debug",
+    "generate-batch": "node scripts/batch-queue-runner.js"
   },
   "keywords": [
     "phrases",
