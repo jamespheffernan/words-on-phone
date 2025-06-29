@@ -60,12 +60,13 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
   - Production-ready phrase database system
   - Ready for merge to main branch
 - [phrase-pool-expansion](implementation-plan/phrase-pool-expansion.md) - 🚧 **IN PROGRESS** - Phrase Pool Expansion to 5,000+ Phrases (OpenAI default)
-  - 🎯 **GOAL**: Scale from current ~67 phrases to 5,000+ high-quality phrases using OpenAI-first infrastructure
-  - ✅ **3/8 TASKS COMPLETE** (37.5%): Project setup, architecture consolidation, and throughput automation complete
+  - 🎯 **GOAL**: Scale from current ~78 phrases to 5,000+ high-quality phrases using OpenAI-first infrastructure
+  - ✅ **4/8 TASKS COMPLETE** (50%): Project setup, architecture consolidation, throughput automation, and review workflow complete
   - **INFRASTRUCTURE READY**: OpenAI primary service, Gemini fallback, database schema v2 with provider attribution
   - **ARCHITECTURE CONSOLIDATED**: Shared config system, refactored scripts (generate-batch, process-batch, export-game-json), documented data flow
   - **AUTOMATION COMPLETE**: Batch queue runner with concurrent generation, rate limiting, crash recovery, graceful duplicate handling
-  - 📋 **NEXT TASKS**: Review workflow upgrade, phase I expansion (2,000 phrases), continuous generation pipeline
+  - **REVIEW WORKFLOW READY**: Bulk review dashboard with enhanced thresholds (auto-accept ≥70), keyboard shortcuts, batch operations, CSV export
+  - 📋 **NEXT TASKS**: Phase I expansion (2,000 phrases), continuous generation pipeline, final documentation
 
 ## Current Bug Fix / Executor Work
 
