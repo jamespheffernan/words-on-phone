@@ -5,6 +5,7 @@ import { phraseService } from './services/phraseService';
 import { PhraseCursor } from './phraseEngine';
 import { BUZZER_SOUNDS, type BuzzerSoundType } from './hooks/useAudio';
 import { indexedDBStorage } from './storage/indexedDBStorage';
+import { categoryPopularityService } from './services/categoryPopularityService';
 import { 
   trackRoundStart, 
   trackPhraseSuccess, 
@@ -161,6 +162,25 @@ export const useGameStore = create<GameState>()(
     (set, get) => {
       const cursor = new PhraseCursor(phraseService.getAllPhrases());
       const initialSkipLimit = 3;
+      
+      // Helper function to convert category names to IDs (matches phraseService.slugify)
+      const slugifyCategory = (name: string): string => {
+        return name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      };
+      
+      // Helper function to track category popularity
+      const trackCategoryPopularity = async (categories: string[]) => {
+        try {
+          // Record each selected category as played
+          for (const categoryName of categories) {
+            const categoryId = slugifyCategory(categoryName);
+            await categoryPopularityService.recordCategoryPlayed(categoryId);
+          }
+        } catch (error) {
+          // Don't fail the game start if popularity tracking fails
+          console.warn('Failed to track category popularity:', error);
+        }
+      };
       
       // Helper function to update phrase stats
       const updatePhraseStats = (phraseId: string, success: boolean, duration?: number) => {
@@ -408,6 +428,10 @@ export const useGameStore = create<GameState>()(
           const cats = state.selectedCategories && state.selectedCategories.length > 0
             ? state.selectedCategories
             : [state.selectedCategory];
+          
+          // Track category popularity (async, non-blocking)
+          trackCategoryPopularity(cats);
+          
           const phraseSet = new Set<string>();
           cats.forEach((cat)=> {
             phraseService.getPhrasesByCategory(cat as any).forEach((p)=> phraseSet.add(p));
