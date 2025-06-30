@@ -6,6 +6,7 @@ import { PhraseCursor } from './phraseEngine';
 import { BUZZER_SOUNDS, type BuzzerSoundType } from './hooks/useAudio';
 import { indexedDBStorage } from './storage/indexedDBStorage';
 import { categoryPopularityService } from './services/categoryPopularityService';
+import { CategoryGroupingState, DEFAULT_CATEGORY_GROUPS } from './types/category';
 import { 
   trackRoundStart, 
   trackPhraseSuccess, 
@@ -103,6 +104,9 @@ interface GameState {
   roundStats: RoundStats[];
   currentRoundAnswers: Array<{ phrase: string; timeMs: number }>;
   
+  // Category grouping (Task 3)
+  expandedGroups: Set<string>; // Set of group IDs that are currently expanded
+  
   // Actions
   nextPhrase: () => void;
   skipPhrase: () => void;
@@ -155,6 +159,12 @@ interface GameState {
   completeRound: (winningTeamIndex: number) => void;
   resetCurrentRoundAnswers: () => void;
   togglePinnedCategory: (category: string) => void;
+  
+  // Category grouping actions (Task 3)
+  toggleGroupExpanded: (groupId: string) => void;
+  setGroupExpanded: (groupId: string, expanded: boolean) => void;
+  expandAllGroups: () => void;
+  collapseAllGroups: () => void;
 }
 
 export const useGameStore = create<GameState>()(
@@ -256,6 +266,9 @@ export const useGameStore = create<GameState>()(
         roundNumber: 1,
         roundStats: [],
         currentRoundAnswers: [],
+        
+        // Category grouping (Task 3) - Default to first group expanded
+        expandedGroups: new Set(['entertainment']),
         
         // Actions
         nextPhrase: () => set((state) => {
@@ -649,6 +662,35 @@ export const useGameStore = create<GameState>()(
             : [...state.pinnedCategories, category];
           return { pinnedCategories: pinned };
         }),
+        
+        // Category grouping actions (Task 3)
+        toggleGroupExpanded: (groupId) => set((state) => {
+          const newExpanded = new Set(state.expandedGroups);
+          if (newExpanded.has(groupId)) {
+            newExpanded.delete(groupId);
+          } else {
+            newExpanded.add(groupId);
+          }
+          return { expandedGroups: newExpanded };
+        }),
+        
+        setGroupExpanded: (groupId, expanded) => set((state) => {
+          const newExpanded = new Set(state.expandedGroups);
+          if (expanded) {
+            newExpanded.add(groupId);
+          } else {
+            newExpanded.delete(groupId);
+          }
+          return { expandedGroups: newExpanded };
+        }),
+        
+        expandAllGroups: () => set(() => ({
+          expandedGroups: new Set(DEFAULT_CATEGORY_GROUPS.map(group => group.id))
+        })),
+        
+        collapseAllGroups: () => set(() => ({
+          expandedGroups: new Set()
+        })),
       };
     },
     {
@@ -675,7 +717,8 @@ export const useGameStore = create<GameState>()(
         currentTeamIndex: state.currentTeamIndex,
         roundNumber: state.roundNumber,
         roundStats: state.roundStats,
-        currentRoundAnswers: state.currentRoundAnswers
+        currentRoundAnswers: state.currentRoundAnswers,
+        expandedGroups: Array.from(state.expandedGroups) // Convert Set to Array for JSON serialization
       }),
       // Ensure proper merging of async storage to avoid race conditions
       merge: (persistedState, currentState) => {
@@ -710,7 +753,10 @@ export const useGameStore = create<GameState>()(
             : currentState.roundStats,
           currentRoundAnswers: persisted.currentRoundAnswers && Object.keys(persisted.currentRoundAnswers).length > 0
             ? persisted.currentRoundAnswers
-            : currentState.currentRoundAnswers
+            : currentState.currentRoundAnswers,
+          expandedGroups: persisted.expandedGroups && Array.isArray(persisted.expandedGroups)
+            ? new Set(persisted.expandedGroups)
+            : currentState.expandedGroups
         };
       }
     }

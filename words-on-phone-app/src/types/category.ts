@@ -17,13 +17,114 @@ export interface CategoryPopularityData {
   createdAt: number;       // When tracking started for this category
 }
 
-export interface CategoryWithPopularity extends CategoryMetadata {
-  popularityData?: CategoryPopularityData;
-  popularityScore?: number; // Calculated weighted score
+export interface PopularityCalculationOptions {
+  playCountWeight: number;   // Weight for play count in score (default: 0.7)
+  recencyWeight: number;     // Weight for recency in score (default: 0.3)
+  maxRecencyDays: number;    // Days after which recency bonus becomes 0 (default: 30)
 }
 
-export interface PopularityCalculationOptions {
-  playCountWeight: number; // Weight for play count (0-1, default: 0.7)
-  recencyWeight: number;   // Weight for recency bonus (0-1, default: 0.3)
-  maxRecencyDays: number;  // Max days for recency calculation (default: 30)
+export interface CategoryWithPopularity extends CategoryMetadata {
+  popularityData?: CategoryPopularityData | null;
+  popularityScore?: number;
+}
+
+// Task 3: Category grouping types
+export interface CategoryGroup {
+  id: string;              // Unique group identifier
+  name: string;            // Display name for the group
+  emoji: string;           // Emoji icon for the group
+  categoryNames: string[]; // List of category names that belong to this group
+  description?: string;    // Optional description of the group
+}
+
+export interface CategoryGroupingState {
+  expandedGroups: Set<string>;  // Set of group IDs that are currently expanded
+}
+
+// Define the default category groups
+export const DEFAULT_CATEGORY_GROUPS: CategoryGroup[] = [
+  {
+    id: 'entertainment',
+    name: 'Entertainment',
+    emoji: '🎬',
+    categoryNames: [
+      'Movies & TV',
+      'Music & Artists',
+      'Entertainment & Pop Culture',
+      'Famous People'
+    ],
+    description: 'Movies, TV shows, music, celebrities, and pop culture'
+  },
+  {
+    id: 'daily-life',
+    name: 'Daily Life', 
+    emoji: '🏠',
+    categoryNames: [
+      'Food & Drink'
+    ],
+    description: 'Food, household items, daily activities'
+  },
+  {
+    id: 'world-knowledge',
+    name: 'World & Knowledge',
+    emoji: '🌍',
+    categoryNames: [
+      'Places & Travel',
+      'History & Events', 
+      'Technology & Science',
+      'Nature & Animals'
+    ],
+    description: 'Geography, history, science, and nature'
+  },
+  {
+    id: 'activities-sports',
+    name: 'Activities & Sports',
+    emoji: '🏃',
+    categoryNames: [
+      'Sports & Athletes'
+    ],
+    description: 'Sports, activities, and actions'
+  },
+  {
+    id: 'creative-misc',
+    name: 'Creative & Misc',
+    emoji: '🎨',
+    categoryNames: [
+      'Everything',
+      'Everything+'
+    ],
+    description: 'Mixed categories and creative topics'
+  }
+];
+
+// Helper function to get the group for a category
+export function getCategoryGroup(categoryName: string): CategoryGroup | undefined {
+  return DEFAULT_CATEGORY_GROUPS.find(group => 
+    group.categoryNames.includes(categoryName)
+  );
+}
+
+// Helper function to group categories by their assigned groups
+export function groupCategoriesByGroup(categories: CategoryMetadata[]): Record<string, CategoryMetadata[]> {
+  const grouped: Record<string, CategoryMetadata[]> = {};
+  
+  // Initialize all groups
+  DEFAULT_CATEGORY_GROUPS.forEach(group => {
+    grouped[group.id] = [];
+  });
+  
+  // Add ungrouped category for categories not in any group
+  grouped['ungrouped'] = [];
+  
+  // Categorize each category
+  categories.forEach(category => {
+    const group = getCategoryGroup(category.name);
+    if (group) {
+      grouped[group.id].push(category);
+    } else {
+      grouped['ungrouped'].push(category);
+    }
+  });
+  
+  return grouped;
 } 

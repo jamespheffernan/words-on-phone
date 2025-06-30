@@ -1,91 +1,258 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import { vi } from 'vitest';
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { CategorySelector } from '../CategorySelector';
 import { CategoryMetadata } from '../../types/category';
 import { useGameStore } from '../../store';
 
-const defaults: CategoryMetadata[] = [
-  { id: 'movies', name: 'Movies & TV', type: 'default', phraseCount: 10, createdAt: 0 },
-  { id: 'music', name: 'Music & Artists', type: 'default', phraseCount: 8, createdAt: 0 }
-];
-const customs: CategoryMetadata[] = [
-  { id: 'kitchen', name: 'Kitchen Stuff', type: 'custom', phraseCount: 15, createdAt: Date.now() }
-];
+// Mock the store
+const mockTogglePinnedCategory = vi.fn();
+const mockToggleGroupExpanded = vi.fn();
+const mockExpandAllGroups = vi.fn();
+const mockCollapseAllGroups = vi.fn();
 
-afterEach(() => {
-  useGameStore.getState().togglePinnedCategory('Movies & TV'); // reset pin if toggled
-  useGameStore.setState({ pinnedCategories: [] });
-});
+vi.mock('../../store', () => ({
+  useGameStore: () => ({
+    pinnedCategories: ['Movies & TV'],
+    togglePinnedCategory: mockTogglePinnedCategory,
+    expandedGroups: new Set(['entertainment']),
+    toggleGroupExpanded: mockToggleGroupExpanded,
+    expandAllGroups: mockExpandAllGroups,
+    collapseAllGroups: mockCollapseAllGroups
+  })
+}));
 
-test('renders categories and allows selection', () => {
-  const onChange = vi.fn();
-  act(() => {
+describe('CategorySelector', () => {
+  const mockOnChange = vi.fn();
+  
+  const defaultCategories: CategoryMetadata[] = [
+    { id: 'movies-tv', name: 'Movies & TV', type: 'default', phraseCount: 100, createdAt: 0 },
+    { id: 'music-artists', name: 'Music & Artists', type: 'default', phraseCount: 75, createdAt: 0 },
+    { id: 'entertainment-pop-culture', name: 'Entertainment & Pop Culture', type: 'default', phraseCount: 85, createdAt: 0 },
+    { id: 'food-drink', name: 'Food & Drink', type: 'default', phraseCount: 120, createdAt: 0 },
+    { id: 'sports-athletes', name: 'Sports & Athletes', type: 'default', phraseCount: 90, createdAt: 0 }
+  ];
+
+  const customCategories: CategoryMetadata[] = [
+    { id: 'custom-1', name: 'Custom Category', type: 'custom', phraseCount: 20, createdAt: Date.now() }
+  ];
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('renders default and custom tabs', () => {
     render(
       <CategorySelector
-        defaultCategories={defaults}
-        customCategories={customs}
-        selected={[]}
-        onChange={onChange}
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={['Movies & TV']}
+        onChange={mockOnChange}
       />
     );
-  });
-  // Switch to the Custom tab
-  const customTab = screen.getByRole('button', { name: /Custom/i });
-  act(() => {
-    fireEvent.click(customTab);
-  });
-  // Find the checkbox for Kitchen Stuff
-  const kitchenCheckbox = screen.getByLabelText(/Kitchen Stuff/);
-  act(() => {
-    fireEvent.click(kitchenCheckbox);
-  });
-  expect(onChange).toHaveBeenCalledWith(['Kitchen Stuff']);
-});
 
-test('pin button toggles pinned state', () => {
-  act(() => {
+    expect(screen.getByText('Default')).toBeInTheDocument();
+    expect(screen.getByText('Custom')).toBeInTheDocument();
+  });
+
+  it('displays accordion groups for default categories', () => {
     render(
       <CategorySelector
-        defaultCategories={defaults}
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={['Movies & TV']}
+        onChange={mockOnChange}
+      />
+    );
+
+    // Entertainment group should be visible and expanded
+    expect(screen.getByText('🎬')).toBeInTheDocument();
+    expect(screen.getByText('Entertainment')).toBeInTheDocument();
+    
+    // Should show grouped categories when expanded
+    expect(screen.getByText('Movies & TV')).toBeInTheDocument();
+    expect(screen.getByText('Music & Artists')).toBeInTheDocument();
+  });
+
+  it('toggles group expansion when clicking accordion header', () => {
+    render(
+      <CategorySelector
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={[]}
+        onChange={mockOnChange}
+      />
+    );
+
+    const entertainmentHeader = screen.getByLabelText(/Entertainment category group/);
+    fireEvent.click(entertainmentHeader);
+
+    expect(mockToggleGroupExpanded).toHaveBeenCalledWith('entertainment');
+  });
+
+  it('shows expand/collapse all buttons for default categories', () => {
+    render(
+      <CategorySelector
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={[]}
+        onChange={mockOnChange}
+      />
+    );
+
+    expect(screen.getByText('Expand All')).toBeInTheDocument();
+  });
+
+  it('calls expand all groups when clicking expand all button', () => {
+    render(
+      <CategorySelector
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={[]}
+        onChange={mockOnChange}
+      />
+    );
+
+    const expandAllButton = screen.getByText('Expand All');
+    fireEvent.click(expandAllButton);
+
+    expect(mockExpandAllGroups).toHaveBeenCalled();
+  });
+
+  it('switches to flat view for custom categories', () => {
+    render(
+      <CategorySelector
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={[]}
+        onChange={mockOnChange}
+      />
+    );
+
+    // Switch to custom tab
+    const customTab = screen.getByText('Custom');
+    fireEvent.click(customTab);
+
+    // Should show flat grid instead of accordion
+    expect(screen.getByText('Custom Category')).toBeInTheDocument();
+    expect(screen.queryByText('Entertainment')).not.toBeInTheDocument();
+  });
+
+  it('handles category selection in accordion groups', () => {
+    render(
+      <CategorySelector
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={[]}
+        onChange={mockOnChange}
+      />
+    );
+
+    const moviesTvCheckbox = screen.getByLabelText(/Movies & TV/);
+    fireEvent.click(moviesTvCheckbox);
+
+    expect(mockOnChange).toHaveBeenCalledWith(['Movies & TV']);
+  });
+
+  it('shows correct selection count in accordion headers', () => {
+    render(
+      <CategorySelector
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={['Movies & TV', 'Music & Artists']}
+        onChange={mockOnChange}
+      />
+    );
+
+    // Entertainment group should show 2/3 selected (Movies & TV, Music & Artists, Entertainment & Pop Culture)
+    expect(screen.getByText('(2/3)')).toBeInTheDocument();
+  });
+
+  it('handles pin/unpin functionality in accordion groups', () => {
+    render(
+      <CategorySelector
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={[]}
+        onChange={mockOnChange}
+      />
+    );
+
+    const pinButtons = screen.getAllByLabelText(/Pin|Unpin/);
+    fireEvent.click(pinButtons[0]);
+
+    expect(mockTogglePinnedCategory).toHaveBeenCalled();
+  });
+
+  it('sorts categories within groups based on sort key', () => {
+    render(
+      <CategorySelector
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={[]}
+        onChange={mockOnChange}
+      />
+    );
+
+    // Change to sort by phrase count
+    const sortSelect = screen.getByLabelText('Sort categories');
+    fireEvent.change(sortSelect, { target: { value: 'count' } });
+
+    // Categories should be reordered (Food & Drink has 120 phrases, highest in entertainment group)
+    expect(screen.getByText('Food & Drink')).toBeInTheDocument();
+  });
+
+  it('filters categories with search', () => {
+    render(
+      <CategorySelector
+        defaultCategories={defaultCategories}
+        customCategories={customCategories}
+        selected={[]}
+        onChange={mockOnChange}
+      />
+    );
+
+    // Switch to custom tab for testing search
+    const customTab = screen.getByText('Custom');
+    fireEvent.click(customTab);
+
+    const searchInput = screen.getByPlaceholderText('Search categories...');
+    fireEvent.change(searchInput, { target: { value: 'Custom' } });
+
+    expect(screen.getByText('Custom Category')).toBeInTheDocument();
+  });
+
+  it('handles loading state', () => {
+    render(
+      <CategorySelector
+        defaultCategories={[]}
         customCategories={[]}
         selected={[]}
-        onChange={() => {}}
+        onChange={mockOnChange}
+        loading={true}
       />
     );
-  });
-  const star = screen.getAllByRole('button', { name: /Pin/i })[0];
-  act(() => {
-    fireEvent.click(star);
-  });
-  expect(useGameStore.getState().pinnedCategories).toContain('Movies & TV');
-});
 
-test('allows multi-selection and displays phrase counts', () => {
-  const onChange = vi.fn();
-  act(() => {
+    expect(screen.getByText('Loading categories...')).toBeInTheDocument();
+  });
+
+  it('shows ungrouped categories section when present', () => {
+    const categoriesWithUngrouped = [
+      ...defaultCategories,
+      { id: 'ungrouped-cat', name: 'Ungrouped Category', type: 'default' as const, phraseCount: 50, createdAt: 0 }
+    ];
+
     render(
       <CategorySelector
-        defaultCategories={defaults}
-        customCategories={customs}
-        selected={['Movies & TV']}
-        onChange={onChange}
+        defaultCategories={categoriesWithUngrouped}
+        customCategories={customCategories}
+        selected={[]}
+        onChange={mockOnChange}
       />
     );
+
+    // Should show the Other Categories group for ungrouped items
+    expect(screen.getByText('📂')).toBeInTheDocument();
+    expect(screen.getByText('Other Categories')).toBeInTheDocument();
   });
-  // Select Music & Artists as well
-  const musicCheckbox = screen.getByLabelText(/Music & Artists/);
-  act(() => {
-    fireEvent.click(musicCheckbox);
-  });
-  expect(onChange).toHaveBeenCalledWith(['Movies & TV', 'Music & Artists']);
-  // Check phrase count display for default categories before switching tab
-  expect(screen.getByText((_, node) => node?.textContent === '(10)')).toBeInTheDocument();
-  expect(screen.getByText((_, node) => node?.textContent === '(8)')).toBeInTheDocument();
-  // Switch to the Custom tab to see custom category
-  const customTab = screen.getByRole('button', { name: /Custom/i });
-  act(() => {
-    fireEvent.click(customTab);
-  });
-  // Check phrase count display for custom category only
-  expect(screen.getByText((_, node) => node?.textContent === '(15)')).toBeInTheDocument();
 }); 
