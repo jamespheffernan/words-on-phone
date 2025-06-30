@@ -13,17 +13,17 @@ This is a comprehensive index of all files in the "Words on Phone" project - a p
 - **`netlify.toml`** - Netlify deployment configuration, defines build settings and serverless functions directory
 
 #### Phrase Data Files
-- **`phrases.json`** - ⚠️ **OUTDATED** - Contains only 178 phrases from one category; NOT used by the live app
-- **`phrases_backup.json`** - Backup phrase database with ~1,400+ phrases across multiple categories
+- **`phrases.json`** - ⚠️ **OUTDATED** - Contains exactly 173 phrases from one category; NOT used by the live app
+- **`phrases_backup.json`** - Backup phrase database with 1,491 phrases across multiple categories
 - **`Phrase Review June 25 2025 (1).json`** - ⚠️ **CANDIDATE FOR DELETION** - Appears to be a one-time export for review, dated file
 
-**NOTE**: The live app actually uses hardcoded phrases in `words-on-phone-app/src/data/phrases.ts` with ~535 phrases across 10+ categories, not the root JSON files.
+**NOTE**: The live app actually uses hardcoded phrases in `words-on-phone-app/src/data/phrases.ts` with **560 phrases** across 10 categories, not the root JSON files.
 
 #### Comprehensive Test & Generation Scripts (Root Level)
-- **`batch-phrase-generator.js`** - ⭐ **SOPHISTICATED** - Complete phrase generation system with quality scoring, progress tracking, category management, and automatic filtering (374 lines)
-- **`test-openai.js`** - **COMPREHENSIVE** - Full OpenAI serverless function testing including CORS, error handling, batch requests, and validation (198 lines)
+- **`batch-phrase-generator.js`** - ⭐ **SOPHISTICATED** - Complete phrase generation system with quality scoring, progress tracking, category management, and automatic filtering (373 lines)
+- **`test-openai.js`** - **COMPREHENSIVE** - Full OpenAI serverless function testing including CORS, error handling, batch requests, and validation (197 lines)
 - **`test-phrase-quality-demo.js`** - Advanced phrase quality scoring demonstration
-- **`test-production.js`** - **END-TO-END** - Complete production workflow testing for custom category generation with sample words and full category creation (181 lines)
+- **`test-production.js`** - **END-TO-END** - Complete production workflow testing for custom category generation with sample words and full category creation (180 lines)
 - **`test-quality-generation.js`** - Quality generation validation testing
 
 #### Git Configuration
@@ -43,7 +43,7 @@ This is a comprehensive index of all files in the "Words on Phone" project - a p
   - Failure alerting via GitHub issues with investigation steps
   - Artifact uploads for metrics and failure analysis
   - Weekly summary capabilities
-  - Quality validation and database integrity checking (254 lines)
+  - Quality validation and database integrity checking (253 lines)
 
 ### Main Application (`words-on-phone-app/`)
 
@@ -124,7 +124,7 @@ This is a comprehensive index of all files in the "Words on Phone" project - a p
 
 ##### Other Modules
 - **`data/`** - Static data files:
-  - **`phrases.ts`** - **MAIN PHRASE DATABASE** - ~535 phrases across 10+ categories (Entertainment, Movies, Music, Sports, Food, Places, People, Technology, History, Nature)
+  - **`phrases.ts`** - **MAIN PHRASE DATABASE** - 560 phrases across 10 categories (Entertainment 66, Movies 70, Music 69, Sports 49, Food 71, Places 52, People 34, Technology 50, History 43, Nature 56)
   - **`teamNames.ts`** - Team name suggestions
 - **`types/`** - TypeScript type definitions
 - **`utils/`** - Utility functions (colorUtils.ts)
@@ -154,8 +154,8 @@ This is a comprehensive index of all files in the "Words on Phone" project - a p
 - **`cypress/`** - E2E test files and screenshots
 
 #### Utility Scripts
-- **`analyze-db.js`** - Database analysis script (54 lines) - analyzes phrase quality in root phrases.json
-- **`analyze-db.cjs`** - **ENHANCED VERSION** - More detailed database analysis (67 lines) with comprehensive quality metrics, historical battle detection, and improvement recommendations
+- **`analyze-db.js`** - Database analysis script (53 lines) - analyzes phrase quality in root phrases.json
+- **`analyze-db.cjs`** - **ENHANCED VERSION** - More detailed database analysis (66 lines) with comprehensive quality metrics, historical battle detection, and improvement recommendations
 - **`clean-database.cjs`** - Database cleanup script
 - **`demo.js`** - Demo script
 - **`score-existing.cjs`** - Score existing phrases
@@ -194,19 +194,20 @@ Active and completed feature implementation plans:
 ⭐ **ENTERPRISE-GRADE DATABASE SYSTEM** - Production-ready SQLite-based phrase management platform:
 
 ##### Configuration
-- **`package.json`** - Full-featured package with 15+ NPM scripts, AI transformers, bloom filters, SQLite3, comprehensive testing
+- **`package.json`** - Full-featured package with 9 NPM scripts, AI transformers, bloom filters, SQLite3, basic Jest testing
 - **`README.md`** - Tool documentation
 - **`README.user-guide.md`** - User guide
 
 ##### Core Source (`src/`)
-- **`cli.js`** - ⭐ **COMPREHENSIVE CLI** - Full-featured command-line interface with 15+ commands including:
+- **`cli.js`** - ⭐ **COMPREHENSIVE CLI** - Full-featured command-line interface with 13 commands including:
   - **add** - File import, interactive mode, validation, dry-run
   - **validate** - Duplicate detection, quality scoring
-  - **recency** - Stats, marking, auto-detection
+  - **recency** - Stats, marking, auto-detection (4 subcommands)
   - **review** - Manual review workflow
   - **export** - Game format export
-  - **quota** - API quota management
-  - Progress bars, colored output, logging (1,185+ lines)
+  - **init** - Database initialization
+  - **bulk-review** - Bulk review sessions
+  - Progress bars, colored output, logging (1,184 lines)
 - **`database.js`** - SQLite database operations with schema management
 - **`api-client.js`** - AI API client for OpenAI/Gemini
 - **`phraseScorer.js`** - Advanced scoring algorithm (0-100 points)
@@ -246,7 +247,7 @@ React app for manual phrase review:
 
 ### Core Dependencies
 1. **Main App** depends on:
-   - **`src/data/phrases.ts`** for game content (~535 phrases across 10+ categories)
+   - **`src/data/phrases.ts`** for game content (560 phrases across 10 categories)
    - Netlify functions for AI generation (custom categories)
    - Firebase for analytics
    - Capacitor for mobile builds

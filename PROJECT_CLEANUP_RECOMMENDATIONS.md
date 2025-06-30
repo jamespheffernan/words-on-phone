@@ -15,8 +15,8 @@ rm .DS_Store
 rm "Phrase Review June 25 2025 (1).json"
 
 # NOTE: analyze-db.js and analyze-db.cjs are actually different files!
-# The .cjs version is more comprehensive (67 vs 54 lines)
-# Consider keeping both or standardizing on the enhanced .cjs version
+# The .cjs version is more comprehensive (66 vs 53 lines)
+# Consider keeping both or standardizing on the enhanced .cjs version (66 vs 53 lines)
 # rm analyze-db.js  # Only if consolidating to .cjs version
 ```
 
