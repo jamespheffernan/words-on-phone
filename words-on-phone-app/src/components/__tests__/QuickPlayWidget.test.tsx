@@ -110,6 +110,44 @@ describe('QuickPlayWidget', () => {
     expect(screen.getByTitle(`Continue with ${lastPlayedCategory.name}`)).toBeInTheDocument();
   });
 
+  it('should display Get Started button for first-time users when no last played category', () => {
+    // Mock no last played data - first time user scenario
+    mockGetPopularityData.mockReturnValue(undefined);
+
+    render(<QuickPlayWidget />);
+    
+    expect(screen.getByText('Get Started')).toBeInTheDocument();
+    expect(screen.getByTitle('Start with a random category - perfect for first-time play!')).toBeInTheDocument();
+    expect(screen.queryByText('Last Played')).not.toBeInTheDocument();
+  });
+
+  it('should handle Get Started button for first-time users', async () => {
+    // Mock no last played data - first time user scenario
+    mockGetPopularityData.mockReturnValue(undefined);
+
+    const onCategorySelected = vi.fn();
+    const onGameStart = vi.fn();
+    
+    render(
+      <QuickPlayWidget 
+        onCategorySelected={onCategorySelected}
+        onGameStart={onGameStart}
+      />
+    );
+    
+    const getStartedButton = screen.getByText('Get Started').closest('button');
+    fireEvent.click(getStartedButton!);
+    
+    expect(mockSetSelectedCategories).toHaveBeenCalledWith([expect.any(String)]);
+    expect(onCategorySelected).toHaveBeenCalledWith(expect.any(String));
+    
+    // Should auto-start game after selection
+    await waitFor(() => {
+      expect(mockStartGame).toHaveBeenCalled();
+      expect(onGameStart).toHaveBeenCalled();
+    }, { timeout: 200 });
+  });
+
   it('should handle Surprise Me selection', async () => {
     const onCategorySelected = vi.fn();
     const onGameStart = vi.fn();

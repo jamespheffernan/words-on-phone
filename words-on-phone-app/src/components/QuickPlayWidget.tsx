@@ -149,7 +149,7 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
         <div className="quick-play-content">
           {/* Quick Start Actions */}
           <div className="quick-actions">
-            {lastPlayedCategory && (
+            {lastPlayedCategory ? (
               <button 
                 className="quick-action-button last-played"
                 onClick={handleLastPlayed}
@@ -160,6 +160,19 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
                 <div className="action-content">
                   <div className="action-title">Last Played</div>
                   <div className="action-subtitle">{lastPlayedCategory.name}</div>
+                </div>
+              </button>
+            ) : (
+              <button 
+                className="quick-action-button get-started"
+                onClick={handleSurpriseMe}
+                title="Start with a random category - perfect for first-time play!"
+                data-testid="get-started-button"
+              >
+                <span className="action-icon">🚀</span>
+                <div className="action-content">
+                  <div className="action-title">Get Started</div>
+                  <div className="action-subtitle">Random pick</div>
                 </div>
               </button>
             )}

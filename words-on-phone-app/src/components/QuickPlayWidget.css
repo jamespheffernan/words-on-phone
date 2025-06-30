@@ -130,6 +130,15 @@
   background: linear-gradient(135deg, rgba(106, 190, 205, 0.4), rgba(72, 187, 120, 0.4));
 }
 
+.get-started {
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.3), rgba(245, 208, 254, 0.3));
+  border-color: rgba(251, 146, 60, 0.4);
+}
+
+.get-started:hover {
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.4), rgba(245, 208, 254, 0.4));
+}
+
 .surprise-me {
   background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3));
   border-color: rgba(236, 72, 153, 0.4);
