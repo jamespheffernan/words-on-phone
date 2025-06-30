@@ -4,19 +4,9 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 ## Active Implementation Plans
 
-<<<<<<< Updated upstream
-- [phrase-database-generation](implementation-plan/phrase-database-generation.md) - 🚧 **IN PROGRESS** - Phrase Database Generation - Rebuild to 1000+ High-Quality Phrases
-  - 🎯 **GOAL**: Scale from 173 to 1000+ high-quality phrases using existing quality infrastructure
-  - ✅ **1/8 TASKS COMPLETE** (12.5%): Feature branch created, implementation plan improved
-  - **REVISED APPROACH**: Leverage existing phrase database tool + production APIs instead of building new infrastructure
-  - Key insight: We have 3 separate systems that need coordination (database tool, production service, batch generator)
-  - 📋 **NEXT TASKS**: Design balanced category distribution, setup database tool integration, begin core category generation
-- [phrase-quality-upgrade](implementation-plan/phrase-quality-upgrade.md) - 🚧 **IN PROGRESS** - Phrase Generation Quality Upgrade
-  - ✅ **6/8 TASKS COMPLETE** (75% done): Enhanced prompts, scoring system, Wikipedia/Reddit validation, phrase generation service integration, phrase review interface
-=======
 - [phrase-database-generation](implementation-plan/phrase-database-generation.md) - 🚀 **LARGE-SCALE EXTRACTION IN PROGRESS** - Wikipedia Mining Active
   - 🎯 **GOAL**: Scale to 5,000+ high-quality phrases using Wikipedia mining infrastructure
-  - ✅ **5/9 TASKS COMPLETE** (55%): Feature branch, strategy design, database integration, core categories, **Wikipedia Infrastructure**, **Large-Scale Extraction Started**
+  - ✅ **7/9 TASKS COMPLETE** (77%): Feature branch, strategy design, database integration, core categories, **Wikipedia Infrastructure**, **Large-Scale Extraction**, **Scoring Calibration & Wikipedia-Aware Engine**
   - 🚀 **PRODUCTION EXTRACTION ACTIVE**: Full-scale Wikipedia mining now running across all 120 source pages
   - **SYSTEM STATUS**: Extraction and monitoring tools running in background with comprehensive logging
   - **TARGET ACHIEVEMENT**: Processing 12 categories × 10 pages each = 120 Wikipedia sources for 5,000+ phrases
@@ -26,9 +16,10 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
   - 📋 **CURRENT PHASE**: Monitoring active extraction progress, preparing for production integration upon completion
   - 🔬 **NEW TASK 5.1 ADDED**: Scoring Calibration & Validation – sample 500 phrases, analyse acceptance distribution, tune weights/thresholds for ≥3× recall with ≥90% precision
   - ⚖️ **NEW TASK 5.2 ADDED**: Wikipedia-Aware Scoring Engine – dynamic weights & pageview metrics to raise acceptance ≥5 % without harming precision
+  - ✅ **TASK 5.1 COMPLETE**: Calibration analysis shows 12.4% acceptance at 70%, 22% at 65%. Reddit bias confirmed (56.6% zero activity).
+  - ✅ **TASK 5.2 COMPLETE**: Wikipedia-aware scoring implemented with 77.8% acceptance rate improvement, 50/50 tests passing.
 - [phrase-quality-upgrade](implementation-plan/phrase-quality-upgrade.md) - ✅ **COMPLETED** - Phrase Generation Quality Upgrade
   - ✅ **8/8 TASKS COMPLETE** (100%): Enhanced prompts, scoring system, Wikipedia/Reddit validation, phrase generation service integration, phrase review interface, testing, documentation/rollout
->>>>>>> Stashed changes
   - Comprehensive plan to fix low-quality phrase generation through better prompts, scoring system, and validation
   - 🎯 **CURRENT STATUS**: Phrase review interface complete with comprehensive UI for manual quality control
   - 📋 **NEXT TASKS**: Test infrastructure (Task 7) and documentation/rollout (Task 8)
@@ -149,8 +140,6 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-01-15] **BUZZER TRUNCATION FIX**: When implementing audio feedback with state transitions, ensure the audio duration doesn't conflict with UI state changes. Audio elements (especially buzzer sounds) should complete before any state changes that might affect playback. Solution: Add intermediate game states (e.g., BUZZER_PLAYING) that disable user interaction immediately but allow audio to complete before final state transition. This preserves game mechanics (no input after time expires) while ensuring complete audio feedback. Key implementation: immediate UI disable + extended timeout (audio duration + buffer) before final state change.
 - [2025-06-26] **GEMINI 2.5 FLASH UPGRADE SUCCESS**: Model version upgrade from gemini-1.5-flash to gemini-2.5-flash completed successfully with significant performance improvements. Key benefits: (1) Enhanced reasoning capabilities with "thinking budget" control, (2) 22% greater computational efficiency, (3) Better multimodal understanding and performance benchmarks, (4) Advanced reasoning with controllable thinking depth. Upgrade process was straightforward - only required updating model name in environment.ts and netlify function. All builds pass, 131/135 tests pass (4 pre-existing failures unrelated to upgrade). Backward compatible with existing API structure. No breaking changes required in service layer or UI components.
 - [2025-01-15] **PROVIDER ATTRIBUTION SYSTEM**: When implementing AI provider switching with quality tracking, database schema migrations are essential for provider attribution. Key components: (1) Schema versioning with automatic migration system, (2) Service-specific API payload handling (OpenAI uses {topic, batchSize, phraseIds} vs Gemini's {prompt, category}), (3) Response format differences (OpenAI returns direct arrays vs Gemini's nested structure), (4) Provider attribution in quality pipeline for analytics, (5) Comprehensive end-to-end testing validates complete workflow. Database migration system must handle both new installs and existing data gracefully. Provider attribution enables data-driven quality comparison between AI models during large-scale generation.
-<<<<<<< Updated upstream
-=======
 - [2025-01-15] **DATABASE ERROR HANDLING FOR BULK OPERATIONS**: When building systems that expect duplicate entries (like phrase generation), database constraint violations should be handled gracefully at the application layer, not logged as errors. Solution: (1) Modify database layer to log UNIQUE constraint failures at DEBUG level instead of ERROR level, (2) Add specialized methods like `addPhraseIgnoreDuplicates()` that handle expected duplicates gracefully, (3) Provide clear duplicate statistics in user-facing output ("5 duplicates skipped"), (4) Use custom error codes (DUPLICATE_PHRASE) for better error handling. This eliminates confusing SQL error messages during normal bulk operations while maintaining proper error logging for genuine database issues.
 - [2025-06-29] **DATABASE QUALITY OPTIMIZATION**: Periodic quality cleanup is essential for maintaining high database standards. Removing phrases below quality thresholds (e.g., score <70) improves overall database quality and player experience. Key steps: (1) Analyze score distribution to identify low-quality phrases, (2) Create automated cleanup scripts with threshold parameters, (3) Regenerate game exports after cleanup, (4) Verify build and deployment success with cleaned data. Achievement: 100% of phrases now score 70+ (589 phrases, average score 81.9, range 75-95) vs previous 99.7% quality. Quality enforcement ensures every phrase meets high entertainment value standards.
 - [2025-01-15] **PRODUCTION DEPLOYMENT SUCCESS**: Feature branch merge to main completed successfully with comprehensive infrastructure deployment. Force push resolved remote reference conflicts effectively. Key achievements: (1) 56 files changed with 20,380 additions representing complete phrase pool expansion infrastructure, (2) Fast-forward merge ensured clean integration without conflicts, (3) Local branch cleanup after successful deployment, (4) Comprehensive automation infrastructure now live including nightly generation pipeline, (5) All quality control and provider attribution systems operational in production. The deployment establishes foundation for scaling to 5,000+ phrases with automated generation while maintaining 100% quality standards (589 phrases all scoring 70+).
@@ -167,7 +156,10 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-06-29] Test suite coverage is critical for production confidence. 83% pass rate across all components provided validation before large-scale deployment.
 - [2025-06-30] **CRITICAL BUG**: Wikipedia extraction script was treating PhraseScorer object return as numeric score, causing 0% acceptance rate. Fixed by extracting `scoreResult.totalScore` from the scorer's object response. This enabled successful 70% quality threshold filtering.
 - [2025-06-30] 70% quality threshold provides excellent selectivity: Movies & TV achieved 9% acceptance rate (50/587), Music & Artists achieved 0.5% acceptance rate (4/768). Higher thresholds ensure only premium phrases enter the game database.
->>>>>>> Stashed changes
+- [2025-06-29] When implementing Wikipedia extraction at scale, monitor extraction progress and log detailed metrics for debugging.
+- [2025-06-29] Redis rate limiting is crucial for Wikipedia API calls to avoid being blocked.
+- [2025-06-29] Phrase scoring needs to account for different sources - Wikipedia phrases with high encyclopedic value but low Reddit activity were being unfairly penalized.
+- [2025-06-30] Dynamic scoring weights based on phrase source (AI vs Wikipedia) significantly improves acceptance rates while maintaining precision. Reddit weight reduction from 15→5 for Wikipedia sources is key.
 
 ## Phrase Validation Quick Reference
 
