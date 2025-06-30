@@ -39,10 +39,11 @@ mv batch-phrase-generator.js test-scripts/
 
 ## Medium Priority Actions
 
-### 4. Consolidate Phrase Data
-- Keep `phrases.json` as the main production file
-- Archive `phrases_backup.json` or move to a backups directory
-- Consider version control for phrase data changes
+### 4. Clarify Phrase Data Structure
+- **IMPORTANT**: The live app uses `src/data/phrases.ts` (~535 phrases), NOT `phrases.json`
+- Consider whether root-level `phrases.json` and `phrases_backup.json` are still needed
+- If phrase generation tools need these files, move them to `tools/` directory
+- Document the actual phrase data flow in README
 
 ### 5. Clean Build Artifacts
 Add to .gitignore and remove from tracking:

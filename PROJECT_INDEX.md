@@ -13,9 +13,11 @@ This is a comprehensive index of all files in the "Words on Phone" project - a p
 - **`netlify.toml`** - Netlify deployment configuration, defines build settings and serverless functions directory
 
 #### Phrase Data Files
-- **`phrases.json`** - Current production phrase database with 178 phrases
-- **`phrases_backup.json`** - Backup of phrase database (larger file, likely older version with more phrases)
+- **`phrases.json`** - ⚠️ **OUTDATED** - Contains only 178 phrases from one category; NOT used by the live app
+- **`phrases_backup.json`** - Backup phrase database with ~1,400+ phrases across multiple categories
 - **`Phrase Review June 25 2025 (1).json`** - ⚠️ **CANDIDATE FOR DELETION** - Appears to be a one-time export for review, dated file
+
+**NOTE**: The live app actually uses hardcoded phrases in `words-on-phone-app/src/data/phrases.ts` with ~535 phrases across 10+ categories, not the root JSON files.
 
 #### Test Scripts (Root Level)
 - **`batch-phrase-generator.js`** - Script for generating multiple batches of phrases using AI services
@@ -106,7 +108,9 @@ This is a comprehensive index of all files in the "Words on Phone" project - a p
 - **`__tests__/`** - Service unit tests
 
 ##### Other Modules
-- **`data/`** - Static data (phrases.ts, teamNames.ts)
+- **`data/`** - Static data files:
+  - **`phrases.ts`** - **MAIN PHRASE DATABASE** - ~535 phrases across 10+ categories (Entertainment, Movies, Music, Sports, Food, Places, People, Technology, History, Nature)
+  - **`teamNames.ts`** - Team name suggestions
 - **`types/`** - TypeScript type definitions
 - **`utils/`** - Utility functions (colorUtils.ts)
 - **`config/`** - Configuration (environment.ts)
@@ -219,16 +223,18 @@ React app for manual phrase review:
 
 ### Core Dependencies
 1. **Main App** depends on:
-   - `phrases.json` for game content
-   - Netlify functions for AI generation
+   - **`src/data/phrases.ts`** for game content (~535 phrases across 10+ categories)
+   - Netlify functions for AI generation (custom categories)
    - Firebase for analytics
    - Capacitor for mobile builds
 
 2. **Phrase Generation Pipeline**:
    - Database tool generates phrases → 
    - Review tool for quality control → 
-   - Export to `phrases.json` → 
-   - Consumed by main app
+   - Export to various formats → 
+   - **Manual integration into `phrases.ts`** (not automated)
+
+**IMPORTANT**: The root `phrases.json` file is NOT used by the live app. The actual phrases are hardcoded in the TypeScript source.
 
 3. **Development Workflow**:
    - Implementation plans guide development
