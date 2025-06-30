@@ -11,6 +11,7 @@ import { trackCategoryRequested, trackCategoryConfirmed, trackCategoryGenerated 
 import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
 import { CategorySelector } from './CategorySelector';
 import { SelectionBanner } from './SelectionBanner';
+import { QuickPlayWidget } from './QuickPlayWidget';
 import './MenuScreen.css';
 
 export const MenuScreen: React.FC = () => {
@@ -126,6 +127,15 @@ export const MenuScreen: React.FC = () => {
       </header>
 
       <div className="menu-content">
+        <QuickPlayWidget
+          onCategorySelected={(categoryName) => {
+            console.log('Quick Play category selected:', categoryName);
+          }}
+          onGameStart={() => {
+            console.log('Quick Play game started');
+          }}
+        />
+
         <section className="category-section">
           <h2>Choose Category</h2>
           <CategorySelector

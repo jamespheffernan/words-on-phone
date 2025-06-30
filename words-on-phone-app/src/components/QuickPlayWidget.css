@@ -1,0 +1,346 @@
+.quick-play-widget {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  margin-bottom: 30px;
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.quick-play-widget.collapsed {
+  border-radius: 15px;
+}
+
+.quick-play-header {
+  width: 100%;
+  padding: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.quick-play-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.quick-play-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.expand-icon {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+  opacity: 0.7;
+}
+
+.expand-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.quick-play-content {
+  padding: 0 20px 20px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 500px;
+  }
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.quick-action-button {
+  padding: 20px 15px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  backdrop-filter: blur(5px);
+  min-height: 80px;
+}
+
+.quick-action-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.quick-action-button:active {
+  transform: translateY(0);
+}
+
+.action-icon {
+  font-size: 32px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.action-content {
+  flex: 1;
+  text-align: left;
+}
+
+.action-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.action-subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+.last-played {
+  background: linear-gradient(135deg, rgba(106, 190, 205, 0.3), rgba(72, 187, 120, 0.3));
+  border-color: rgba(106, 190, 205, 0.4);
+}
+
+.last-played:hover {
+  background: linear-gradient(135deg, rgba(106, 190, 205, 0.4), rgba(72, 187, 120, 0.4));
+}
+
+.surprise-me {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3));
+  border-color: rgba(236, 72, 153, 0.4);
+}
+
+.surprise-me:hover {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.4), rgba(168, 85, 247, 0.4));
+}
+
+/* Popular Categories */
+.popular-categories {
+  margin-bottom: 20px;
+}
+
+.popular-title {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.category-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.category-tile {
+  padding: 15px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  min-height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-tile:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.category-tile:active {
+  transform: translateY(0);
+}
+
+.tile-content {
+  text-align: center;
+  width: 100%;
+}
+
+.tile-name {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  line-height: 1.2;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.tile-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+.phrase-count {
+  font-weight: 500;
+}
+
+.play-count {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Tap Count Info */
+.tap-count-info {
+  text-align: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tap-indicator {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Loading State */
+.loading-spinner {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .quick-play-header h3 {
+    font-size: 20px;
+  }
+
+  .quick-actions {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .quick-action-button {
+    padding: 18px 15px;
+    min-height: 70px;
+  }
+
+  .action-icon {
+    font-size: 28px;
+  }
+
+  .action-title {
+    font-size: 16px;
+  }
+
+  .action-subtitle {
+    font-size: 13px;
+  }
+
+  .category-tiles {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+  }
+
+  .category-tile {
+    padding: 12px 10px;
+    min-height: 75px;
+  }
+
+  .tile-name {
+    font-size: 13px;
+  }
+
+  .tile-stats {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quick-play-widget {
+    margin-bottom: 20px;
+  }
+
+  .quick-play-header {
+    padding: 15px;
+  }
+
+  .quick-play-content {
+    padding: 0 15px 15px;
+  }
+
+  .category-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tap-count-info {
+    padding: 12px;
+  }
+
+  .tap-indicator {
+    font-size: 13px;
+  }
+}
+
+/* Dark mode compatibility */
+@media (prefers-color-scheme: dark) {
+  .quick-play-widget {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .quick-action-button {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .quick-action-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .category-tile {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .category-tile:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+} 
