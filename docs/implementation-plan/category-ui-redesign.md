@@ -129,8 +129,7 @@ The previous "Quick Play / Advanced Selection" mock-ups remain in the *Alternati
 
 ## Updated Project Status Board
 
-### 🟢 Ready to Start
-- Task 1 – Popularity Data Layer
+### 🟢 Ready to Start  
 - Task 2 – Quick Play Widget
 - Task 3 – Accordion Grouping
 
@@ -139,9 +138,47 @@ The previous "Quick Play / Advanced Selection" mock-ups remain in the *Alternati
 
 ### ✅ Completed
 - Comprehensive current-state analysis & decision (Enhancement path chosen)
+- **Task 1 – Popularity Data Layer** ✅ **COMPLETE** (commit: 9570fd17)
+  - ✅ Created CategoryPopularityService with IndexedDB storage
+  - ✅ Implemented weighted popularity score calculation (70% play count + 30% recency)
+  - ✅ Built useCategoryPopularity hook for React integration
+  - ✅ Integrated tracking with game store on game start
+  - ✅ Comprehensive unit tests (9 test cases passing)
+  - 🎯 **SUCCESS CRITERIA MET**: All deliverables complete, ready for Quick Play Widget
 
 ### 🔴 Blocked
-- None – waiting for Executor to pick up Task 1
+- None – ready for Task 2 execution
+
+---
+
+## Executor's Feedback or Assistance Requests
+
+### Task 1 Completion Report
+✅ **TASK 1 COMPLETED SUCCESSFULLY** (January 15, 2025)
+
+**What was implemented:**
+1. **CategoryPopularityService** - Complete service for tracking category usage with IndexedDB storage
+2. **Weighted popularity scoring** - 70% play count (logarithmic) + 30% recency weighting over 30-day window
+3. **useCategoryPopularity hook** - React hook providing categoriesWithPopularity, topCategories, recordCategoryPlayed actions
+4. **Game store integration** - Automatic tracking when games start using trackCategoryPopularity helper
+5. **Comprehensive testing** - 9 unit tests covering all core functionality with Vitest
+
+**Technical decisions made:**
+- Used same `slugify` function as phraseService for consistent category IDs  
+- Implemented non-blocking async tracking to prevent game start delays
+- Added graceful error handling - popularity tracking failures don't break gameplay
+- Logarithmic play count scoring to prevent runaway popular categories
+- 30-day recency window with linear decay for balanced scoring
+
+**Integration points established:**
+- Categories auto-tracked when `startGame()` is called with selected categories
+- Hook provides `topCategories` for Quick Play widget (Task 2)
+- Service provides `enhanceCategoriesWithPopularity` for enhanced category display
+- IndexedDB storage key pattern: `category-popularity:{categoryId}`
+
+**Ready for Task 2:** Quick Play Widget can now use `useCategoryPopularity` hook to display top 6 categories, Last Played functionality, and Surprise Me logic.
+
+**Next milestone:** User testing and validation before proceeding to Task 2.
 
 ---
 

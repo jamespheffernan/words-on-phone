@@ -71,14 +71,13 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
   - **CONTINUOUS PIPELINE DEPLOYED**: Automated nightly generation with GitHub Actions, PR automation, quality monitoring, failure alerting
   - **QUALITY MAINTAINED**: 100% of phrases score 70+ (589 phrases), perfect duplicate detection, zero inappropriate content
   - 📋 **NEXT TASKS**: Phase II expansion to 5,000+ phrases using automated pipeline, documentation and handoff
-- [category-ui-redesign](implementation-plan/category-ui-redesign.md) - ⚠️ **ANALYSIS COMPLETE - DECISION REQUIRED** - Category Selection UI Redesign for Expanded Categories
-  - 🔍 **CRITICAL FINDING**: Current CategorySelector already advanced (multi-select, search, pinning, responsive) - high duplication risk
-  - 📊 **GAP IDENTIFIED**: Only 20 categories exist (not 32 as planned) - affects UI complexity needs  
-  - 🎯 **OPTIONS DEFINED**: 
-    - **A**: Enhance existing CategorySelector (low risk, preserve UX familiarity)
-    - **B**: Full two-screen replacement (high risk, major UX disruption)
-    - **C**: Hybrid approach (compromise solution)
-  - 🚫 **BLOCKED**: Awaiting stakeholder decision on approach before Task 1 execution
+- [category-ui-redesign](implementation-plan/category-ui-redesign.md) - 🚧 **IN PROGRESS** - Category Selection UI Redesign for Expanded Categories
+  - ✅ **1/8 TASKS COMPLETE** (12.5%): Task 1 - Popularity Data Layer completed with comprehensive tracking system
+  - 🎯 **DECISION MADE**: Enhancement path chosen (Option A) - enhancing existing CategorySelector vs full replacement
+  - 📊 **FOUNDATION BUILT**: Category popularity tracking with IndexedDB storage, weighted scoring, React hook integration
+  - **TECHNICAL IMPLEMENTATION**: CategoryPopularityService (scores: 70% play count + 30% recency), useCategoryPopularity hook, game store integration
+  - **TESTING COMPLETE**: 9 unit tests passing, comprehensive coverage of popularity calculation and data management
+  - 📋 **NEXT TASKS**: Task 2 - Quick Play Widget (collapsible panel with Last Played, Surprise Me, Top 6 categories)
   - 🔗 **DEPENDENCY**: Category expansion completion from phrase-pool-expansion project
 
 ## Current Bug Fix / Executor Work
