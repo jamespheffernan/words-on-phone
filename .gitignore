@@ -1,3 +1,16 @@
 # Local Netlify folder
 .netlify
 .env
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.idea/
+.vscode/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
