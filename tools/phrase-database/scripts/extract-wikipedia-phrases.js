@@ -69,6 +69,29 @@ class WikipediaClient {
                 'Beyonce', 'Taylor Swift', 'The Simpsons', 'Friends', 'The Office', 'Breaking Bad',
                 'Stranger Things', 'Netflix', 'YouTube', 'Instagram', 'TikTok', 'Facebook',
                 'Apple', 'Google', 'Amazon', 'Tesla', 'SpaceX', 'NASA', 'Olympics', 'World Cup'
+            ],
+            'Technology & Science': [
+                'Internet', 'Computer', 'Smartphone', 'Artificial Intelligence', 'Machine Learning',
+                'Bitcoin', 'Blockchain', 'Virtual Reality', 'Solar Energy', 'Electric Car',
+                'Quantum Computing', 'DNA', 'Genome', 'Vaccine', 'Antibiotic', 'Laser',
+                'Satellite', 'GPS', 'WiFi', 'Bluetooth', 'Cloud Computing', 'Big Data',
+                'Cybersecurity', 'Robotics', 'Nanotechnology', 'Biotechnology', 'Gene Therapy',
+                'CRISPR', 'Steam Engine', 'Electricity', 'Telephone', 'Television', 'Radio'
+            ],
+            'History & Events': [
+                'World War I', 'World War II', 'Cold War', 'American Revolution', 'French Revolution',
+                'Industrial Revolution', 'Renaissance', 'Ancient Egypt', 'Roman Empire', 'Medieval Times',
+                'Great Depression', 'Moon Landing', 'Berlin Wall', 'Pearl Harbor', 'D-Day',
+                'Civil Rights Movement', 'Women\'s Suffrage', 'Titanic', 'Great Fire of London', 'Black Death',
+                'Crusades', 'Viking Age', 'Stone Age', 'Bronze Age', 'Iron Age', 'Silk Road',
+                'Discovery of America', 'Fall of Rome', 'Boston Tea Party', 'Watergate', 'JFK Assassination'
+            ],
+            'Nature & Animals': [
+                'Lion', 'Tiger', 'Elephant', 'Giraffe', 'Penguin', 'Dolphin', 'Whale', 'Shark',
+                'Eagle', 'Butterfly', 'Rainforest', 'Desert', 'Ocean', 'Mountain', 'Volcano',
+                'Earthquake', 'Hurricane', 'Tornado', 'Lightning', 'Aurora', 'Ecosystem',
+                'Biodiversity', 'Climate Change', 'Global Warming', 'Photosynthesis', 'Evolution',
+                'Dinosaur', 'Fossil', 'Coral Reef', 'Amazon Rainforest', 'Sahara Desert', 'Antarctica'
             ]
         };
 
@@ -113,6 +136,24 @@ class CategoryMapper {
                 'List_of_television_series',
                 'List_of_musicians',
                 'List_of_video_games'
+            ],
+            'Technology & Science': [
+                'List_of_inventions',
+                'List_of_programming_languages',
+                'List_of_software',
+                'List_of_scientific_discoveries'
+            ],
+            'History & Events': [
+                'List_of_wars',
+                'List_of_historical_events',
+                'List_of_empires',
+                'List_of_revolutions'
+            ],
+            'Nature & Animals': [
+                'List_of_animals',
+                'List_of_plants',
+                'List_of_natural_phenomena',
+                'List_of_ecosystems'
             ]
         };
     }
@@ -224,13 +265,45 @@ class WikipediaExtractor {
     async extractSecondaryCategories(options = {}) {
         const { qualityThreshold = 65 } = options;
         
-        console.log('🚀 Starting large-scale Wikipedia extraction');
+        console.log('🚀 Starting large-scale Wikipedia extraction - Secondary Categories');
         console.log(`⚙️ Configuration: Quality threshold ${qualityThreshold}%`);
         
         const categories = [
             'Places & Travel',
             'Famous People', 
             'Entertainment & Pop Culture'
+        ];
+        
+        const allResults = {};
+        
+        for (const category of categories) {
+            try {
+                const results = await this.extractForCategory(category, options);
+                allResults[category] = results;
+                
+                // Brief pause between categories
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+            } catch (error) {
+                console.error(`❌ Error processing category ${category}:`, error.message);
+                allResults[category] = { accepted: [], rejected: [], error: error.message };
+            }
+        }
+        
+        this.printFinalStats();
+        return allResults;
+    }
+
+    async extractSpecializedCategories(options = {}) {
+        const { qualityThreshold = 65 } = options;
+        
+        console.log('🚀 Starting large-scale Wikipedia extraction - Specialized Categories');
+        console.log(`⚙️ Configuration: Quality threshold ${qualityThreshold}%`);
+        
+        const categories = [
+            'Technology & Science',
+            'History & Events',
+            'Nature & Animals'
         ];
         
         const allResults = {};
@@ -282,9 +355,12 @@ async function main() {
         const extractor = new WikipediaExtractor();
         await extractor.initialize();
         
-        if (category && category !== 'all') {
+        if (category && category !== 'all' && category !== 'specialized') {
             // Extract for specific category
             await extractor.extractForCategory(category, { qualityThreshold });
+        } else if (category === 'specialized') {
+            // Extract for specialized categories
+            await extractor.extractSpecializedCategories({ qualityThreshold });
         } else {
             // Extract for all secondary categories
             await extractor.extractSecondaryCategories({ qualityThreshold });
