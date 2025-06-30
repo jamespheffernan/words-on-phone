@@ -25,12 +25,21 @@ class PhraseScorer {
     this.CACHE_FILE = path.join(this.CACHE_DIR, 'phrase-scores.json');
     this.scoreCache = this.loadCache();
     
-    // Score weights
-    this.WEIGHTS = {
+    // Default score weights (for AI-generated and manual phrases)
+    this.DEFAULT_WEIGHTS = {
       LOCAL_HEURISTICS: 40,    // 0-40 points
       WIKIDATA: 30,           // 0-30 points  
       REDDIT: 15,             // 0-15 points
       CATEGORY_BOOST: 15      // 0-15 points
+    };
+    
+    // Wikipedia-aware score weights (for Wikipedia-extracted phrases)
+    this.WIKIPEDIA_WEIGHTS = {
+      LOCAL_HEURISTICS: 35,    // 0-35 points (slightly reduced)
+      WIKIDATA: 30,           // 0-30 points (same)
+      REDDIT: 5,              // 0-5 points (heavily reduced for historic content)
+      CATEGORY_BOOST: 15,     // 0-15 points (same)
+      WIKIPEDIA_METRICS: 15   // 0-15 points (NEW: Wikipedia-specific signals)
     };
     
     // Common words that are usually well-known
@@ -59,42 +68,50 @@ class PhraseScorer {
   }
 
   /**
-   * Score a phrase for accessibility and recognizability
+   * Score a phrase for accessibility and recognizability with Wikipedia-aware logic
    * @param {string} phrase - Phrase to score
    * @param {string} category - Category context
    * @param {Object} options - Scoring options
+   * @param {string} options.source - Source type: 'wikipedia', 'ai', or 'manual'
    * @returns {Object} - Score breakdown and total
    */
   async scorePhrase(phrase, category, options = {}) {
-    const cacheKey = `${phrase.toLowerCase()}:${category}`;
+    const cacheKey = `${phrase.toLowerCase()}:${category}:${options.source || 'default'}`;
     
     // Check cache first
     if (this.scoreCache[cacheKey] && !options.forceRefresh) {
-      logger.info(`Cache hit for phrase: "${phrase}"`);
+      logger.info(`Cache hit for phrase: "${phrase}" (source: ${options.source || 'default'})`);
       return this.scoreCache[cacheKey];
     }
 
-    logger.info(`Scoring phrase: "${phrase}" in category "${category}"`);
+    const source = options.source || 'ai';
+    const isWikipediaSource = source === 'wikipedia';
+    const weights = isWikipediaSource ? this.WIKIPEDIA_WEIGHTS : this.DEFAULT_WEIGHTS;
+
+    logger.info(`Scoring phrase: "${phrase}" in category "${category}" (source: ${source})`);
 
     try {
       const breakdown = {
-        localHeuristics: await this.scoreLocalHeuristics(phrase, category),
+        localHeuristics: await this.scoreLocalHeuristics(phrase, category, weights.LOCAL_HEURISTICS),
         wikidata: await this.scoreWikidata(phrase),
-        reddit: options.skipReddit ? 0 : await this.scoreReddit(phrase),
-        categoryBoost: this.scoreCategoryBoost(phrase, category)
+        reddit: options.skipReddit ? 0 : await this.scoreReddit(phrase, weights.REDDIT),
+        categoryBoost: this.scoreCategoryBoost(phrase, category, weights.CATEGORY_BOOST)
       };
 
+      // Add Wikipedia-specific metrics for Wikipedia sources
+      if (isWikipediaSource) {
+        breakdown.wikipediaMetrics = await this.scoreWikipediaMetrics(phrase);
+      }
+
       const total = Math.min(
-        breakdown.localHeuristics + 
-        breakdown.wikidata + 
-        breakdown.reddit + 
-        breakdown.categoryBoost,
+        Object.values(breakdown).reduce((sum, score) => sum + score, 0),
         this.MAX_SCORE
       );
 
       const result = {
         phrase,
         category,
+        source,
         totalScore: total,
         breakdown,
         verdict: this.getVerdict(total),
@@ -106,17 +123,18 @@ class PhraseScorer {
       this.scoreCache[cacheKey] = { ...result, cached: true };
       this.saveCache();
 
-      logger.info(`Scored "${phrase}": ${total}/100 (${result.verdict})`);
+      logger.info(`Scored "${phrase}": ${total}/100 (${result.verdict}) [${source} source]`);
       return result;
 
     } catch (error) {
       logger.error(`Error scoring phrase "${phrase}": ${error.message}`);
       
       // Return fallback score based on local heuristics only
-      const localScore = await this.scoreLocalHeuristics(phrase, category);
+      const localScore = await this.scoreLocalHeuristics(phrase, category, weights.LOCAL_HEURISTICS);
       return {
         phrase,
         category,
+        source,
         totalScore: localScore,
         breakdown: { 
           localHeuristics: localScore, 
@@ -136,9 +154,10 @@ class PhraseScorer {
    * Score based on local heuristics (0-40 points)
    * @param {string} phrase - Phrase to analyze
    * @param {string} category - Category context
+   * @param {number} maxScore - Maximum score for this heuristic
    * @returns {number} - Local heuristics score
    */
-  async scoreLocalHeuristics(phrase, category) {
+  async scoreLocalHeuristics(phrase, category, maxScore) {
     // Handle empty phrases
     if (!phrase || phrase.trim().length === 0) {
       return 0;
@@ -176,7 +195,7 @@ class PhraseScorer {
     ).length;
     score += Math.min(recentCount * 5, 10);
     
-    return Math.min(score, this.WEIGHTS.LOCAL_HEURISTICS);
+    return Math.min(score, maxScore);
   }
 
   /**
@@ -222,9 +241,10 @@ class PhraseScorer {
   /**
    * Score based on Reddit cultural relevance (0-15 points)
    * @param {string} phrase - Phrase to check
+   * @param {number} maxScore - Maximum score for this heuristic
    * @returns {number} - Reddit score
    */
-  async scoreReddit(phrase) {
+  async scoreReddit(phrase, maxScore) {
     try {
       // Simple Reddit search to gauge cultural relevance
       const searchUrl = `https://www.reddit.com/search.json?q="${encodeURIComponent(phrase)}"&sort=relevance&limit=5`;
@@ -239,13 +259,13 @@ class PhraseScorer {
         sum + (post.data?.ups || 0), 0
       );
       
-      if (totalUpvotes >= 10000) return 15;
-      if (totalUpvotes >= 5000) return 12;
-      if (totalUpvotes >= 1000) return 10;
-      if (totalUpvotes >= 100) return 7;
-      if (totalUpvotes >= 10) return 5;
+      if (totalUpvotes >= 10000) return maxScore;
+      if (totalUpvotes >= 5000) return Math.round(maxScore * 0.8);
+      if (totalUpvotes >= 1000) return Math.round(maxScore * 0.6);
+      if (totalUpvotes >= 100) return Math.round(maxScore * 0.4);
+      if (totalUpvotes >= 10) return Math.round(maxScore * 0.2);
       
-      return 2; // Found but low engagement
+      return 0; // Found but low engagement
       
     } catch (error) {
       logger.warn(`Reddit query failed for "${phrase}": ${error.message}`);
@@ -254,12 +274,144 @@ class PhraseScorer {
   }
 
   /**
+   * Score based on Wikipedia-specific metrics (0-15 points)
+   * Only used for Wikipedia-sourced phrases
+   * @param {string} phrase - Phrase to check
+   * @returns {number} - Wikipedia metrics score
+   */
+  async scoreWikipediaMetrics(phrase) {
+    try {
+      let score = 0;
+      
+      // Check for Wikipedia pageviews (0-8 points)
+      const pageviewScore = await this.getPageviewScore(phrase);
+      score += pageviewScore;
+      
+      // Check article structure indicators (0-4 points)
+      const structureScore = await this.getArticleStructureScore(phrase);
+      score += structureScore;
+      
+      // Check for disambiguation penalty (0-3 points)
+      const disambiguationScore = await this.getDisambiguationScore(phrase);
+      score += disambiguationScore;
+      
+      return Math.min(score, 15);
+      
+    } catch (error) {
+      logger.warn(`Wikipedia metrics failed for "${phrase}": ${error.message}`);
+      return 0;
+    }
+  }
+
+  /**
+   * Get pageview-based score for Wikipedia articles
+   * @param {string} phrase - Phrase to check
+   * @returns {number} - Pageview score (0-8 points)
+   */
+  async getPageviewScore(phrase) {
+    try {
+      // Use Wikipedia REST API to get pageview stats
+      // Note: This is a simplified implementation - in production you'd want to use actual pageview API
+      const title = phrase.replace(/\s+/g, '_');
+      const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+      
+      const summary = await this.httpRequest(url);
+      
+      // If we can get the summary, it's a real article
+      if (summary && summary.extract) {
+        // Score based on extract length as proxy for article importance
+        const extractLength = summary.extract.length;
+        
+        if (extractLength >= 500) return 8; // Comprehensive article
+        if (extractLength >= 300) return 6; // Good article
+        if (extractLength >= 150) return 4; // Basic article
+        if (extractLength >= 50) return 2;  // Stub article
+        
+        return 1; // Very short article
+      }
+      
+      return 0;
+      
+    } catch (error) {
+      // If we can't fetch the summary, assume it's not a notable article
+      return 0;
+    }
+  }
+
+  /**
+   * Get article structure score
+   * @param {string} phrase - Phrase to check
+   * @returns {number} - Structure score (0-4 points)
+   */
+  async getArticleStructureScore(phrase) {
+    try {
+      const title = phrase.replace(/\s+/g, '_');
+      const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+      
+      const summary = await this.httpRequest(url);
+      
+      if (summary) {
+        let score = 0;
+        
+        // Check if it has an image (indicates well-developed article)
+        if (summary.thumbnail || summary.originalimage) {
+          score += 2;
+        }
+        
+        // Check for list-type articles (often contain notable items)
+        if (phrase.toLowerCase().startsWith('list of')) {
+          score += 2; // List articles often contain notable items
+        } else if (summary.extract && summary.extract.length > 200) {
+          score += 2; // Substantial standalone article
+        }
+        
+        return score;
+      }
+      
+      return 0;
+      
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  /**
+   * Get disambiguation penalty/bonus
+   * @param {string} phrase - Phrase to check
+   * @returns {number} - Disambiguation score (0-3 points)
+   */
+  async getDisambiguationScore(phrase) {
+    try {
+      const title = phrase.replace(/\s+/g, '_');
+      const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+      
+      const summary = await this.httpRequest(url);
+      
+      if (summary) {
+        // Disambiguation pages typically have less value for charades
+        if (summary.extract && summary.extract.toLowerCase().includes('disambiguation')) {
+          return 0; // Disambiguation page - not ideal for charades
+        }
+        
+        // Regular article with clear meaning
+        return 3;
+      }
+      
+      return 0;
+      
+    } catch (error) {
+      return 0;
+    }
+  }
+
+  /**
    * Score based on category relevance (0-15 points)
    * @param {string} phrase - Phrase to analyze
    * @param {string} category - Category context
+   * @param {number} maxScore - Maximum score for this heuristic
    * @returns {number} - Category boost score
    */
-  scoreCategoryBoost(phrase, category) {
+  scoreCategoryBoost(phrase, category, maxScore) {
     let score = 0;
     
     // Pop culture categories get higher scores
@@ -293,7 +445,7 @@ class PhraseScorer {
         break;
     }
     
-    return Math.min(score, this.WEIGHTS.CATEGORY_BOOST);
+    return Math.min(score, maxScore);
   }
 
   /**

@@ -19318,8 +19318,6 @@
     "verdict": "WARNING - Likely Too Obscure",
     "timestamp": "2025-06-26T16:12:26.677Z",
     "cached": true
-<<<<<<< Updated upstream
-=======
   },
   "beyonce dance:Music & Artists": {
     "phrase": "Beyonce Dance",
@@ -25564,6 +25562,284 @@
     "verdict": "BORDERLINE - Manual Review",
     "timestamp": "2025-06-30T22:24:43.077Z",
     "cached": true
->>>>>>> Stashed changes
+  },
+  "mexico city:Sports & Athletes:ai": {
+    "phrase": "Mexico City",
+    "category": "Sports & Athletes",
+    "source": "ai",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:43.283Z",
+    "cached": true
+  },
+  "mexico city:Sports & Athletes:wikipedia": {
+    "phrase": "Mexico City",
+    "category": "Sports & Athletes",
+    "source": "wikipedia",
+    "totalScore": 78,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 4,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:43.847Z",
+    "cached": true
+  },
+  "rome:Sports & Athletes:ai": {
+    "phrase": "Rome",
+    "category": "Sports & Athletes",
+    "source": "ai",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:45.454Z",
+    "cached": true
+  },
+  "rome:Sports & Athletes:wikipedia": {
+    "phrase": "Rome",
+    "category": "Sports & Athletes",
+    "source": "wikipedia",
+    "totalScore": 80,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 4,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T22:45:46.132Z",
+    "cached": true
+  },
+  "world war ii:Sports & Athletes:ai": {
+    "phrase": "World War II",
+    "category": "Sports & Athletes",
+    "source": "ai",
+    "totalScore": 74.33333333333333,
+    "breakdown": {
+      "localHeuristics": 24.333333333333332,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:49.825Z",
+    "cached": true
+  },
+  "world war ii:Sports & Athletes:wikipedia": {
+    "phrase": "World War II",
+    "category": "Sports & Athletes",
+    "source": "wikipedia",
+    "totalScore": 79.33333333333333,
+    "breakdown": {
+      "localHeuristics": 24.333333333333332,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:50.197Z",
+    "cached": true
+  },
+  "amsterdam:Sports & Athletes:ai": {
+    "phrase": "Amsterdam",
+    "category": "Sports & Athletes",
+    "source": "ai",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:51.789Z",
+    "cached": true
+  },
+  "amsterdam:Sports & Athletes:wikipedia": {
+    "phrase": "Amsterdam",
+    "category": "Sports & Athletes",
+    "source": "wikipedia",
+    "totalScore": 67,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:52.130Z",
+    "cached": true
+  },
+  "jurassic park:Movies & TV:ai": {
+    "phrase": "Jurassic Park",
+    "category": "Movies & TV",
+    "source": "ai",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:53.597Z",
+    "cached": true
+  },
+  "jurassic park:Movies & TV:wikipedia": {
+    "phrase": "Jurassic Park",
+    "category": "Movies & TV",
+    "source": "wikipedia",
+    "totalScore": 82,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 10,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T22:45:53.897Z",
+    "cached": true
+  },
+  "avatar:Movies & TV:ai": {
+    "phrase": "Avatar",
+    "category": "Movies & TV",
+    "source": "ai",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:56.031Z",
+    "cached": true
+  },
+  "avatar:Movies & TV:wikipedia": {
+    "phrase": "Avatar",
+    "category": "Movies & TV",
+    "source": "wikipedia",
+    "totalScore": 78,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 10,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:56.331Z",
+    "cached": true
+  },
+  "frozen:Movies & TV:ai": {
+    "phrase": "Frozen",
+    "category": "Movies & TV",
+    "source": "ai",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:58.000Z",
+    "cached": true
+  },
+  "frozen:Movies & TV:wikipedia": {
+    "phrase": "Frozen",
+    "category": "Movies & TV",
+    "source": "wikipedia",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 10,
+      "wikipediaMetrics": 4
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:45:58.914Z",
+    "cached": true
+  },
+  "disambiguation test:Entertainment & Pop Culture:ai": {
+    "phrase": "Disambiguation Test",
+    "category": "Entertainment & Pop Culture",
+    "source": "ai",
+    "totalScore": 28,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 3,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:46:00.298Z",
+    "cached": true
+  },
+  "disambiguation test:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Disambiguation Test",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 29,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 1,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 3
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:46:01.847Z",
+    "cached": true
+  },
+  "list of academy award winners:Movies & TV:ai": {
+    "phrase": "List of Academy Award winners",
+    "category": "Movies & TV",
+    "source": "ai",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 13,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:46:03.358Z",
+    "cached": true
+  },
+  "list of academy award winners:Movies & TV:wikipedia": {
+    "phrase": "List of Academy Award winners",
+    "category": "Movies & TV",
+    "source": "wikipedia",
+    "totalScore": 28,
+    "breakdown": {
+      "localHeuristics": 13,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 10,
+      "wikipediaMetrics": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:46:04.095Z",
+    "cached": true
   }
 }
