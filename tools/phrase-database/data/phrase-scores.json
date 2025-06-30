@@ -19318,5 +19318,6252 @@
     "verdict": "WARNING - Likely Too Obscure",
     "timestamp": "2025-06-26T16:12:26.677Z",
     "cached": true
+<<<<<<< Updated upstream
+=======
+  },
+  "beyonce dance:Music & Artists": {
+    "phrase": "Beyonce Dance",
+    "category": "Music & Artists",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-29T04:05:36.766Z",
+    "cached": true
+  },
+  "beyonce performance:Music & Artists": {
+    "phrase": "Beyonce Performance",
+    "category": "Music & Artists",
+    "totalScore": 33,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-29T04:05:39.296Z",
+    "cached": true
+  },
+  "in: .:Movies & TV": {
+    "phrase": "In: .",
+    "category": "Movies & TV",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:19:59.967Z",
+    "cached": true
+  },
+  "''you can't take it with you''::Movies & TV": {
+    "phrase": "''You Can't Take It with You'':",
+    "category": "Movies & TV",
+    "totalScore": 40.666666666666664,
+    "breakdown": {
+      "localHeuristics": 15.666666666666666,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:20:03.208Z",
+    "cached": true
+  },
+  "''boys town'': in: .:Movies & TV": {
+    "phrase": "''Boys Town'': In: .",
+    "category": "Movies & TV",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 17,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:03.560Z",
+    "cached": true
+  },
+  "''the adventures of robin hood''::Movies & TV": {
+    "phrase": "''The Adventures of Robin Hood'':",
+    "category": "Movies & TV",
+    "totalScore": 33.4,
+    "breakdown": {
+      "localHeuristics": 11.4,
+      "wikidata": 0,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:04.205Z",
+    "cached": true
+  },
+  "''alexander's ragtime band'': in: .:Movies & TV": {
+    "phrase": "''Alexander's Ragtime Band'': In: .",
+    "category": "Movies & TV",
+    "totalScore": 21.4,
+    "breakdown": {
+      "localHeuristics": 11.4,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:04.525Z",
+    "cached": true
+  },
+  "''the french connection'':Movies & TV": {
+    "phrase": "''The French Connection''",
+    "category": "Movies & TV",
+    "totalScore": 41.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:20:05.114Z",
+    "cached": true
+  },
+  "1962 release::Movies & TV": {
+    "phrase": "1962 release:",
+    "category": "Movies & TV",
+    "totalScore": 39,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:05.697Z",
+    "cached": true
+  },
+  "u.s. total (including reissues)::Movies & TV": {
+    "phrase": "U.S. total (including reissues):",
+    "category": "Movies & TV",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 13,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:08.008Z",
+    "cached": true
+  },
+  "total::Movies & TV": {
+    "phrase": "Total:",
+    "category": "Movies & TV",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:20:09.165Z",
+    "cached": true
+  },
+  "as of 2006::Movies & TV": {
+    "phrase": "As of 2006:",
+    "category": "Movies & TV",
+    "totalScore": 46.666666666666664,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:20:09.953Z",
+    "cached": true
+  },
+  "2013 re-release::Movies & TV": {
+    "phrase": "2013 re-release:",
+    "category": "Movies & TV",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:10.499Z",
+    "cached": true
+  },
+  "2014 re-release::Movies & TV": {
+    "phrase": "2014 re-release:",
+    "category": "Movies & TV",
+    "totalScore": 35,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 5,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:11.039Z",
+    "cached": true
+  },
+  "2018 re-release::Movies & TV": {
+    "phrase": "2018 re-release:",
+    "category": "Movies & TV",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:11.848Z",
+    "cached": true
+  },
+  "united states and canada::Movies & TV": {
+    "phrase": "United States and Canada:",
+    "category": "Movies & TV",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 17,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:20:12.779Z",
+    "cached": true
+  },
+  "outside north america::Movies & TV": {
+    "phrase": "Outside North America:",
+    "category": "Movies & TV",
+    "totalScore": 41.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:20:13.372Z",
+    "cached": true
+  },
+  "1974::Movies & TV": {
+    "phrase": "1974:",
+    "category": "Movies & TV",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:20:14.042Z",
+    "cached": true
+  },
+  "1991::Movies & TV": {
+    "phrase": "1991:",
+    "category": "Movies & TV",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:20:14.649Z",
+    "cached": true
+  },
+  "releases::Movies & TV": {
+    "phrase": "Releases:",
+    "category": "Movies & TV",
+    "totalScore": 39,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:15.646Z",
+    "cached": true
+  },
+  "total up to 2014::Movies & TV": {
+    "phrase": "Total up to 2014:",
+    "category": "Movies & TV",
+    "totalScore": 28,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:16.043Z",
+    "cached": true
+  },
+  "special edition::Movies & TV": {
+    "phrase": "Special edition:",
+    "category": "Movies & TV",
+    "totalScore": 38,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:20:16.731Z",
+    "cached": true
+  },
+  "star wars:Movies & TV": {
+    "phrase": "Star Wars",
+    "category": "Movies & TV",
+    "totalScore": 81,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T21:21:34.365Z",
+    "cached": true
+  },
+  "jurassic park:Movies & TV": {
+    "phrase": "Jurassic Park",
+    "category": "Movies & TV",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:35.291Z",
+    "cached": true
+  },
+  "zootopia:Movies & TV": {
+    "phrase": "Zootopia",
+    "category": "Movies & TV",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:36.046Z",
+    "cached": true
+  },
+  "the lion king:Movies & TV": {
+    "phrase": "The Lion King",
+    "category": "Movies & TV",
+    "totalScore": 79.33333333333333,
+    "breakdown": {
+      "localHeuristics": 24.333333333333332,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:36.738Z",
+    "cached": true
+  },
+  "toy story 3:Movies & TV": {
+    "phrase": "Toy Story 3",
+    "category": "Movies & TV",
+    "totalScore": 71.66666666666666,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:37.356Z",
+    "cached": true
+  },
+  "ne zha 2:Movies & TV": {
+    "phrase": "Ne Zha 2",
+    "category": "Movies & TV",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:38.034Z",
+    "cached": true
+  },
+  "despicable me:Movies & TV": {
+    "phrase": "Despicable Me",
+    "category": "Movies & TV",
+    "totalScore": 70,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:38.822Z",
+    "cached": true
+  },
+  "superman:Movies & TV": {
+    "phrase": "Superman",
+    "category": "Movies & TV",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:21:39.745Z",
+    "cached": true
+  },
+  "avatar:Movies & TV": {
+    "phrase": "Avatar",
+    "category": "Movies & TV",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:40.684Z",
+    "cached": true
+  },
+  "titanic:Movies & TV": {
+    "phrase": "Titanic",
+    "category": "Movies & TV",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:41.838Z",
+    "cached": true
+  },
+  "jurassic world:Movies & TV": {
+    "phrase": "Jurassic World",
+    "category": "Movies & TV",
+    "totalScore": 79,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:42.882Z",
+    "cached": true
+  },
+  "furious 7:Movies & TV": {
+    "phrase": "Furious 7",
+    "category": "Movies & TV",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:43.532Z",
+    "cached": true
+  },
+  "frozen 2:Movies & TV": {
+    "phrase": "Frozen 2",
+    "category": "Movies & TV",
+    "totalScore": 79,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:44.251Z",
+    "cached": true
+  },
+  "the super mario bros. movie:Movies & TV": {
+    "phrase": "The Super Mario Bros. Movie",
+    "category": "Movies & TV",
+    "totalScore": 74.6,
+    "breakdown": {
+      "localHeuristics": 14.6,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:45.265Z",
+    "cached": true
+  },
+  "deadpool & wolverine:Movies & TV": {
+    "phrase": "Deadpool & Wolverine",
+    "category": "Movies & TV",
+    "totalScore": 66.33333333333334,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:45.946Z",
+    "cached": true
+  },
+  "the fate of the furious:Movies & TV": {
+    "phrase": "The Fate of the Furious",
+    "category": "Movies & TV",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 17,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:46.701Z",
+    "cached": true
+  },
+  "iron man 3:Movies & TV": {
+    "phrase": "Iron Man 3",
+    "category": "Movies & TV",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:47.242Z",
+    "cached": true
+  },
+  "skyfall:Movies & TV": {
+    "phrase": "Skyfall",
+    "category": "Movies & TV",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:48.209Z",
+    "cached": true
+  },
+  "the dark knight rises:Movies & TV": {
+    "phrase": "The Dark Knight Rises",
+    "category": "Movies & TV",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:48.867Z",
+    "cached": true
+  },
+  "toy story 4:Movies & TV": {
+    "phrase": "Toy Story 4",
+    "category": "Movies & TV",
+    "totalScore": 68.66666666666666,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 30,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:21:49.557Z",
+    "cached": true
+  },
+  "despicable me 3:Movies & TV": {
+    "phrase": "Despicable Me 3",
+    "category": "Movies & TV",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:20.368Z",
+    "cached": true
+  },
+  "frozen:Movies & TV": {
+    "phrase": "Frozen",
+    "category": "Movies & TV",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:21.220Z",
+    "cached": true
+  },
+  "gone with the wind:Movies & TV": {
+    "phrase": "Gone with the Wind",
+    "category": "Movies & TV",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:21.995Z",
+    "cached": true
+  },
+  "guinness world records:Movies & TV": {
+    "phrase": "Guinness World Records",
+    "category": "Movies & TV",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:22.631Z",
+    "cached": true
+  },
+  "guinness:Movies & TV": {
+    "phrase": "Guinness",
+    "category": "Movies & TV",
+    "totalScore": 70,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:23.208Z",
+    "cached": true
+  },
+  "e.t. the extra-terrestrial:Movies & TV": {
+    "phrase": "E.T. the Extra-Terrestrial",
+    "category": "Movies & TV",
+    "totalScore": 75.33333333333334,
+    "breakdown": {
+      "localHeuristics": 20.333333333333336,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:23.985Z",
+    "cached": true
+  },
+  "e.t.:Movies & TV": {
+    "phrase": "E.T.",
+    "category": "Movies & TV",
+    "totalScore": 76,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:24.914Z",
+    "cached": true
+  },
+  "the birth of a nation:Movies & TV": {
+    "phrase": "The Birth of a Nation",
+    "category": "Movies & TV",
+    "totalScore": 71.2,
+    "breakdown": {
+      "localHeuristics": 16.2,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:25.569Z",
+    "cached": true
+  },
+  "the big parade:Movies & TV": {
+    "phrase": "The Big Parade",
+    "category": "Movies & TV",
+    "totalScore": 68,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:26.140Z",
+    "cached": true
+  },
+  "the ten commandments:Movies & TV": {
+    "phrase": "The Ten Commandments",
+    "category": "Movies & TV",
+    "totalScore": 75.33333333333334,
+    "breakdown": {
+      "localHeuristics": 20.333333333333336,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:26.770Z",
+    "cached": true
+  },
+  "the greatest story ever told:Movies & TV": {
+    "phrase": "The Greatest Story Ever Told",
+    "category": "Movies & TV",
+    "totalScore": 50.4,
+    "breakdown": {
+      "localHeuristics": 15.4,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:27.393Z",
+    "cached": true
+  },
+  "the bible:Movies & TV": {
+    "phrase": "The Bible",
+    "category": "Movies & TV",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:28.151Z",
+    "cached": true
+  },
+  "variety:Movies & TV": {
+    "phrase": "Variety",
+    "category": "Movies & TV",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:28.814Z",
+    "cached": true
+  },
+  "cleopatra:Movies & TV": {
+    "phrase": "Cleopatra",
+    "category": "Movies & TV",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:29.680Z",
+    "cached": true
+  },
+  "way down east:Movies & TV": {
+    "phrase": "Way Down East",
+    "category": "Movies & TV",
+    "totalScore": 66.33333333333333,
+    "breakdown": {
+      "localHeuristics": 24.333333333333332,
+      "wikidata": 25,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:30.317Z",
+    "cached": true
+  },
+  "douglas fairbanks in robin hood:Movies & TV": {
+    "phrase": "Douglas Fairbanks in Robin Hood",
+    "category": "Movies & TV",
+    "totalScore": 34.2,
+    "breakdown": {
+      "localHeuristics": 17.2,
+      "wikidata": 0,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:57:30.779Z",
+    "cached": true
+  },
+  "robin hood:Movies & TV": {
+    "phrase": "Robin Hood",
+    "category": "Movies & TV",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:31.422Z",
+    "cached": true
+  },
+  "foolish wives:Movies & TV": {
+    "phrase": "Foolish Wives",
+    "category": "Movies & TV",
+    "totalScore": 65,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:31.893Z",
+    "cached": true
+  },
+  "the covered wagon:Movies & TV": {
+    "phrase": "The Covered Wagon",
+    "category": "Movies & TV",
+    "totalScore": 62.333333333333336,
+    "breakdown": {
+      "localHeuristics": 20.333333333333336,
+      "wikidata": 20,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:32.423Z",
+    "cached": true
+  },
+  "ben-hur:Movies & TV": {
+    "phrase": "Ben-Hur",
+    "category": "Movies & TV",
+    "totalScore": 68,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:32.898Z",
+    "cached": true
+  },
+  "wings:Movies & TV": {
+    "phrase": "Wings",
+    "category": "Movies & TV",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:33.604Z",
+    "cached": true
+  },
+  "the singing fool:Movies & TV": {
+    "phrase": "The Singing Fool",
+    "category": "Movies & TV",
+    "totalScore": 56.666666666666664,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 20,
+      "reddit": 5,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:34.089Z",
+    "cached": true
+  },
+  "the jazz singer:Movies & TV": {
+    "phrase": "The Jazz Singer",
+    "category": "Movies & TV",
+    "totalScore": 63,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 15,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:34.646Z",
+    "cached": true
+  },
+  "the broadway melody:Movies & TV": {
+    "phrase": "The Broadway Melody",
+    "category": "Movies & TV",
+    "totalScore": 72.33333333333334,
+    "breakdown": {
+      "localHeuristics": 20.333333333333336,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:35.162Z",
+    "cached": true
+  },
+  "gold diggers of broadway:Movies & TV": {
+    "phrase": "Gold Diggers of Broadway",
+    "category": "Movies & TV",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 20,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:35.570Z",
+    "cached": true
+  },
+  ", for example, reported that:Movies & TV": {
+    "phrase": ", for example, reported that",
+    "category": "Movies & TV",
+    "totalScore": 25.4,
+    "breakdown": {
+      "localHeuristics": 15.4,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:57:36.074Z",
+    "cached": true
+  },
+  "dracula:Movies & TV": {
+    "phrase": "Dracula",
+    "category": "Movies & TV",
+    "totalScore": 70,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:36.621Z",
+    "cached": true
+  },
+  "city lights:Movies & TV": {
+    "phrase": "City Lights",
+    "category": "Movies & TV",
+    "totalScore": 79,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:37.238Z",
+    "cached": true
+  },
+  "kid from spain:Movies & TV": {
+    "phrase": "Kid from Spain",
+    "category": "Movies & TV",
+    "totalScore": 43.666666666666664,
+    "breakdown": {
+      "localHeuristics": 26.666666666666664,
+      "wikidata": 0,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:37.655Z",
+    "cached": true
+  },
+  "shanghai express:Movies & TV": {
+    "phrase": "Shanghai Express",
+    "category": "Movies & TV",
+    "totalScore": 68,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:38.177Z",
+    "cached": true
+  },
+  "king kong:Movies & TV": {
+    "phrase": "King Kong",
+    "category": "Movies & TV",
+    "totalScore": 81,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T21:57:38.709Z",
+    "cached": true
+  },
+  "she done him wrong:Movies & TV": {
+    "phrase": "She Done Him Wrong",
+    "category": "Movies & TV",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 25,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:39.258Z",
+    "cached": true
+  },
+  "what price glory?:Movies & TV": {
+    "phrase": "What Price Glory?",
+    "category": "Movies & TV",
+    "totalScore": 51.666666666666664,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 15,
+      "reddit": 5,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:39.832Z",
+    "cached": true
+  },
+  "cavalcade:Movies & TV": {
+    "phrase": "Cavalcade",
+    "category": "Movies & TV",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:40.262Z",
+    "cached": true
+  },
+  "state fair:Movies & TV": {
+    "phrase": "State Fair",
+    "category": "Movies & TV",
+    "totalScore": 83,
+    "breakdown": {
+      "localHeuristics": 33,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T21:57:41.068Z",
+    "cached": true
+  },
+  "whoopee:Movies & TV": {
+    "phrase": "Whoopee",
+    "category": "Movies & TV",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:41.761Z",
+    "cached": true
+  },
+  "whoopee!:Movies & TV": {
+    "phrase": "Whoopee!",
+    "category": "Movies & TV",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:42.342Z",
+    "cached": true
+  },
+  "palmy days:Movies & TV": {
+    "phrase": "Palmy Days",
+    "category": "Movies & TV",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 15,
+      "reddit": 5,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:43.079Z",
+    "cached": true
+  },
+  "the kid from spain:Movies & TV": {
+    "phrase": "The Kid from Spain",
+    "category": "Movies & TV",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 25,
+      "wikidata": 20,
+      "reddit": 5,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:43.643Z",
+    "cached": true
+  },
+  "roman scandals:Movies & TV": {
+    "phrase": "Roman Scandals",
+    "category": "Movies & TV",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 20,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:44.425Z",
+    "cached": true
+  },
+  "it happened one night:Movies & TV": {
+    "phrase": "It Happened One Night",
+    "category": "Movies & TV",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:45.270Z",
+    "cached": true
+  },
+  "the merry widow:Movies & TV": {
+    "phrase": "The Merry Widow",
+    "category": "Movies & TV",
+    "totalScore": 63.666666666666664,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 25,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:46.033Z",
+    "cached": true
+  },
+  "san francisco:Movies & TV": {
+    "phrase": "San Francisco",
+    "category": "Movies & TV",
+    "totalScore": 55,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:46.973Z",
+    "cached": true
+  },
+  "grand hotel:Movies & TV": {
+    "phrase": "Grand Hotel",
+    "category": "Movies & TV",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:47.692Z",
+    "cached": true
+  },
+  "viva villa:Movies & TV": {
+    "phrase": "Viva Villa",
+    "category": "Movies & TV",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:48.573Z",
+    "cached": true
+  },
+  "mutiny on the bounty:Movies & TV": {
+    "phrase": "Mutiny on the Bounty",
+    "category": "Movies & TV",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 25,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:49.283Z",
+    "cached": true
+  },
+  "snow white:Movies & TV": {
+    "phrase": "Snow White",
+    "category": "Movies & TV",
+    "totalScore": 79,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:49.955Z",
+    "cached": true
+  },
+  "pinocchio:Movies & TV": {
+    "phrase": "Pinocchio",
+    "category": "Movies & TV",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:51.335Z",
+    "cached": true
+  },
+  "gwtw:Movies & TV": {
+    "phrase": "GWTW",
+    "category": "Movies & TV",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 0,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:51.842Z",
+    "cached": true
+  },
+  "boom town:Movies & TV": {
+    "phrase": "Boom Town",
+    "category": "Movies & TV",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:52.535Z",
+    "cached": true
+  },
+  "sergeant york:Movies & TV": {
+    "phrase": "Sergeant York",
+    "category": "Movies & TV",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:53.120Z",
+    "cached": true
+  },
+  "this is the army:Movies & TV": {
+    "phrase": "This is the Army",
+    "category": "Movies & TV",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:54.119Z",
+    "cached": true
+  },
+  "bambi:Movies & TV": {
+    "phrase": "Bambi",
+    "category": "Movies & TV",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:54.757Z",
+    "cached": true
+  },
+  "101 dalmatians:Movies & TV": {
+    "phrase": "101 Dalmatians",
+    "category": "Movies & TV",
+    "totalScore": 70,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:55.497Z",
+    "cached": true
+  },
+  "the jungle book:Movies & TV": {
+    "phrase": "The Jungle Book",
+    "category": "Movies & TV",
+    "totalScore": 78,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:56.007Z",
+    "cached": true
+  },
+  "aladdin:Movies & TV": {
+    "phrase": "Aladdin",
+    "category": "Movies & TV",
+    "totalScore": 65,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:56.850Z",
+    "cached": true
+  },
+  "mrs. miniver:Movies & TV": {
+    "phrase": "Mrs. Miniver",
+    "category": "Movies & TV",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:57.603Z",
+    "cached": true
+  },
+  "mrs miniver:Movies & TV": {
+    "phrase": "Mrs Miniver",
+    "category": "Movies & TV",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:57:58.380Z",
+    "cached": true
+  },
+  "random harvest:Movies & TV": {
+    "phrase": "Random Harvest",
+    "category": "Movies & TV",
+    "totalScore": 65,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:58.889Z",
+    "cached": true
+  },
+  "yankee doodle dandy:Movies & TV": {
+    "phrase": "Yankee Doodle Dandy",
+    "category": "Movies & TV",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:57:59.345Z",
+    "cached": true
+  },
+  "going my way:Movies & TV": {
+    "phrase": "Going My Way",
+    "category": "Movies & TV",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:00.474Z",
+    "cached": true
+  },
+  "mom and dad:Movies & TV": {
+    "phrase": "Mom and Dad",
+    "category": "Movies & TV",
+    "totalScore": 69.33333333333333,
+    "breakdown": {
+      "localHeuristics": 24.333333333333332,
+      "wikidata": 20,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:01.358Z",
+    "cached": true
+  },
+  "los angeles times:Movies & TV": {
+    "phrase": "Los Angeles Times",
+    "category": "Movies & TV",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:02.109Z",
+    "cached": true
+  },
+  "time:Movies & TV": {
+    "phrase": "Time",
+    "category": "Movies & TV",
+    "totalScore": 85,
+    "breakdown": {
+      "localHeuristics": 30,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T21:58:03.431Z",
+    "cached": true
+  },
+  "song of the south:Movies & TV": {
+    "phrase": "Song of the South",
+    "category": "Movies & TV",
+    "totalScore": 70,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:04.041Z",
+    "cached": true
+  },
+  "best years:Movies & TV": {
+    "phrase": "Best Years",
+    "category": "Movies & TV",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 28,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:05.104Z",
+    "cached": true
+  },
+  "sunny side up:Movies & TV": {
+    "phrase": "Sunny Side Up",
+    "category": "Movies & TV",
+    "totalScore": 61.666666666666664,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 15,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:05.737Z",
+    "cached": true
+  },
+  "forever amber:Movies & TV": {
+    "phrase": "Forever Amber",
+    "category": "Movies & TV",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 20,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:06.307Z",
+    "cached": true
+  },
+  "the french connection:Movies & TV": {
+    "phrase": "The French Connection",
+    "category": "Movies & TV",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:06.975Z",
+    "cached": true
+  },
+  "planet of the apes:Movies & TV": {
+    "phrase": "Planet of the Apes",
+    "category": "Movies & TV",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:07.784Z",
+    "cached": true
+  },
+  "duel in the sun:Movies & TV": {
+    "phrase": "Duel in the Sun",
+    "category": "Movies & TV",
+    "totalScore": 63,
+    "breakdown": {
+      "localHeuristics": 21,
+      "wikidata": 25,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:08.354Z",
+    "cached": true
+  },
+  ", 361) and $6,480,000 (thomson,:Movies & TV": {
+    "phrase": ", 361) and $6,480,000 (Thomson,",
+    "category": "Movies & TV",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 13,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 10
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:08.813Z",
+    "cached": true
+  },
+  "cinderella:Movies & TV": {
+    "phrase": "Cinderella",
+    "category": "Movies & TV",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:09.969Z",
+    "cached": true
+  },
+  "samson:Movies & TV": {
+    "phrase": "Samson",
+    "category": "Movies & TV",
+    "totalScore": 67,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:11.628Z",
+    "cached": true
+  },
+  "david:Movies & TV": {
+    "phrase": "David",
+    "category": "Movies & TV",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:12.337Z",
+    "cached": true
+  },
+  "quo vadis:Movies & TV": {
+    "phrase": "Quo Vadis",
+    "category": "Movies & TV",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:13.175Z",
+    "cached": true
+  },
+  "the robe:Movies & TV": {
+    "phrase": "The Robe",
+    "category": "Movies & TV",
+    "totalScore": 78,
+    "breakdown": {
+      "localHeuristics": 28,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:14.107Z",
+    "cached": true
+  },
+  "this is cinerama:Movies & TV": {
+    "phrase": "This Is Cinerama",
+    "category": "Movies & TV",
+    "totalScore": 58.666666666666664,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 20,
+      "reddit": 7,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:14.887Z",
+    "cached": true
+  },
+  "rear window:Movies & TV": {
+    "phrase": "Rear Window",
+    "category": "Movies & TV",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:15.624Z",
+    "cached": true
+  },
+  "white christmas:Movies & TV": {
+    "phrase": "White Christmas",
+    "category": "Movies & TV",
+    "totalScore": 58,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 10,
+      "categoryBoost": 10
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:16.562Z",
+    "cached": true
+  },
+  "we found love:Music & Artists": {
+    "phrase": "We Found Love",
+    "category": "Music & Artists",
+    "totalScore": 66.66666666666666,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:21.417Z",
+    "cached": true
+  },
+  "where them girls at:Music & Artists": {
+    "phrase": "Where Them Girls At",
+    "category": "Music & Artists",
+    "totalScore": 56,
+    "breakdown": {
+      "localHeuristics": 21,
+      "wikidata": 20,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:22.080Z",
+    "cached": true
+  },
+  "riaj yearbook:Music & Artists": {
+    "phrase": "RIAJ Yearbook",
+    "category": "Music & Artists",
+    "totalScore": 32,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 5,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:22.518Z",
+    "cached": true
+  },
+  "riaa certifications:Music & Artists": {
+    "phrase": "RIAA Certifications",
+    "category": "Music & Artists",
+    "totalScore": 35,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:23.077Z",
+    "cached": true
+  },
+  "riaj certifications:Music & Artists": {
+    "phrase": "RIAJ certifications",
+    "category": "Music & Artists",
+    "totalScore": 35,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:23.556Z",
+    "cached": true
+  },
+  "bvmi certifications:Music & Artists": {
+    "phrase": "BVMI Certifications",
+    "category": "Music & Artists",
+    "totalScore": 25,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:23.870Z",
+    "cached": true
+  },
+  "bpi certifications:Music & Artists": {
+    "phrase": "BPI certifications",
+    "category": "Music & Artists",
+    "totalScore": 32,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:24.370Z",
+    "cached": true
+  },
+  "snep certifications:Music & Artists": {
+    "phrase": "SNEP Certifications",
+    "category": "Music & Artists",
+    "totalScore": 32,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:24.790Z",
+    "cached": true
+  },
+  "music canada certifications:Music & Artists": {
+    "phrase": "Music Canada Certifications",
+    "category": "Music & Artists",
+    "totalScore": 21.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:25.233Z",
+    "cached": true
+  },
+  "australian certifications:Music & Artists": {
+    "phrase": "Australian Certifications",
+    "category": "Music & Artists",
+    "totalScore": 29,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:25.729Z",
+    "cached": true
+  },
+  "australia's pre 1997 certifications:Music & Artists": {
+    "phrase": "Australia's pre 1997 certifications",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:26.217Z",
+    "cached": true
+  },
+  "pmb certifications:Music & Artists": {
+    "phrase": "PMB Certifications",
+    "category": "Music & Artists",
+    "totalScore": 25,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:26.525Z",
+    "cached": true
+  },
+  "fimi certifications:Music & Artists": {
+    "phrase": "FIMI Certifications",
+    "category": "Music & Artists",
+    "totalScore": 25,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:27.020Z",
+    "cached": true
+  },
+  "spanish certifications:Music & Artists": {
+    "phrase": "Spanish Certifications",
+    "category": "Music & Artists",
+    "totalScore": 26,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 5,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:27.499Z",
+    "cached": true
+  },
+  "swedish certifications:Music & Artists": {
+    "phrase": "Swedish Certifications",
+    "category": "Music & Artists",
+    "totalScore": 28,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:28.068Z",
+    "cached": true
+  },
+  "ifpi norway certifications:Music & Artists": {
+    "phrase": "IFPI Norway certifications",
+    "category": "Music & Artists",
+    "totalScore": 22.666666666666664,
+    "breakdown": {
+      "localHeuristics": 17.666666666666664,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:28.498Z",
+    "cached": true
+  },
+  "certificeringer marts – maj:Music & Artists": {
+    "phrase": "Certificeringer marts – maj",
+    "category": "Music & Artists",
+    "totalScore": 21,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:28.876Z",
+    "cached": true
+  },
+  "swiss certifications:Music & Artists": {
+    "phrase": "Swiss Certifications",
+    "category": "Music & Artists",
+    "totalScore": 30,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:29.520Z",
+    "cached": true
+  },
+  "argentina's certifications for albums:Music & Artists": {
+    "phrase": "Argentina's Certifications for albums",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:29.849Z",
+    "cached": true
+  },
+  "argentina's diamond awards:Music & Artists": {
+    "phrase": "Argentina's Diamond Awards",
+    "category": "Music & Artists",
+    "totalScore": 20,
+    "breakdown": {
+      "localHeuristics": 15,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:30.179Z",
+    "cached": true
+  },
+  "belgian certifications:Music & Artists": {
+    "phrase": "Belgian Certifications",
+    "category": "Music & Artists",
+    "totalScore": 21,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:30.412Z",
+    "cached": true
+  },
+  "belgian certifications 1995–present:Music & Artists": {
+    "phrase": "Belgian Certifications 1995–present",
+    "category": "Music & Artists",
+    "totalScore": 17.333333333333332,
+    "breakdown": {
+      "localHeuristics": 12.333333333333332,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:30.642Z",
+    "cached": true
+  },
+  "austrian certifications:Music & Artists": {
+    "phrase": "Austrian Certifications",
+    "category": "Music & Artists",
+    "totalScore": 21,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:30.871Z",
+    "cached": true
+  },
+  "polish certifications:Music & Artists": {
+    "phrase": "Polish Certifications",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:31.095Z",
+    "cached": true
+  },
+  "finnish certifications:Music & Artists": {
+    "phrase": "Finnish Certifications",
+    "category": "Music & Artists",
+    "totalScore": 21,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:31.386Z",
+    "cached": true
+  },
+  "new zealand's certifications:Music & Artists": {
+    "phrase": "New Zealand's Certifications",
+    "category": "Music & Artists",
+    "totalScore": 21.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:31.653Z",
+    "cached": true
+  },
+  "radioscope new zealand's certifications:Music & Artists": {
+    "phrase": "Radioscope New Zealand's certifications",
+    "category": "Music & Artists",
+    "totalScore": 17,
+    "breakdown": {
+      "localHeuristics": 12,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:31.951Z",
+    "cached": true
+  },
+  "portuguese certifications:Music & Artists": {
+    "phrase": "Portuguese certifications",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:32.428Z",
+    "cached": true
+  },
+  "thriller:Music & Artists": {
+    "phrase": "Thriller",
+    "category": "Music & Artists",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:32.807Z",
+    "cached": true
+  },
+  "riaj digital certifications:Music & Artists": {
+    "phrase": "RIAJ Digital certifications",
+    "category": "Music & Artists",
+    "totalScore": 21.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:33.070Z",
+    "cached": true
+  },
+  "music & media:Music & Artists": {
+    "phrase": "Music & Media",
+    "category": "Music & Artists",
+    "totalScore": 45.333333333333336,
+    "breakdown": {
+      "localHeuristics": 20.333333333333336,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:33.277Z",
+    "cached": true
+  },
+  "hitlisten.nu:Music & Artists": {
+    "phrase": "Hitlisten.nu",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:33.532Z",
+    "cached": true
+  },
+  "guld og platin i august:Music & Artists": {
+    "phrase": "Guld og platin i august",
+    "category": "Music & Artists",
+    "totalScore": 20.4,
+    "breakdown": {
+      "localHeuristics": 15.4,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:33.781Z",
+    "cached": true
+  },
+  "amprofon certifications:Music & Artists": {
+    "phrase": "AMPROFON Certifications",
+    "category": "Music & Artists",
+    "totalScore": 21,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:33.998Z",
+    "cached": true
+  },
+  "1990 aria album chart:Music & Artists": {
+    "phrase": "1990 ARIA Album Chart",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:34.229Z",
+    "cached": true
+  },
+  "forårets guld- og platincertificeringer:Music & Artists": {
+    "phrase": "Forårets guld- og platincertificeringer",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:34.456Z",
+    "cached": true
+  },
+  "riaj 1 million seller database:Music & Artists": {
+    "phrase": "RIAJ 1 Million Seller Database",
+    "category": "Music & Artists",
+    "totalScore": 18,
+    "breakdown": {
+      "localHeuristics": 13,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:34.678Z",
+    "cached": true
+  },
+  "audio gest:Music & Artists": {
+    "phrase": "Audio Gest",
+    "category": "Music & Artists",
+    "totalScore": 29,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:34.935Z",
+    "cached": true
+  },
+  "guld og platin november/december/januar:Music & Artists": {
+    "phrase": "Guld og platin november/december/januar",
+    "category": "Music & Artists",
+    "totalScore": 21,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:35.166Z",
+    "cached": true
+  },
+  "guld og platin i marts:Music & Artists": {
+    "phrase": "Guld og platin i marts",
+    "category": "Music & Artists",
+    "totalScore": 20.4,
+    "breakdown": {
+      "localHeuristics": 15.4,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:35.455Z",
+    "cached": true
+  },
+  "certifications albums – année:Music & Artists": {
+    "phrase": "Certifications Albums – Année",
+    "category": "Music & Artists",
+    "totalScore": 20,
+    "breakdown": {
+      "localHeuristics": 15,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:35.677Z",
+    "cached": true
+  },
+  "guld og platin i september:Music & Artists": {
+    "phrase": "Guld og platin i september",
+    "category": "Music & Artists",
+    "totalScore": 18.8,
+    "breakdown": {
+      "localHeuristics": 13.8,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:35.977Z",
+    "cached": true
+  },
+  "irish certification-database:Music & Artists": {
+    "phrase": "Irish certification-database",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:36.197Z",
+    "cached": true
+  },
+  "sök:Music & Artists": {
+    "phrase": "Sök",
+    "category": "Music & Artists",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:36.415Z",
+    "cached": true
+  },
+  "visa:Music & Artists": {
+    "phrase": "Visa",
+    "category": "Music & Artists",
+    "totalScore": 56,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:36.639Z",
+    "cached": true
+  },
+  "certifications in– année:Music & Artists": {
+    "phrase": "Certifications in– Année",
+    "category": "Music & Artists",
+    "totalScore": 22.666666666666664,
+    "breakdown": {
+      "localHeuristics": 17.666666666666664,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:36.878Z",
+    "cached": true
+  },
+  "japan's 1 million seller database:Music & Artists": {
+    "phrase": "Japan's 1 Million Seller Database",
+    "category": "Music & Artists",
+    "totalScore": 16.4,
+    "breakdown": {
+      "localHeuristics": 11.4,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:37.108Z",
+    "cached": true
+  },
+  "i will always love you:Music & Artists": {
+    "phrase": "I Will Always Love You",
+    "category": "Music & Artists",
+    "totalScore": 47.8,
+    "breakdown": {
+      "localHeuristics": 17.8,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:37.603Z",
+    "cached": true
+  },
+  "the bodyguard soundtrack:Music & Artists": {
+    "phrase": "The Bodyguard Soundtrack",
+    "category": "Music & Artists",
+    "totalScore": 21.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:37.823Z",
+    "cached": true
+  },
+  "whitney houston:Music & Artists": {
+    "phrase": "Whitney Houston",
+    "category": "Music & Artists",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:38.086Z",
+    "cached": true
+  },
+  "houston attains global stardom:Music & Artists": {
+    "phrase": "Houston Attains Global Stardom",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:38.323Z",
+    "cached": true
+  },
+  "pladebranchen.08 offentliggøres i dag:Music & Artists": {
+    "phrase": "Pladebranchen.08 offentliggøres i dag",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:38.588Z",
+    "cached": true
+  },
+  "riaj digital certification for july:Music & Artists": {
+    "phrase": "RIAJ Digital certification for July",
+    "category": "Music & Artists",
+    "totalScore": 18.8,
+    "breakdown": {
+      "localHeuristics": 13.8,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:38.817Z",
+    "cached": true
+  },
+  "guld og platin i april:Music & Artists": {
+    "phrase": "Guld og platin i april",
+    "category": "Music & Artists",
+    "totalScore": 20.4,
+    "breakdown": {
+      "localHeuristics": 15.4,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:39.040Z",
+    "cached": true
+  },
+  "julio iglesias 30th anniversary:Music & Artists": {
+    "phrase": "Julio Iglesias 30th Anniversary",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:39.265Z",
+    "cached": true
+  },
+  "top 30 artistas:Music & Artists": {
+    "phrase": "TOP 30 ARTISTAS",
+    "category": "Music & Artists",
+    "totalScore": 25.333333333333336,
+    "breakdown": {
+      "localHeuristics": 20.333333333333336,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:39.511Z",
+    "cached": true
+  },
+  "español universal:Music & Artists": {
+    "phrase": "Español Universal",
+    "category": "Music & Artists",
+    "totalScore": 21,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:39.776Z",
+    "cached": true
+  },
+  "1993 aria album chart:Music & Artists": {
+    "phrase": "1993 ARIA Album Chart",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:39.985Z",
+    "cached": true
+  },
+  "platine:Music & Artists": {
+    "phrase": "Platine",
+    "category": "Music & Artists",
+    "totalScore": 33,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:40.201Z",
+    "cached": true
+  },
+  "un dépotoir:Music & Artists": {
+    "phrase": "Un dépotoir",
+    "category": "Music & Artists",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:40.511Z",
+    "cached": true
+  },
+  "1996 aria album chart:Music & Artists": {
+    "phrase": "1996 ARIA Album Chart",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:40.744Z",
+    "cached": true
+  },
+  "not dead yet:Music & Artists": {
+    "phrase": "Not Dead Yet",
+    "category": "Music & Artists",
+    "totalScore": 38,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:41.021Z",
+    "cached": true
+  },
+  "every song comes differently:Music & Artists": {
+    "phrase": "Every song comes differently",
+    "category": "Music & Artists",
+    "totalScore": 20,
+    "breakdown": {
+      "localHeuristics": 15,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:41.248Z",
+    "cached": true
+  },
+  "you can't hurry love:Music & Artists": {
+    "phrase": "You Can't Hurry Love",
+    "category": "Music & Artists",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:41.472Z",
+    "cached": true
+  },
+  "oasisspain:Music & Artists": {
+    "phrase": "OasisSpain",
+    "category": "Music & Artists",
+    "totalScore": 24,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:41.710Z",
+    "cached": true
+  },
+  "history of the awards:Music & Artists": {
+    "phrase": "History of the Awards",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:41.950Z",
+    "cached": true
+  },
+  "guld- og platinplader er devalueret:Music & Artists": {
+    "phrase": "Guld- og platinplader er devalueret",
+    "category": "Music & Artists",
+    "totalScore": 16.4,
+    "breakdown": {
+      "localHeuristics": 11.4,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:42.229Z",
+    "cached": true
+  },
+  "awards 1989 and certification criteria:Music & Artists": {
+    "phrase": "Awards 1989 and Certification criteria",
+    "category": "Music & Artists",
+    "totalScore": 18,
+    "breakdown": {
+      "localHeuristics": 13,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T21:58:42.450Z",
+    "cached": true
+  },
+  "capif:Music & Artists": {
+    "phrase": "Capif",
+    "category": "Music & Artists",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:42.671Z",
+    "cached": true
+  },
+  "tilastot:Music & Artists": {
+    "phrase": "Tilastot",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:42.931Z",
+    "cached": true
+  },
+  "wsj:Music & Artists": {
+    "phrase": "WSJ",
+    "category": "Music & Artists",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:43.208Z",
+    "cached": true
+  },
+  "country takes the crop:Music & Artists": {
+    "phrase": "Country Takes The Crop",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:43.441Z",
+    "cached": true
+  },
+  "nvpi certification-award-levels:Music & Artists": {
+    "phrase": "NVPI certification-award-levels",
+    "category": "Music & Artists",
+    "totalScore": 25,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:43.677Z",
+    "cached": true
+  },
+  "jpn:Music & Artists": {
+    "phrase": "JPN",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:44.009Z",
+    "cached": true
+  },
+  "ger:Music & Artists": {
+    "phrase": "GER",
+    "category": "Music & Artists",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:44.229Z",
+    "cached": true
+  },
+  "fra:Music & Artists": {
+    "phrase": "FRA",
+    "category": "Music & Artists",
+    "totalScore": 56,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:44.437Z",
+    "cached": true
+  },
+  "can:Music & Artists": {
+    "phrase": "CAN",
+    "category": "Music & Artists",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 30,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T21:58:44.698Z",
+    "cached": true
+  },
+  "aus:Music & Artists": {
+    "phrase": "AUS",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:45.165Z",
+    "cached": true
+  },
+  "bra:Music & Artists": {
+    "phrase": "BRA",
+    "category": "Music & Artists",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:45.408Z",
+    "cached": true
+  },
+  "nld:Music & Artists": {
+    "phrase": "NLD",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:58:45.836Z",
+    "cached": true
+  },
+  "ita:Music & Artists": {
+    "phrase": "ITA",
+    "category": "Music & Artists",
+    "totalScore": 31,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T21:58:46.054Z",
+    "cached": true
+  },
+  "spa:Music & Artists": {
+    "phrase": "SPA",
+    "category": "Music & Artists",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:59:02.527Z",
+    "cached": true
+  },
+  "swe:Music & Artists": {
+    "phrase": "SWE",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:59:18.804Z",
+    "cached": true
+  },
+  "nor:Music & Artists": {
+    "phrase": "NOR",
+    "category": "Music & Artists",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:59:35.644Z",
+    "cached": true
+  },
+  "den:Music & Artists": {
+    "phrase": "DEN",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T21:59:52.736Z",
+    "cached": true
+  },
+  "swi:Music & Artists": {
+    "phrase": "SWI",
+    "category": "Music & Artists",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:00:09.675Z",
+    "cached": true
+  },
+  "arg:Music & Artists": {
+    "phrase": "ARG",
+    "category": "Music & Artists",
+    "totalScore": 56,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:00:26.668Z",
+    "cached": true
+  },
+  "bel:Music & Artists": {
+    "phrase": "BEL",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:00:43.722Z",
+    "cached": true
+  },
+  "aut:Music & Artists": {
+    "phrase": "AUT",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:01:00.655Z",
+    "cached": true
+  },
+  "pol:Music & Artists": {
+    "phrase": "POL",
+    "category": "Music & Artists",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:01:17.214Z",
+    "cached": true
+  },
+  "fin:Music & Artists": {
+    "phrase": "FIN",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:01:33.714Z",
+    "cached": true
+  },
+  "por:Music & Artists": {
+    "phrase": "POR",
+    "category": "Music & Artists",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:01:50.113Z",
+    "cached": true
+  },
+  "mex:Music & Artists": {
+    "phrase": "MEX",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:02:06.871Z",
+    "cached": true
+  },
+  "ire:Music & Artists": {
+    "phrase": "IRE",
+    "category": "Music & Artists",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:02:23.452Z",
+    "cached": true
+  },
+  "phl:Music & Artists": {
+    "phrase": "PHL",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:02:40.316Z",
+    "cached": true
+  },
+  "kor:Music & Artists": {
+    "phrase": "KOR",
+    "category": "Music & Artists",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:02:57.801Z",
+    "cached": true
+  },
+  "list of best-selling albums:Music & Artists": {
+    "phrase": "List of best-selling albums",
+    "category": "Music & Artists",
+    "totalScore": 21,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:03:14.835Z",
+    "cached": true
+  },
+  "list of best-selling singles:Music & Artists": {
+    "phrase": "List of best-selling singles",
+    "category": "Music & Artists",
+    "totalScore": 20,
+    "breakdown": {
+      "localHeuristics": 15,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:03:39.281Z",
+    "cached": true
+  },
+  "best-selling artists by nationality:Music & Artists": {
+    "phrase": "Best-selling artists by nationality",
+    "category": "Music & Artists",
+    "totalScore": 17,
+    "breakdown": {
+      "localHeuristics": 12,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:03:55.670Z",
+    "cached": true
+  },
+  "best-selling artists by territory:Music & Artists": {
+    "phrase": "Best-selling artists by territory",
+    "category": "Music & Artists",
+    "totalScore": 17,
+    "breakdown": {
+      "localHeuristics": 12,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:04:11.944Z",
+    "cached": true
+  },
+  "list of female nobel laureates:Famous People": {
+    "phrase": "List of female Nobel laureates",
+    "category": "Famous People",
+    "totalScore": 18,
+    "breakdown": {
+      "localHeuristics": 13,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:04:35.423Z",
+    "cached": true
+  },
+  "sek:Famous People": {
+    "phrase": "SEK",
+    "category": "Famous People",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:04:52.252Z",
+    "cached": true
+  },
+  "brian kobilka:Famous People": {
+    "phrase": "Brian Kobilka",
+    "category": "Famous People",
+    "totalScore": 55,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:05:08.592Z",
+    "cached": true
+  },
+  "robert j. lefkowitz:Famous People": {
+    "phrase": "Robert J. Lefkowitz",
+    "category": "Famous People",
+    "totalScore": 22.666666666666664,
+    "breakdown": {
+      "localHeuristics": 17.666666666666664,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:05:25.019Z",
+    "cached": true
+  },
+  "david j. wineland:Famous People": {
+    "phrase": "David J. Wineland",
+    "category": "Famous People",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:05:41.611Z",
+    "cached": true
+  },
+  "serge haroche:Famous People": {
+    "phrase": "Serge Haroche",
+    "category": "Famous People",
+    "totalScore": 55,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:05:58.369Z",
+    "cached": true
+  },
+  "nobel prize:Famous People": {
+    "phrase": "Nobel Prize",
+    "category": "Famous People",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:06:15.599Z",
+    "cached": true
+  },
+  "royal swedish academy of sciences:Famous People": {
+    "phrase": "Royal Swedish Academy of Sciences",
+    "category": "Famous People",
+    "totalScore": 46.4,
+    "breakdown": {
+      "localHeuristics": 11.4,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:06:32.561Z",
+    "cached": true
+  },
+  "swedish academy:Famous People": {
+    "phrase": "Swedish Academy",
+    "category": "Famous People",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:06:49.441Z",
+    "cached": true
+  },
+  "karolinska institute:Famous People": {
+    "phrase": "Karolinska Institute",
+    "category": "Famous People",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:07:05.867Z",
+    "cached": true
+  },
+  "norwegian nobel committee:Famous People": {
+    "phrase": "Norwegian Nobel Committee",
+    "category": "Famous People",
+    "totalScore": 43.66666666666667,
+    "breakdown": {
+      "localHeuristics": 13.666666666666668,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:07:22.823Z",
+    "cached": true
+  },
+  "nobel foundation:Famous People": {
+    "phrase": "Nobel Foundation",
+    "category": "Famous People",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:07:39.712Z",
+    "cached": true
+  },
+  "alfred nobel:Famous People": {
+    "phrase": "Alfred Nobel",
+    "category": "Famous People",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:07:56.164Z",
+    "cached": true
+  },
+  "sveriges riksbank:Famous People": {
+    "phrase": "Sveriges Riksbank",
+    "category": "Famous People",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:08:13.027Z",
+    "cached": true
+  },
+  "stockholm:Famous People": {
+    "phrase": "Stockholm",
+    "category": "Famous People",
+    "totalScore": 49,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:08:29.947Z",
+    "cached": true
+  },
+  "world war&nbsp;ii:Famous People": {
+    "phrase": "World War&nbsp;II",
+    "category": "Famous People",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:08:47.014Z",
+    "cached": true
+  },
+  "nobel prizes:Famous People": {
+    "phrase": "Nobel Prizes",
+    "category": "Famous People",
+    "totalScore": 32,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:09:04.213Z",
+    "cached": true
+  },
+  "adolf hitler:Famous People": {
+    "phrase": "Adolf Hitler",
+    "category": "Famous People",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:09:20.988Z",
+    "cached": true
+  },
+  "richard kuhn:Famous People": {
+    "phrase": "Richard Kuhn",
+    "category": "Famous People",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:09:37.960Z",
+    "cached": true
+  },
+  "guinness:Music & Artists": {
+    "phrase": "Guinness",
+    "category": "Music & Artists",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:10:06.436Z",
+    "cached": true
+  },
+  "riaa certification database:Music & Artists": {
+    "phrase": "RIAA Certification Database",
+    "category": "Music & Artists",
+    "totalScore": 21.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:10:22.979Z",
+    "cached": true
+  },
+  "the record:Music & Artists": {
+    "phrase": "The Record",
+    "category": "Music & Artists",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:10:39.301Z",
+    "cached": true
+  },
+  "german certification database:Music & Artists": {
+    "phrase": "German Certification Database",
+    "category": "Music & Artists",
+    "totalScore": 20,
+    "breakdown": {
+      "localHeuristics": 15,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:10:55.536Z",
+    "cached": true
+  },
+  "canada music certification database:Music & Artists": {
+    "phrase": "Canada Music Certification Database",
+    "category": "Music & Artists",
+    "totalScore": 18,
+    "breakdown": {
+      "localHeuristics": 13,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:11:12.602Z",
+    "cached": true
+  },
+  "amprofon certification database:Music & Artists": {
+    "phrase": "AMPROFON Certification Database",
+    "category": "Music & Artists",
+    "totalScore": 18.666666666666668,
+    "breakdown": {
+      "localHeuristics": 13.666666666666668,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:11:28.960Z",
+    "cached": true
+  },
+  "dutch certifications:Music & Artists": {
+    "phrase": "Dutch Certifications",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:11:45.707Z",
+    "cached": true
+  },
+  "fimi certification database:Music & Artists": {
+    "phrase": "FIMI Certification Database",
+    "category": "Music & Artists",
+    "totalScore": 21.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:12:02.379Z",
+    "cached": true
+  },
+  "capif diamond awards:Music & Artists": {
+    "phrase": "CAPIF Diamond awards",
+    "category": "Music & Artists",
+    "totalScore": 22.666666666666664,
+    "breakdown": {
+      "localHeuristics": 17.666666666666664,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:12:19.555Z",
+    "cached": true
+  },
+  "swiss certification database:Music & Artists": {
+    "phrase": "Swiss Certification Database",
+    "category": "Music & Artists",
+    "totalScore": 20,
+    "breakdown": {
+      "localHeuristics": 15,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:12:36.810Z",
+    "cached": true
+  },
+  "finnish certifications database:Music & Artists": {
+    "phrase": "Finnish Certifications Database",
+    "category": "Music & Artists",
+    "totalScore": 18.666666666666668,
+    "breakdown": {
+      "localHeuristics": 13.666666666666668,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:12:53.464Z",
+    "cached": true
+  },
+  "new zealand certifications:Music & Artists": {
+    "phrase": "New Zealand Certifications",
+    "category": "Music & Artists",
+    "totalScore": 22.666666666666664,
+    "breakdown": {
+      "localHeuristics": 17.666666666666664,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:13:09.864Z",
+    "cached": true
+  },
+  "nz album certifications 2007-july:Music & Artists": {
+    "phrase": "NZ Album Certifications 2007-July",
+    "category": "Music & Artists",
+    "totalScore": 18,
+    "breakdown": {
+      "localHeuristics": 13,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:13:27.000Z",
+    "cached": true
+  },
+  "hong kong gold disc award:Music & Artists": {
+    "phrase": "Hong Kong Gold Disc Award",
+    "category": "Music & Artists",
+    "totalScore": 21.2,
+    "breakdown": {
+      "localHeuristics": 16.2,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:13:43.780Z",
+    "cached": true
+  },
+  "brazil's certification database:Music & Artists": {
+    "phrase": "Brazil's Certification Database",
+    "category": "Music & Artists",
+    "totalScore": 18.666666666666668,
+    "breakdown": {
+      "localHeuristics": 13.666666666666668,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:14:00.151Z",
+    "cached": true
+  },
+  "back in black:Music & Artists": {
+    "phrase": "Back In Black",
+    "category": "Music & Artists",
+    "totalScore": 31.666666666666664,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:14:17.784Z",
+    "cached": true
+  },
+  "archived capif certifications to:Music & Artists": {
+    "phrase": "Archived CAPIF certifications to",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:14:34.723Z",
+    "cached": true
+  },
+  "polish certification awards 1995-present:Music & Artists": {
+    "phrase": "Polish certification awards 1995-present",
+    "category": "Music & Artists",
+    "totalScore": 17,
+    "breakdown": {
+      "localHeuristics": 12,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:14:52.007Z",
+    "cached": true
+  },
+  "riaj history:Music & Artists": {
+    "phrase": "RIAJ History",
+    "category": "Music & Artists",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:15:08.964Z",
+    "cached": true
+  },
+  "norwegian certifications:Music & Artists": {
+    "phrase": "Norwegian Certifications",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:15:25.928Z",
+    "cached": true
+  },
+  "hotel california:Music & Artists": {
+    "phrase": "Hotel California",
+    "category": "Music & Artists",
+    "totalScore": 43,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:15:42.837Z",
+    "cached": true
+  },
+  "les certifications:Music & Artists": {
+    "phrase": "Les certifications",
+    "category": "Music & Artists",
+    "totalScore": 25,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:15:59.924Z",
+    "cached": true
+  },
+  "come on over:Music & Artists": {
+    "phrase": "Come on Over",
+    "category": "Music & Artists",
+    "totalScore": 40.66666666666667,
+    "breakdown": {
+      "localHeuristics": 25.666666666666668,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:16:16.658Z",
+    "cached": true
+  },
+  "rumours:Music & Artists": {
+    "phrase": "Rumours",
+    "category": "Music & Artists",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:16:33.146Z",
+    "cached": true
+  },
+  "bat out of hell:Music & Artists": {
+    "phrase": "Bat Out of Hell",
+    "category": "Music & Artists",
+    "totalScore": 50,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:16:49.979Z",
+    "cached": true
+  },
+  "bad:Music & Artists": {
+    "phrase": "Bad",
+    "category": "Music & Artists",
+    "totalScore": 56,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:17:06.812Z",
+    "cached": true
+  },
+  "gold and platinum awards:Music & Artists": {
+    "phrase": "Gold and Platinum Awards",
+    "category": "Music & Artists",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:17:23.506Z",
+    "cached": true
+  },
+  "jagged little pill:Music & Artists": {
+    "phrase": "Jagged Little Pill",
+    "category": "Music & Artists",
+    "totalScore": 50.333333333333336,
+    "breakdown": {
+      "localHeuristics": 20.333333333333336,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:17:40.902Z",
+    "cached": true
+  },
+  "portugal top 30 artists:Music & Artists": {
+    "phrase": "Portugal Top 30 Artists",
+    "category": "Music & Artists",
+    "totalScore": 21,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:17:57.761Z",
+    "cached": true
+  },
+  "dirty dancing:Music & Artists": {
+    "phrase": "Dirty Dancing",
+    "category": "Music & Artists",
+    "totalScore": 50,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:18:14.930Z",
+    "cached": true
+  },
+  "falling into you:Music & Artists": {
+    "phrase": "Falling Into You",
+    "category": "Music & Artists",
+    "totalScore": 38,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:18:32.010Z",
+    "cached": true
+  },
+  "adele:Music & Artists": {
+    "phrase": "Adele",
+    "category": "Music & Artists",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:18:48.990Z",
+    "cached": true
+  },
+  "metallica:Music & Artists": {
+    "phrase": "Metallica",
+    "category": "Music & Artists",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:19:05.783Z",
+    "cached": true
+  },
+  "let's talk about love:Music & Artists": {
+    "phrase": "Let's Talk About Love",
+    "category": "Music & Artists",
+    "totalScore": 50,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:19:22.879Z",
+    "cached": true
+  },
+  "nevermind:Music & Artists": {
+    "phrase": "Nevermind",
+    "category": "Music & Artists",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:19:23.534Z",
+    "cached": true
+  },
+  "appetite for destruction:Music & Artists": {
+    "phrase": "Appetite for Destruction",
+    "category": "Music & Artists",
+    "totalScore": 57.666666666666664,
+    "breakdown": {
+      "localHeuristics": 17.666666666666664,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:20:48.714Z",
+    "cached": true
+  },
+  "born in the usa:Music & Artists": {
+    "phrase": "Born in the USA",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 21,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:20:51.556Z",
+    "cached": true
+  },
+  "brothers in arms:Music & Artists": {
+    "phrase": "Brothers in Arms",
+    "category": "Music & Artists",
+    "totalScore": 60.333333333333336,
+    "breakdown": {
+      "localHeuristics": 20.333333333333336,
+      "wikidata": 20,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:20:52.323Z",
+    "cached": true
+  },
+  "the wall:Music & Artists": {
+    "phrase": "The Wall",
+    "category": "Music & Artists",
+    "totalScore": 70,
+    "breakdown": {
+      "localHeuristics": 28,
+      "wikidata": 30,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:20:53.356Z",
+    "cached": true
+  },
+  "abbey road:Music & Artists": {
+    "phrase": "Abbey Road",
+    "category": "Music & Artists",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:20:54.028Z",
+    "cached": true
+  },
+  "come away with me:Music & Artists": {
+    "phrase": "Come Away With Me",
+    "category": "Music & Artists",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:20:56.048Z",
+    "cached": true
+  },
+  "grease:Music & Artists": {
+    "phrase": "Grease",
+    "category": "Music & Artists",
+    "totalScore": 67,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:20:56.642Z",
+    "cached": true
+  },
+  "mims:Music & Artists": {
+    "phrase": "Mims",
+    "category": "Music & Artists",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:20:57.172Z",
+    "cached": true
+  },
+  "the eminem show:Music & Artists": {
+    "phrase": "The Eminem Show",
+    "category": "Music & Artists",
+    "totalScore": 68,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:20:57.806Z",
+    "cached": true
+  },
+  "riajmlist:Music & Artists": {
+    "phrase": "RIAJMlist",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:20:58.107Z",
+    "cached": true
+  },
+  "million:Music & Artists": {
+    "phrase": "Million",
+    "category": "Music & Artists",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:20:58.896Z",
+    "cached": true
+  },
+  "nz chart history:Music & Artists": {
+    "phrase": "NZ Chart History",
+    "category": "Music & Artists",
+    "totalScore": 24,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:20:59.545Z",
+    "cached": true
+  },
+  "unplugged:Music & Artists": {
+    "phrase": "Unplugged",
+    "category": "Music & Artists",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:00.124Z",
+    "cached": true
+  },
+  "change the world:Music & Artists": {
+    "phrase": "Change the World",
+    "category": "Music & Artists",
+    "totalScore": 54.33333333333333,
+    "breakdown": {
+      "localHeuristics": 24.333333333333332,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:01.062Z",
+    "cached": true
+  },
+  "baby one more time:Music & Artists": {
+    "phrase": "Baby One More Time",
+    "category": "Music & Artists",
+    "totalScore": 58,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 15,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:01.907Z",
+    "cached": true
+  },
+  "bomtsales:Music & Artists": {
+    "phrase": "BOMTsales",
+    "category": "Music & Artists",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:21:02.397Z",
+    "cached": true
+  },
+  "slippery when wet:Music & Artists": {
+    "phrase": "Slippery When Wet",
+    "category": "Music & Artists",
+    "totalScore": 65.33333333333334,
+    "breakdown": {
+      "localHeuristics": 20.333333333333336,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:02.928Z",
+    "cached": true
+  },
+  "hybrid theory:Music & Artists": {
+    "phrase": "Hybrid Theory",
+    "category": "Music & Artists",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:03.492Z",
+    "cached": true
+  },
+  "purple rain:Music & Artists": {
+    "phrase": "Purple Rain",
+    "category": "Music & Artists",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 29,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:04.427Z",
+    "cached": true
+  },
+  "faith:Music & Artists": {
+    "phrase": "Faith",
+    "category": "Music & Artists",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 27,
+      "wikidata": 20,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:05.265Z",
+    "cached": true
+  },
+  "bsb sales:Music & Artists": {
+    "phrase": "BSB sales",
+    "category": "Music & Artists",
+    "totalScore": 36,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 0,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:05.742Z",
+    "cached": true
+  },
+  "backstreet's back:Music & Artists": {
+    "phrase": "Backstreet's Back",
+    "category": "Music & Artists",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:06.278Z",
+    "cached": true
+  },
+  "millennium:Music & Artists": {
+    "phrase": "Millennium",
+    "category": "Music & Artists",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:06.944Z",
+    "cached": true
+  },
+  "spice:Music & Artists": {
+    "phrase": "Spice",
+    "category": "Music & Artists",
+    "totalScore": 67,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:07.767Z",
+    "cached": true
+  },
+  "31m:Music & Artists": {
+    "phrase": "31m",
+    "category": "Music & Artists",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:08.371Z",
+    "cached": true
+  },
+  "30m:Music & Artists": {
+    "phrase": "30m",
+    "category": "Music & Artists",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 0,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:08.963Z",
+    "cached": true
+  },
+  "(what's the story) morning glory?:Music & Artists": {
+    "phrase": "(What's The Story) Morning Glory?",
+    "category": "Music & Artists",
+    "totalScore": 28,
+    "breakdown": {
+      "localHeuristics": 13,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:09.697Z",
+    "cached": true
+  },
+  "norman abjorensen:Music & Artists": {
+    "phrase": "Norman Abjorensen",
+    "category": "Music & Artists",
+    "totalScore": 28,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 5,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:10.179Z",
+    "cached": true
+  },
+  "omnibus press:Music & Artists": {
+    "phrase": "Omnibus Press",
+    "category": "Music & Artists",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 15,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:10.680Z",
+    "cached": true
+  },
+  "reporter:Music & Artists": {
+    "phrase": "Reporter",
+    "category": "Music & Artists",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:11.445Z",
+    "cached": true
+  },
+  "dookie:Music & Artists": {
+    "phrase": "Dookie",
+    "category": "Music & Artists",
+    "totalScore": 67,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:12.069Z",
+    "cached": true
+  },
+  "whitney:Music & Artists": {
+    "phrase": "Whitney",
+    "category": "Music & Artists",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:12.759Z",
+    "cached": true
+  },
+  "tracy chapman:Music & Artists": {
+    "phrase": "Tracy Chapman",
+    "category": "Music & Artists",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 20,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:13.276Z",
+    "cached": true
+  },
+  "off the wall:Music & Artists": {
+    "phrase": "Off the Wall",
+    "category": "Music & Artists",
+    "totalScore": 69.33333333333333,
+    "breakdown": {
+      "localHeuristics": 24.333333333333332,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:14.189Z",
+    "cached": true
+  },
+  "back to black:Music & Artists": {
+    "phrase": "Back to Black",
+    "category": "Music & Artists",
+    "totalScore": 66.66666666666666,
+    "breakdown": {
+      "localHeuristics": 21.666666666666664,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:15.191Z",
+    "cached": true
+  },
+  "oklahoma!:Music & Artists": {
+    "phrase": "Oklahoma!",
+    "category": "Music & Artists",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:15.786Z",
+    "cached": true
+  },
+  "mchugh:Music & Artists": {
+    "phrase": "McHugh",
+    "category": "Music & Artists",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:16.348Z",
+    "cached": true
+  },
+  "ifpi:Music & Artists": {
+    "phrase": "Ifpi",
+    "category": "Music & Artists",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:16.895Z",
+    "cached": true
+  },
+  "italics denote future events:Sports & Athletes": {
+    "phrase": "Italics denote future events",
+    "category": "Sports & Athletes",
+    "totalScore": 20,
+    "breakdown": {
+      "localHeuristics": 15,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:20.218Z",
+    "cached": true
+  },
+  "list of summer olympic games:Sports & Athletes": {
+    "phrase": "List of Summer Olympic Games",
+    "category": "Sports & Athletes",
+    "totalScore": 18.8,
+    "breakdown": {
+      "localHeuristics": 13.8,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:21:20.854Z",
+    "cached": true
+  },
+  "list of winter olympic games:Sports & Athletes": {
+    "phrase": "List of Winter Olympic Games",
+    "category": "Sports & Athletes",
+    "totalScore": 20.8,
+    "breakdown": {
+      "localHeuristics": 13.8,
+      "wikidata": 0,
+      "reddit": 2,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:21.222Z",
+    "cached": true
+  },
+  "olympic games:Sports & Athletes": {
+    "phrase": "Olympic Games",
+    "category": "Sports & Athletes",
+    "totalScore": 70,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:21.895Z",
+    "cached": true
+  },
+  "summer olympic games:Sports & Athletes": {
+    "phrase": "Summer Olympic Games",
+    "category": "Sports & Athletes",
+    "totalScore": 67.66666666666666,
+    "breakdown": {
+      "localHeuristics": 17.666666666666664,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:22.441Z",
+    "cached": true
+  },
+  "winter olympic games:Sports & Athletes": {
+    "phrase": "Winter Olympic Games",
+    "category": "Sports & Athletes",
+    "totalScore": 67.66666666666666,
+    "breakdown": {
+      "localHeuristics": 17.666666666666664,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:23.099Z",
+    "cached": true
+  },
+  "berlin:Sports & Athletes": {
+    "phrase": "Berlin",
+    "category": "Sports & Athletes",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:23.730Z",
+    "cached": true
+  },
+  "sapporo:Sports & Athletes": {
+    "phrase": "Sapporo",
+    "category": "Sports & Athletes",
+    "totalScore": 63,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:24.430Z",
+    "cached": true
+  },
+  "garmisch-partenkirchen:Sports & Athletes": {
+    "phrase": "Garmisch-Partenkirchen",
+    "category": "Sports & Athletes",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:25.006Z",
+    "cached": true
+  },
+  "tokyo:Sports & Athletes": {
+    "phrase": "Tokyo",
+    "category": "Sports & Athletes",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:25.686Z",
+    "cached": true
+  },
+  "helsinki:Sports & Athletes": {
+    "phrase": "Helsinki",
+    "category": "Sports & Athletes",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:26.219Z",
+    "cached": true
+  },
+  "cortina d'ampezzo:Sports & Athletes": {
+    "phrase": "Cortina d'Ampezzo",
+    "category": "Sports & Athletes",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:26.753Z",
+    "cached": true
+  },
+  "london:Sports & Athletes": {
+    "phrase": "London",
+    "category": "Sports & Athletes",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:27.428Z",
+    "cached": true
+  },
+  "1906 intercalated olympics:Sports & Athletes": {
+    "phrase": "1906 Intercalated Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 26.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 0,
+      "reddit": 5,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:27.966Z",
+    "cached": true
+  },
+  "athens:Sports & Athletes": {
+    "phrase": "Athens",
+    "category": "Sports & Athletes",
+    "totalScore": 67,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:28.802Z",
+    "cached": true
+  },
+  "2020 summer olympics:Sports & Athletes": {
+    "phrase": "2020 Summer Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:29.336Z",
+    "cached": true
+  },
+  "covid-19 pandemic:Sports & Athletes": {
+    "phrase": "COVID-19 pandemic",
+    "category": "Sports & Athletes",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:30.030Z",
+    "cached": true
+  },
+  "2022 winter olympics:Sports & Athletes": {
+    "phrase": "2022 Winter Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:30.631Z",
+    "cached": true
+  },
+  "beijing:Sports & Athletes": {
+    "phrase": "Beijing",
+    "category": "Sports & Athletes",
+    "totalScore": 63,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:31.363Z",
+    "cached": true
+  },
+  "2008 summer olympics:Sports & Athletes": {
+    "phrase": "2008 Summer Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:31.828Z",
+    "cached": true
+  },
+  "bbc sport:Sports & Athletes": {
+    "phrase": "BBC Sport",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:32.327Z",
+    "cached": true
+  },
+  "ioc:Sports & Athletes": {
+    "phrase": "IOC",
+    "category": "Sports & Athletes",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:32.822Z",
+    "cached": true
+  },
+  "2026 winter olympics:Sports & Athletes": {
+    "phrase": "2026 Winter Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:33.361Z",
+    "cached": true
+  },
+  "milan:Sports & Athletes": {
+    "phrase": "Milan",
+    "category": "Sports & Athletes",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:34.285Z",
+    "cached": true
+  },
+  "los angeles:Sports & Athletes": {
+    "phrase": "Los Angeles",
+    "category": "Sports & Athletes",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:35.062Z",
+    "cached": true
+  },
+  "2028 summer olympics:Sports & Athletes": {
+    "phrase": "2028 Summer Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:35.501Z",
+    "cached": true
+  },
+  "2030 winter olympics:Sports & Athletes": {
+    "phrase": "2030 Winter Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 25,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:36.100Z",
+    "cached": true
+  },
+  "french alps:Sports & Athletes": {
+    "phrase": "French Alps",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 25,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:36.671Z",
+    "cached": true
+  },
+  "brisbane:Sports & Athletes": {
+    "phrase": "Brisbane",
+    "category": "Sports & Athletes",
+    "totalScore": 63,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:37.432Z",
+    "cached": true
+  },
+  "2032 summer olympics:Sports & Athletes": {
+    "phrase": "2032 Summer Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:38.007Z",
+    "cached": true
+  },
+  "salt lake city:Sports & Athletes": {
+    "phrase": "Salt Lake City",
+    "category": "Sports & Athletes",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:38.895Z",
+    "cached": true
+  },
+  "2034 winter olympics:Sports & Athletes": {
+    "phrase": "2034 Winter Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 61,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 25,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:39.561Z",
+    "cached": true
+  },
+  "2004 summer olympics:Sports & Athletes": {
+    "phrase": "2004 Summer Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:40.539Z",
+    "cached": true
+  },
+  "paris:Sports & Athletes": {
+    "phrase": "Paris",
+    "category": "Sports & Athletes",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:41.350Z",
+    "cached": true
+  },
+  "2024 summer olympics:Sports & Athletes": {
+    "phrase": "2024 Summer Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:41.880Z",
+    "cached": true
+  },
+  "2012 summer olympics:Sports & Athletes": {
+    "phrase": "2012 Summer Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:42.447Z",
+    "cached": true
+  },
+  "st. moritz:Sports & Athletes": {
+    "phrase": "St. Moritz",
+    "category": "Sports & Athletes",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:43.354Z",
+    "cached": true
+  },
+  "1948 winter olympics:Sports & Athletes": {
+    "phrase": "1948 Winter Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:43.931Z",
+    "cached": true
+  },
+  "lake placid:Sports & Athletes": {
+    "phrase": "Lake Placid",
+    "category": "Sports & Athletes",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:44.537Z",
+    "cached": true
+  },
+  "1980 winter olympics:Sports & Athletes": {
+    "phrase": "1980 Winter Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:45.071Z",
+    "cached": true
+  },
+  "1976 winter olympics:Sports & Athletes": {
+    "phrase": "1976 Winter Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:45.530Z",
+    "cached": true
+  },
+  "stockholm:Sports & Athletes": {
+    "phrase": "Stockholm",
+    "category": "Sports & Athletes",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:46.138Z",
+    "cached": true
+  },
+  "1912 summer olympics:Sports & Athletes": {
+    "phrase": "1912 Summer Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:46.723Z",
+    "cached": true
+  },
+  "1956 summer olympics:Sports & Athletes": {
+    "phrase": "1956 Summer Olympics",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:47.252Z",
+    "cached": true
+  },
+  "antarctica:Sports & Athletes": {
+    "phrase": "Antarctica",
+    "category": "Sports & Athletes",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:47.875Z",
+    "cached": true
+  },
+  "caribbean:Sports & Athletes": {
+    "phrase": "Caribbean",
+    "category": "Sports & Athletes",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:48.220Z",
+    "cached": true
+  },
+  "ioc session:Sports & Athletes": {
+    "phrase": "IOC session",
+    "category": "Sports & Athletes",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:48.521Z",
+    "cached": true
+  },
+  "olympic agenda:Sports & Athletes": {
+    "phrase": "Olympic Agenda",
+    "category": "Sports & Athletes",
+    "totalScore": 35,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:48.808Z",
+    "cached": true
+  },
+  "s005i:Sports & Athletes": {
+    "phrase": "S005I",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:49.058Z",
+    "cached": true
+  },
+  "s005ii:Sports & Athletes": {
+    "phrase": "S005II",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:49.261Z",
+    "cached": true
+  },
+  "st. louis:Sports & Athletes": {
+    "phrase": "St. Louis",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 10,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:49.724Z",
+    "cached": true
+  },
+  "chicago:Sports & Athletes": {
+    "phrase": "Chicago",
+    "category": "Sports & Athletes",
+    "totalScore": 68,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:50.363Z",
+    "cached": true
+  },
+  "world's fair:Sports & Athletes": {
+    "phrase": "World's Fair",
+    "category": "Sports & Athletes",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 27,
+      "wikidata": 10,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:50.865Z",
+    "cached": true
+  },
+  "the new york times:Sports & Athletes": {
+    "phrase": "The New York Times",
+    "category": "Sports & Athletes",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 21,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:51.532Z",
+    "cached": true
+  },
+  "s005iii:Sports & Athletes": {
+    "phrase": "S005III",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:51.852Z",
+    "cached": true
+  },
+  "mount vesuvius:Sports & Athletes": {
+    "phrase": "Mount Vesuvius",
+    "category": "Sports & Athletes",
+    "totalScore": 70,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 30,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:52.367Z",
+    "cached": true
+  },
+  "s005iv:Sports & Athletes": {
+    "phrase": "S005IV",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:52.676Z",
+    "cached": true
+  },
+  "s005v:Sports & Athletes": {
+    "phrase": "S005V",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:53.078Z",
+    "cached": true
+  },
+  "s006vi:Sports & Athletes": {
+    "phrase": "S006VI",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:53.535Z",
+    "cached": true
+  },
+  "wwi:Sports & Athletes": {
+    "phrase": "WWI",
+    "category": "Sports & Athletes",
+    "totalScore": 56,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 10,
+      "reddit": 15,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:54.111Z",
+    "cached": true
+  },
+  "antwerp:Sports & Athletes": {
+    "phrase": "Antwerp",
+    "category": "Sports & Athletes",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 7,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:54.603Z",
+    "cached": true
+  },
+  "ostend:Sports & Athletes": {
+    "phrase": "Ostend",
+    "category": "Sports & Athletes",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 12,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:21:55.020Z",
+    "cached": true
+  },
+  "s007vii:Sports & Athletes": {
+    "phrase": "S007VII",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:55.234Z",
+    "cached": true
+  },
+  "chamonix:Sports & Athletes": {
+    "phrase": "Chamonix",
+    "category": "Sports & Athletes",
+    "totalScore": 38,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:55.634Z",
+    "cached": true
+  },
+  "w001i:Sports & Athletes": {
+    "phrase": "W001I",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:55.857Z",
+    "cached": true
+  },
+  "s008viii:Sports & Athletes": {
+    "phrase": "S008VIII",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:56.082Z",
+    "cached": true
+  },
+  "w002ii:Sports & Athletes": {
+    "phrase": "W002II",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:56.305Z",
+    "cached": true
+  },
+  "amsterdam:Sports & Athletes": {
+    "phrase": "Amsterdam",
+    "category": "Sports & Athletes",
+    "totalScore": 49,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:56.518Z",
+    "cached": true
+  },
+  "s009ix:Sports & Athletes": {
+    "phrase": "S009IX",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:56.735Z",
+    "cached": true
+  },
+  "w003iii:Sports & Athletes": {
+    "phrase": "W003III",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:56.953Z",
+    "cached": true
+  },
+  "s010x:Sports & Athletes": {
+    "phrase": "S010X",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:57.172Z",
+    "cached": true
+  },
+  "w004iv:Sports & Athletes": {
+    "phrase": "W004IV",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:57.584Z",
+    "cached": true
+  },
+  "s011xi:Sports & Athletes": {
+    "phrase": "S011XI",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:57.797Z",
+    "cached": true
+  },
+  "second sino-japanese war:Sports & Athletes": {
+    "phrase": "Second Sino-Japanese War",
+    "category": "Sports & Athletes",
+    "totalScore": 52.666666666666664,
+    "breakdown": {
+      "localHeuristics": 17.666666666666664,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:58.008Z",
+    "cached": true
+  },
+  "nazi germany:Sports & Athletes": {
+    "phrase": "Nazi Germany",
+    "category": "Sports & Athletes",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:58.221Z",
+    "cached": true
+  },
+  "world war ii:Sports & Athletes": {
+    "phrase": "World War II",
+    "category": "Sports & Athletes",
+    "totalScore": 59.33333333333333,
+    "breakdown": {
+      "localHeuristics": 24.333333333333332,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:58.432Z",
+    "cached": true
+  },
+  "vw005a:Sports & Athletes": {
+    "phrase": "VW005a",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:58.655Z",
+    "cached": true
+  },
+  "wwii:Sports & Athletes": {
+    "phrase": "WWII",
+    "category": "Sports & Athletes",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:58.869Z",
+    "cached": true
+  },
+  "xii:Sports & Athletes": {
+    "phrase": "XII",
+    "category": "Sports & Athletes",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:21:59.080Z",
+    "cached": true
+  },
+  "xiiis013:Sports & Athletes": {
+    "phrase": "XIIIS013",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:59.307Z",
+    "cached": true
+  },
+  "w005cv:Sports & Athletes": {
+    "phrase": "W005cV",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:59.569Z",
+    "cached": true
+  },
+  "s014xiv:Sports & Athletes": {
+    "phrase": "S014XIV",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:21:59.789Z",
+    "cached": true
+  },
+  "oslo:Sports & Athletes": {
+    "phrase": "Oslo",
+    "category": "Sports & Athletes",
+    "totalScore": 61,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:22:00.360Z",
+    "cached": true
+  },
+  "w006vi:Sports & Athletes": {
+    "phrase": "W006VI",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:00.650Z",
+    "cached": true
+  },
+  "s015xv:Sports & Athletes": {
+    "phrase": "S015XV",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:00.868Z",
+    "cached": true
+  },
+  "w007vii:Sports & Athletes": {
+    "phrase": "W007VII",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:01.090Z",
+    "cached": true
+  },
+  "melbourne:Sports & Athletes": {
+    "phrase": "Melbourne",
+    "category": "Sports & Athletes",
+    "totalScore": 49,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:01.476Z",
+    "cached": true
+  },
+  "equestrian events:Sports & Athletes": {
+    "phrase": "Equestrian events",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:01.721Z",
+    "cached": true
+  },
+  "swedish olympic committee:Sports & Athletes": {
+    "phrase": "Swedish Olympic Committee",
+    "category": "Sports & Athletes",
+    "totalScore": 43.66666666666667,
+    "breakdown": {
+      "localHeuristics": 13.666666666666668,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:01.936Z",
+    "cached": true
+  },
+  "s016xvi:Sports & Athletes": {
+    "phrase": "S016XVI",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:02.161Z",
+    "cached": true
+  },
+  "squaw valley:Sports & Athletes": {
+    "phrase": "Squaw Valley",
+    "category": "Sports & Athletes",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:02.370Z",
+    "cached": true
+  },
+  "w008viii:Sports & Athletes": {
+    "phrase": "W008VIII",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:02.583Z",
+    "cached": true
+  },
+  "rome:Sports & Athletes": {
+    "phrase": "Rome",
+    "category": "Sports & Athletes",
+    "totalScore": 61,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T22:22:02.799Z",
+    "cached": true
+  },
+  "s017xvii:Sports & Athletes": {
+    "phrase": "S017XVII",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:03.021Z",
+    "cached": true
+  },
+  "w009ix:Sports & Athletes": {
+    "phrase": "W009IX",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:03.604Z",
+    "cached": true
+  },
+  "s018xviii:Sports & Athletes": {
+    "phrase": "S018XVIII",
+    "category": "Sports & Athletes",
+    "totalScore": 19,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:22:03.823Z",
+    "cached": true
+  },
+  "grenoble:Sports & Athletes": {
+    "phrase": "Grenoble",
+    "category": "Sports & Athletes",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:04.124Z",
+    "cached": true
+  },
+  "w010x:Sports & Athletes": {
+    "phrase": "W010X",
+    "category": "Sports & Athletes",
+    "totalScore": 27,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:04.333Z",
+    "cached": true
+  },
+  "mexico city:Sports & Athletes": {
+    "phrase": "Mexico City",
+    "category": "Sports & Athletes",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:04.534Z",
+    "cached": true
+  },
+  "s019xix:Sports & Athletes": {
+    "phrase": "S019XIX",
+    "category": "Sports & Athletes",
+    "totalScore": 23,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:04.780Z",
+    "cached": true
+  },
+  "list of australian open champions:Sports & Athletes": {
+    "phrase": "List of Australian Open champions",
+    "category": "Sports & Athletes",
+    "totalScore": 17.2,
+    "breakdown": {
+      "localHeuristics": 12.2,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:22:06.389Z",
+    "cached": true
+  },
+  "list of french open champions:Sports & Athletes": {
+    "phrase": "List of French Open champions",
+    "category": "Sports & Athletes",
+    "totalScore": 18.8,
+    "breakdown": {
+      "localHeuristics": 13.8,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:22:06.608Z",
+    "cached": true
+  },
+  "list of us open champions:Sports & Athletes": {
+    "phrase": "List of US Open champions",
+    "category": "Sports & Athletes",
+    "totalScore": 19.6,
+    "breakdown": {
+      "localHeuristics": 14.6,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "REJECT - Too Technical/Unknown",
+    "timestamp": "2025-06-30T22:22:07.048Z",
+    "cached": true
+  },
+  "wimbledon:Sports & Athletes": {
+    "phrase": "Wimbledon",
+    "category": "Sports & Athletes",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:07.316Z",
+    "cached": true
+  },
+  "gentlemen:Sports & Athletes": {
+    "phrase": "Gentlemen",
+    "category": "Sports & Athletes",
+    "totalScore": 34,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:07.538Z",
+    "cached": true
+  },
+  "ladies:Sports & Athletes": {
+    "phrase": "Ladies",
+    "category": "Sports & Athletes",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:07.806Z",
+    "cached": true
+  },
+  "mixed:Sports & Athletes": {
+    "phrase": "Mixed",
+    "category": "Sports & Athletes",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:08.174Z",
+    "cached": true
+  },
+  "spencer gore:Sports & Athletes": {
+    "phrase": "Spencer Gore",
+    "category": "Sports & Athletes",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:08.573Z",
+    "cached": true
+  },
+  "frank hadow:Sports & Athletes": {
+    "phrase": "Frank Hadow",
+    "category": "Sports & Athletes",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:08.929Z",
+    "cached": true
+  },
+  "john hartley:Sports & Athletes": {
+    "phrase": "John Hartley",
+    "category": "Sports & Athletes",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:09.284Z",
+    "cached": true
+  },
+  "william renshaw:Sports & Athletes": {
+    "phrase": "William Renshaw",
+    "category": "Sports & Athletes",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:09.636Z",
+    "cached": true
+  },
+  "maud watson:Sports & Athletes": {
+    "phrase": "Maud Watson",
+    "category": "Sports & Athletes",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:09.990Z",
+    "cached": true
+  },
+  "ernest renshaw:Sports & Athletes": {
+    "phrase": "Ernest Renshaw",
+    "category": "Sports & Athletes",
+    "totalScore": 50,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:10.346Z",
+    "cached": true
+  },
+  "blanche bingley hillyard:Sports & Athletes": {
+    "phrase": "Blanche Bingley Hillyard",
+    "category": "Sports & Athletes",
+    "totalScore": 20,
+    "breakdown": {
+      "localHeuristics": 15,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:10.617Z",
+    "cached": true
+  },
+  "herbert lawford:Sports & Athletes": {
+    "phrase": "Herbert Lawford",
+    "category": "Sports & Athletes",
+    "totalScore": 43,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:10.825Z",
+    "cached": true
+  },
+  "lottie dod:Sports & Athletes": {
+    "phrase": "Lottie Dod",
+    "category": "Sports & Athletes",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:11.045Z",
+    "cached": true
+  },
+  "patrick bowes-lyon:Sports & Athletes": {
+    "phrase": "Patrick Bowes-Lyon",
+    "category": "Sports & Athletes",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:11.255Z",
+    "cached": true
+  },
+  "herbert wilberforce:Sports & Athletes": {
+    "phrase": "Herbert Wilberforce",
+    "category": "Sports & Athletes",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:11.480Z",
+    "cached": true
+  },
+  "willoughby hamilton:Sports & Athletes": {
+    "phrase": "Willoughby Hamilton",
+    "category": "Sports & Athletes",
+    "totalScore": 31,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:11.693Z",
+    "cached": true
+  },
+  "helen rice:Sports & Athletes": {
+    "phrase": "Helen Rice",
+    "category": "Sports & Athletes",
+    "totalScore": 34,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:11.976Z",
+    "cached": true
+  },
+  "joshua pim:Sports & Athletes": {
+    "phrase": "Joshua Pim",
+    "category": "Sports & Athletes",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:12.211Z",
+    "cached": true
+  },
+  "frank stoker:Sports & Athletes": {
+    "phrase": "Frank Stoker",
+    "category": "Sports & Athletes",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:12.460Z",
+    "cached": true
+  },
+  "wilfred baddeley:Sports & Athletes": {
+    "phrase": "Wilfred Baddeley",
+    "category": "Sports & Athletes",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:12.672Z",
+    "cached": true
+  },
+  "herbert baddeley:Sports & Athletes": {
+    "phrase": "Herbert Baddeley",
+    "category": "Sports & Athletes",
+    "totalScore": 43,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:22:29.558Z",
+    "cached": true
+  },
+  "harry barlow:Sports & Athletes": {
+    "phrase": "Harry Barlow",
+    "category": "Sports & Athletes",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:22:46.681Z",
+    "cached": true
+  },
+  "ernest lewis:Sports & Athletes": {
+    "phrase": "Ernest Lewis",
+    "category": "Sports & Athletes",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:23:03.876Z",
+    "cached": true
+  },
+  "charlotte cooper sterry:Sports & Athletes": {
+    "phrase": "Charlotte Cooper Sterry",
+    "category": "Sports & Athletes",
+    "totalScore": 21.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T22:23:20.366Z",
+    "cached": true
+  },
+  "harold mahony:Sports & Athletes": {
+    "phrase": "Harold Mahony",
+    "category": "Sports & Athletes",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:23:37.052Z",
+    "cached": true
+  },
+  "reginald doherty:Sports & Athletes": {
+    "phrase": "Reginald Doherty",
+    "category": "Sports & Athletes",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:23:53.472Z",
+    "cached": true
+  },
+  "laurence doherty:Sports & Athletes": {
+    "phrase": "Laurence Doherty",
+    "category": "Sports & Athletes",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:24:10.044Z",
+    "cached": true
+  },
+  "arthur gore:Sports & Athletes": {
+    "phrase": "Arthur Gore",
+    "category": "Sports & Athletes",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:24:26.441Z",
+    "cached": true
+  },
+  "muriel robb:Sports & Athletes": {
+    "phrase": "Muriel Robb",
+    "category": "Sports & Athletes",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T22:24:43.077Z",
+    "cached": true
+>>>>>>> Stashed changes
   }
 }
