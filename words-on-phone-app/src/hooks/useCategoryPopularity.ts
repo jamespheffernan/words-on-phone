@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { categoryPopularityService } from '../services/categoryPopularityService';
 import { 
   CategoryWithPopularity, 
@@ -45,6 +45,15 @@ export function useCategoryPopularity({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Memoize the options to prevent unnecessary re-renders
+  const memoizedOptions = useMemo(() => popularityOptions, [JSON.stringify(popularityOptions)]);
+  
+  // Memoize category IDs to detect actual changes
+  const categoryIds = useMemo(() => 
+    categories.map(cat => cat.id).sort().join(','), 
+    [categories]
+  );
+
   // Load popularity data and enhance categories
   const refreshPopularityData = useCallback(async () => {
     try {
@@ -54,7 +63,7 @@ export function useCategoryPopularity({
       // Get enhanced categories with popularity data
       const enhanced = await categoryPopularityService.enhanceCategoriesWithPopularity(
         categories,
-        popularityOptions
+        memoizedOptions
       );
       setCategoriesWithPopularity(enhanced);
 
@@ -62,7 +71,7 @@ export function useCategoryPopularity({
       const top = await categoryPopularityService.getTopCategories(
         categories,
         topCount,
-        popularityOptions
+        memoizedOptions
       );
       setTopCategories(top);
 
@@ -78,7 +87,7 @@ export function useCategoryPopularity({
     } finally {
       setLoading(false);
     }
-  }, [categories, topCount, popularityOptions]);
+  }, [categories, topCount, memoizedOptions]);
 
   // Record category play and refresh data
   const recordCategoryPlayed = useCallback(async (categoryId: string) => {
@@ -97,12 +106,12 @@ export function useCategoryPopularity({
     return popularityDataMap.get(categoryId);
   }, [popularityDataMap]);
 
-  // Auto-refresh on mount and when dependencies change
+  // Auto-refresh on mount and when category IDs actually change
   useEffect(() => {
     if (autoRefresh && categories.length > 0) {
       refreshPopularityData();
     }
-  }, [autoRefresh, categories, refreshPopularityData]);
+  }, [autoRefresh, categoryIds, topCount, JSON.stringify(memoizedOptions)]);
 
   return {
     categoriesWithPopularity,

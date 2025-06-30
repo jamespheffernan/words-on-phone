@@ -26,6 +26,9 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
     [defaultCategories, customCategories]
   );
 
+  // Memoize popularity options to prevent infinite re-renders
+  const popularityOptions = useMemo(() => ({}), []);
+
   const {
     topCategories,
     getPopularityData,
@@ -33,6 +36,7 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
   } = useCategoryPopularity({
     categories: allCategories,
     topCount: 6,
+    popularityOptions,
     autoRefresh: true
   });
 
