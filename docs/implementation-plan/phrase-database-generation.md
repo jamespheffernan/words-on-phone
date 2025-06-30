@@ -288,7 +288,7 @@ Building on calibration findings, design and implement a **dedicated scoring pat
 - [x] All categories properly populated (20 categories balanced)
 - [x] Game tested with new phrases (build successful, app running)
 - [x] Documentation complete with statistics (all metrics documented)
-- [ ] Feature successfully deployed to production (ready for merge)
+- [ ] Feature successfully deployed to production (GitHub PR ready: https://github.com/jamespheffernan/words-on-phone/pull/new/feature/phrase-database-generation)
 
 ## Project Status Board
 
