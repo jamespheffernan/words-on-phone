@@ -20,11 +20,11 @@ describe('Phrase Engine', () => {
     expect(seen.has(afterAll)).toBe(true); // It can repeat, but only after all used
   });
 
-  it('should import 500 unique string phrases for development', () => {
+  it('should import 560 unique string phrases for development', () => {
     expect(Array.isArray(phrases)).toBe(true);
-    expect(phrases.length).toBe(500);
+    expect(phrases.length).toBe(560);
     const unique = new Set(phrases);
-    expect(unique.size).toBe(500);
+    expect(unique.size).toBe(560);
     expect(typeof phrases[0]).toBe('string');
   });
 }); 

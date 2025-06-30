@@ -124,12 +124,16 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
   }
 
   return (
-    <div className={`quick-play-widget ${isExpanded ? 'expanded' : 'collapsed'}`}>
+    <div 
+      className={`quick-play-widget ${isExpanded ? 'expanded' : 'collapsed'}`}
+      data-testid="quick-play-widget"
+    >
       <button 
         className="quick-play-header"
         onClick={toggleExpanded}
         aria-expanded={isExpanded}
         aria-label={`${isExpanded ? 'Collapse' : 'Expand'} Quick Play`}
+        data-testid="quick-play-header"
       >
         <h3>⚡ Quick Play</h3>
         <span className={`expand-icon ${isExpanded ? 'expanded' : ''}`}>
@@ -146,6 +150,7 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
                 className="quick-action-button last-played"
                 onClick={handleLastPlayed}
                 title={`Continue with ${lastPlayedCategory.name}`}
+                data-testid="last-played-button"
               >
                 <span className="action-icon">🎬</span>
                 <div className="action-content">
@@ -159,6 +164,7 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
               className="quick-action-button surprise-me"
               onClick={handleSurpriseMe}
               title="Random category selection"
+              data-testid="surprise-me-button"
             >
               <span className="action-icon">🎲</span>
               <div className="action-content">
@@ -181,6 +187,7 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
                       className="category-tile"
                       onClick={() => handleCategoryQuickStart(category.name)}
                       title={`${category.phraseCount} phrases • Score: ${Math.round(category.popularityScore || 0)}`}
+                      data-testid="category-tile"
                     >
                       <div className="tile-content">
                         <div className="tile-name">{category.name}</div>

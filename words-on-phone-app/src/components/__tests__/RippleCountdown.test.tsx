@@ -11,56 +11,70 @@ describe('RippleCountdown', () => {
     const container = document.querySelector('.ripple-countdown');
     expect(container).not.toBeNull();
     
-    // At 50% time remaining (30/60), should show 2 countdown objects
+    // Always renders 3 objects but controls visibility via active/inactive classes
     const objects = document.querySelectorAll('.ripple-countdown__object');
-    expect(objects).toHaveLength(2);
+    expect(objects).toHaveLength(3);
     
-    // Each object should have 4 dots (2 objects × 4 dots = 8 total)
+    // At 50% time remaining (30/60), should show 2 active objects
+    const activeObjects = document.querySelectorAll('.ripple-countdown__object:not(.ripple-countdown__object--inactive)');
+    expect(activeObjects).toHaveLength(2);
+    
+    // Each object should have 4 dots (3 objects × 4 dots = 12 total)
     const dots = document.querySelectorAll('.ripple-countdown__dot');
-    expect(dots).toHaveLength(8);
+    expect(dots).toHaveLength(12);
     
-    // Each object should have 3 ripples (2 objects × 3 ripples = 6 total)
+    // Each object should have 3 ripples (3 objects × 3 ripples = 9 total)
     const ripples = document.querySelectorAll('.ripple-countdown__ripple');
-    expect(ripples).toHaveLength(6);
+    expect(ripples).toHaveLength(9);
   });
 
   it('shows correct number of objects based on time remaining', () => {
     const { rerender } = render(<RippleCountdown remaining={60} total={60} />);
     
-    // At start (100% time remaining), should show 3 objects
+    // Always renders 3 total objects
     let objects = document.querySelectorAll('.ripple-countdown__object');
     expect(objects).toHaveLength(3);
+    
+    // At start (100% time remaining), should show 3 active objects
+    let activeObjects = document.querySelectorAll('.ripple-countdown__object:not(.ripple-countdown__object--inactive)');
+    expect(activeObjects).toHaveLength(3);
     let dots = document.querySelectorAll('.ripple-countdown__dot');
     expect(dots).toHaveLength(12); // 3 objects × 4 dots each
     let ripples = document.querySelectorAll('.ripple-countdown__ripple');
     expect(ripples).toHaveLength(9); // 3 objects × 3 ripples each
     
-    // At 50% time remaining, should show 2 objects
+    // At 50% time remaining, should show 2 active objects
     rerender(<RippleCountdown remaining={30} total={60} />);
     objects = document.querySelectorAll('.ripple-countdown__object');
-    expect(objects).toHaveLength(2);
+    expect(objects).toHaveLength(3); // Still 3 total objects
+    activeObjects = document.querySelectorAll('.ripple-countdown__object:not(.ripple-countdown__object--inactive)');
+    expect(activeObjects).toHaveLength(2);
     dots = document.querySelectorAll('.ripple-countdown__dot');
-    expect(dots).toHaveLength(8); // 2 objects × 4 dots each
+    expect(dots).toHaveLength(12); // Still 3 objects × 4 dots each
     ripples = document.querySelectorAll('.ripple-countdown__ripple');
-    expect(ripples).toHaveLength(6); // 2 objects × 3 ripples each
+    expect(ripples).toHaveLength(9); // Still 3 objects × 3 ripples each
     
-    // At 20% time remaining, should show 1 object
+    // At 20% time remaining, should show 1 active object
     rerender(<RippleCountdown remaining={12} total={60} />);
     objects = document.querySelectorAll('.ripple-countdown__object');
-    expect(objects).toHaveLength(1);
+    expect(objects).toHaveLength(3); // Still 3 total objects
+    activeObjects = document.querySelectorAll('.ripple-countdown__object:not(.ripple-countdown__object--inactive)');
+    expect(activeObjects).toHaveLength(1);
     dots = document.querySelectorAll('.ripple-countdown__dot');
-    expect(dots).toHaveLength(4); // 1 object × 4 dots
+    expect(dots).toHaveLength(12); // Still 3 objects × 4 dots
     ripples = document.querySelectorAll('.ripple-countdown__ripple');
-    expect(ripples).toHaveLength(3); // 1 object × 3 ripples
+    expect(ripples).toHaveLength(9); // Still 3 objects × 3 ripples
     
-    // At 0% time remaining, should still show 1 object
+    // At 0% time remaining, should still show 1 active object
     rerender(<RippleCountdown remaining={0} total={60} />);
     objects = document.querySelectorAll('.ripple-countdown__object');
-    expect(objects).toHaveLength(1);
+    expect(objects).toHaveLength(3); // Still 3 total objects
+    activeObjects = document.querySelectorAll('.ripple-countdown__object:not(.ripple-countdown__object--inactive)');
+    expect(activeObjects).toHaveLength(1);
     dots = document.querySelectorAll('.ripple-countdown__dot');
-    expect(dots).toHaveLength(4);
+    expect(dots).toHaveLength(12);
     ripples = document.querySelectorAll('.ripple-countdown__ripple');
-    expect(ripples).toHaveLength(3);
+    expect(ripples).toHaveLength(9);
   });
 
   it('calculates ripple speed correctly', () => {
@@ -81,6 +95,10 @@ describe('RippleCountdown', () => {
     render(<RippleCountdown remaining={0} total={0} />);
     let objects = document.querySelectorAll('.ripple-countdown__object');
     expect(objects).toHaveLength(3);
+    
+    // All should be active when total is 0
+    let activeObjects = document.querySelectorAll('.ripple-countdown__object:not(.ripple-countdown__object--inactive)');
+    expect(activeObjects).toHaveLength(3);
     
     let dots = document.querySelectorAll('.ripple-countdown__dot');
     expect(dots).toHaveLength(12); // 3 objects × 4 dots each

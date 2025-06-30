@@ -60,30 +60,58 @@ global.AudioContext = global.AudioContext || class MockAudioContext {
   }
 } as any;
 
-// Mock IndexedDB for tests
+// Enhanced IndexedDB mock for tests
 class MockIDBRequest {
-  result: any;
-  error: any;
-  onsuccess: ((event: any) => void) | null = null;
-  onerror: ((event: any) => void) | null = null;
+  result: any = undefined;
+  error: any = null;
+  readyState: 'pending' | 'done' = 'pending';
+  private _onsuccess: ((event: any) => void) | null = null;
+  private _onerror: ((event: any) => void) | null = null;
   
-  constructor(result?: any) {
+  constructor(result?: any, shouldFail = false) {
     this.result = result;
-    this.error = null;
+    
+    // Simulate async behavior
     setTimeout(() => {
-      if (this.onsuccess) {
-        this.onsuccess({ target: this });
+      this.readyState = 'done';
+      if (shouldFail) {
+        this.error = new Error('Mock IndexedDB error');
+        if (this._onerror) {
+          this._onerror({ target: this });
+        }
+      } else {
+        if (this._onsuccess) {
+          this._onsuccess({ target: this });
+        }
       }
     }, 0);
+  }
+  
+  set onsuccess(handler: ((event: any) => void) | null) {
+    this._onsuccess = handler;
+  }
+  
+  get onsuccess() {
+    return this._onsuccess;
+  }
+  
+  set onerror(handler: ((event: any) => void) | null) {
+    this._onerror = handler;
+  }
+  
+  get onerror() {
+    return this._onerror;
   }
 }
 
 class MockIDBObjectStore {
   get() { return new MockIDBRequest(); }
   put() { return new MockIDBRequest(); }
+  add() { return new MockIDBRequest(); }
   delete() { return new MockIDBRequest(); }
   clear() { return new MockIDBRequest(); }
   getAll() { return new MockIDBRequest([]); }
+  createIndex() { return {}; }
 }
 
 class MockIDBTransaction {
@@ -91,7 +119,11 @@ class MockIDBTransaction {
 }
 
 class MockIDBDatabase {
+  objectStoreNames = {
+    contains: () => false
+  };
   transaction() { return new MockIDBTransaction(); }
+  createObjectStore() { return new MockIDBObjectStore(); }
 }
 
 global.indexedDB = {

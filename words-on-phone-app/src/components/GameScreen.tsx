@@ -31,6 +31,7 @@ export const GameScreen: React.FC = () => {
     onBuzzerComplete,
     buzzerSound,
     status,
+    selectedCategories,
     // Beep ramp settings
     enableBeepRamp,
     beepFirstInterval,
@@ -165,6 +166,7 @@ export const GameScreen: React.FC = () => {
   return (
     <main 
       className={`game-screen ${!showTimer ? 'hidden-timer-mode' : ''}`}
+      data-testid="game-screen"
       style={{
         background: backgroundWarning.backgroundStyle,
         transition: 'background 0.3s ease-in-out',
@@ -181,6 +183,7 @@ export const GameScreen: React.FC = () => {
               triggerHaptic('ui', 'menu-open');
             }}
             aria-label="Pause game"
+            data-testid="end-game-button"
           >
             ⏸️
           </button>
@@ -194,6 +197,7 @@ export const GameScreen: React.FC = () => {
                 } as React.CSSProperties}
                 role="timer"
                 aria-label={`Timer: ${formatTime(displayTime)} remaining`}
+                data-testid="game-timer"
               >
                 <span className="timer-text">{formatTime(displayTime)}</span>
               </div>
@@ -236,10 +240,16 @@ export const GameScreen: React.FC = () => {
             Skips left: {skipsRemaining}
           </div>
         )}
+
+        {selectedCategories.length > 0 && (
+          <div className="current-category" data-testid="current-category">
+            {selectedCategories.join(', ')}
+          </div>
+        )}
       </header>
 
       <section className="phrase-container">
-        <h1 className="current-phrase">{currentPhrase}</h1>
+        <h1 className="current-phrase" data-testid="phrase-display">{currentPhrase}</h1>
       </section>
 
       <section className="game-actions">
@@ -254,6 +264,7 @@ export const GameScreen: React.FC = () => {
           }}
           disabled={isGameInteractionDisabled}
           aria-label={isGameInteractionDisabled ? 'Game ended - no more input allowed' : 'Mark phrase as correct and get next phrase'}
+          data-testid="correct-button"
         >
           ✓ Correct
         </button>
@@ -275,6 +286,7 @@ export const GameScreen: React.FC = () => {
                 ? 'No skips remaining' 
                 : 'Skip this phrase'
           }
+          data-testid="skip-button"
         >
           ⏭️ Pass
         </button>

@@ -120,7 +120,7 @@ export const MenuScreen: React.FC = () => {
   };
 
   return (
-    <main className="menu-screen">
+    <main className="menu-screen" data-testid="menu-screen">
       <header className="menu-header">
         <h1 className="game-title">Words on Phone</h1>
         <p className="game-tagline">The Game with the Words on the Phone!</p>

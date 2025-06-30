@@ -129,14 +129,19 @@ The previous "Quick Play / Advanced Selection" mock-ups remain in the *Alternati
 
 ## Updated Project Status Board
 
-### 🟢 Ready to Start  
-- Task 5 – Surprise Me Logic
-- Task 6 – Analytics & A/B hook
-- Task 7 – Testing & Accessibility  
-- Task 8 – Rollout & Retro
+### 🟢 Ready to Start (Priority Order)
+- **Task 7 – Testing & Accessibility** (HIGH PRIORITY - Production readiness)
+- **Task 6 – Analytics & A/B hook** (MEDIUM PRIORITY - Can parallel with testing)
+- **Task 8 – Rollout & Retro** (FINAL STEP - After testing complete)
 
 ### 🚧 In Progress
 - None
+
+### 📊 Progress Status
+**5/8 TASKS COMPLETE (62.5% - MAJOR MILESTONE)**
+- ✅ Tasks 1-5: All core functionality implemented and tested
+- 🎯 **NEXT PHASE**: Quality assurance and production preparation
+- 🚀 **CURRENT GOAL**: Achieve production-ready status with comprehensive testing
 
 ### ✅ Completed
 - Comprehensive current-state analysis & decision (Enhancement path chosen)
@@ -179,6 +184,13 @@ The previous "Quick Play / Advanced Selection" mock-ups remain in the *Alternati
   - ✅ Resolved TypeScript build errors for clean compilation
   - ✅ Category icons: 🎬 Movies/TV, 🎵 Music, 🎭 Entertainment, ⭐ Famous People, 🍕 Food/Drink, and 15+ more
   - 🎯 **SUCCESS CRITERIA MET**: All deliverables complete with enhanced visual polish and mobile UX
+- **Task 5 – Surprise Me Logic** ✅ **COMPLETE** (verified implementation)
+  - ✅ Equal-probability random selector implemented in QuickPlayWidget (handleSurpriseMe)
+  - ✅ Filters to default categories only (excludes custom unless opted-in)
+  - ✅ Integrated with existing game start flow with auto-start after selection
+  - ✅ Proper error handling for empty category arrays
+  - ✅ Haptic feedback integration and UI consistency
+  - 🎯 **SUCCESS CRITERIA MET**: Random selection working, ready for analytics tracking
 
 ### 🔴 Blocked
 - None – ready for Task 4 execution
