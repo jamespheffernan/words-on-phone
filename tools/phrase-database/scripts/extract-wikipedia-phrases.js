@@ -92,6 +92,28 @@ class WikipediaClient {
                 'Earthquake', 'Hurricane', 'Tornado', 'Lightning', 'Aurora', 'Ecosystem',
                 'Biodiversity', 'Climate Change', 'Global Warming', 'Photosynthesis', 'Evolution',
                 'Dinosaur', 'Fossil', 'Coral Reef', 'Amazon Rainforest', 'Sahara Desert', 'Antarctica'
+            ],
+            'Everything': [
+                'Book', 'Chair', 'Window', 'Door', 'Kitchen', 'Bathroom', 'Garden', 'School',
+                'Hospital', 'Library', 'Shopping', 'Cooking', 'Reading', 'Writing', 'Running',
+                'Swimming', 'Dancing', 'Singing', 'Painting', 'Drawing', 'Birthday', 'Wedding',
+                'Christmas', 'Summer', 'Winter', 'Morning', 'Evening', 'Sunrise', 'Sunset',
+                'Rainbow', 'Cloud', 'Snow', 'Rain', 'Fire', 'Water', 'Air', 'Earth'
+            ],
+            'Everything+': [
+                'Philosophy', 'Psychology', 'Sociology', 'Anthropology', 'Archaeology', 'Theology',
+                'Metaphysics', 'Epistemology', 'Existentialism', 'Nihilism', 'Capitalism', 'Socialism',
+                'Democracy', 'Bureaucracy', 'Diplomacy', 'Propaganda', 'Ideology', 'Paradigm',
+                'Methodology', 'Hypothesis', 'Theory', 'Algorithm', 'Quantum Mechanics', 'Relativity',
+                'Consciousness', 'Subconscious', 'Intuition', 'Perception', 'Cognition', 'Emotion',
+                'Empathy', 'Sympathy', 'Nostalgia', 'Melancholy', 'Euphoria', 'Serendipity'
+            ],
+            'Occupations & Jobs': [
+                'Doctor', 'Teacher', 'Engineer', 'Lawyer', 'Nurse', 'Police Officer', 'Firefighter',
+                'Chef', 'Artist', 'Musician', 'Writer', 'Actor', 'Athlete', 'Pilot', 'Farmer',
+                'Mechanic', 'Carpenter', 'Electrician', 'Plumber', 'Dentist', 'Veterinarian', 'Scientist',
+                'Programmer', 'Designer', 'Photographer', 'Journalist', 'Accountant', 'Manager', 'Salesperson',
+                'Waiter', 'Barber', 'Hairdresser', 'Cashier', 'Librarian', 'Janitor', 'Security Guard'
             ]
         };
 
@@ -154,6 +176,24 @@ class CategoryMapper {
                 'List_of_plants',
                 'List_of_natural_phenomena',
                 'List_of_ecosystems'
+            ],
+            'Everything': [
+                'List_of_common_phrases',
+                'List_of_everyday_objects',
+                'List_of_concepts',
+                'List_of_activities'
+            ],
+            'Everything+': [
+                'List_of_abstract_concepts',
+                'List_of_complex_topics',
+                'List_of_challenging_phrases',
+                'List_of_advanced_concepts'
+            ],
+            'Occupations & Jobs': [
+                'List_of_occupations',
+                'List_of_professions',
+                'List_of_jobs',
+                'List_of_careers'
             ]
         };
     }

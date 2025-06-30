@@ -94,7 +94,7 @@ class PhraseScorer {
       const breakdown = {
         localHeuristics: await this.scoreLocalHeuristics(phrase, category, weights.LOCAL_HEURISTICS),
         wikidata: await this.scoreWikidata(phrase),
-        reddit: options.skipReddit ? 0 : await this.scoreReddit(phrase, weights.REDDIT),
+        reddit: (options.skipReddit || isWikipediaSource) ? 0 : await this.scoreReddit(phrase, weights.REDDIT),
         categoryBoost: this.scoreCategoryBoost(phrase, category, weights.CATEGORY_BOOST)
       };
 
