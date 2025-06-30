@@ -25841,5 +25841,4085 @@
     "verdict": "WARNING - Likely Too Obscure",
     "timestamp": "2025-06-30T22:46:04.095Z",
     "cached": true
+  },
+  "paris:Places & Travel:wikipedia": {
+    "phrase": "Paris",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:07.968Z",
+    "cached": true
+  },
+  "tokyo:Places & Travel:wikipedia": {
+    "phrase": "Tokyo",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:08.576Z",
+    "cached": true
+  },
+  "london:Places & Travel:wikipedia": {
+    "phrase": "London",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:10:09.221Z",
+    "cached": true
+  },
+  "rome:Places & Travel:wikipedia": {
+    "phrase": "Rome",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 80,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 4,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T23:10:10.392Z",
+    "cached": true
+  },
+  "barcelona:Places & Travel:wikipedia": {
+    "phrase": "Barcelona",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:11.252Z",
+    "cached": true
+  },
+  "sydney:Places & Travel:wikipedia": {
+    "phrase": "Sydney",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:12.195Z",
+    "cached": true
+  },
+  "cairo:Places & Travel:wikipedia": {
+    "phrase": "Cairo",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 80,
+    "breakdown": {
+      "localHeuristics": 27,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T23:10:13.064Z",
+    "cached": true
+  },
+  "bangkok:Places & Travel:wikipedia": {
+    "phrase": "Bangkok",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 4,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:13.812Z",
+    "cached": true
+  },
+  "istanbul:Places & Travel:wikipedia": {
+    "phrase": "Istanbul",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:14.392Z",
+    "cached": true
+  },
+  "dubai:Places & Travel:wikipedia": {
+    "phrase": "Dubai",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 80,
+    "breakdown": {
+      "localHeuristics": 27,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T23:10:15.164Z",
+    "cached": true
+  },
+  "singapore:Places & Travel:wikipedia": {
+    "phrase": "Singapore",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:16.229Z",
+    "cached": true
+  },
+  "amsterdam:Places & Travel:wikipedia": {
+    "phrase": "Amsterdam",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 67,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:16.952Z",
+    "cached": true
+  },
+  "prague:Places & Travel:wikipedia": {
+    "phrase": "Prague",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:18.453Z",
+    "cached": true
+  },
+  "vienna:Places & Travel:wikipedia": {
+    "phrase": "Vienna",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:20.042Z",
+    "cached": true
+  },
+  "berlin:Places & Travel:wikipedia": {
+    "phrase": "Berlin",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:10:21.122Z",
+    "cached": true
+  },
+  "madrid:Places & Travel:wikipedia": {
+    "phrase": "Madrid",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:22.170Z",
+    "cached": true
+  },
+  "athens:Places & Travel:wikipedia": {
+    "phrase": "Athens",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:23.204Z",
+    "cached": true
+  },
+  "stockholm:Places & Travel:wikipedia": {
+    "phrase": "Stockholm",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 67,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:24.113Z",
+    "cached": true
+  },
+  "copenhagen:Places & Travel:wikipedia": {
+    "phrase": "Copenhagen",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:25.318Z",
+    "cached": true
+  },
+  "helsinki:Places & Travel:wikipedia": {
+    "phrase": "Helsinki",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 70,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:25.952Z",
+    "cached": true
+  },
+  "oslo:Places & Travel:wikipedia": {
+    "phrase": "Oslo",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 79,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:26.909Z",
+    "cached": true
+  },
+  "zurich:Places & Travel:wikipedia": {
+    "phrase": "Zurich",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:27.577Z",
+    "cached": true
+  },
+  "geneva:Places & Travel:wikipedia": {
+    "phrase": "Geneva",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:28.291Z",
+    "cached": true
+  },
+  "milan:Places & Travel:wikipedia": {
+    "phrase": "Milan",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:29.004Z",
+    "cached": true
+  },
+  "florence:Places & Travel:wikipedia": {
+    "phrase": "Florence",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 65,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:30.163Z",
+    "cached": true
+  },
+  "venice:Places & Travel:wikipedia": {
+    "phrase": "Venice",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:10:31.244Z",
+    "cached": true
+  },
+  "naples:Places & Travel:wikipedia": {
+    "phrase": "Naples",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:31.938Z",
+    "cached": true
+  },
+  "lisbon:Places & Travel:wikipedia": {
+    "phrase": "Lisbon",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:32.743Z",
+    "cached": true
+  },
+  "porto:Places & Travel:wikipedia": {
+    "phrase": "Porto",
+    "category": "Places & Travel",
+    "source": "wikipedia",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:33.492Z",
+    "cached": true
+  },
+  "marie curie:Famous People:wikipedia": {
+    "phrase": "Marie Curie",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:43.085Z",
+    "cached": true
+  },
+  "gandhi:Famous People:wikipedia": {
+    "phrase": "Gandhi",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:43.786Z",
+    "cached": true
+  },
+  "winston churchill:Famous People:wikipedia": {
+    "phrase": "Winston Churchill",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:44.690Z",
+    "cached": true
+  },
+  "abraham lincoln:Famous People:wikipedia": {
+    "phrase": "Abraham Lincoln",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:46.114Z",
+    "cached": true
+  },
+  "napoleon bonaparte:Famous People:wikipedia": {
+    "phrase": "Napoleon Bonaparte",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 56,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 15,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:10:46.822Z",
+    "cached": true
+  },
+  "cleopatra:Famous People:wikipedia": {
+    "phrase": "Cleopatra",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:10:47.397Z",
+    "cached": true
+  },
+  "julius caesar:Famous People:wikipedia": {
+    "phrase": "Julius Caesar",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:48.062Z",
+    "cached": true
+  },
+  "martin luther king jr:Famous People:wikipedia": {
+    "phrase": "Martin Luther King Jr",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:10:48.837Z",
+    "cached": true
+  },
+  "george washington:Famous People:wikipedia": {
+    "phrase": "George Washington",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 5,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:10:51.745Z",
+    "cached": true
+  },
+  "thomas edison:Famous People:wikipedia": {
+    "phrase": "Thomas Edison",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:52.392Z",
+    "cached": true
+  },
+  "nikola tesla:Famous People:wikipedia": {
+    "phrase": "Nikola Tesla",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 76,
+    "breakdown": {
+      "localHeuristics": 27,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:53.010Z",
+    "cached": true
+  },
+  "isaac newton:Famous People:wikipedia": {
+    "phrase": "Isaac Newton",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 76,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 4,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:53.811Z",
+    "cached": true
+  },
+  "charles darwin:Famous People:wikipedia": {
+    "phrase": "Charles Darwin",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:54.393Z",
+    "cached": true
+  },
+  "vincent van gogh:Famous People:wikipedia": {
+    "phrase": "Vincent van Gogh",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 75.33333333333334,
+    "breakdown": {
+      "localHeuristics": 20.333333333333336,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:55.029Z",
+    "cached": true
+  },
+  "pablo picasso:Famous People:wikipedia": {
+    "phrase": "Pablo Picasso",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:55.647Z",
+    "cached": true
+  },
+  "mozart:Famous People:wikipedia": {
+    "phrase": "Mozart",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:56.499Z",
+    "cached": true
+  },
+  "beethoven:Famous People:wikipedia": {
+    "phrase": "Beethoven",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:10:57.221Z",
+    "cached": true
+  },
+  "shakespeare:Famous People:wikipedia": {
+    "phrase": "Shakespeare",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:57.914Z",
+    "cached": true
+  },
+  "mark twain:Famous People:wikipedia": {
+    "phrase": "Mark Twain",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 81,
+    "breakdown": {
+      "localHeuristics": 29,
+      "wikidata": 30,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T23:10:58.639Z",
+    "cached": true
+  },
+  "ernest hemingway:Famous People:wikipedia": {
+    "phrase": "Ernest Hemingway",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:10:59.314Z",
+    "cached": true
+  },
+  "jane austen:Famous People:wikipedia": {
+    "phrase": "Jane Austen",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:00.020Z",
+    "cached": true
+  },
+  "charles dickens:Famous People:wikipedia": {
+    "phrase": "Charles Dickens",
+    "category": "Famous People",
+    "source": "wikipedia",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:02.216Z",
+    "cached": true
+  },
+  "star wars:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Star Wars",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 79,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:04.092Z",
+    "cached": true
+  },
+  "disney:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Disney",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:05.446Z",
+    "cached": true
+  },
+  "madonna:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Madonna",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 43,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:11:06.817Z",
+    "cached": true
+  },
+  "beyonce:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Beyonce",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 0,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:11:07.942Z",
+    "cached": true
+  },
+  "friends:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Friends",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 5,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:11:09.111Z",
+    "cached": true
+  },
+  "netflix:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Netflix",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:09.928Z",
+    "cached": true
+  },
+  "youtube:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "YouTube",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:11.377Z",
+    "cached": true
+  },
+  "instagram:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Instagram",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:12.189Z",
+    "cached": true
+  },
+  "tiktok:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "TikTok",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 80,
+    "breakdown": {
+      "localHeuristics": 27,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "EXCELLENT - Auto Accept",
+    "timestamp": "2025-06-30T23:11:13.657Z",
+    "cached": true
+  },
+  "facebook:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Facebook",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:14.499Z",
+    "cached": true
+  },
+  "apple:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Apple",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 75,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:15.300Z",
+    "cached": true
+  },
+  "google:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Google",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:16.412Z",
+    "cached": true
+  },
+  "amazon:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Amazon",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 71,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:17.332Z",
+    "cached": true
+  },
+  "tesla:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Tesla",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 76,
+    "breakdown": {
+      "localHeuristics": 27,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:17.995Z",
+    "cached": true
+  },
+  "spacex:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "SpaceX",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 77,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:19.463Z",
+    "cached": true
+  },
+  "nasa:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "NASA",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 76,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 25,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:11:20.212Z",
+    "cached": true
+  },
+  "olympics:Entertainment & Pop Culture:wikipedia": {
+    "phrase": "Olympics",
+    "category": "Entertainment & Pop Culture",
+    "source": "wikipedia",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:11:20.736Z",
+    "cached": true
+  },
+  "internet:Technology & Science:wikipedia": {
+    "phrase": "Internet",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:14.858Z",
+    "cached": true
+  },
+  "computer:Technology & Science:wikipedia": {
+    "phrase": "Computer",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 63,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:16.122Z",
+    "cached": true
+  },
+  "smartphone:Technology & Science:wikipedia": {
+    "phrase": "Smartphone",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 49,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:16.891Z",
+    "cached": true
+  },
+  "artificial intelligence:Technology & Science:wikipedia": {
+    "phrase": "Artificial Intelligence",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 50,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:17.678Z",
+    "cached": true
+  },
+  "machine learning:Technology & Science:wikipedia": {
+    "phrase": "Machine Learning",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:18.668Z",
+    "cached": true
+  },
+  "bitcoin:Technology & Science:wikipedia": {
+    "phrase": "Bitcoin",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 4,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:19.384Z",
+    "cached": true
+  },
+  "blockchain:Technology & Science:wikipedia": {
+    "phrase": "Blockchain",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 5,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:19.915Z",
+    "cached": true
+  },
+  "quantum computing:Technology & Science:wikipedia": {
+    "phrase": "Quantum Computing",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 5,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:20.786Z",
+    "cached": true
+  },
+  "dna:Technology & Science:wikipedia": {
+    "phrase": "DNA",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 79,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:21.605Z",
+    "cached": true
+  },
+  "genome:Technology & Science:wikipedia": {
+    "phrase": "Genome",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 55,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:22.142Z",
+    "cached": true
+  },
+  "vaccine:Technology & Science:wikipedia": {
+    "phrase": "Vaccine",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 4,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:22.977Z",
+    "cached": true
+  },
+  "antibiotic:Technology & Science:wikipedia": {
+    "phrase": "Antibiotic",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:14:23.643Z",
+    "cached": true
+  },
+  "laser:Technology & Science:wikipedia": {
+    "phrase": "Laser",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 65,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:24.444Z",
+    "cached": true
+  },
+  "satellite:Technology & Science:wikipedia": {
+    "phrase": "Satellite",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:25.179Z",
+    "cached": true
+  },
+  "gps:Technology & Science:wikipedia": {
+    "phrase": "GPS",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 73,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 25,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:25.887Z",
+    "cached": true
+  },
+  "wifi:Technology & Science:wikipedia": {
+    "phrase": "WiFi",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 56,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 5,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:27.308Z",
+    "cached": true
+  },
+  "bluetooth:Technology & Science:wikipedia": {
+    "phrase": "Bluetooth",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 65,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 1,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:28.337Z",
+    "cached": true
+  },
+  "big data:Technology & Science:wikipedia": {
+    "phrase": "Big Data",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 10,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:30.516Z",
+    "cached": true
+  },
+  "cybersecurity:Technology & Science:wikipedia": {
+    "phrase": "Cybersecurity",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 40,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 5,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:31.285Z",
+    "cached": true
+  },
+  "robotics:Technology & Science:wikipedia": {
+    "phrase": "Robotics",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 40,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 5,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 7
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:31.934Z",
+    "cached": true
+  },
+  "nanotechnology:Technology & Science:wikipedia": {
+    "phrase": "Nanotechnology",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:32.632Z",
+    "cached": true
+  },
+  "biotechnology:Technology & Science:wikipedia": {
+    "phrase": "Biotechnology",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 5,
+      "reddit": 2,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:14:33.194Z",
+    "cached": true
+  },
+  "gene therapy:Technology & Science:wikipedia": {
+    "phrase": "Gene Therapy",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:33.889Z",
+    "cached": true
+  },
+  "crispr:Technology & Science:wikipedia": {
+    "phrase": "CRISPR",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:34.509Z",
+    "cached": true
+  },
+  "steam engine:Technology & Science:wikipedia": {
+    "phrase": "Steam Engine",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:35.294Z",
+    "cached": true
+  },
+  "electricity:Technology & Science:wikipedia": {
+    "phrase": "Electricity",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:36.117Z",
+    "cached": true
+  },
+  "telephone:Technology & Science:wikipedia": {
+    "phrase": "Telephone",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:36.748Z",
+    "cached": true
+  },
+  "television:Technology & Science:wikipedia": {
+    "phrase": "Television",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:37.838Z",
+    "cached": true
+  },
+  "radio:Technology & Science:wikipedia": {
+    "phrase": "Radio",
+    "category": "Technology & Science",
+    "source": "wikipedia",
+    "totalScore": 67,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:38.615Z",
+    "cached": true
+  },
+  "world war i:History & Events:wikipedia": {
+    "phrase": "World War I",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 79.33333333333333,
+    "breakdown": {
+      "localHeuristics": 24.333333333333332,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:40.557Z",
+    "cached": true
+  },
+  "world war ii:History & Events:wikipedia": {
+    "phrase": "World War II",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 79.33333333333333,
+    "breakdown": {
+      "localHeuristics": 24.333333333333332,
+      "wikidata": 30,
+      "reddit": 5,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:41.197Z",
+    "cached": true
+  },
+  "cold war:History & Events:wikipedia": {
+    "phrase": "Cold War",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 79,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 3,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:42.074Z",
+    "cached": true
+  },
+  "industrial revolution:History & Events:wikipedia": {
+    "phrase": "Industrial Revolution",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:42.368Z",
+    "cached": true
+  },
+  "renaissance:History & Events:wikipedia": {
+    "phrase": "Renaissance",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:46.618Z",
+    "cached": true
+  },
+  "roman empire:History & Events:wikipedia": {
+    "phrase": "Roman Empire",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 70,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:46.886Z",
+    "cached": true
+  },
+  "medieval times:History & Events:wikipedia": {
+    "phrase": "Medieval Times",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:47.185Z",
+    "cached": true
+  },
+  "d-day:History & Events:wikipedia": {
+    "phrase": "D-Day",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 65,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:51.582Z",
+    "cached": true
+  },
+  "civil rights movement:History & Events:wikipedia": {
+    "phrase": "Civil Rights Movement",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 42.666666666666664,
+    "breakdown": {
+      "localHeuristics": 17.666666666666664,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:14:57.393Z",
+    "cached": true
+  },
+  "titanic:History & Events:wikipedia": {
+    "phrase": "Titanic",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 68,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:57.667Z",
+    "cached": true
+  },
+  "great fire of london:History & Events:wikipedia": {
+    "phrase": "Great Fire of London",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:57.945Z",
+    "cached": true
+  },
+  "black death:History & Events:wikipedia": {
+    "phrase": "Black Death",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 72,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:58.457Z",
+    "cached": true
+  },
+  "crusades:History & Events:wikipedia": {
+    "phrase": "Crusades",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:58.728Z",
+    "cached": true
+  },
+  "viking age:History & Events:wikipedia": {
+    "phrase": "Viking Age",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:58.994Z",
+    "cached": true
+  },
+  "bronze age:History & Events:wikipedia": {
+    "phrase": "Bronze Age",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 24,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:59.271Z",
+    "cached": true
+  },
+  "iron age:History & Events:wikipedia": {
+    "phrase": "Iron Age",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:59.541Z",
+    "cached": true
+  },
+  "silk road:History & Events:wikipedia": {
+    "phrase": "Silk Road",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 76,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:14:59.822Z",
+    "cached": true
+  },
+  "discovery of america:History & Events:wikipedia": {
+    "phrase": "Discovery of America",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 44.333333333333336,
+    "breakdown": {
+      "localHeuristics": 16.333333333333336,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:00.178Z",
+    "cached": true
+  },
+  "watergate:History & Events:wikipedia": {
+    "phrase": "Watergate",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:00.452Z",
+    "cached": true
+  },
+  "jfk assassination:History & Events:wikipedia": {
+    "phrase": "JFK Assassination",
+    "category": "History & Events",
+    "source": "wikipedia",
+    "totalScore": 40,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:00.810Z",
+    "cached": true
+  },
+  "lion:Nature & Animals:wikipedia": {
+    "phrase": "Lion",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:02.158Z",
+    "cached": true
+  },
+  "tiger:Nature & Animals:wikipedia": {
+    "phrase": "Tiger",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 45,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:02.450Z",
+    "cached": true
+  },
+  "elephant:Nature & Animals:wikipedia": {
+    "phrase": "Elephant",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 58,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:02.733Z",
+    "cached": true
+  },
+  "giraffe:Nature & Animals:wikipedia": {
+    "phrase": "Giraffe",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:03.000Z",
+    "cached": true
+  },
+  "penguin:Nature & Animals:wikipedia": {
+    "phrase": "Penguin",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 63,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:03.268Z",
+    "cached": true
+  },
+  "dolphin:Nature & Animals:wikipedia": {
+    "phrase": "Dolphin",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:03.539Z",
+    "cached": true
+  },
+  "whale:Nature & Animals:wikipedia": {
+    "phrase": "Whale",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:03.853Z",
+    "cached": true
+  },
+  "shark:Nature & Animals:wikipedia": {
+    "phrase": "Shark",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 67,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:04.152Z",
+    "cached": true
+  },
+  "eagle:Nature & Animals:wikipedia": {
+    "phrase": "Eagle",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 45,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:04.523Z",
+    "cached": true
+  },
+  "butterfly:Nature & Animals:wikipedia": {
+    "phrase": "Butterfly",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:15:05.700Z",
+    "cached": true
+  },
+  "rainforest:Nature & Animals:wikipedia": {
+    "phrase": "Rainforest",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:12.875Z",
+    "cached": true
+  },
+  "desert:Nature & Animals:wikipedia": {
+    "phrase": "Desert",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:13.234Z",
+    "cached": true
+  },
+  "ocean:Nature & Animals:wikipedia": {
+    "phrase": "Ocean",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:13.505Z",
+    "cached": true
+  },
+  "mountain:Nature & Animals:wikipedia": {
+    "phrase": "Mountain",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 61,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:13.787Z",
+    "cached": true
+  },
+  "volcano:Nature & Animals:wikipedia": {
+    "phrase": "Volcano",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:14.145Z",
+    "cached": true
+  },
+  "earthquake:Nature & Animals:wikipedia": {
+    "phrase": "Earthquake",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:16.575Z",
+    "cached": true
+  },
+  "hurricane:Nature & Animals:wikipedia": {
+    "phrase": "Hurricane",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:16.985Z",
+    "cached": true
+  },
+  "tornado:Nature & Animals:wikipedia": {
+    "phrase": "Tornado",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 63,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:17.359Z",
+    "cached": true
+  },
+  "lightning:Nature & Animals:wikipedia": {
+    "phrase": "Lightning",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:17.785Z",
+    "cached": true
+  },
+  "aurora:Nature & Animals:wikipedia": {
+    "phrase": "Aurora",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 65,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:18.315Z",
+    "cached": true
+  },
+  "ecosystem:Nature & Animals:wikipedia": {
+    "phrase": "Ecosystem",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 33,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:15:18.669Z",
+    "cached": true
+  },
+  "biodiversity:Nature & Animals:wikipedia": {
+    "phrase": "Biodiversity",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 39,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:15:18.989Z",
+    "cached": true
+  },
+  "climate change:Nature & Animals:wikipedia": {
+    "phrase": "Climate Change",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 25,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:19.558Z",
+    "cached": true
+  },
+  "global warming:Nature & Animals:wikipedia": {
+    "phrase": "Global Warming",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:20.167Z",
+    "cached": true
+  },
+  "photosynthesis:Nature & Animals:wikipedia": {
+    "phrase": "Photosynthesis",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:20.451Z",
+    "cached": true
+  },
+  "evolution:Nature & Animals:wikipedia": {
+    "phrase": "Evolution",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 37,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:15:20.826Z",
+    "cached": true
+  },
+  "dinosaur:Nature & Animals:wikipedia": {
+    "phrase": "Dinosaur",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 68,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:22.014Z",
+    "cached": true
+  },
+  "fossil:Nature & Animals:wikipedia": {
+    "phrase": "Fossil",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:22.293Z",
+    "cached": true
+  },
+  "sahara desert:Nature & Animals:wikipedia": {
+    "phrase": "Sahara Desert",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:15:22.657Z",
+    "cached": true
+  },
+  "antarctica:Nature & Animals:wikipedia": {
+    "phrase": "Antarctica",
+    "category": "Nature & Animals",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:15:22.944Z",
+    "cached": true
+  },
+  "book:Everything:wikipedia": {
+    "phrase": "Book",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:37.377Z",
+    "cached": true
+  },
+  "chair:Everything:wikipedia": {
+    "phrase": "Chair",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 58,
+    "breakdown": {
+      "localHeuristics": 27,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:37.907Z",
+    "cached": true
+  },
+  "window:Everything:wikipedia": {
+    "phrase": "Window",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:38.387Z",
+    "cached": true
+  },
+  "door:Everything:wikipedia": {
+    "phrase": "Door",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 66,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:38.693Z",
+    "cached": true
+  },
+  "kitchen:Everything:wikipedia": {
+    "phrase": "Kitchen",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:39.167Z",
+    "cached": true
+  },
+  "bathroom:Everything:wikipedia": {
+    "phrase": "Bathroom",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:39.615Z",
+    "cached": true
+  },
+  "garden:Everything:wikipedia": {
+    "phrase": "Garden",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 43,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:39.981Z",
+    "cached": true
+  },
+  "school:Everything:wikipedia": {
+    "phrase": "School",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:40.420Z",
+    "cached": true
+  },
+  "hospital:Everything:wikipedia": {
+    "phrase": "Hospital",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 58,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:40.802Z",
+    "cached": true
+  },
+  "library:Everything:wikipedia": {
+    "phrase": "Library",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 63,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:41.170Z",
+    "cached": true
+  },
+  "shopping:Everything:wikipedia": {
+    "phrase": "Shopping",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 56,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:41.502Z",
+    "cached": true
+  },
+  "cooking:Everything:wikipedia": {
+    "phrase": "Cooking",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:41.799Z",
+    "cached": true
+  },
+  "reading:Everything:wikipedia": {
+    "phrase": "Reading",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 7
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:42.575Z",
+    "cached": true
+  },
+  "writing:Everything:wikipedia": {
+    "phrase": "Writing",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:43.103Z",
+    "cached": true
+  },
+  "running:Everything:wikipedia": {
+    "phrase": "Running",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:43.522Z",
+    "cached": true
+  },
+  "swimming:Everything:wikipedia": {
+    "phrase": "Swimming",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 58,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:44.005Z",
+    "cached": true
+  },
+  "dancing:Everything:wikipedia": {
+    "phrase": "Dancing",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:44.766Z",
+    "cached": true
+  },
+  "singing:Everything:wikipedia": {
+    "phrase": "Singing",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:45.085Z",
+    "cached": true
+  },
+  "painting:Everything:wikipedia": {
+    "phrase": "Painting",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:45.806Z",
+    "cached": true
+  },
+  "drawing:Everything:wikipedia": {
+    "phrase": "Drawing",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:46.585Z",
+    "cached": true
+  },
+  "birthday:Everything:wikipedia": {
+    "phrase": "Birthday",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:47.086Z",
+    "cached": true
+  },
+  "wedding:Everything:wikipedia": {
+    "phrase": "Wedding",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:47.594Z",
+    "cached": true
+  },
+  "christmas:Everything:wikipedia": {
+    "phrase": "Christmas",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 64,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 30,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:48.153Z",
+    "cached": true
+  },
+  "summer:Everything:wikipedia": {
+    "phrase": "Summer",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:48.575Z",
+    "cached": true
+  },
+  "winter:Everything:wikipedia": {
+    "phrase": "Winter",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:49.068Z",
+    "cached": true
+  },
+  "morning:Everything:wikipedia": {
+    "phrase": "Morning",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:49.623Z",
+    "cached": true
+  },
+  "evening:Everything:wikipedia": {
+    "phrase": "Evening",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:50.094Z",
+    "cached": true
+  },
+  "sunrise:Everything:wikipedia": {
+    "phrase": "Sunrise",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 39,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:18:50.674Z",
+    "cached": true
+  },
+  "sunset:Everything:wikipedia": {
+    "phrase": "Sunset",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:51.028Z",
+    "cached": true
+  },
+  "rainbow:Everything:wikipedia": {
+    "phrase": "Rainbow",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 23,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:51.843Z",
+    "cached": true
+  },
+  "cloud:Everything:wikipedia": {
+    "phrase": "Cloud",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:52.196Z",
+    "cached": true
+  },
+  "snow:Everything:wikipedia": {
+    "phrase": "Snow",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 69,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:52.792Z",
+    "cached": true
+  },
+  "rain:Everything:wikipedia": {
+    "phrase": "Rain",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 31,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:53.673Z",
+    "cached": true
+  },
+  "fire:Everything:wikipedia": {
+    "phrase": "Fire",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 61,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:54.344Z",
+    "cached": true
+  },
+  "water:Everything:wikipedia": {
+    "phrase": "Water",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:55.111Z",
+    "cached": true
+  },
+  "air:Everything:wikipedia": {
+    "phrase": "Air",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 74,
+    "breakdown": {
+      "localHeuristics": 31,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:18:55.525Z",
+    "cached": true
+  },
+  "earth:Everything:wikipedia": {
+    "phrase": "Earth",
+    "category": "Everything",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:18:56.023Z",
+    "cached": true
+  },
+  "philosophy:Everything+:wikipedia": {
+    "phrase": "Philosophy",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 45,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:14.640Z",
+    "cached": true
+  },
+  "psychology:Everything+:wikipedia": {
+    "phrase": "Psychology",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:15.203Z",
+    "cached": true
+  },
+  "sociology:Everything+:wikipedia": {
+    "phrase": "Sociology",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 49,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:15.803Z",
+    "cached": true
+  },
+  "anthropology:Everything+:wikipedia": {
+    "phrase": "Anthropology",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:16.124Z",
+    "cached": true
+  },
+  "archaeology:Everything+:wikipedia": {
+    "phrase": "Archaeology",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 49,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:16.460Z",
+    "cached": true
+  },
+  "theology:Everything+:wikipedia": {
+    "phrase": "Theology",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 51,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:16.872Z",
+    "cached": true
+  },
+  "metaphysics:Everything+:wikipedia": {
+    "phrase": "Metaphysics",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:19:17.669Z",
+    "cached": true
+  },
+  "epistemology:Everything+:wikipedia": {
+    "phrase": "Epistemology",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:18.178Z",
+    "cached": true
+  },
+  "existentialism:Everything+:wikipedia": {
+    "phrase": "Existentialism",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 35,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:19:18.488Z",
+    "cached": true
+  },
+  "nihilism:Everything+:wikipedia": {
+    "phrase": "Nihilism",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 49,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:18.984Z",
+    "cached": true
+  },
+  "capitalism:Everything+:wikipedia": {
+    "phrase": "Capitalism",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:19.382Z",
+    "cached": true
+  },
+  "socialism:Everything+:wikipedia": {
+    "phrase": "Socialism",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:19.870Z",
+    "cached": true
+  },
+  "democracy:Everything+:wikipedia": {
+    "phrase": "Democracy",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 50,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:20.274Z",
+    "cached": true
+  },
+  "bureaucracy:Everything+:wikipedia": {
+    "phrase": "Bureaucracy",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 49,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:20.871Z",
+    "cached": true
+  },
+  "diplomacy:Everything+:wikipedia": {
+    "phrase": "Diplomacy",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:21.221Z",
+    "cached": true
+  },
+  "propaganda:Everything+:wikipedia": {
+    "phrase": "Propaganda",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 52,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:21.565Z",
+    "cached": true
+  },
+  "ideology:Everything+:wikipedia": {
+    "phrase": "Ideology",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:21.906Z",
+    "cached": true
+  },
+  "paradigm:Everything+:wikipedia": {
+    "phrase": "Paradigm",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:22.286Z",
+    "cached": true
+  },
+  "methodology:Everything+:wikipedia": {
+    "phrase": "Methodology",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 39,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:19:23.331Z",
+    "cached": true
+  },
+  "hypothesis:Everything+:wikipedia": {
+    "phrase": "Hypothesis",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 50,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:23.695Z",
+    "cached": true
+  },
+  "theory:Everything+:wikipedia": {
+    "phrase": "Theory",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 50,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:24.080Z",
+    "cached": true
+  },
+  "algorithm:Everything+:wikipedia": {
+    "phrase": "Algorithm",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:24.399Z",
+    "cached": true
+  },
+  "quantum mechanics:Everything+:wikipedia": {
+    "phrase": "Quantum Mechanics",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 39,
+    "breakdown": {
+      "localHeuristics": 16,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:19:25.109Z",
+    "cached": true
+  },
+  "relativity:Everything+:wikipedia": {
+    "phrase": "Relativity",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 4
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:25.529Z",
+    "cached": true
+  },
+  "consciousness:Everything+:wikipedia": {
+    "phrase": "Consciousness",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:42.529Z",
+    "cached": true
+  },
+  "subconscious:Everything+:wikipedia": {
+    "phrase": "Subconscious",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 40,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:19:59.629Z",
+    "cached": true
+  },
+  "intuition:Everything+:wikipedia": {
+    "phrase": "Intuition",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:20:16.902Z",
+    "cached": true
+  },
+  "perception:Everything+:wikipedia": {
+    "phrase": "Perception",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:21:05.069Z",
+    "cached": true
+  },
+  "cognition:Everything+:wikipedia": {
+    "phrase": "Cognition",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:21:23.588Z",
+    "cached": true
+  },
+  "emotion:Everything+:wikipedia": {
+    "phrase": "Emotion",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 56,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:21:42.672Z",
+    "cached": true
+  },
+  "empathy:Everything+:wikipedia": {
+    "phrase": "Empathy",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 61,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:22:00.454Z",
+    "cached": true
+  },
+  "sympathy:Everything+:wikipedia": {
+    "phrase": "Sympathy",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 38,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 5
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:22:17.465Z",
+    "cached": true
+  },
+  "nostalgia:Everything+:wikipedia": {
+    "phrase": "Nostalgia",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:22:34.221Z",
+    "cached": true
+  },
+  "melancholy:Everything+:wikipedia": {
+    "phrase": "Melancholy",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 43,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:22:51.620Z",
+    "cached": true
+  },
+  "euphoria:Everything+:wikipedia": {
+    "phrase": "Euphoria",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 53,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:23:08.517Z",
+    "cached": true
+  },
+  "serendipity:Everything+:wikipedia": {
+    "phrase": "Serendipity",
+    "category": "Everything+",
+    "source": "wikipedia",
+    "totalScore": 36,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 7
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:23:25.695Z",
+    "cached": true
+  },
+  "doctor:Occupations & Jobs:wikipedia": {
+    "phrase": "Doctor",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 25,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 5
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:51.048Z",
+    "cached": true
+  },
+  "teacher:Occupations & Jobs:wikipedia": {
+    "phrase": "Teacher",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:51.226Z",
+    "cached": true
+  },
+  "engineer:Occupations & Jobs:wikipedia": {
+    "phrase": "Engineer",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:51.709Z",
+    "cached": true
+  },
+  "lawyer:Occupations & Jobs:wikipedia": {
+    "phrase": "Lawyer",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 7
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:52.137Z",
+    "cached": true
+  },
+  "nurse:Occupations & Jobs:wikipedia": {
+    "phrase": "Nurse",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:52.451Z",
+    "cached": true
+  },
+  "firefighter:Occupations & Jobs:wikipedia": {
+    "phrase": "Firefighter",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:52.927Z",
+    "cached": true
+  },
+  "chef:Occupations & Jobs:wikipedia": {
+    "phrase": "Chef",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 59,
+    "breakdown": {
+      "localHeuristics": 26,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:53.093Z",
+    "cached": true
+  },
+  "artist:Occupations & Jobs:wikipedia": {
+    "phrase": "Artist",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:53.565Z",
+    "cached": true
+  },
+  "musician:Occupations & Jobs:wikipedia": {
+    "phrase": "Musician",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 48,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:54.784Z",
+    "cached": true
+  },
+  "writer:Occupations & Jobs:wikipedia": {
+    "phrase": "Writer",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 57,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:55.303Z",
+    "cached": true
+  },
+  "actor:Occupations & Jobs:wikipedia": {
+    "phrase": "Actor",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:24:55.556Z",
+    "cached": true
+  },
+  "athlete:Occupations & Jobs:wikipedia": {
+    "phrase": "Athlete",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 58,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:55.722Z",
+    "cached": true
+  },
+  "pilot:Occupations & Jobs:wikipedia": {
+    "phrase": "Pilot",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 50,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:56.167Z",
+    "cached": true
+  },
+  "farmer:Occupations & Jobs:wikipedia": {
+    "phrase": "Farmer",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:24:56.456Z",
+    "cached": true
+  },
+  "mechanic:Occupations & Jobs:wikipedia": {
+    "phrase": "Mechanic",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:56.637Z",
+    "cached": true
+  },
+  "carpenter:Occupations & Jobs:wikipedia": {
+    "phrase": "Carpenter",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 54,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:57.014Z",
+    "cached": true
+  },
+  "electrician:Occupations & Jobs:wikipedia": {
+    "phrase": "Electrician",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:57.208Z",
+    "cached": true
+  },
+  "plumber:Occupations & Jobs:wikipedia": {
+    "phrase": "Plumber",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:57.871Z",
+    "cached": true
+  },
+  "dentist:Occupations & Jobs:wikipedia": {
+    "phrase": "Dentist",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:58.033Z",
+    "cached": true
+  },
+  "veterinarian:Occupations & Jobs:wikipedia": {
+    "phrase": "Veterinarian",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 32,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:24:58.248Z",
+    "cached": true
+  },
+  "scientist:Occupations & Jobs:wikipedia": {
+    "phrase": "Scientist",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 7
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:58.540Z",
+    "cached": true
+  },
+  "programmer:Occupations & Jobs:wikipedia": {
+    "phrase": "Programmer",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 41,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 7
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:58.898Z",
+    "cached": true
+  },
+  "designer:Occupations & Jobs:wikipedia": {
+    "phrase": "Designer",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:24:59.128Z",
+    "cached": true
+  },
+  "photographer:Occupations & Jobs:wikipedia": {
+    "phrase": "Photographer",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 36,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 7
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:24:59.373Z",
+    "cached": true
+  },
+  "journalist:Occupations & Jobs:wikipedia": {
+    "phrase": "Journalist",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 38,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 9
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:24:59.646Z",
+    "cached": true
+  },
+  "accountant:Occupations & Jobs:wikipedia": {
+    "phrase": "Accountant",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 42,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:25:00.005Z",
+    "cached": true
+  },
+  "manager:Occupations & Jobs:wikipedia": {
+    "phrase": "Manager",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 44,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:25:00.315Z",
+    "cached": true
+  },
+  "salesperson:Occupations & Jobs:wikipedia": {
+    "phrase": "Salesperson",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 30,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 0,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "WARNING - Likely Too Obscure",
+    "timestamp": "2025-06-30T23:25:00.623Z",
+    "cached": true
+  },
+  "waiter:Occupations & Jobs:wikipedia": {
+    "phrase": "Waiter",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 62,
+    "breakdown": {
+      "localHeuristics": 27,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 15
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:25:00.967Z",
+    "cached": true
+  },
+  "barber:Occupations & Jobs:wikipedia": {
+    "phrase": "Barber",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 60,
+    "breakdown": {
+      "localHeuristics": 22,
+      "wikidata": 20,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "GOOD - Accept",
+    "timestamp": "2025-06-30T23:25:01.158Z",
+    "cached": true
+  },
+  "hairdresser:Occupations & Jobs:wikipedia": {
+    "phrase": "Hairdresser",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 40,
+    "breakdown": {
+      "localHeuristics": 19,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 11
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:25:01.334Z",
+    "cached": true
+  },
+  "cashier:Occupations & Jobs:wikipedia": {
+    "phrase": "Cashier",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:25:01.506Z",
+    "cached": true
+  },
+  "librarian:Occupations & Jobs:wikipedia": {
+    "phrase": "Librarian",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 47,
+    "breakdown": {
+      "localHeuristics": 14,
+      "wikidata": 15,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:25:01.669Z",
+    "cached": true
+  },
+  "janitor:Occupations & Jobs:wikipedia": {
+    "phrase": "Janitor",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 46,
+    "breakdown": {
+      "localHeuristics": 18,
+      "wikidata": 10,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:25:02.236Z",
+    "cached": true
+  },
+  "security guard:Occupations & Jobs:wikipedia": {
+    "phrase": "Security Guard",
+    "category": "Occupations & Jobs",
+    "source": "wikipedia",
+    "totalScore": 43,
+    "breakdown": {
+      "localHeuristics": 20,
+      "wikidata": 5,
+      "reddit": 0,
+      "categoryBoost": 5,
+      "wikipediaMetrics": 13
+    },
+    "verdict": "BORDERLINE - Manual Review",
+    "timestamp": "2025-06-30T23:25:02.801Z",
+    "cached": true
   }
 }
