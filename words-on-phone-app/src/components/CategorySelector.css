@@ -130,7 +130,8 @@
   position: relative;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
-  min-height: 100px;
+  min-height: 120px; /* Increased from 100px for better mobile touch targets */
+  min-width: 160px;  /* Ensure minimum width for mobile touch targets */
 }
 
 .category-tile:hover {
@@ -152,6 +153,13 @@
   pointer-events: none;
   width: 0;
   height: 0;
+}
+
+.category-tile .category-icon {
+  font-size: 32px;
+  margin-bottom: 4px;
+  line-height: 1;
+  display: block;
 }
 
 .category-tile .name {
@@ -355,13 +363,18 @@
 
 @media (max-width: 768px) {
   .category-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 12px;
   }
 
   .category-tile {
     padding: 15px;
-    min-height: 80px;
+    min-height: 110px; /* Ensure 44px+ touch targets on mobile */
+    min-width: 160px;  /* Maintain minimum width for touch targets */
+  }
+
+  .category-tile .category-icon {
+    font-size: 28px; /* Slightly smaller on mobile but still prominent */
   }
 
   .category-tile .name {
@@ -380,5 +393,7 @@
   .toolbar select,
   .toolbar button {
     width: 100%;
+    min-height: 44px;  /* Ensure minimum 44px touch target */
+    padding: 12px 16px; /* Increased padding for better touch targets */
   }
 } 

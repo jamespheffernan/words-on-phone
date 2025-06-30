@@ -16,7 +16,7 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
   onGameStart
 }) => {
   const [isExpanded, setIsExpanded] = useState(true);
-  const { setSelectedCategories, startGame, selectedCategories } = useGameStore();
+  const { setSelectedCategories, startGame } = useGameStore();
   const { defaultCategories, customCategories } = useCategoryMetadata();
   const { triggerImpact, triggerNotification } = useHaptics();
 
@@ -110,19 +110,7 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
     triggerImpact();
   }, [isExpanded, triggerImpact]);
 
-  // Format relative time for last played
-  const formatLastPlayed = useCallback((timestamp: number): string => {
-    const now = Date.now();
-    const diffMs = now - timestamp;
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-    const diffMinutes = Math.floor(diffMs / (1000 * 60));
-    
-    if (diffDays > 0) return `${diffDays}d ago`;
-    if (diffHours > 0) return `${diffHours}h ago`;
-    if (diffMinutes > 0) return `${diffMinutes}m ago`;
-    return 'just now';
-  }, []);
+
 
   if (popularityLoading || allCategories.length === 0) {
     return (

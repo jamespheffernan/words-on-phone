@@ -6,7 +6,7 @@ import { PhraseCursor } from './phraseEngine';
 import { BUZZER_SOUNDS, type BuzzerSoundType } from './hooks/useAudio';
 import { indexedDBStorage } from './storage/indexedDBStorage';
 import { categoryPopularityService } from './services/categoryPopularityService';
-import { CategoryGroupingState, DEFAULT_CATEGORY_GROUPS } from './types/category';
+import { DEFAULT_CATEGORY_GROUPS } from './types/category';
 import { 
   trackRoundStart, 
   trackPhraseSuccess, 

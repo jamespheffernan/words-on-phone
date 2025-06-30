@@ -127,4 +127,44 @@ export function groupCategoriesByGroup(categories: CategoryMetadata[]): Record<s
   });
   
   return grouped;
+}
+
+// Task 4: Category icon mapping for UI enhancement
+export const CATEGORY_ICONS: Record<string, string> = {
+  // Entertainment & Pop Culture group
+  'Movies & TV': '🎬',
+  'Music & Artists': '🎵',
+  'Entertainment & Pop Culture': '🎭',
+  'Famous People': '⭐',
+  
+  // Daily Life group
+  'Food & Drink': '🍕',
+  'Clothing & Fashion': '👗',
+  'Occupations & Jobs': '💼',
+  
+  // World & Knowledge group
+  'Places & Travel': '🌍',
+  'History & Events': '📜',
+  'Technology & Science': '🔬',
+  'Nature & Animals': '🐾',
+  
+  // Activities & Sports group
+  'Sports & Athletes': '⚽',
+  'Transportation': '🚗',
+  
+  // Creative & Misc group
+  'Everything': '🎲',
+  'Everything+': '✨',
+  'Fantasy & Magic': '🔮',
+  
+  // Additional categories not in groups yet
+  'Brands & Companies': '🏢',
+  'Emotions & Feelings': '😊',
+  'Internet & Social Media': '💻',
+  'Weather & Seasons': '🌤️'
+};
+
+// Helper function to get icon for a category
+export function getCategoryIcon(categoryName: string): string {
+  return CATEGORY_ICONS[categoryName] || '📁'; // Default folder icon for unknown categories
 } 

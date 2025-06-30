@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { CategoryMetadata } from '../types/category';
 import { useGameStore } from '../store';
-import { DEFAULT_CATEGORY_GROUPS, groupCategoriesByGroup, CategoryGroup } from '../types/category';
+import { DEFAULT_CATEGORY_GROUPS, groupCategoriesByGroup, CategoryGroup, getCategoryIcon } from '../types/category';
 import './CategorySelector.css';
 
 type SortKey = 'name' | 'count';
@@ -87,6 +87,7 @@ const AccordionGroup: React.FC<AccordionGroupProps> = ({
                   onClick={(e) => { e.stopPropagation(); onTogglePin(name); }}
                   aria-label={pinnedCategories.includes(name) ? 'Unpin' : 'Pin'}
                 >★</button>
+                <span className="category-icon">{getCategoryIcon(name)}</span>
                 <span className="name">{name}</span>
                 <span className="count">({phraseCount})</span>
               </label>
@@ -165,7 +166,6 @@ export const CategorySelector: React.FC<Props> = ({
     onChange(next);
   };
 
-  const hasAnyExpanded = DEFAULT_CATEGORY_GROUPS.some(group => expandedGroups.has(group.id));
   const hasAllExpanded = DEFAULT_CATEGORY_GROUPS.every(group => expandedGroups.has(group.id));
 
   return (
@@ -284,6 +284,7 @@ export const CategorySelector: React.FC<Props> = ({
                     onClick={(e) => { e.stopPropagation(); togglePinnedCategory(name); }}
                     aria-label={pinnedCategories.includes(name) ? 'Unpin' : 'Pin'}
                   >★</button>
+                  <span className="category-icon">{getCategoryIcon(name)}</span>
                   <span className="name">{name}</span>
                   <span className="count">({phraseCount})</span>
                 </label>
