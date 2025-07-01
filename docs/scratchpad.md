@@ -4,12 +4,6 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 ## Active Implementation Plans
 
-- [buzzer-fix-diagnosis](implementation-plan/buzzer-fix-diagnosis.md) - 🚨 **HIGH PRIORITY** - Buzzer Fix Diagnosis and Resolution
-  - 🎯 **GOAL**: Diagnose and fix reported buzzer system failure - core game functionality not working
-  - 📋 **STATUS**: Task 1 IN PROGRESS - Immediate diagnosis and testing
-  - **ISSUE**: User reports buzzer not working despite comprehensive implementation (BUZZER_PLAYING state, Web Audio API, 6 sound types)
-  - **PRIORITY**: HIGH - Timer completion buzzer is essential game functionality
-  - **INVESTIGATION**: AudioContext suspension, Web Audio API failures, timer callbacks, silent error handling
 - [phrase-database-generation](implementation-plan/phrase-database-generation.md) - 🎉 **MAJOR MILESTONE ACHIEVED** - Phrase Database Generation - Rebuild to 1000+ High-Quality Phrases
   - 🎯 **GOAL**: Scale from 173 to 1000+ high-quality phrases using existing quality infrastructure
   - ✅ **4/8 TASKS COMPLETE** (50%): Feature branch created, implementation plan improved, database tool integration, **CORE CATEGORIES COMPLETE**
@@ -96,6 +90,22 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
   - 🚀 **USER IMPACT**: Production-ready Quick Play widget transforming category selection from 10+ taps to 1-2 taps
 
 ## Current Bug Fix / Executor Work
+
+- ✅ **CRITICAL BUZZER SYSTEM FIX**: Buzzer Audio System Restoration (AudioContext Closed State)
+  - **Problem**: Buzzer system completely non-functional - manual test and timer completion buzzer producing no sound despite appearing to work
+  - **Root Cause**: AudioContext in "closed" state due to individual components creating separate contexts and cleanup effects closing shared context
+  - **Impact**: Core game functionality broken - timer completion buzzer is essential user experience
+  - **Solution**: Implemented singleton AudioContext pattern with `getAudioContext()` function and auto-recovery from closed state
+  - **Implementation**:
+    - ✅ Added comprehensive diagnostic logging to identify "closed" state issue
+    - ✅ Implemented global singleton AudioContext with `getAudioContext()` function
+    - ✅ Removed destructive cleanup from individual useAudio hooks
+    - ✅ Added auto-recovery from closed AudioContext state
+    - ✅ Cleaned up debug logging for production-ready code
+    - ✅ Comprehensive testing: manual buzzer test + timer completion buzzer
+  - **Status**: ✅ **COMPLETE** - Committed in 43ef1b87, both manual and gameplay buzzers working perfectly
+  - **Testing**: User confirmed both settings panel test button and timer completion buzzer are operational
+  - **Impact**: Essential game functionality restored, AudioContext management technical debt eliminated
 
 - ✅ **CRITICAL PRODUCTION FIX**: Wikipedia Phrases Deployment (TypeScript JSON Import Error)
   - **Problem**: Netlify build failing with TypeScript error `TS1005: ';' expected` in phrases.ts line 5 when importing JSON
@@ -189,6 +199,9 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-01-15] **COMPREHENSIVE CURRENT STATE ANALYSIS PREVENTS WORK DUPLICATION**: Before starting any UI redesign project, conduct thorough analysis of existing implementation to avoid rebuilding working functionality. Key discovery for category-ui-redesign: Current CategorySelector already implements 90% of planned features (multi-select, search, pinning, responsive design, phrase counts, bulk operations). The planned "two-screen approach" would replace a sophisticated, tested component that users are familiar with. Analysis revealed only 20 categories exist (not 32 as assumed), significantly reducing complexity needs. Recommendation: Enhancement over replacement preserves user familiarity while adding needed features. This analysis prevented 2-3 weeks of redundant development work. Always audit current implementation capabilities before designing "new" solutions.
 - [2025-06-30] **PHRASE DATABASE GENERATION SUCCESS**: Task 4 completion achieved major milestone with 980 total phrases (98% of 1000+ target). Core categories well-balanced: Movies & TV (76), Food & Drink (71), Music & Artists (71), Sports & Athletes (52). Key insights: (1) Category saturation occurs naturally at 70+ phrases with 90%+ duplicate rates, (2) Quality remains consistently high (80+ average scores) throughout scaling, (3) Infrastructure handles large-scale generation effectively with proper duplicate prevention, (4) Production APIs (OpenAI) maintain quality under sustained generation loads, (5) End-to-end pipeline from generation → scoring → storage → quality control proven at scale. Achievement demonstrates phrase database tool + production API integration works excellently for large-scale content creation while maintaining party game quality standards.
 - [2025-07-01] **TYPESCRIPT JSON IMPORT CONFIGURATION**: When using TypeScript with JSON imports, `resolveJsonModule: true` must be explicitly configured in tsconfig.json. Without this setting, TypeScript will throw `TS1005: ';' expected` errors when trying to import JSON files using ES6 import syntax. This is critical for production deployments where JSON data files are imported directly (e.g., phrase databases). The fix is simple but essential: add `"resolveJsonModule": true` to the compilerOptions in tsconfig.app.json. This enables proper type checking and compilation of JSON imports, preventing build failures during deployment. Always verify TypeScript configuration supports all import types used in the project before deploying to production.
+- [2025-07-01] **AUDIOCONTEXT SINGLETON PATTERN CRITICAL FOR WEB AUDIO**: When using Web Audio API across multiple React components, implement a singleton AudioContext pattern to prevent "closed" state failures. Individual components creating separate AudioContexts and triggering cleanup effects leads to premature context closure, causing silent audio failures. Solution: Global `getAudioContext()` function manages single shared context with auto-recovery from closed state. This prevents the most common Web Audio API failure mode where calls appear successful but produce no sound. Essential for any app using audio across multiple components.
+- [2025-07-01] **DIAGNOSTIC LOGGING ESSENTIAL FOR AUDIO DEBUGGING**: Audio failures often appear successful (no exceptions thrown) but produce no sound, making them extremely difficult to debug. Implement comprehensive diagnostic logging that tracks AudioContext state, buffer creation, node connections, and playback initiation. Key diagnostic points: AudioContext state ("suspended", "running", "closed"), buffer properties (duration, sampleRate), and error details. This logging pattern enabled immediate identification of the "closed" state root cause that would have been impossible to diagnose otherwise.
+- [2025-07-01] **BROWSER AUTOPLAY POLICIES REQUIRE CAREFUL AUDIOCONTEXT MANAGEMENT**: Modern browsers suspend AudioContext by default until user interaction occurs. The singleton pattern must include automatic `ctx.resume()` handling when state is "suspended". Additionally, avoid closing AudioContext in component cleanup effects since audio functionality often spans multiple components. Global AudioContext should persist for the entire application lifecycle. This is critical for reliable audio functionality across all modern browsers and devices.
 
 ## Phrase Validation Quick Reference
 
