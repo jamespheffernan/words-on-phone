@@ -2,7 +2,7 @@
 // Total phrases: 1092 across 20 categories
 
 // Import the exported phrases database
-import phrasesData from '../phrases.json' as Record<string, string[]>;
+import phrasesData from '../phrases.json';
 
 // Phrase categories enum
 export enum PhraseCategory {
@@ -61,15 +61,15 @@ Object.values(PhraseCategory).forEach(category => {
 });
 
 // Populate categories from imported data
-Object.entries(phrasesData).forEach(([categoryName, phrases]) => {
+Object.entries(phrasesData as Record<string, string[]>).forEach(([categoryName, phrases]) => {
   const mappedCategory = categoryMapping[categoryName];
   if (mappedCategory && Array.isArray(phrases)) {
-    categorizedPhrases[mappedCategory] = phrases as string[];
+    categorizedPhrases[mappedCategory] = phrases;
   }
 });
 
 // Create a flat array of all phrases for general use
-export const phrases: string[] = Object.values(phrasesData).flat() as string[];
+export const phrases: string[] = Object.values(phrasesData as Record<string, string[]>).flat();
 
 // Get phrases by category
 export function getPhrasesByCategory(category: PhraseCategory): string[] {
@@ -103,6 +103,6 @@ export const phraseStats = {
   totalPhrases: phrases.length,
   totalCategories: Object.keys(phrasesData).length,
   categoryBreakdown: Object.fromEntries(
-    Object.entries(phrasesData).map(([category, phrases]) => [category, phrases.length])
+    Object.entries(phrasesData).map(([category, phrases]) => [category, (phrases as string[]).length])
   )
 };
