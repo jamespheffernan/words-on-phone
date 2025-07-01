@@ -59,20 +59,17 @@ export const GameScreen: React.FC = () => {
   const timer = useTimer({
     duration: actualTimerDuration,
     onComplete: async () => {
-      console.log('🚨 TIMER COMPLETED! Playing buzzer...', { buzzerSound, volume: 1.0 });
-      
       // Play buzzer FIRST, before any state changes
       try {
         await buzzer.play();
-        console.log('✅ Buzzer played successfully');
       } catch (error) {
-        console.warn('❌ Buzzer failed to play:', error);
+        console.warn('Buzzer failed to play:', error);
         // Try to reinitialize and play again
         buzzer.preloadSound();
         try {
           await buzzer.play();
         } catch (retryError) {
-          console.warn('❌ Buzzer retry also failed:', retryError);
+          console.warn('Buzzer retry also failed:', retryError);
         }
       }
       

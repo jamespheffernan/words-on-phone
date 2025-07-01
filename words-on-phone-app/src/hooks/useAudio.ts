@@ -55,19 +55,25 @@ export type SoundCategory = keyof typeof SOUND_TYPES;
 export type SoundType<T extends SoundCategory> = keyof typeof SOUND_TYPES[T];
 export type BuzzerSoundType = SoundType<'buzzer'>;
 
+// Global singleton AudioContext to prevent multiple contexts and premature closing
+let globalAudioContext: AudioContext | null = null;
+
+const getAudioContext = (): AudioContext => {
+  // Create new context if none exists or if current one is closed
+  if (!globalAudioContext || globalAudioContext.state === 'closed') {
+    globalAudioContext = new (window.AudioContext || window.webkitAudioContext!)();
+  }
+  return globalAudioContext;
+};
+
 export const useAudio = (soundCategory: SoundCategory, soundName: string, options: UseAudioOptions = {}) => {
   const { volume = 0.8, preload = true } = options;
-  const audioContextRef = useRef<AudioContext | null>(null);
   const audioBufferRef = useRef<AudioBuffer | null>(null);
   const isLoadedRef = useRef(false);
 
   // Create synthetic sounds using Web Audio API
   const createSyntheticSound = useCallback((category: SoundCategory, type: string): AudioBuffer => {
-    if (!audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext || window.webkitAudioContext!)();
-    }
-
-    const ctx = audioContextRef.current;
+    const ctx = getAudioContext();
     const sampleRate = ctx.sampleRate;
     
     // Different durations for different sound types
@@ -208,11 +214,7 @@ export const useAudio = (soundCategory: SoundCategory, soundName: string, option
 
   const play = useCallback(async () => {
     try {
-      if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext!)();
-      }
-
-      const ctx = audioContextRef.current;
+      const ctx = getAudioContext();
 
       // Resume audio context if suspended (required by browser autoplay policies)
       if (ctx.state === 'suspended') {
@@ -258,14 +260,8 @@ export const useAudio = (soundCategory: SoundCategory, soundName: string, option
     }
   }, [soundCategory, soundName, createSyntheticSound]);
 
-  // Cleanup
-  useEffect(() => {
-    return () => {
-      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
-        audioContextRef.current.close();
-      }
-    };
-  }, []);
+  // Note: We don't close the global AudioContext in cleanup since it's shared
+  // across all audio components. It will be closed when the page unloads.
 
   return {
     play,

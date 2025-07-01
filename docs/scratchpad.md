@@ -4,6 +4,12 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 ## Active Implementation Plans
 
+- [buzzer-fix-diagnosis](implementation-plan/buzzer-fix-diagnosis.md) - 🚨 **HIGH PRIORITY** - Buzzer Fix Diagnosis and Resolution
+  - 🎯 **GOAL**: Diagnose and fix reported buzzer system failure - core game functionality not working
+  - 📋 **STATUS**: Task 1 IN PROGRESS - Immediate diagnosis and testing
+  - **ISSUE**: User reports buzzer not working despite comprehensive implementation (BUZZER_PLAYING state, Web Audio API, 6 sound types)
+  - **PRIORITY**: HIGH - Timer completion buzzer is essential game functionality
+  - **INVESTIGATION**: AudioContext suspension, Web Audio API failures, timer callbacks, silent error handling
 - [phrase-database-generation](implementation-plan/phrase-database-generation.md) - 🎉 **MAJOR MILESTONE ACHIEVED** - Phrase Database Generation - Rebuild to 1000+ High-Quality Phrases
   - 🎯 **GOAL**: Scale from 173 to 1000+ high-quality phrases using existing quality infrastructure
   - ✅ **4/8 TASKS COMPLETE** (50%): Feature branch created, implementation plan improved, database tool integration, **CORE CATEGORIES COMPLETE**
@@ -91,6 +97,19 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 ## Current Bug Fix / Executor Work
 
+- ✅ **CRITICAL PRODUCTION FIX**: Wikipedia Phrases Deployment (TypeScript JSON Import Error)
+  - **Problem**: Netlify build failing with TypeScript error `TS1005: ';' expected` in phrases.ts line 5 when importing JSON
+  - **Root Cause**: Missing `resolveJsonModule: true` in tsconfig.app.json preventing JSON imports
+  - **Impact**: 1,092 Wikipedia phrases committed to main but deployment blocked by build failure
+  - **Solution**: Added `resolveJsonModule: true` to TypeScript configuration for proper JSON handling
+  - **Implementation**: 
+    - ✅ Updated tsconfig.app.json with resolveJsonModule configuration
+    - ✅ Fixed JSON import for phrases.json containing 1,092 Wikipedia phrases
+    - ✅ Committed fix to main branch (commit 8167ecb0)
+    - ✅ Pushed to trigger Netlify production deployment
+  - **Status**: ✅ **DEPLOYED** - TypeScript fix applied and pushed to production
+  - **Impact**: 530% phrase expansion (173 → 1,092 phrases) now deployable to production
+
 - ✅ **COMPLETED BUG FIX**: End-of-Game Buzzer Truncation Issue
   - **Problem**: Buzzer sound was cut off when game ended because UI state changes after only 100ms, but buzzer duration is 2.0 seconds
   - **Root Cause**: `setTimeout(() => { onTimerComplete(); }, 100)` in GameScreen.tsx interrupted buzzer playback
@@ -169,6 +188,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-06-29] **CRITICAL BUG DISCOVERY - DUPLICATE GENERATION ROOT CAUSE**: After implementing sophisticated duplicate pre-emption with Bloom filters and enhanced prompts, discovered the enhanced prompts were NEVER reaching the AI! The `batch-queue-runner.js` builds detailed prompts with "don't use" lists and rarity seeds but passes them as `customPrompt` in options, which `api-client.js` completely ignores. Instead, the API client uses its own basic prompt generation. This explains why AI generates 70-90% duplicates in saturated categories - it has no knowledge of existing phrases! Key lesson: Always trace data flow end-to-end when implementing enhancements. Validate that sophisticated logic actually reaches its destination. The fix is straightforward: modify api-client.js to accept and use custom prompts. This single fix should dramatically reduce duplicate generation at the source, making the Bloom filters even more effective as a secondary defense.
 - [2025-01-15] **COMPREHENSIVE CURRENT STATE ANALYSIS PREVENTS WORK DUPLICATION**: Before starting any UI redesign project, conduct thorough analysis of existing implementation to avoid rebuilding working functionality. Key discovery for category-ui-redesign: Current CategorySelector already implements 90% of planned features (multi-select, search, pinning, responsive design, phrase counts, bulk operations). The planned "two-screen approach" would replace a sophisticated, tested component that users are familiar with. Analysis revealed only 20 categories exist (not 32 as assumed), significantly reducing complexity needs. Recommendation: Enhancement over replacement preserves user familiarity while adding needed features. This analysis prevented 2-3 weeks of redundant development work. Always audit current implementation capabilities before designing "new" solutions.
 - [2025-06-30] **PHRASE DATABASE GENERATION SUCCESS**: Task 4 completion achieved major milestone with 980 total phrases (98% of 1000+ target). Core categories well-balanced: Movies & TV (76), Food & Drink (71), Music & Artists (71), Sports & Athletes (52). Key insights: (1) Category saturation occurs naturally at 70+ phrases with 90%+ duplicate rates, (2) Quality remains consistently high (80+ average scores) throughout scaling, (3) Infrastructure handles large-scale generation effectively with proper duplicate prevention, (4) Production APIs (OpenAI) maintain quality under sustained generation loads, (5) End-to-end pipeline from generation → scoring → storage → quality control proven at scale. Achievement demonstrates phrase database tool + production API integration works excellently for large-scale content creation while maintaining party game quality standards.
+- [2025-07-01] **TYPESCRIPT JSON IMPORT CONFIGURATION**: When using TypeScript with JSON imports, `resolveJsonModule: true` must be explicitly configured in tsconfig.json. Without this setting, TypeScript will throw `TS1005: ';' expected` errors when trying to import JSON files using ES6 import syntax. This is critical for production deployments where JSON data files are imported directly (e.g., phrase databases). The fix is simple but essential: add `"resolveJsonModule": true` to the compilerOptions in tsconfig.app.json. This enables proper type checking and compilation of JSON imports, preventing build failures during deployment. Always verify TypeScript configuration supports all import types used in the project before deploying to production.
 
 ## Phrase Validation Quick Reference
 
