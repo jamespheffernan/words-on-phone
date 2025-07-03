@@ -54,8 +54,6 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [sound-and-haptics](implementation-plan/sound-and-haptics.md) - ✅ **100% COMPLETE** - Sound Effects and Haptic Feedback (READY FOR MERGE TO MAIN)
 - [app-icon-implementation](implementation-plan/app-icon-implementation.md) - 📋 **READY** - iOS App Icon Implementation
 - [countdown-ripple-redesign](implementation-plan/countdown-ripple-redesign.md) - 📝 **PLANNED** - Countdown Ripple Redesign (Hidden Timer Indicator)
-- [hidden-countdown-redesign](implementation-plan/hidden-countdown-redesign.md) - 📝 **PLANNED** - Hidden Countdown Indicator V2 (Pulsing Halo)
-  - 📌 **NOTE:** Supersedes previous countdown-ripple-redesign plan based on user feedback that ripple approach is unsatisfactory
 - [phrase-review-interface](implementation-plan/phrase-review-interface.md) - 📝 **PLANNED** - Keyboard-Driven Phrase Review Tool
 - [phrase-database-builder-tool](implementation-plan/phrase-database-builder-tool.md) - ✅ **COMPLETED** ✅
   - **All 10 tasks completed successfully**
