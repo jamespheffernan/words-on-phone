@@ -8,6 +8,7 @@ import { useBeepRamp } from '../hooks/useBeepRamp';
 import { useBackgroundWarning } from '../hooks/useBackgroundWarning';
 import { useViewportHeight } from '../hooks/useViewportHeight';
 import { RippleCountdown } from './RippleCountdown';
+import { analytics } from '../services/analytics';
 import './GameScreen.css';
 
 export const GameScreen: React.FC = () => {
@@ -64,12 +65,15 @@ export const GameScreen: React.FC = () => {
         await buzzer.play();
       } catch (error) {
         console.warn('Buzzer failed to play:', error);
+        analytics.trackError('audio_failure', error as Error, 'buzzer_play_initial');
+        
         // Try to reinitialize and play again
         buzzer.preloadSound();
         try {
           await buzzer.play();
         } catch (retryError) {
           console.warn('Buzzer retry also failed:', retryError);
+          analytics.trackError('audio_failure', retryError as Error, 'buzzer_play_retry');
         }
       }
       
@@ -158,7 +162,21 @@ export const GameScreen: React.FC = () => {
   // Viewport height management with fallback
   const { heightValue, supportsDvh } = useViewportHeight();
 
-
+  // Track phrase_shown events
+  useEffect(() => {
+    if (currentPhrase && status === GameStatus.PLAYING) {
+      // Generate a simple phrase ID for tracking
+      const phraseId = `phrase_${currentPhrase.replace(/\s+/g, '_').toLowerCase().substring(0, 20)}`;
+      
+      analytics.track('phrase_shown', {
+        phraseId,
+        categoryName: selectedCategories.join(', ') || 'Unknown',
+        phraseLength: currentPhrase.length,
+        timeRemaining: displayTime,
+        roundNumber: teams.length > 0 ? currentRoundAnswers.length + 1 : undefined
+      });
+    }
+  }, [currentPhrase, status, selectedCategories, displayTime, teams.length, currentRoundAnswers.length]);
 
   return (
     <main 

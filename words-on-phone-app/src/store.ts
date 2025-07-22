@@ -14,6 +14,7 @@ import {
   trackSkipLimitReached,
   trackTimerPreferencesChanged
 } from './firebase/analytics';
+import { analytics } from './services/analytics';
 
 export enum GameStatus {
   MENU = 'menu',
@@ -284,6 +285,16 @@ export const useGameStore = create<GameState>()(
               time_taken_ms: duration,
               attempts_before_success: state.skipsUsed
             });
+            
+            // Track PostHog answer_correct event
+            const phraseId = `phrase_${state.currentPhrase.replace(/\s+/g, '_').toLowerCase().substring(0, 20)}`;
+            analytics.track('answer_correct', {
+              phraseId,
+              timeRemaining: Math.max(0, state.timeRemaining),
+              teamName: state.teams.length > 0 ? state.teams[state.currentTeamIndex]?.name : undefined,
+              scoreAfter: state.teams.length > 0 ? (state.currentRoundAnswers.length + 1) : (state.currentRoundAnswers.length + 1),
+              responseTimeMs: duration
+            });
           }
           const nextPhrase = state.cursor.next();
           
@@ -320,6 +331,17 @@ export const useGameStore = create<GameState>()(
                 category: state.selectedCategory,
                 skips_used: state.skipsUsed + 1,
                 skip_limit: state.skipLimit
+              });
+            }
+            
+            // Track PostHog answer_pass event
+            if (state.currentPhrase) {
+              const phraseId = `phrase_${state.currentPhrase.replace(/\s+/g, '_').toLowerCase().substring(0, 20)}`;
+              analytics.track('answer_pass', {
+                phraseId,
+                reason: nextSkipsRemaining === 0 ? 'skip_limit' : 'user_pass',
+                timeRemaining: Math.max(0, state.timeRemaining),
+                skipsRemaining: nextSkipsRemaining === Infinity ? 999 : nextSkipsRemaining
               });
             }
             
@@ -420,6 +442,8 @@ export const useGameStore = create<GameState>()(
         startTeamSetup: () => set({ status: GameStatus.TEAM_SETUP }),
 
         startGame: () => set((state) => {
+          const gameStartTime = performance.now();
+          
           // Determine actual timer duration based on settings
           const actualDuration = state.useRandomTimer 
             ? state.generateRandomTimerDuration()
@@ -451,6 +475,22 @@ export const useGameStore = create<GameState>()(
           });
 
           const newCursor = new PhraseCursor(Array.from(phraseSet));
+          const gameId = `game_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+          // Track PostHog game_started event
+          analytics.track('game_started', {
+            categoryName: cats.join(', '),
+            timerMode: state.showTimer ? 'visible' : 'hidden',
+            isTeamMode: state.teams.length > 0,
+            teamCount: state.teams.length > 0 ? state.teams.length : undefined,
+            skipLimit: state.skipLimit,
+            gameId,
+            phraseCount: phraseSet.size
+          });
+
+          // Track game start performance
+          const gameInitTime = performance.now() - gameStartTime;
+          analytics.trackPerformance('game_start_time', gameInitTime, 'ms', 'game_initialization');
 
           return {
             status: GameStatus.PLAYING,
@@ -554,6 +594,19 @@ export const useGameStore = create<GameState>()(
 
         // New method to handle buzzer completion and final state transition
         onBuzzerComplete: () => set((state) => {
+          // Track game completion for solo games
+          if (state.teams.length === 0) {
+            const gameId = `game_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            analytics.track('game_completed', {
+              totalCorrect: state.currentRoundAnswers.length,
+              totalPass: state.skipsUsed,
+              durationMs: (state.actualTimerDuration - state.timeRemaining) * 1000,
+              winningTeam: undefined,
+              gameId,
+              endReason: 'timer'
+            });
+          }
+          
           // If teams are set up, go to round end; otherwise go directly to game end
           if (state.teams.length > 0) {
             return {
@@ -648,6 +701,24 @@ export const useGameStore = create<GameState>()(
           // Increment score for winning team
           const teams = [...state.teams];
           if (teams[winningTeamIndex]) teams[winningTeamIndex].score += 1;
+          
+          // Check if this team victory ends the game (7 points)
+          const winningTeam = teams[winningTeamIndex];
+          if (winningTeam && winningTeam.score >= 7) {
+            const gameId = `game_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            const totalCorrect = state.roundStats.reduce((sum, round) => sum + round.totalCorrect, 0) + state.currentRoundAnswers.length;
+            const totalPass = state.roundStats.length * 10; // Rough estimate
+            
+            analytics.track('game_completed', {
+              totalCorrect,
+              totalPass,
+              durationMs: (state.roundNumber * state.actualTimerDuration) * 1000, // Rough estimate
+              winningTeam: winningTeam.name,
+              gameId,
+              endReason: 'victory'
+            });
+          }
+          
           return {
             roundStats: [...state.roundStats, roundStats],
             roundNumber: state.roundNumber + 1,

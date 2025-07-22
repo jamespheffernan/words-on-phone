@@ -1,0 +1,451 @@
+{
+  "dashboard_config": {
+    "project_name": "Words on Phone Analytics",
+    "dashboards": [
+      {
+        "id": "user_engagement",
+        "name": "User Engagement Dashboard",
+        "description": "Monitor user behavior, retention, and engagement patterns",
+        "tiles": [
+          {
+            "id": "dau_trend",
+            "name": "Daily Active Users",
+            "type": "time_series",
+            "query": {
+              "event": "app_start",
+              "breakdown": null,
+              "date_from": "-30d",
+              "interval": "day",
+              "aggregation": "unique_users"
+            },
+            "filters": {
+              "platform": ["web", "ios", "android"],
+              "app_version": "latest"
+            }
+          },
+          {
+            "id": "user_journey_funnel",
+            "name": "User Journey Funnel",
+            "type": "funnel",
+            "query": {
+              "events": [
+                { "event": "app_start" },
+                { "event": "category_selected" },
+                { "event": "game_started" },
+                { "event": "game_completed" }
+              ],
+              "date_from": "-7d"
+            }
+          },
+          {
+            "id": "popular_categories",
+            "name": "Most Popular Categories",
+            "type": "bar_chart",
+            "query": {
+              "event": "category_selected",
+              "breakdown": "categoryName",
+              "date_from": "-30d",
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "game_modes",
+            "name": "Game Mode Distribution",
+            "type": "pie_chart",
+            "query": {
+              "event": "game_started",
+              "breakdown": "isTeamMode",
+              "date_from": "-30d",
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "session_duration",
+            "name": "Average Session Duration",
+            "type": "number",
+            "query": {
+              "event": "app_exit",
+              "property": "sessionDurationMs",
+              "date_from": "-7d",
+              "aggregation": "avg"
+            }
+          }
+        ],
+        "filters": [
+          {
+            "name": "Platform",
+            "property": "platform",
+            "values": ["web", "ios", "android"]
+          },
+          {
+            "name": "App Version",
+            "property": "appVersion",
+            "values": ["all"]
+          }
+        ]
+      },
+      {
+        "id": "game_performance",
+        "name": "Game Performance Dashboard",
+        "description": "Analyze gameplay metrics and user success patterns",
+        "tiles": [
+          {
+            "id": "completion_rate",
+            "name": "Game Completion Rate",
+            "type": "time_series",
+            "query": {
+              "formula": "(game_completed / game_started) * 100",
+              "events": [
+                { "event": "game_started" },
+                { "event": "game_completed" }
+              ],
+              "date_from": "-30d",
+              "interval": "day"
+            }
+          },
+          {
+            "id": "avg_correct_answers",
+            "name": "Average Correct Answers",
+            "type": "bar_chart",
+            "query": {
+              "event": "answer_correct",
+              "breakdown": "categoryName",
+              "date_from": "-30d",
+              "aggregation": "avg"
+            }
+          },
+          {
+            "id": "skip_usage",
+            "name": "Skip Usage Distribution",
+            "type": "histogram",
+            "query": {
+              "event": "answer_pass",
+              "property": "skipsRemaining",
+              "date_from": "-30d",
+              "aggregation": "count"
+            }
+          },
+          {
+            "id": "timer_preferences",
+            "name": "Timer Setting Preferences",
+            "type": "stacked_bar",
+            "query": {
+              "event": "game_started",
+              "breakdown": ["timerMode", "isTeamMode"],
+              "date_from": "-30d",
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "game_duration_dist",
+            "name": "Game Duration Distribution",
+            "type": "histogram",
+            "query": {
+              "event": "game_completed",
+              "property": "durationMs",
+              "date_from": "-30d",
+              "aggregation": "count"
+            }
+          }
+        ]
+      },
+      {
+        "id": "technical_performance",
+        "name": "Technical Performance Dashboard",
+        "description": "Monitor app performance, errors, and technical health",
+        "tiles": [
+          {
+            "id": "error_rate",
+            "name": "Error Rate",
+            "type": "alert_panel",
+            "query": {
+              "event": "error_occurred",
+              "breakdown": "errorType",
+              "date_from": "-24h",
+              "aggregation": "total"
+            },
+            "alerts": [
+              {
+                "condition": "total > 10",
+                "severity": "high",
+                "message": "High error rate detected"
+              }
+            ]
+          },
+          {
+            "id": "performance_metrics",
+            "name": "Performance Metrics",
+            "type": "time_series",
+            "query": {
+              "event": "performance_metric",
+              "breakdown": "metricName",
+              "property": "value",
+              "date_from": "-7d",
+              "aggregation": "avg",
+              "interval": "hour"
+            }
+          },
+          {
+            "id": "audio_success_rate",
+            "name": "Audio System Success Rate",
+            "type": "gauge",
+            "query": {
+              "formula": "(buzzer_success / total_buzzer_attempts) * 100",
+              "event": "buzzer_played",
+              "breakdown": "success",
+              "date_from": "-7d"
+            },
+            "gauge_settings": {
+              "min": 0,
+              "max": 100,
+              "target": 95
+            }
+          },
+          {
+            "id": "pwa_install_funnel",
+            "name": "PWA Install Conversion",
+            "type": "funnel",
+            "query": {
+              "events": [
+                { "event": "pwa_install_prompt" },
+                { "event": "pwa_install_prompt", "properties": { "accepted": true } },
+                { "event": "install" }
+              ],
+              "date_from": "-30d"
+            }
+          },
+          {
+            "id": "error_breakdown",
+            "name": "Error Types Breakdown",
+            "type": "bar_chart",
+            "query": {
+              "event": "error_occurred",
+              "breakdown": "errorType",
+              "date_from": "-7d",
+              "aggregation": "total"
+            }
+          }
+        ]
+      },
+      {
+        "id": "privacy_settings",
+        "name": "Privacy & Settings Dashboard",
+        "description": "Monitor privacy controls usage and settings preferences",
+        "tiles": [
+          {
+            "id": "opt_out_rate",
+            "name": "Analytics Opt-out Rate",
+            "type": "gauge",
+            "query": {
+              "formula": "(opted_out_users / total_users) * 100",
+              "super_property": "isOptedOut",
+              "date_from": "-30d"
+            },
+            "gauge_settings": {
+              "min": 0,
+              "max": 100,
+              "target": 10
+            }
+          },
+          {
+            "id": "privacy_modal_usage",
+            "name": "Privacy Settings Access",
+            "type": "time_series",
+            "query": {
+              "event": "settings_opened",
+              "filters": {
+                "source": "privacy_button"
+              },
+              "date_from": "-30d",
+              "interval": "day",
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "settings_modifications",
+            "name": "Most Changed Settings",
+            "type": "bar_chart",
+            "query": {
+              "event": "setting_changed",
+              "breakdown": "settingName",
+              "date_from": "-30d",
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "analytics_status_dist",
+            "name": "Analytics Status Distribution",
+            "type": "pie_chart",
+            "query": {
+              "super_property": "isOptedOut",
+              "date_from": "-7d",
+              "aggregation": "unique_users"
+            }
+          },
+          {
+            "id": "id_reset_frequency",
+            "name": "Anonymous ID Reset Frequency",
+            "type": "number",
+            "query": {
+              "event": "setting_changed",
+              "filters": {
+                "settingName": "anonymous_id_reset"
+              },
+              "date_from": "-30d",
+              "aggregation": "total"
+            }
+          }
+        ]
+      },
+      {
+        "id": "custom_categories",
+        "name": "Custom Category Dashboard",
+        "description": "Monitor AI-generated category usage and quality",
+        "tiles": [
+          {
+            "id": "category_requests",
+            "name": "Daily Category Requests",
+            "type": "time_series",
+            "query": {
+              "event": "category_request_submitted",
+              "date_from": "-30d",
+              "interval": "day",
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "ai_provider_performance",
+            "name": "AI Provider Success Rates",
+            "type": "bar_chart",
+            "query": {
+              "event": "category_generated",
+              "breakdown": "provider",
+              "date_from": "-30d",
+              "aggregation": "success_rate"
+            }
+          },
+          {
+            "id": "generation_success_rate",
+            "name": "Category Generation Success Rate",
+            "type": "gauge",
+            "query": {
+              "formula": "(category_generated / category_request_submitted) * 100",
+              "date_from": "-30d"
+            },
+            "gauge_settings": {
+              "min": 0,
+              "max": 100,
+              "target": 85
+            }
+          },
+          {
+            "id": "custom_category_usage",
+            "name": "Custom Category Usage",
+            "type": "time_series",
+            "query": {
+              "event": "category_selected",
+              "filters": {
+                "source": "custom"
+              },
+              "date_from": "-30d",
+              "interval": "day",
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "popular_custom_topics",
+            "name": "Popular Custom Topics",
+            "type": "bar_chart",
+            "query": {
+              "event": "category_request_submitted",
+              "breakdown": "requestedCategory",
+              "date_from": "-30d",
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "request_to_usage_funnel",
+            "name": "Request → Usage Conversion",
+            "type": "funnel",
+            "query": {
+              "events": [
+                { "event": "category_request_submitted" },
+                { "event": "category_generated" },
+                { "event": "category_selected", "properties": { "source": "custom" } }
+              ],
+              "date_from": "-30d"
+            }
+          }
+        ]
+      }
+    ],
+    "alerts": [
+      {
+        "name": "High Error Rate",
+        "query": {
+          "event": "error_occurred",
+          "aggregation": "total",
+          "date_from": "-1h"
+        },
+        "condition": "total > 5",
+        "frequency": "every_15_minutes",
+        "channels": ["email", "slack"]
+      },
+      {
+        "name": "Low Game Completion Rate",
+        "query": {
+          "formula": "(game_completed / game_started) * 100",
+          "date_from": "-24h"
+        },
+        "condition": "rate < 70",
+        "frequency": "daily",
+        "channels": ["email"]
+      },
+      {
+        "name": "Audio System Failure",
+        "query": {
+          "event": "buzzer_played",
+          "breakdown": "success",
+          "date_from": "-1h"
+        },
+        "condition": "success_rate < 90",
+        "frequency": "every_30_minutes",
+        "channels": ["slack"]
+      }
+    ],
+    "global_filters": {
+      "exclude_test_users": {
+        "property": "anonymousId",
+        "operator": "not_contains",
+        "value": "test_"
+      },
+      "exclude_opted_out": {
+        "property": "isOptedOut",
+        "operator": "equals",
+        "value": false
+      }
+    }
+  },
+  "setup_instructions": {
+    "prerequisites": [
+      "PostHog account with dashboard creation permissions",
+      "API access key for programmatic setup",
+      "Words on Phone app deployed with PostHog integration"
+    ],
+    "steps": [
+      "1. Import this configuration into PostHog via API or web interface",
+      "2. Verify event data is flowing correctly from the app",
+      "3. Customize dashboard tiles based on specific business needs",
+      "4. Set up alert channels (email, Slack, etc.)",
+      "5. Configure user permissions and sharing settings",
+      "6. Schedule automated reports for stakeholders"
+    ],
+    "validation": [
+      "All dashboard tiles display data correctly",
+      "Filters work across all visualizations",
+      "Alerts trigger appropriately for test conditions",
+      "Mobile responsiveness verified",
+      "Performance is acceptable (<3s load times)"
+    ]
+  }
+} 

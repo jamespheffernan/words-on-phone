@@ -3,6 +3,7 @@ import { useGameStore, BUZZER_SOUNDS } from '../store';
 import { HowToPlayModal } from './HowToPlayModal';
 import { CategoryRequestModal } from './CategoryRequestModal';
 import { VersionDisplay } from './VersionDisplay';
+import { PrivacySettings } from './PrivacySettings';
 import { useAudio } from '../hooks/useAudio';
 import { useHaptics } from '../hooks/useHaptics';
 import { categoryRequestService } from '../services/categoryRequestService';
@@ -12,6 +13,7 @@ import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
 import { CategorySelector } from './CategorySelector';
 import { SelectionBanner } from './SelectionBanner';
 import { QuickPlayWidget } from './QuickPlayWidget';
+import { analytics } from '../services/analytics';
 import './MenuScreen.css';
 
 export const MenuScreen: React.FC = () => {
@@ -39,6 +41,7 @@ export const MenuScreen: React.FC = () => {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showCategoryRequest, setShowCategoryRequest] = useState(false);
+  const [showPrivacySettings, setShowPrivacySettings] = useState(false);
   const { defaultCategories, customCategories, loading: categoriesLoading, reload: reloadCategories } = useCategoryMetadata();
 
   // Audio hooks for testing buzzer sounds (using current working approach)
@@ -157,6 +160,13 @@ export const MenuScreen: React.FC = () => {
           onClick={() => {
             setShowSettings(!showSettings);
             triggerNotification();
+            
+            // Track settings opened
+            if (!showSettings) {
+              analytics.track('settings_opened', {
+                source: 'menu_button'
+              });
+            }
           }}
           aria-label="Toggle settings"
         >
@@ -170,7 +180,15 @@ export const MenuScreen: React.FC = () => {
                 <input
                   type="checkbox"
                   checked={showTimer}
-                  onChange={(e) => setShowTimer(e.target.checked)}
+                  onChange={(e) => {
+                    const newValue = e.target.checked;
+                    analytics.track('setting_changed', {
+                      settingName: 'showTimer',
+                      previousValue: showTimer,
+                      newValue
+                    });
+                    setShowTimer(newValue);
+                  }}
                   className="setting-checkbox"
                 />
                 Show Timer (default: hidden)
@@ -185,7 +203,15 @@ export const MenuScreen: React.FC = () => {
                 <input
                   type="checkbox"
                   checked={useRandomTimer}
-                  onChange={(e) => setUseRandomTimer(e.target.checked)}
+                  onChange={(e) => {
+                    const newValue = e.target.checked;
+                    analytics.track('setting_changed', {
+                      settingName: 'useRandomTimer',
+                      previousValue: useRandomTimer,
+                      newValue
+                    });
+                    setUseRandomTimer(newValue);
+                  }}
                   className="setting-checkbox"
                 />
                 Random Timer Duration (default: enabled)
@@ -239,7 +265,15 @@ export const MenuScreen: React.FC = () => {
                   max="90"
                   step="10"
                   value={timerDuration}
-                  onChange={(e) => setTimerDuration(Number(e.target.value))}
+                  onChange={(e) => {
+                    const newValue = Number(e.target.value);
+                    analytics.track('setting_changed', {
+                      settingName: 'timerDuration',
+                      previousValue: timerDuration,
+                      newValue
+                    });
+                    setTimerDuration(newValue);
+                  }}
                   className="slider"
                 />
               </div>
@@ -249,16 +283,24 @@ export const MenuScreen: React.FC = () => {
               <label htmlFor="skip-limit">
                 Skip Limit: {skipLimit === 0 ? 'Unlimited' : skipLimit}
               </label>
-              <input
-                id="skip-limit"
-                type="range"
-                min="0"
-                max="5"
-                step="1"
-                value={skipLimit}
-                onChange={(e) => setSkipLimit(Number(e.target.value))}
-                className="slider"
-              />
+                              <input
+                  id="skip-limit"
+                  type="range"
+                  min="0"
+                  max="5"
+                  step="1"
+                  value={skipLimit}
+                  onChange={(e) => {
+                    const newValue = Number(e.target.value);
+                    analytics.track('setting_changed', {
+                      settingName: 'skipLimit',
+                      previousValue: skipLimit,
+                      newValue
+                    });
+                    setSkipLimit(newValue);
+                  }}
+                  className="slider"
+                />
             </div>
 
             <div className="setting-item">
@@ -309,7 +351,15 @@ export const MenuScreen: React.FC = () => {
                   <input
                     type="checkbox"
                     checked={isHapticsEnabled()}
-                    onChange={(e) => setHapticsEnabled(e.target.checked)}
+                    onChange={(e) => {
+                      const newValue = e.target.checked;
+                      analytics.track('setting_changed', {
+                        settingName: 'hapticsEnabled',
+                        previousValue: isHapticsEnabled(),
+                        newValue
+                      });
+                      setHapticsEnabled(newValue);
+                    }}
                     className="setting-checkbox"
                   />
                   Enable Haptic Feedback
@@ -333,7 +383,15 @@ export const MenuScreen: React.FC = () => {
                         max="1"
                         step="0.1"
                         value={getHapticIntensity()}
-                        onChange={(e) => setHapticIntensity(Number(e.target.value))}
+                        onChange={(e) => {
+                          const newValue = Number(e.target.value);
+                          analytics.track('setting_changed', {
+                            settingName: 'hapticIntensity',
+                            previousValue: getHapticIntensity(),
+                            newValue
+                          });
+                          setHapticIntensity(newValue);
+                        }}
                         className="slider"
                       />
                       <button
@@ -368,6 +426,27 @@ export const MenuScreen: React.FC = () => {
                 aria-label="Request custom category"
               >
                 🎯 Request Category
+              </button>
+            </div>
+
+            <div className="setting-item privacy-settings-section">
+              <label>Privacy & Analytics</label>
+              <p className="setting-description">
+                Manage your data privacy and analytics preferences
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowPrivacySettings(true);
+                  // Track settings opened
+                  analytics.track('settings_opened', {
+                    source: 'menu_button'
+                  });
+                }}
+                className="privacy-settings-button"
+                aria-label="Open privacy settings"
+              >
+                🔒 Privacy Settings
               </button>
             </div>
           </div>
@@ -412,6 +491,11 @@ export const MenuScreen: React.FC = () => {
         onClose={() => setShowCategoryRequest(false)}
         onRequestCategory={handleCategoryRequest}
         onConfirmGeneration={handleConfirmGeneration}
+      />
+
+      <PrivacySettings
+        isOpen={showPrivacySettings}
+        onClose={() => setShowPrivacySettings(false)}
       />
     </main>
   );

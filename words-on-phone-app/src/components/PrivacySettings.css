@@ -1,0 +1,375 @@
+.privacy-settings {
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: white;
+}
+
+.privacy-settings .modal-body {
+  padding: 1rem;
+}
+
+.privacy-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.privacy-section:last-child {
+  border-bottom: none;
+}
+
+.privacy-section h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.privacy-description {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Analytics Toggle */
+.privacy-toggle {
+  margin: 1rem 0;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-container input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-slider {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 13px;
+  transition: background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-container input:checked + .toggle-slider {
+  background: #4CAF50;
+}
+
+.toggle-container input:checked + .toggle-slider::before {
+  transform: translateX(24px);
+}
+
+.toggle-label {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.privacy-notice {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.privacy-notice p {
+  margin: 0;
+  color: #4CAF50;
+  font-weight: 500;
+}
+
+/* Anonymous ID Display */
+.anonymous-id-display {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.anonymous-id {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 1;
+  min-width: 200px;
+  word-break: break-all;
+}
+
+.reset-id-button {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.reset-id-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.reset-id-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Data Management */
+.clear-data-button {
+  padding: 0.75rem 1.5rem;
+  background: rgba(244, 67, 54, 0.2);
+  border: 1px solid rgba(244, 67, 54, 0.4);
+  color: #f44336;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.clear-data-button:hover {
+  background: rgba(244, 67, 54, 0.3);
+  border-color: rgba(244, 67, 54, 0.6);
+}
+
+.confirm-clear {
+  margin-top: 1rem;
+}
+
+.warning-text {
+  margin: 0 0 1rem 0;
+  color: #f44336;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.2);
+  border-radius: 6px;
+  padding: 0.75rem;
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.confirm-button {
+  padding: 0.75rem 1.5rem;
+  background: rgba(244, 67, 54, 0.8);
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.confirm-button:hover {
+  background: rgba(244, 67, 54, 1);
+}
+
+.cancel-button {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Data Collection List */
+.data-collection-list {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.data-collection-list li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.privacy-note {
+  margin: 1rem 0 0 0;
+  padding: 0.75rem;
+  background: rgba(33, 150, 243, 0.1);
+  border: 1px solid rgba(33, 150, 243, 0.2);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.privacy-note strong {
+  color: #2196F3;
+}
+
+/* Enhanced privacy note variants */
+.privacy-note-info {
+  background: rgba(33, 150, 243, 0.1);
+  border-color: rgba(33, 150, 243, 0.3);
+}
+
+.privacy-note-info strong {
+  color: #2196F3;
+}
+
+.privacy-note-warning {
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.privacy-note-warning strong {
+  color: #FFC107;
+}
+
+.privacy-note-secure {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.privacy-note-secure strong {
+  color: #4CAF50;
+}
+
+.privacy-note-final {
+  background: rgba(156, 39, 176, 0.1);
+  border: 1px solid rgba(156, 39, 176, 0.3);
+  color: rgba(255, 255, 255, 0.95);
+  margin-top: 1rem;
+}
+
+.privacy-note-final strong {
+  color: #AB47BC;
+}
+
+/* Example list styling */
+.privacy-example-list {
+  margin: 0.75rem 0 0 1rem;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.privacy-example-list li {
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+/* Additional resources section */
+.privacy-links {
+  margin: 1rem 0;
+}
+
+.privacy-link-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.privacy-link-item:last-child {
+  margin-bottom: 0;
+}
+
+.privacy-link-item strong {
+  color: #fff;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.privacy-link-item p {
+  margin: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.privacy-link-note {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
+
+.privacy-contact-list {
+  margin: 0.75rem 0 0 1rem;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.privacy-contact-list li {
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .privacy-settings {
+    max-width: 95vw;
+    margin: 1rem;
+  }
+  
+  .anonymous-id-display {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .anonymous-id {
+    min-width: auto;
+    flex: none;
+  }
+  
+  .confirm-buttons {
+    flex-direction: column;
+  }
+  
+  .confirm-button, .cancel-button {
+    width: 100%;
+  }
+} 

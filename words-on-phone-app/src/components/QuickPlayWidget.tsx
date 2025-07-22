@@ -4,6 +4,7 @@ import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
 import { useCategoryPopularity } from '../hooks/useCategoryPopularity';
 import { useHaptics } from '../hooks/useHaptics';
 import { CategoryMetadata } from '../types/category';
+import { analytics } from '../services/analytics';
 import './QuickPlayWidget.css';
 
 interface QuickPlayWidgetProps {
@@ -69,6 +70,20 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
     const randomIndex = Math.floor(Math.random() * eligibleCategories.length);
     const selectedCategory = eligibleCategories[randomIndex];
     
+    // Track surprise me analytics
+    analytics.track('surprise_me_clicked', {
+      selectedCategory: selectedCategory.name,
+      availableCategories: eligibleCategories.length
+    });
+    
+    // Track category selection
+    analytics.track('category_selected', {
+      categoryName: selectedCategory.name,
+      source: 'surprise_me',
+      selectionIndex: randomIndex,
+      isMultiSelect: false
+    });
+    
     setSelectedCategories([selectedCategory.name]);
     triggerNotification();
     onCategorySelected?.(selectedCategory.name);
@@ -84,6 +99,14 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
   const handleLastPlayed = useCallback(() => {
     if (!lastPlayedCategory) return;
     
+    // Track category selection
+    analytics.track('category_selected', {
+      categoryName: lastPlayedCategory.name,
+      source: 'last_played',
+      selectionIndex: 0,
+      isMultiSelect: false
+    });
+    
     setSelectedCategories([lastPlayedCategory.name]);
     triggerImpact();
     onCategorySelected?.(lastPlayedCategory.name);
@@ -97,6 +120,14 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
 
   // Category tile quick start
   const handleCategoryQuickStart = useCallback((categoryName: string) => {
+    // Track category selection
+    analytics.track('category_selected', {
+      categoryName,
+      source: 'quick_play',
+      selectionIndex: allCategories.findIndex(c => c.name === categoryName),
+      isMultiSelect: false
+    });
+    
     setSelectedCategories([categoryName]);
     triggerImpact();
     onCategorySelected?.(categoryName);
@@ -106,7 +137,7 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
       startGame();
       onGameStart?.();
     }, 100);
-  }, [setSelectedCategories, startGame, triggerImpact, onCategorySelected, onGameStart]);
+  }, [allCategories, setSelectedCategories, startGame, triggerImpact, onCategorySelected, onGameStart]);
 
   // Toggle expansion
   const toggleExpanded = useCallback(() => {

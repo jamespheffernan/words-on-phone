@@ -12,6 +12,10 @@ export const env = {
     ? 'http://localhost:8888/.netlify/functions/openai'  // Development: Netlify Dev on port 8888
     : '/api/openai', // Production: uses _redirects to route to /.netlify/functions/openai
   
+  // PostHog Analytics configuration
+  POSTHOG_KEY: import.meta.env.VITE_POSTHOG_KEY,
+  POSTHOG_HOST: import.meta.env.VITE_POSTHOG_HOST || 'https://us.i.posthog.com',
+  
   // Development/production flags
   IS_DEVELOPMENT: import.meta.env.DEV,
   IS_PRODUCTION: import.meta.env.PROD,

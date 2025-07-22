@@ -11,7 +11,9 @@
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "setup-dashboards": "node scripts/setup-posthog-dashboards.js",
+    "cleanup-dashboards": "node scripts/setup-posthog-dashboards.js cleanup"
   },
   "dependencies": {
     "@capacitor/cli": "^7.2.0",
@@ -20,6 +22,7 @@
     "@capacitor/ios": "^7.2.0",
     "firebase": "^11.8.1",
     "idb-keyval": "^6.2.2",
+    "posthog-js": "^1.257.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "zustand": "^5.0.5"

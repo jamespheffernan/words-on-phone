@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { CategoryMetadata } from '../types/category';
 import { useGameStore } from '../store';
 import { DEFAULT_CATEGORY_GROUPS, groupCategoriesByGroup, CategoryGroup, getCategoryIcon } from '../types/category';
+import { analytics } from '../services/analytics';
 import './CategorySelector.css';
 
 type SortKey = 'name' | 'count';
@@ -156,6 +157,22 @@ export const CategorySelector: React.FC<Props> = ({
     const exists = selected.includes(name);
     const next = exists ? selected.filter((n) => n !== name) : [...selected, name];
     onChange(next);
+    
+    // Track category selection
+    if (!exists) { // Only track when selecting, not deselecting
+      const category = rawList.find(c => c.name === name);
+      const categoryGroup = activeTab === 'default' 
+        ? DEFAULT_CATEGORY_GROUPS.find(group => group.categoryNames.includes(name))?.name
+        : undefined;
+      
+      analytics.track('category_selected', {
+        categoryName: name,
+        source: 'grid',
+        categoryGroup,
+        selectionIndex: rawList.findIndex(c => c.name === name),
+        isMultiSelect: selected.length > 0 || next.length > 1
+      });
+    }
   };
 
   // Bulk operations

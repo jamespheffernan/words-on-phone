@@ -1,6 +1,39 @@
-# React + TypeScript + Vite
+# Words on Phone - React PWA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A charades-style party game built with React, TypeScript, and Vite. Features real-time gameplay, team scoring, custom categories, and comprehensive analytics.
+
+## Quick Start
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Set up PostHog Analytics** (optional but recommended):
+   ```bash
+   node setup-analytics.cjs
+   ```
+   Or manually create `.env.local` with your PostHog project key:
+   ```bash
+   VITE_POSTHOG_KEY=phc_your_project_key_here
+   VITE_POSTHOG_HOST=https://us.i.posthog.com
+   ```
+
+3. **Start development server**:
+   ```bash
+   npm run dev
+   ```
+
+## Features
+
+- 🎮 **Real-time Gameplay**: Charades-style word guessing with timer
+- 👥 **Team Mode**: Multi-team scoring and competition
+- 🎯 **Custom Categories**: AI-generated phrases for any topic
+- 📱 **PWA Ready**: Installable on mobile devices
+- 📊 **Analytics**: Comprehensive gameplay analytics with PostHog
+- 🎵 **Audio & Haptics**: Sound effects and vibration feedback
+- 🌙 **Dark Mode**: Automatic theme switching
+- ♿ **Accessible**: Screen reader friendly with ARIA labels
 
 Currently, two official plugins are available:
 

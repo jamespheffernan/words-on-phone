@@ -7,6 +7,7 @@ import { TeamSetup } from './components/TeamSetup';
 import { RoundEndScreen } from './components/RoundEndScreen';
 import { usePhraseWorker } from './hooks/usePhraseWorker';
 import { phraseService } from './services/phraseService';
+import { analytics } from './services/analytics';
 import PWABadge from './PWABadge';
 import './App.css';
 
@@ -20,6 +21,32 @@ function App() {
       phraseService.handleWorkerPhrases(lastFetchResult.phrases);
     }
   }, [lastFetchResult]);
+
+  // Track screen changes
+  useEffect(() => {
+    const getScreenName = (gameStatus: GameStatus) => {
+      switch (gameStatus) {
+        case GameStatus.MENU:
+          return 'Home' as const;
+        case GameStatus.TEAM_SETUP:
+          return 'TeamSetup' as const;
+        case GameStatus.PLAYING:
+        case GameStatus.BUZZER_PLAYING:
+          return 'GameScreen' as const;
+        case GameStatus.ROUND_END:
+          return 'RoundEnd' as const;
+        case GameStatus.ENDED:
+          return 'EndScreen' as const;
+        case GameStatus.PAUSED:
+          return 'PausedScreen' as const;
+        default:
+          return 'Home' as const;
+      }
+    };
+
+    const screenName = getScreenName(status);
+    analytics.trackScreenView(screenName, 'auto_redirect');
+  }, [status]);
 
   const handleTeamWon = (teamIndex: number) => {
     // Complete round (this will increment the team score internally)

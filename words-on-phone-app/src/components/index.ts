@@ -6,4 +6,5 @@ export { CategoryRequestModal } from './CategoryRequestModal';
 export { TeamSetup } from './TeamSetup';
 export { RoundEndScreen } from './RoundEndScreen';
 export { VersionDisplay } from './VersionDisplay';
-export { RippleCountdown } from './RippleCountdown'; 
+export { RippleCountdown } from './RippleCountdown';
+export { PrivacySettings } from './PrivacySettings'; 

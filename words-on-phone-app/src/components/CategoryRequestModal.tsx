@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CategoryRequestModal.css';
 import { detectActiveAIService, getAIServiceDisplayName, getAIServiceEmoji, type AIService } from '../config/environment';
 import { type PhraseScore } from '../services/phraseScorer';
+import { analytics } from '../services/analytics';
 
 interface CustomCategoryPhrase {
   phraseId: string;
@@ -90,6 +91,14 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
 
     setState(prev => ({ ...prev, phase: 'confirming', error: '' }));
     
+    // Track category request submission
+    const requestId = `req_${state.categoryName.toLowerCase().replace(/[^a-z0-9]/g, '_')}_${Date.now()}`;
+    analytics.track('category_request_submitted', {
+      requestedCategory: state.categoryName.trim(),
+      phraseCount: 50, // Estimated phrase count
+      requestId
+    });
+    
     try {
       const sampleWords = await onRequestCategory(state.categoryName.trim());
       setState(prev => ({ 
@@ -109,9 +118,22 @@ export const CategoryRequestModal: React.FC<CategoryRequestModalProps> = ({
 
   const handleConfirmGeneration = async () => {
     setState(prev => ({ ...prev, phase: 'generating' }));
+    const startTime = Date.now();
     
     try {
       const generatedPhrases = await onConfirmGeneration({ name: state.categoryName, description: state.description, tags: state.tags }, state.sampleWords);
+      const generationTime = Date.now() - startTime;
+      
+      // Track category generation completion
+      const requestId = `req_${state.categoryName.toLowerCase().replace(/[^a-z0-9]/g, '_')}_${Date.now()}`;
+      analytics.track('category_generated', {
+        requestedCategory: state.categoryName,
+        generatedCount: generatedPhrases.length,
+        provider: state.aiService === 'openai' ? 'openai' : 'gemini',
+        requestId,
+        durationMs: generationTime
+      });
+      
       setState(prev => ({ 
         ...prev, 
         phase: 'reviewing',
