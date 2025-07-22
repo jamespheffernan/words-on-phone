@@ -200,6 +200,6 @@ describe('PrivacySettings', () => {
     expect(screen.getByText('Game performance and usage statistics')).toBeInTheDocument()
     expect(screen.getByText('Feature interaction and navigation patterns')).toBeInTheDocument()
     expect(screen.getByText('Error logs and crash reports')).toBeInTheDocument()
-    expect(screen.getByText(/We do not collect:/)).toBeInTheDocument()
+    expect(screen.getByText(/We NEVER collect:/)).toBeInTheDocument()
   })
 }) 
