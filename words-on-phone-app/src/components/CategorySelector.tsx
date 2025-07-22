@@ -160,7 +160,8 @@ export const CategorySelector: React.FC<Props> = ({
     
     // Track category selection
     if (!exists) { // Only track when selecting, not deselecting
-      const category = rawList.find(c => c.name === name);
+      // Find category for validation (currently unused but may be needed for future validation)
+      // const category = rawList.find(c => c.name === name);
       const categoryGroup = activeTab === 'default' 
         ? DEFAULT_CATEGORY_GROUPS.find(group => group.categoryNames.includes(name))?.name
         : undefined;

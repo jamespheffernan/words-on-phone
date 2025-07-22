@@ -253,18 +253,7 @@ class AnalyticsService {
     })
   }
 
-  /**
-   * Check if user has opted out of analytics
-   */
-  private checkOptOutStatus(): boolean {
-    // Check localStorage for existing analytics opt-out setting
-    try {
-      const optOut = localStorage.getItem('analyticsOptOut')
-      return optOut === 'true'
-    } catch {
-      return false
-    }
-  }
+  // Removed unused checkOptOutStatus method - opt-out status is handled in loadUserPreferences
 
   /**
    * Get current opt-out status

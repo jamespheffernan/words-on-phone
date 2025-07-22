@@ -34,6 +34,7 @@ window.addEventListener('beforeunload', () => {
 })
 
 // Track PWA install events
+// @ts-ignore - PWA install prompt variable used in event listeners
 let deferredPrompt: any = null;
 
 window.addEventListener('beforeinstallprompt', (e) => {
