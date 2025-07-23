@@ -88,6 +88,9 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
   - **FIRST-TIME USER ENHANCEMENT**: Added "Get Started" button for users with no play history, improving onboarding with welcoming UI and messaging
   - 🎯 **PROJECT STATUS**: ✅ **COMPLETE** - Enhanced category selection UI deployed to production via Netlify
   - 🚀 **USER IMPACT**: Production-ready Quick Play widget transforming category selection from 10+ taps to 1-2 taps
+- [xxx-category-generation](implementation-plan/xxx-category-generation.md) - 🆕 **PLANNED** - XXX (Adult) Category Phrase Generation
+  - 🎯 **GOAL**: Add a new "XXX" (adult/illicit) category with 100+ fun, risqué, and sexy phrases for adult party play
+  - **STATUS**: Planning complete, ready for Executor to begin implementation
 
 ## Current Bug Fix / Executor Work
 
