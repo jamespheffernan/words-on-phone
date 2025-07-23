@@ -199,16 +199,7 @@ class AnalyticsService {
    * Initialize PostHog with environment configuration
    */
   init() {
-    // Debug environment variables
-    console.log('🔍 PostHog Debug Info:')
-    console.log('  POSTHOG_KEY exists:', !!env.POSTHOG_KEY)
-    console.log('  POSTHOG_KEY starts with phc_:', env.POSTHOG_KEY?.startsWith('phc_'))
-    console.log('  POSTHOG_HOST:', env.POSTHOG_HOST)
-    console.log('  Already initialized:', this.isInitialized)
-    
     if (this.isInitialized || !env.POSTHOG_KEY) {
-      console.log('❌ PostHog init skipped:', 
-        this.isInitialized ? 'already initialized' : 'missing POSTHOG_KEY')
       return
     }
 
