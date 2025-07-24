@@ -107,29 +107,37 @@ async function postHogRequest(endpoint, method = 'GET', data = null) {
 }
 
 /**
- * Get project ID from PostHog using project-scoped API
+ * Get project ID from PostHog API
  */
 async function getProjectId() {
   try {
     console.log('🔍 Finding project ID...')
     
-    // For project-scoped API keys, we can use the current project endpoint
-    // or extract project ID from any project-scoped response
-    const insights = await postHogRequest('insights/?limit=1')
+    // Get the user info first, which includes team/project information
+    const userInfo = await postHogRequest('users/@me/')
     
-    // If we can make a successful project-scoped request, use a fixed project reference
-    if (insights || insights === null) {
-      console.log('✅ Using project-scoped API key context')
-      // Return a project identifier that works with project-scoped endpoints
-      return 'current'
+    if (userInfo && userInfo.team) {
+      console.log(`✅ Found project: ${userInfo.team.name} (ID: ${userInfo.team.id})`)
+      return userInfo.team.id
     }
     
-    throw new Error('Could not verify project access')
+    // Fallback: try to get project list and find by API key
+    const projects = await postHogRequest('projects/')
+    
+    if (projects && projects.results) {
+      // Find project that matches our API key
+      const project = projects.results.find(p => p.api_token === PROJECT_KEY)
+      
+      if (project) {
+        console.log(`✅ Found project: ${project.name} (ID: ${project.id})`)
+        return project.id
+      }
+    }
+    
+    throw new Error('Could not find project ID')
   } catch (error) {
-    console.log('⚠️  Using fallback project identification')
     console.error('❌ Failed to get project ID:', error.message)
-    // Use 'current' as project ID for project-scoped keys
-    return 'current'
+    throw error
   }
 }
 

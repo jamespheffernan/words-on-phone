@@ -199,7 +199,17 @@ class AnalyticsService {
    * Initialize PostHog with environment configuration
    */
   init() {
-    if (this.isInitialized || !env.POSTHOG_KEY) {
+    if (this.isInitialized) {
+      return
+    }
+
+    // Check for PostHog key and provide detailed logging
+    if (!env.POSTHOG_KEY) {
+      console.warn('🚨 PostHog Analytics disabled - VITE_POSTHOG_KEY environment variable not found')
+      console.warn('   To enable analytics:')
+      console.warn('   1. Add VITE_POSTHOG_KEY to your environment variables')
+      console.warn('   2. For local development: create .env.local file with VITE_POSTHOG_KEY=your_key')
+      console.warn('   3. For production: add VITE_POSTHOG_KEY to Netlify environment variables')
       return
     }
 

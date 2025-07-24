@@ -92,6 +92,11 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
   - 🎯 **GOAL**: Add a new "XXX" (adult/illicit) category with 100+ fun, risqué, and sexy phrases for adult party play
   - **STATUS**: Planning complete, ready for Executor to begin implementation
 
+- [posthog-instrumentation](implementation-plan/posthog-instrumentation.md) - 🚑 **BUGFIX IN PROGRESS** - Missing PostHog Events in Production
+  - 🎯 **GOAL**: Restore event flow from production app to PostHog dashboards
+  - 🛠️ **STATUS**: Planning phase – Tasks 10-15 defined (see implementation plan)
+  - 📅 **ETA**: Initial hot-fix PR within 24 h after reproducing issue and env audit
+
 ## Current Bug Fix / Executor Work
 
 - ✅ **CRITICAL BUZZER SYSTEM FIX**: Buzzer Audio System Restoration (AudioContext Closed State)

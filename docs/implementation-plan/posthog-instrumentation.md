@@ -310,3 +310,52 @@ Ready to proceed with production rollout:
 - **User Experience**: Enhanced app improvement based on anonymous usage insights
 
 **🏆 PROJECT COMPLETE**: PostHog analytics integration successfully deployed to production with full privacy controls, comprehensive documentation, and operational monitoring dashboards. 
+
+---
+
+### Bug Fix • 2025-07-24 – Missing PostHog Events in Production 🚨
+
+Despite analytics being reported as live, production is currently **not sending any events** to PostHog ("1 user online" only, zero events).  We need a rapid-response bug-fix iteration to restore end-to-end analytics.
+
+#### Project Status Board (Bug-Fix)
+- [ ] **Task 10** – Reproduce Issue & Network Debugging (verify capture calls, console output)
+- [ ] **Task 11** – Environment Variable Verification & Hot-fix (ensure `VITE_POSTHOG_KEY` available **or** add fallback)
+- [ ] **Task 12** – Add Runtime Debug Logging + Init Guard (warn if analytics disabled)
+- [ ] **Task 13** – Production Deployment & Post-deployment Verification (events visible in PostHog)
+- [ ] **Task 14** – Automated Tests for Analytics Init & Event Capture (unit + Cypress)
+- [ ] **Task 15** – Documentation & Lessons Learned Update
+
+#### High-level Task Breakdown
+1. **Reproduce + Collect Evidence**  
+   • Load production site, open DevTools Network → filter `/?v=...&ip=...` (PostHog)  
+   • Confirm whether `https://us.i.posthog.com/capture` requests fire or are blocked.  
+   • Check console for "PostHog analytics initialized" message.
+
+2. **Environment Variable Audit**  
+   • Inspect `env.POSTHOG_KEY` value in production (console `import.meta.env`).  
+   • Hypothesis: Netlify env variable is `POSTHOG_KEY` (no `VITE_` prefix) so code receives `undefined`.  
+   • Fix Options:  
+     a) Add `VITE_POSTHOG_KEY` & (optional) `VITE_POSTHOG_HOST` in Netlify dashboard.  
+     b) OR modify `environment.ts` to fallback to `POSTHOG_KEY` when `VITE_POSTHOG_KEY` missing.
+
+3. **Code Hot-fix & Debug Logging**  
+   • Update `environment.ts` fallback logic.  
+   • In `AnalyticsService.init()` log explicit warning if key missing (`console.warn('PostHog disabled – missing key')`).
+
+4. **Local & Preview Verification**  
+   • Serve app locally with `VITE_POSTHOG_KEY` to ensure events fire.  
+   • Deploy Netlify Deploy Preview ↗ check PostHog live events.
+
+5. **Production Deployment**  
+   • Merge hot-fix branch `bugfix/posthog-events` → `main` (squash).  
+   • Verify events visible in production dashboards within 5-10 minutes.
+
+6. **Automated Test Coverage**  
+   • Unit test: `env.POSTHOG_KEY` undefined → `init()` early-exit + warning.  
+   • Add Cypress test to spy on `window.posthog.capture` for `screen_viewed` on app load.
+
+7. **Documentation & Lessons Learned**  
+   • Update `docs/analytics/README.md` env-var section.  
+   • Add scratchpad entry summarizing root cause & fix.
+
+--- 
