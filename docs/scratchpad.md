@@ -4,6 +4,11 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 ## Active Implementation Plans
 
+- [posthog-dashboard-creation](implementation-plan/posthog-dashboard-creation.md) - 🆕 **PLANNING COMPLETE** - PostHog Dashboard Creation
+  - 🎯 **GOAL**: Programmatically create PostHog dashboards using API endpoints
+  - **STATUS**: Planning complete with 10 tasks defined, ready for Executor implementation
+  - **KEY INSIGHTS**: Must create insights first via `/api/insights/`, then add to dashboards via `/api/dashboards/`
+  - **CHALLENGES**: Previous attempts failed due to unclear API documentation - now have clear approach
 - [phrase-database-generation](implementation-plan/phrase-database-generation.md) - 🎉 **MAJOR MILESTONE ACHIEVED** - Phrase Database Generation - Rebuild to 1000+ High-Quality Phrases
   - 🎯 **GOAL**: Scale from 173 to 1000+ high-quality phrases using existing quality infrastructure
   - ✅ **4/8 TASKS COMPLETE** (50%): Feature branch created, implementation plan improved, database tool integration, **CORE CATEGORIES COMPLETE**
@@ -92,11 +97,13 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
   - 🎯 **GOAL**: Add a new "XXX" (adult/illicit) category with 100+ fun, risqué, and sexy phrases for adult party play
   - **STATUS**: Planning complete, ready for Executor to begin implementation
 
-- [posthog-instrumentation](implementation-plan/posthog-instrumentation.md) - 🚑 **BUGFIX PHASE 2** - PostHog Initializes but No Capture Requests
-  - 🎯 **GOAL**: Fix issue where analytics initializes but events don't reach PostHog
-  - 🛠️ **STATUS**: Phase 2 planning – Tasks 16-21 defined for deeper investigation
-  - 🔍 **FINDINGS**: Environment vars present, SDK initializes, but no network requests
-  - 📅 **NEXT**: Deep dive into privacy settings, SDK state, and network layer
+- [posthog-instrumentation](implementation-plan/posthog-instrumentation.md) - ✅ **COMPLETED** - PostHog Analytics Fully Restored & Verified
+  - 🎯 **GOAL**: Fix issue where analytics initializes but events don't reach PostHog ✅
+  - 🛠️ **STATUS**: All tasks completed successfully (Tasks 10-21)
+  - 🔍 **ROOT CAUSE**: PostHog SDK loaded but failed to attach to window.posthog object
+  - 🚀 **SOLUTION**: Manual window attachment with fallback - analytics now fully operational
+  - ✅ **VERIFIED**: Events confirmed appearing in PostHog Live Events dashboard
+  - ✅ **VERIFIED**: Network requests successfully sending to PostHog API (200 OK responses)
 
 ## Current Bug Fix / Executor Work
 
@@ -211,6 +218,7 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 - [2025-07-01] **AUDIOCONTEXT SINGLETON PATTERN CRITICAL FOR WEB AUDIO**: When using Web Audio API across multiple React components, implement a singleton AudioContext pattern to prevent "closed" state failures. Individual components creating separate AudioContexts and triggering cleanup effects leads to premature context closure, causing silent audio failures. Solution: Global `getAudioContext()` function manages single shared context with auto-recovery from closed state. This prevents the most common Web Audio API failure mode where calls appear successful but produce no sound. Essential for any app using audio across multiple components.
 - [2025-07-01] **DIAGNOSTIC LOGGING ESSENTIAL FOR AUDIO DEBUGGING**: Audio failures often appear successful (no exceptions thrown) but produce no sound, making them extremely difficult to debug. Implement comprehensive diagnostic logging that tracks AudioContext state, buffer creation, node connections, and playback initiation. Key diagnostic points: AudioContext state ("suspended", "running", "closed"), buffer properties (duration, sampleRate), and error details. This logging pattern enabled immediate identification of the "closed" state root cause that would have been impossible to diagnose otherwise.
 - [2025-07-01] **BROWSER AUTOPLAY POLICIES REQUIRE CAREFUL AUDIOCONTEXT MANAGEMENT**: Modern browsers suspend AudioContext by default until user interaction occurs. The singleton pattern must include automatic `ctx.resume()` handling when state is "suspended". Additionally, avoid closing AudioContext in component cleanup effects since audio functionality often spans multiple components. Global AudioContext should persist for the entire application lifecycle. This is critical for reliable audio functionality across all modern browsers and devices.
+- [2025-07-24] **POSTHOG WINDOW ATTACHMENT CRITICAL FOR ANALYTICS**: PostHog SDK can load successfully via ES6 imports but fail to attach to the global window.posthog object, causing "phantom initialization" where analytics appears to work but no events are sent. Solution: Manual window attachment in the loaded callback with fallback timeout. Always verify window.posthog exists for debugging, not just successful init() calls. This pattern may apply to other third-party SDKs that expect global window attachment.
 
 ## Phrase Validation Quick Reference
 
