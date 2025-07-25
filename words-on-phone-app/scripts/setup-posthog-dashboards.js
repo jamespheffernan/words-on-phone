@@ -17,6 +17,8 @@
  *   npm run setup-dashboards
  *   or
  *   node scripts/setup-posthog-dashboards.js
+ *   node scripts/setup-posthog-dashboards.js --config core-insights-test.json
+ *   node scripts/setup-posthog-dashboards.js cleanup
  * 
  * Environment Variables Required:
  *   VITE_POSTHOG_KEY - PostHog project API key
@@ -52,7 +54,10 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 // Configuration
-const CONFIG_PATH = path.join(__dirname, '../../docs/analytics/posthog-dashboard-config.json')
+const DEFAULT_CONFIG_PATH = path.join(__dirname, '../../docs/analytics/posthog-dashboard-config.json')
+const CONFIG_PATH = process.argv.includes('--config') ? 
+  path.join(__dirname, '../../docs/analytics/', process.argv[process.argv.indexOf('--config') + 1]) : 
+  DEFAULT_CONFIG_PATH
 const POSTHOG_HOST = process.env.VITE_POSTHOG_HOST?.replace('i.posthog.com', 'posthog.com') || 'https://us.posthog.com'
 const POSTHOG_API_KEY = process.env.POSTHOG_PERSONAL_API_KEY
 const PROJECT_KEY = process.env.VITE_POSTHOG_KEY
@@ -116,7 +121,8 @@ function loadConfig() {
   try {
     const configData = fs.readFileSync(CONFIG_PATH, 'utf8')
     const config = JSON.parse(configData)
-    logger.success(`Loaded configuration for ${config.dashboard_config.dashboards.length} dashboards`)
+    logger.success(`Loaded configuration from: ${path.basename(CONFIG_PATH)}`)
+    logger.success(`Found ${config.dashboard_config.dashboards.length} dashboards to create`)
     return config
   } catch (error) {
     logger.error(`Failed to load dashboard configuration: ${error.message}`)
@@ -281,6 +287,21 @@ function convertToPostHogQuery(tileConfig) {
       }
       baseQuery.source.dateRange = {
         date_from: tileConfig.query.date_from || '-30d'
+      }
+      break
+      
+    case 'number':
+      baseQuery.source.kind = "TrendsQuery"
+      baseQuery.source.series = [{
+        kind: "EventsNode",
+        event: tileConfig.query.event,
+        name: tileConfig.query.event,
+        math: tileConfig.query.aggregation === 'avg' ? 'avg' : 'total',
+        math_property: tileConfig.query.property || undefined,
+        version: 1
+      }]
+      baseQuery.source.dateRange = {
+        date_from: tileConfig.query.date_from || '-7d'
       }
       break
       
@@ -547,7 +568,32 @@ async function cleanupDashboards() {
 }
 
 // Command line handling
-const command = process.argv[2]
+const args = process.argv.slice(2)
+const command = args.find(arg => !arg.startsWith('--') && !args[args.indexOf(arg) - 1]?.startsWith('--')) || 'setup'
+
+// Show help if requested
+if (args.includes('--help') || args.includes('-h')) {
+  console.log(`
+PostHog Dashboard Setup Script
+
+Usage:
+  node scripts/setup-posthog-dashboards.js [command] [options]
+
+Commands:
+  setup    Create dashboards (default)
+  cleanup  Remove existing Words on Phone dashboards
+
+Options:
+  --config <file>    Use custom config file (default: posthog-dashboard-config.json)
+  --help, -h         Show this help message
+
+Examples:
+  node scripts/setup-posthog-dashboards.js
+  node scripts/setup-posthog-dashboards.js --config core-insights-test.json
+  node scripts/setup-posthog-dashboards.js cleanup
+`)
+  process.exit(0)
+}
 
 switch (command) {
   case 'cleanup':

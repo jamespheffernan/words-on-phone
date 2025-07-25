@@ -1,0 +1,104 @@
+{
+  "dashboard_config": {
+    "project_name": "Words on Phone Core Insights Test",
+    "dashboards": [
+      {
+        "id": "core_insights_test",
+        "name": "Words on Phone - Core Insights",
+        "description": "Core analytics insights for Words on Phone game performance",
+        "tiles": [
+          {
+            "id": "daily_active_users",
+            "name": "Daily Active Users",
+            "type": "time_series",
+            "query": {
+              "event": "app_start",
+              "breakdown": null,
+              "date_from": "-30d",
+              "interval": "day",
+              "aggregation": "unique_users"
+            },
+            "filters": {
+              "platform": ["web", "ios", "android"]
+            }
+          },
+          {
+            "id": "game_completions",
+            "name": "Game Completions",
+            "type": "time_series",
+            "query": {
+              "event": "game_ended",
+              "breakdown": null,
+              "date_from": "-30d", 
+              "interval": "day",
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "category_performance",
+            "name": "Category Performance",
+            "type": "bar_chart",
+            "query": {
+              "event": "category_selected",
+              "breakdown": "categoryName",
+              "date_from": "-30d",
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "skip_usage",
+            "name": "Skip Usage",
+            "type": "time_series",
+            "query": {
+              "event": "answer_pass",
+              "breakdown": null,
+              "date_from": "-30d",
+              "interval": "day", 
+              "aggregation": "total"
+            }
+          },
+          {
+            "id": "avg_game_duration",
+            "name": "Average Game Duration",
+            "type": "number",
+            "query": {
+              "event": "game_ended",
+              "property": "durationMs",
+              "date_from": "-7d",
+              "aggregation": "avg"
+            }
+          }
+        ],
+        "filters": [
+          {
+            "name": "Platform",
+            "property": "platform",
+            "values": ["web", "ios", "android"]
+          }
+        ]
+      }
+    ],
+    "alerts": [],
+    "global_filters": {
+      "exclude_test_users": {
+        "property": "anonymousId",
+        "operator": "not_contains",
+        "value": "test_"
+      }
+    }
+  },
+  "setup_instructions": {
+    "prerequisites": [
+      "PostHog Personal API key configured",
+      "Words on Phone app sending events to PostHog",
+      "Core events available: app_start, game_ended, category_selected, answer_pass"
+    ],
+    "validation": [
+      "Daily Active Users shows trend data",
+      "Game Completions tracks completed games",
+      "Category Performance shows breakdown by category",
+      "Skip Usage tracks pass events",
+      "Average Game Duration shows calculated average"
+    ]
+  }
+} 
