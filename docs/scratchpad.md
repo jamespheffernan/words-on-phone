@@ -92,10 +92,11 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
   - 🎯 **GOAL**: Add a new "XXX" (adult/illicit) category with 100+ fun, risqué, and sexy phrases for adult party play
   - **STATUS**: Planning complete, ready for Executor to begin implementation
 
-- [posthog-instrumentation](implementation-plan/posthog-instrumentation.md) - 🚑 **BUGFIX IN PROGRESS** - Missing PostHog Events in Production
-  - 🎯 **GOAL**: Restore event flow from production app to PostHog dashboards
-  - 🛠️ **STATUS**: Planning phase – Tasks 10-15 defined (see implementation plan)
-  - 📅 **ETA**: Initial hot-fix PR within 24 h after reproducing issue and env audit
+- [posthog-instrumentation](implementation-plan/posthog-instrumentation.md) - 🚑 **BUGFIX PHASE 2** - PostHog Initializes but No Capture Requests
+  - 🎯 **GOAL**: Fix issue where analytics initializes but events don't reach PostHog
+  - 🛠️ **STATUS**: Phase 2 planning – Tasks 16-21 defined for deeper investigation
+  - 🔍 **FINDINGS**: Environment vars present, SDK initializes, but no network requests
+  - 📅 **NEXT**: Deep dive into privacy settings, SDK state, and network layer
 
 ## Current Bug Fix / Executor Work
 

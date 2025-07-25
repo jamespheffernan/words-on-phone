@@ -359,20 +359,32 @@ class AnalyticsService {
     eventName: T,
     properties: AnalyticsEvent[T]
   ) {
-    if (!this.isInitialized || this.isOptedOut) {
+    // Debug logging for all track attempts
+    console.log(`📊 Analytics track() called:`, eventName, properties);
+    
+    if (!this.isInitialized) {
+      console.warn(`📊 Analytics not initialized - skipping event: ${eventName}`);
+      return
+    }
+    
+    if (this.isOptedOut) {
+      console.warn(`📊 Analytics opted out - skipping event: ${eventName}`);
       return
     }
 
     // Apply sampling for high-volume events
     const samplingRate = SAMPLING_RATES[eventName as keyof typeof SAMPLING_RATES] || SAMPLING_RATES.default
     if (Math.random() > samplingRate) {
+      console.log(`📊 Event sampled out (${Math.round(samplingRate * 100)}% rate): ${eventName}`);
       return
     }
 
     try {
+      console.log(`📊 Calling posthog.capture():`, eventName, properties);
       posthog.capture(eventName, properties)
+      console.log(`📊 PostHog capture call completed for: ${eventName}`);
     } catch (error) {
-      console.error('Failed to track event:', eventName, error)
+      console.error('📊 Failed to track event:', eventName, error)
     }
   }
 
@@ -397,13 +409,18 @@ class AnalyticsService {
    * Track app start event
    */
   trackAppStart() {
+    console.log('📊 trackAppStart() called');
+    
     const launchSource = this.detectLaunchSource()
     const hasSavedState = this.hasSavedGameState()
     const loadTimeMs = Date.now() - this.sessionStartTime
 
+    console.log('📊 App start metrics:', { launchSource, hasSavedState, loadTimeMs });
+
     // Check if this is first install
     const isFirstVisit = !localStorage.getItem('analyticsInstallDate')
     if (isFirstVisit) {
+      console.log('📊 First visit detected - tracking install');
       this.trackInstall()
     }
 
