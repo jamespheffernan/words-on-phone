@@ -122,6 +122,9 @@ Success criteria: Both dashboards created with relevant insights
 - [2025-01-22] PostHog has both Dashboards and Insights APIs - insights must be created first, then added to dashboards
 - [2025-01-22] Personal API keys need specific scopes for creating dashboards/insights
 - [2025-01-22] PostHog provides OpenAPI spec that can be downloaded when logged in for exact payload structures
+- [2025-01-22] **API Research Success**: Found existing setup-posthog-dashboards.js script already implements basic dashboard creation via API
+- [2025-01-22] **Payload Structure Identified**: Dashboard creation requires name, description, filters, and tags; Insights require query object with specific structure
+- [2025-01-22] **Rate Limits Critical**: 240/min and 1200/hour for analytics endpoints - must implement proper throttling for large-scale dashboard creation
 
 ## Current Status / Progress Tracking
 
