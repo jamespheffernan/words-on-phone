@@ -214,10 +214,6 @@ class AnalyticsService {
     }
 
     try {
-      console.log('📊 Starting PostHog initialization...');
-      console.log('📊 PostHog import object:', typeof posthog, posthog);
-      console.log('📊 PostHog init method:', typeof posthog.init);
-      
       posthog.init(env.POSTHOG_KEY, {
         api_host: env.POSTHOG_HOST,
         person_profiles: 'identified_only', // Only create profiles for identified users
@@ -226,15 +222,9 @@ class AnalyticsService {
         disable_session_recording: true, // Disable by default for privacy
         opt_out_capturing_by_default: this.isOptedOut, // Respect user preference
         loaded: (posthog) => {
-          console.log('📊 PostHog loaded callback triggered');
-          console.log('📊 PostHog instance in callback:', typeof posthog, posthog);
-          console.log('📊 window.posthog after init:', typeof (window as any).posthog);
-          
           // CRITICAL FIX: Manually attach PostHog to window if not already there
           if (typeof (window as any).posthog === 'undefined') {
-            console.log('📊 Manually attaching PostHog to window object');
             (window as any).posthog = posthog;
-            console.log('📊 window.posthog after manual attachment:', typeof (window as any).posthog);
           }
           
           // Set anonymous ID and super properties
@@ -250,15 +240,10 @@ class AnalyticsService {
         }
       })
 
-      console.log('📊 PostHog.init() call completed');
-      console.log('📊 window.posthog immediately after init:', typeof (window as any).posthog);
-      
       // Additional fallback: Attach PostHog to window if still not there
       setTimeout(() => {
         if (typeof (window as any).posthog === 'undefined') {
-          console.log('📊 PostHog still not on window - applying fallback attachment');
           (window as any).posthog = posthog;
-          console.log('📊 Fallback attachment complete:', typeof (window as any).posthog);
         }
       }, 100);
       
@@ -386,36 +371,20 @@ class AnalyticsService {
     eventName: T,
     properties: AnalyticsEvent[T]
   ) {
-    // Debug logging for all track attempts
-    console.log(`📊 Analytics track() called:`, eventName, properties);
-    
-    if (!this.isInitialized) {
-      console.warn(`📊 Analytics not initialized - skipping event: ${eventName}`);
-      return
-    }
-    
-    if (this.isOptedOut) {
-      console.warn(`📊 Analytics opted out - skipping event: ${eventName}`);
+    if (!this.isInitialized || this.isOptedOut) {
       return
     }
 
     // Apply sampling for high-volume events
     const samplingRate = SAMPLING_RATES[eventName as keyof typeof SAMPLING_RATES] || SAMPLING_RATES.default
     if (Math.random() > samplingRate) {
-      console.log(`📊 Event sampled out (${Math.round(samplingRate * 100)}% rate): ${eventName}`);
       return
     }
 
     try {
-      console.log(`📊 Calling posthog.capture():`, eventName, properties);
-      console.log(`📊 posthog object:`, typeof posthog, posthog);
-      console.log(`📊 posthog.capture method:`, typeof posthog.capture);
-      console.log(`📊 window.posthog:`, typeof (window as any).posthog);
-      
       posthog.capture(eventName, properties)
-      console.log(`📊 PostHog capture call completed for: ${eventName}`);
     } catch (error) {
-      console.error('📊 Failed to track event:', eventName, error)
+      console.error('Failed to track event:', eventName, error)
     }
   }
 
@@ -440,18 +409,13 @@ class AnalyticsService {
    * Track app start event
    */
   trackAppStart() {
-    console.log('📊 trackAppStart() called');
-    
     const launchSource = this.detectLaunchSource()
     const hasSavedState = this.hasSavedGameState()
     const loadTimeMs = Date.now() - this.sessionStartTime
 
-    console.log('📊 App start metrics:', { launchSource, hasSavedState, loadTimeMs });
-
     // Check if this is first install
     const isFirstVisit = !localStorage.getItem('analyticsInstallDate')
     if (isFirstVisit) {
-      console.log('📊 First visit detected - tracking install');
       this.trackInstall()
     }
 
