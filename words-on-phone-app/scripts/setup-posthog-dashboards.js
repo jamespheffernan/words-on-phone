@@ -1,10 +1,17 @@
 #!/usr/bin/env node
 
 /**
- * PostHog Dashboard Setup Script
+ * PostHog Dashboard Setup Script (Enhanced)
  * 
  * This script automatically creates PostHog dashboards based on the configuration
  * defined in docs/analytics/posthog-dashboard-config.json
+ * 
+ * Enhanced with:
+ * - Improved error handling and logging
+ * - Personal API key authentication
+ * - Rate limit handling
+ * - Comprehensive dashboard creation from config
+ * - Better validation and verification
  * 
  * Usage:
  *   npm run setup-dashboards
@@ -12,9 +19,9 @@
  *   node scripts/setup-posthog-dashboards.js
  * 
  * Environment Variables Required:
- *   VITE_POSTHOG_KEY - PostHog API key
- *   VITE_POSTHOG_HOST - PostHog host URL
- *   POSTHOG_PERSONAL_API_KEY - Personal API key for dashboard creation
+ *   VITE_POSTHOG_KEY - PostHog project API key
+ *   VITE_POSTHOG_HOST - PostHog host URL (default: https://us.posthog.com)
+ *   POSTHOG_PERSONAL_API_KEY - Personal API key for dashboard creation (required)
  */
 
 import fs from 'fs'
@@ -46,18 +53,60 @@ const __dirname = path.dirname(__filename)
 
 // Configuration
 const CONFIG_PATH = path.join(__dirname, '../../docs/analytics/posthog-dashboard-config.json')
-const POSTHOG_HOST = process.env.VITE_POSTHOG_HOST || 'https://us.i.posthog.com'
+const POSTHOG_HOST = process.env.VITE_POSTHOG_HOST?.replace('i.posthog.com', 'posthog.com') || 'https://us.posthog.com'
 const POSTHOG_API_KEY = process.env.POSTHOG_PERSONAL_API_KEY
 const PROJECT_KEY = process.env.VITE_POSTHOG_KEY
 
+// Rate limiting configuration
+const RATE_LIMIT = {
+  REQUESTS_PER_MINUTE: 240,
+  REQUESTS_PER_HOUR: 1200,
+  REQUEST_DELAY: 250 // 250ms between requests
+}
+
+// Request tracking for rate limiting
+let requestCount = 0
+let requestHistory = []
+
 if (!POSTHOG_API_KEY) {
   console.error('❌ POSTHOG_PERSONAL_API_KEY environment variable is required')
+  console.error('   This key is needed to create dashboards and insights via the PostHog API')
+  console.error('   Get your Personal API key from: PostHog Settings → Account → Personal API Keys')
   process.exit(1)
 }
 
 if (!PROJECT_KEY) {
   console.error('❌ VITE_POSTHOG_KEY environment variable is required')  
+  console.error('   This is your project API key found in: PostHog Settings → Project → Project API Key')
   process.exit(1)
+}
+
+/**
+ * Enhanced logging with timestamps and color coding
+ */
+const logger = {
+  info: (message) => console.log(`🔵 [${new Date().toISOString()}] ${message}`),
+  success: (message) => console.log(`✅ [${new Date().toISOString()}] ${message}`),
+  warning: (message) => console.log(`⚠️  [${new Date().toISOString()}] ${message}`),
+  error: (message) => console.error(`❌ [${new Date().toISOString()}] ${message}`),
+  debug: (message) => process.env.DEBUG && console.log(`🔍 [${new Date().toISOString()}] ${message}`)
+}
+
+/**
+ * Rate limiting helper
+ */
+async function handleRateLimit() {
+  const now = Date.now()
+  requestHistory = requestHistory.filter(time => now - time < 60000) // Keep last minute
+  
+  if (requestHistory.length >= RATE_LIMIT.REQUESTS_PER_MINUTE) {
+    const waitTime = 60000 - (now - requestHistory[0])
+    logger.warning(`Rate limit approaching, waiting ${waitTime}ms`)
+    await new Promise(resolve => setTimeout(resolve, waitTime))
+  }
+  
+  requestHistory.push(now)
+  await new Promise(resolve => setTimeout(resolve, RATE_LIMIT.REQUEST_DELAY))
 }
 
 /**
@@ -66,17 +115,22 @@ if (!PROJECT_KEY) {
 function loadConfig() {
   try {
     const configData = fs.readFileSync(CONFIG_PATH, 'utf8')
-    return JSON.parse(configData)
+    const config = JSON.parse(configData)
+    logger.success(`Loaded configuration for ${config.dashboard_config.dashboards.length} dashboards`)
+    return config
   } catch (error) {
-    console.error('❌ Failed to load dashboard configuration:', error.message)
+    logger.error(`Failed to load dashboard configuration: ${error.message}`)
+    logger.error(`Expected config file at: ${CONFIG_PATH}`)
     process.exit(1)
   }
 }
 
 /**
- * Make API request to PostHog
+ * Enhanced API request to PostHog with better error handling
  */
-async function postHogRequest(endpoint, method = 'GET', data = null) {
+async function postHogRequest(endpoint, method = 'GET', data = null, retries = 3) {
+  await handleRateLimit()
+  
   const url = `${POSTHOG_HOST}/api/${endpoint}`
   
   const options = {
@@ -91,37 +145,63 @@ async function postHogRequest(endpoint, method = 'GET', data = null) {
     options.body = JSON.stringify(data)
   }
   
-  try {
-    const response = await fetch(url, options)
-    
-    if (!response.ok) {
-      const errorText = await response.text()
-      throw new Error(`HTTP ${response.status}: ${errorText}`)
+  logger.debug(`Making ${method} request to: ${endpoint}`)
+  
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const response = await fetch(url, options)
+      
+      if (!response.ok) {
+        const errorText = await response.text()
+        let errorMessage = `HTTP ${response.status}: ${errorText}`
+        
+        // Enhanced error messages for common issues
+        if (response.status === 401) {
+          errorMessage = `Authentication failed. Please check your POSTHOG_PERSONAL_API_KEY.`
+        } else if (response.status === 403) {
+          errorMessage = `Permission denied. Your API key may not have the required scopes (insight:write, dashboard:write).`
+        } else if (response.status === 429) {
+          errorMessage = `Rate limit exceeded. Waiting before retry...`
+          if (attempt < retries) {
+            await new Promise(resolve => setTimeout(resolve, 5000 * attempt))
+            continue
+          }
+        }
+        
+        throw new Error(errorMessage)
+      }
+      
+      requestCount++
+      return await response.json()
+    } catch (error) {
+      if (attempt === retries) {
+        logger.error(`PostHog API request failed after ${retries} attempts: ${error.message}`)
+        throw error
+      }
+      
+      logger.warning(`Attempt ${attempt} failed, retrying: ${error.message}`)
+      await new Promise(resolve => setTimeout(resolve, 1000 * attempt))
     }
-    
-    return await response.json()
-  } catch (error) {
-    console.error(`❌ PostHog API request failed: ${error.message}`)
-    throw error
   }
 }
 
 /**
- * Get project ID from PostHog API
+ * Get project ID from PostHog API with enhanced error handling
  */
 async function getProjectId() {
   try {
-    console.log('🔍 Finding project ID...')
+    logger.info('Finding project ID...')
     
     // Get the user info first, which includes team/project information
     const userInfo = await postHogRequest('users/@me/')
     
     if (userInfo && userInfo.team) {
-      console.log(`✅ Found project: ${userInfo.team.name} (ID: ${userInfo.team.id})`)
+      logger.success(`Found project: ${userInfo.team.name} (ID: ${userInfo.team.id})`)
       return userInfo.team.id
     }
     
     // Fallback: try to get project list and find by API key
+    logger.info('Fallback: searching project list...')
     const projects = await postHogRequest('projects/')
     
     if (projects && projects.results) {
@@ -129,31 +209,109 @@ async function getProjectId() {
       const project = projects.results.find(p => p.api_token === PROJECT_KEY)
       
       if (project) {
-        console.log(`✅ Found project: ${project.name} (ID: ${project.id})`)
+        logger.success(`Found project: ${project.name} (ID: ${project.id})`)
         return project.id
       }
     }
     
-    throw new Error('Could not find project ID')
+    throw new Error('Could not find project ID. Please verify your API keys are correct.')
   } catch (error) {
-    console.error('❌ Failed to get project ID:', error.message)
+    logger.error(`Failed to get project ID: ${error.message}`)
     throw error
   }
 }
 
 /**
- * Create a dashboard in PostHog
+ * Convert dashboard config to PostHog query format
+ */
+function convertToPostHogQuery(tileConfig) {
+  // Convert simplified config format to PostHog's InsightVizNode format
+  const baseQuery = {
+    kind: "InsightVizNode",
+    source: {
+      version: 1
+    },
+    version: 1
+  }
+
+  switch (tileConfig.type) {
+    case 'time_series':
+      baseQuery.source.kind = "TrendsQuery"
+      baseQuery.source.series = [{
+        kind: "EventsNode",
+        event: tileConfig.query.event,
+        name: tileConfig.query.event,
+        math: tileConfig.query.aggregation === 'unique_users' ? 'dau' : 'total',
+        version: 1
+      }]
+      baseQuery.source.interval = tileConfig.query.interval || 'day'
+      baseQuery.source.dateRange = {
+        date_from: tileConfig.query.date_from || '-30d'
+      }
+      break
+      
+    case 'funnel':
+      baseQuery.source.kind = "FunnelsQuery"
+      baseQuery.source.series = tileConfig.query.events.map(event => ({
+        kind: "EventsNode",
+        event: event.event,
+        name: event.event,
+        version: 1
+      }))
+      baseQuery.source.dateRange = {
+        date_from: tileConfig.query.date_from || '-7d'
+      }
+      break
+      
+    case 'bar_chart':
+    case 'pie_chart':
+      baseQuery.source.kind = "TrendsQuery"
+      baseQuery.source.series = [{
+        kind: "EventsNode",
+        event: tileConfig.query.event,
+        name: tileConfig.query.event,
+        math: 'total',
+        version: 1
+      }]
+      if (tileConfig.query.breakdown) {
+        baseQuery.source.breakdown = {
+          breakdown: tileConfig.query.breakdown,
+          breakdown_type: 'event'
+        }
+      }
+      baseQuery.source.dateRange = {
+        date_from: tileConfig.query.date_from || '-30d'
+      }
+      break
+      
+    default:
+      // Default to trends query
+      baseQuery.source.kind = "TrendsQuery"
+      baseQuery.source.series = [{
+        kind: "EventsNode",
+        event: tileConfig.query.event || '$pageview',
+        name: tileConfig.query.event || '$pageview',
+        math: 'total',
+        version: 1
+      }]
+  }
+
+  return baseQuery
+}
+
+/**
+ * Create a dashboard in PostHog with enhanced error handling
  */
 async function createDashboard(projectId, dashboardConfig) {
   try {
-    console.log(`📊 Creating dashboard: ${dashboardConfig.name}`)
+    logger.info(`Creating dashboard: ${dashboardConfig.name}`)
     
     const dashboardData = {
       name: dashboardConfig.name,
-      description: dashboardConfig.description,
+      description: dashboardConfig.description || `Auto-generated dashboard for ${dashboardConfig.name}`,
       pinned: false,
       filters: dashboardConfig.filters || {},
-      tags: ['words-on-phone', 'analytics']
+      tags: ['words-on-phone', 'analytics', 'auto-generated']
     }
     
     const dashboard = await postHogRequest(
@@ -162,31 +320,36 @@ async function createDashboard(projectId, dashboardConfig) {
       dashboardData
     )
     
-    console.log(`✅ Created dashboard: ${dashboard.name} (ID: ${dashboard.id})`)
+    logger.success(`Created dashboard: ${dashboard.name} (ID: ${dashboard.id})`)
     return dashboard
   } catch (error) {
-    console.error(`❌ Failed to create dashboard ${dashboardConfig.name}:`, error.message)
+    logger.error(`Failed to create dashboard ${dashboardConfig.name}: ${error.message}`)
     throw error
   }
 }
 
 /**
- * Create dashboard tiles (insights)
+ * Create dashboard tiles (insights) with enhanced configuration support
  */
 async function createDashboardTiles(projectId, dashboardId, tiles) {
   const createdTiles = []
   
-  for (const tile of tiles) {
+  logger.info(`Creating ${tiles.length} tiles for dashboard...`)
+  
+  for (let i = 0; i < tiles.length; i++) {
+    const tile = tiles[i]
     try {
-      console.log(`  📈 Creating tile: ${tile.name}`)
+      logger.info(`  Creating tile ${i+1}/${tiles.length}: ${tile.name}`)
+      
+      // Convert config format to PostHog query format
+      const query = convertToPostHogQuery(tile)
       
       // Create the insight first
       const insightData = {
         name: tile.name,
-        query: tile.query,
-        filters: tile.filters || {},
-        tags: ['dashboard-tile'],
-        description: `Auto-generated tile for ${tile.name}`
+        query: query,
+        description: `Auto-generated insight: ${tile.name}`,
+        tags: ['dashboard-tile', 'words-on-phone']
       }
       
       const insight = await postHogRequest(
@@ -195,13 +358,17 @@ async function createDashboardTiles(projectId, dashboardId, tiles) {
         insightData
       )
       
-      // Add insight to dashboard
+      // Calculate layout position (2 columns)
+      const col = i % 2
+      const row = Math.floor(i / 2)
+      
+      // Add insight to dashboard with better layout
       const tileData = {
         insight: insight.id,
         dashboard: dashboardId,
         layouts: {
-          sm: { x: 0, y: createdTiles.length * 4, w: 6, h: 4 },
-          lg: { x: (createdTiles.length % 2) * 6, y: Math.floor(createdTiles.length / 2) * 4, w: 6, h: 4 }
+          sm: { x: 0, y: i * 4, w: 6, h: 4 },
+          lg: { x: col * 6, y: row * 4, w: 6, h: 4 }
         }
       }
       
@@ -211,15 +378,16 @@ async function createDashboardTiles(projectId, dashboardId, tiles) {
         tileData
       )
       
-      console.log(`    ✅ Created tile: ${tile.name}`)
+      logger.success(`    Created tile: ${tile.name}`)
       createdTiles.push(tile)
       
     } catch (error) {
-      console.error(`    ❌ Failed to create tile ${tile.name}:`, error.message)
-      // Continue with other tiles
+      logger.error(`    Failed to create tile ${tile.name}: ${error.message}`)
+      // Continue with other tiles instead of failing completely
     }
   }
   
+  logger.success(`Successfully created ${createdTiles.length}/${tiles.length} tiles`)
   return createdTiles
 }
 
@@ -229,7 +397,7 @@ async function createDashboardTiles(projectId, dashboardId, tiles) {
 async function setupAlerts(projectId, alerts) {
   for (const alert of alerts) {
     try {
-      console.log(`🚨 Setting up alert: ${alert.name}`)
+      logger.info(`🚨 Setting up alert: ${alert.name}`)
       
       const alertData = {
         name: alert.name,
@@ -249,9 +417,9 @@ async function setupAlerts(projectId, alerts) {
         alertData
       )
       
-      console.log(`  ✅ Created alert: ${alert.name}`)
+      logger.success(`  ✅ Created alert: ${alert.name}`)
     } catch (error) {
-      console.error(`  ❌ Failed to create alert ${alert.name}:`, error.message)
+      logger.error(`  ❌ Failed to create alert ${alert.name}: ${error.message}`)
       // Continue with other alerts
     }
   }
@@ -262,29 +430,29 @@ async function setupAlerts(projectId, alerts) {
  */
 async function verifySetup(projectId, expectedDashboards) {
   try {
-    console.log('🔍 Verifying dashboard setup...')
+    logger.info('🔍 Verifying dashboard setup...')
     
     const dashboards = await postHogRequest(`projects/${projectId}/dashboards/`)
     const createdDashboards = dashboards.results?.filter(d => 
       d.tags?.includes('words-on-phone')
     ) || []
     
-    console.log(`📊 Found ${createdDashboards.length} Words on Phone dashboards`)
+    logger.info(`📊 Found ${createdDashboards.length} Words on Phone dashboards`)
     
     for (const dashboard of createdDashboards) {
       const tiles = await postHogRequest(`projects/${projectId}/dashboard_tiles/?dashboard=${dashboard.id}`)
-      console.log(`  - ${dashboard.name}: ${tiles.results?.length || 0} tiles`)
+      logger.info(`  - ${dashboard.name}: ${tiles.results?.length || 0} tiles`)
     }
     
     if (createdDashboards.length >= expectedDashboards) {
-      console.log('✅ Dashboard setup verification passed')
+      logger.success('✅ Dashboard setup verification passed')
       return true
     } else {
-      console.log('⚠️  Some dashboards may not have been created successfully')
+      logger.warning('⚠️  Some dashboards may not have been created successfully')
       return false
     }
   } catch (error) {
-    console.error('❌ Dashboard verification failed:', error.message)
+    logger.error('❌ Dashboard verification failed:', error.message)
     return false
   }
 }
@@ -294,18 +462,17 @@ async function verifySetup(projectId, expectedDashboards) {
  */
 async function setupDashboards() {
   try {
-    console.log('🚀 Starting PostHog dashboard setup...')
-    console.log(`📡 PostHog Host: ${POSTHOG_HOST}`)
+    logger.info('🚀 Starting PostHog dashboard setup...')
+    logger.info(`📡 PostHog Host: ${POSTHOG_HOST}`)
     
     // Load configuration
     const config = loadConfig()
-    console.log(`📋 Loaded configuration for ${config.dashboard_config.dashboards.length} dashboards`)
     
     // Get project ID
     const projectId = await getProjectId()
     
     // Create dashboards
-    console.log('\n📊 Creating dashboards...')
+    logger.info('\n📊 Creating dashboards...')
     const createdDashboards = []
     
     for (const dashboardConfig of config.dashboard_config.dashboards) {
@@ -318,34 +485,34 @@ async function setupDashboards() {
         
         createdDashboards.push(dashboard)
       } catch (error) {
-        console.error(`❌ Failed to fully create dashboard ${dashboardConfig.name}`)
+        logger.error(`❌ Failed to fully create dashboard ${dashboardConfig.name}`)
         // Continue with other dashboards
       }
     }
     
     // Set up alerts
     if (config.dashboard_config.alerts?.length > 0) {
-      console.log('\n🚨 Setting up alerts...')
+      logger.info('\n🚨 Setting up alerts...')
       await setupAlerts(projectId, config.dashboard_config.alerts)
     }
     
     // Verify setup
-    console.log('\n🔍 Verifying setup...')
+    logger.info('\n🔍 Verifying setup...')
     const success = await verifySetup(projectId, config.dashboard_config.dashboards.length)
     
     if (success) {
-      console.log('\n🎉 PostHog dashboard setup completed successfully!')
-      console.log(`\n📊 Dashboard URLs:`)
+      logger.success('\n🎉 PostHog dashboard setup completed successfully!')
+      logger.info(`\n📊 Dashboard URLs:`)
       for (const dashboard of createdDashboards) {
-        console.log(`  - ${dashboard.name}: ${POSTHOG_HOST}/project/${projectId}/dashboard/${dashboard.id}`)
+        logger.info(`  - ${dashboard.name}: ${POSTHOG_HOST}/project/${projectId}/dashboard/${dashboard.id}`)
       }
     } else {
-      console.log('\n⚠️  Dashboard setup completed with some issues. Please check the PostHog interface.')
+      logger.warning('\n⚠️  Dashboard setup completed with some issues. Please check the PostHog interface.')
       process.exit(1)
     }
     
   } catch (error) {
-    console.error('\n❌ Dashboard setup failed:', error.message)
+    logger.error('\n❌ Dashboard setup failed:', error.message)
     process.exit(1)
   }
 }
@@ -355,7 +522,7 @@ async function setupDashboards() {
  */
 async function cleanupDashboards() {
   try {
-    console.log('🧹 Cleaning up existing Words on Phone dashboards...')
+    logger.info('🧹 Cleaning up existing Words on Phone dashboards...')
     
     const projectId = await getProjectId()
     const dashboards = await postHogRequest(`projects/${projectId}/dashboards/`)
@@ -367,15 +534,15 @@ async function cleanupDashboards() {
     for (const dashboard of wordsOnPhoneDashboards) {
       try {
         await postHogRequest(`projects/${projectId}/dashboards/${dashboard.id}/`, 'DELETE')
-        console.log(`  ✅ Deleted dashboard: ${dashboard.name}`)
+        logger.success(`  ✅ Deleted dashboard: ${dashboard.name}`)
       } catch (error) {
-        console.error(`  ❌ Failed to delete dashboard ${dashboard.name}:`, error.message)
+        logger.error(`  ❌ Failed to delete dashboard ${dashboard.name}:`, error.message)
       }
     }
     
-    console.log(`🧹 Cleanup completed. Removed ${wordsOnPhoneDashboards.length} dashboards.`)
+    logger.info(`🧹 Cleanup completed. Removed ${wordsOnPhoneDashboards.length} dashboards.`)
   } catch (error) {
-    console.error('❌ Cleanup failed:', error.message)
+    logger.error('❌ Cleanup failed:', error.message)
   }
 }
 
