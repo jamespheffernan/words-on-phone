@@ -214,6 +214,10 @@ class AnalyticsService {
     }
 
     try {
+      console.log('📊 Starting PostHog initialization...');
+      console.log('📊 PostHog import object:', typeof posthog, posthog);
+      console.log('📊 PostHog init method:', typeof posthog.init);
+      
       posthog.init(env.POSTHOG_KEY, {
         api_host: env.POSTHOG_HOST,
         person_profiles: 'identified_only', // Only create profiles for identified users
@@ -222,6 +226,10 @@ class AnalyticsService {
         disable_session_recording: true, // Disable by default for privacy
         opt_out_capturing_by_default: this.isOptedOut, // Respect user preference
         loaded: (posthog) => {
+          console.log('📊 PostHog loaded callback triggered');
+          console.log('📊 PostHog instance in callback:', typeof posthog, posthog);
+          console.log('📊 window.posthog after init:', typeof (window as any).posthog);
+          
           // Set anonymous ID and super properties
           if (this.anonymousId) {
             posthog.identify(this.anonymousId)
@@ -235,6 +243,9 @@ class AnalyticsService {
         }
       })
 
+      console.log('📊 PostHog.init() call completed');
+      console.log('📊 window.posthog immediately after init:', typeof (window as any).posthog);
+      
       this.isInitialized = true
       console.log('PostHog analytics initialized', this.isOptedOut ? '(opted out)' : '(tracking enabled)')
     } catch (error) {
@@ -381,6 +392,10 @@ class AnalyticsService {
 
     try {
       console.log(`📊 Calling posthog.capture():`, eventName, properties);
+      console.log(`📊 posthog object:`, typeof posthog, posthog);
+      console.log(`📊 posthog.capture method:`, typeof posthog.capture);
+      console.log(`📊 window.posthog:`, typeof (window as any).posthog);
+      
       posthog.capture(eventName, properties)
       console.log(`📊 PostHog capture call completed for: ${eventName}`);
     } catch (error) {
