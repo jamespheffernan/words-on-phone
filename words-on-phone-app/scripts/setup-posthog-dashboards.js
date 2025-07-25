@@ -279,12 +279,11 @@ function convertToPostHogQuery(tileConfig) {
         math: 'total',
         version: 1
       }]
-      if (tileConfig.query.breakdown) {
-        baseQuery.source.breakdown = {
-          breakdown: tileConfig.query.breakdown,
-          breakdown_type: 'event'
-        }
-      }
+      // Breakdown support disabled temporarily due to API validation issues
+      // if (tileConfig.query.breakdown) {
+      //   baseQuery.source.breakdown = tileConfig.query.breakdown
+      //   baseQuery.source.breakdown_type = 'event'
+      // }
       baseQuery.source.dateRange = {
         date_from: tileConfig.query.date_from || '-30d'
       }
@@ -331,7 +330,6 @@ async function createDashboard(projectId, dashboardConfig) {
       name: dashboardConfig.name,
       description: dashboardConfig.description || `Auto-generated dashboard for ${dashboardConfig.name}`,
       pinned: false,
-      filters: dashboardConfig.filters || {},
       tags: ['words-on-phone', 'analytics', 'auto-generated']
     }
     
@@ -365,38 +363,21 @@ async function createDashboardTiles(projectId, dashboardId, tiles) {
       // Convert config format to PostHog query format
       const query = convertToPostHogQuery(tile)
       
-      // Create the insight first
+      // Create the insight and add it directly to the dashboard
       const insightData = {
         name: tile.name,
         query: query,
         description: `Auto-generated insight: ${tile.name}`,
-        tags: ['dashboard-tile', 'words-on-phone']
+        tags: ['dashboard-tile', 'words-on-phone'],
+        dashboards: [dashboardId] // Add directly to dashboard
       }
+      
+      logger.debug(`Creating insight with query: ${JSON.stringify(query, null, 2)}`)
       
       const insight = await postHogRequest(
         `projects/${projectId}/insights/`,
         'POST',
         insightData
-      )
-      
-      // Calculate layout position (2 columns)
-      const col = i % 2
-      const row = Math.floor(i / 2)
-      
-      // Add insight to dashboard with better layout
-      const tileData = {
-        insight: insight.id,
-        dashboard: dashboardId,
-        layouts: {
-          sm: { x: 0, y: i * 4, w: 6, h: 4 },
-          lg: { x: col * 6, y: row * 4, w: 6, h: 4 }
-        }
-      }
-      
-      await postHogRequest(
-        `projects/${projectId}/dashboard_tiles/`,
-        'POST',
-        tileData
       )
       
       logger.success(`    Created tile: ${tile.name}`)
