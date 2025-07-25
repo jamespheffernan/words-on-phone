@@ -230,6 +230,13 @@ class AnalyticsService {
           console.log('📊 PostHog instance in callback:', typeof posthog, posthog);
           console.log('📊 window.posthog after init:', typeof (window as any).posthog);
           
+          // CRITICAL FIX: Manually attach PostHog to window if not already there
+          if (typeof (window as any).posthog === 'undefined') {
+            console.log('📊 Manually attaching PostHog to window object');
+            (window as any).posthog = posthog;
+            console.log('📊 window.posthog after manual attachment:', typeof (window as any).posthog);
+          }
+          
           // Set anonymous ID and super properties
           if (this.anonymousId) {
             posthog.identify(this.anonymousId)
@@ -245,6 +252,15 @@ class AnalyticsService {
 
       console.log('📊 PostHog.init() call completed');
       console.log('📊 window.posthog immediately after init:', typeof (window as any).posthog);
+      
+      // Additional fallback: Attach PostHog to window if still not there
+      setTimeout(() => {
+        if (typeof (window as any).posthog === 'undefined') {
+          console.log('📊 PostHog still not on window - applying fallback attachment');
+          (window as any).posthog = posthog;
+          console.log('📊 Fallback attachment complete:', typeof (window as any).posthog);
+        }
+      }, 100);
       
       this.isInitialized = true
       console.log('PostHog analytics initialized', this.isOptedOut ? '(opted out)' : '(tracking enabled)')
