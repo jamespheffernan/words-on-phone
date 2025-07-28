@@ -406,6 +406,7 @@ async function setupAlerts(projectId, alerts) {
   logger.info('   3. Configure alerts based on your dashboard insights')
 }
 
+
 /**
  * Verify dashboard setup
  */
@@ -503,27 +504,53 @@ async function setupDashboards() {
  */
 async function cleanupDashboards() {
   try {
-    logger.info('🧹 Cleaning up existing Words on Phone dashboards...')
+    logger.info('🧹 Starting dashboard cleanup...')
     
     const projectId = await getProjectId()
-    const dashboards = await postHogRequest(`projects/${projectId}/dashboards/`)
     
-    const wordsOnPhoneDashboards = dashboards.results?.filter(d => 
-      d.tags?.includes('words-on-phone')
-    ) || []
+    // Get all dashboards
+    logger.info('📊 Fetching existing dashboards...')
+    const response = await postHogRequest(`projects/${projectId}/dashboards/`, 'GET')
+    const allDashboards = response.results || []
     
+    // Filter for Words on Phone dashboards (by name patterns)
+    const wordsOnPhoneDashboards = allDashboards.filter(dashboard => 
+      dashboard.name && (
+        dashboard.name.includes('User Engagement Dashboard') ||
+        dashboard.name.includes('Game Performance Dashboard') ||
+        dashboard.name.includes('Technical Performance Dashboard') ||
+        dashboard.name.includes('Privacy & Settings Dashboard') ||
+        dashboard.name.includes('Custom Category Dashboard') ||
+        dashboard.name.includes('Words on Phone')
+      )
+    )
+    
+    if (wordsOnPhoneDashboards.length === 0) {
+      logger.info('✅ No Words on Phone dashboards found to cleanup')
+      return
+    }
+    
+    logger.info(`🗑️  Found ${wordsOnPhoneDashboards.length} dashboards to delete:`)
+    wordsOnPhoneDashboards.forEach(dashboard => {
+      logger.info(`   - ${dashboard.name} (ID: ${dashboard.id})`)
+    })
+    
+    // Delete each dashboard
     for (const dashboard of wordsOnPhoneDashboards) {
       try {
+        await handleRateLimit()
         await postHogRequest(`projects/${projectId}/dashboards/${dashboard.id}/`, 'DELETE')
-        logger.success(`  ✅ Deleted dashboard: ${dashboard.name}`)
+        logger.success(`   ✅ Deleted: ${dashboard.name}`)
       } catch (error) {
-        logger.error(`  ❌ Failed to delete dashboard ${dashboard.name}:`, error.message)
+        logger.error(`   ❌ Failed to delete ${dashboard.name}: ${error.message}`)
       }
     }
     
-    logger.info(`🧹 Cleanup completed. Removed ${wordsOnPhoneDashboards.length} dashboards.`)
+    logger.success(`🎉 Cleanup completed! Deleted ${wordsOnPhoneDashboards.length} dashboards`)
+    
   } catch (error) {
-    logger.error('❌ Cleanup failed:', error.message)
+    logger.error('❌ Dashboard cleanup failed:', error.message)
+    throw error
   }
 }
 
