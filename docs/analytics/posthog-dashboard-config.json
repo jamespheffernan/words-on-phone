@@ -4,7 +4,7 @@
     "dashboards": [
       {
         "id": "user_engagement",
-        "name": "User Engagement Dashboard",
+        "name": "User Engagement Dashboard v2",
         "description": "Monitor user behavior, retention, and engagement patterns",
         "tiles": [
           {
@@ -86,7 +86,7 @@
       },
       {
         "id": "game_performance",
-        "name": "Game Performance Dashboard",
+        "name": "Game Performance Dashboard v2",
         "description": "Analyze gameplay metrics and user success patterns",
         "tiles": [
           {
@@ -184,7 +184,7 @@
       },
       {
         "id": "technical_performance",
-        "name": "Technical Performance Dashboard",
+        "name": "Technical Performance Dashboard v2",
         "description": "Monitor app performance, errors, and technical health",
         "tiles": [
           {
@@ -262,7 +262,7 @@
       },
       {
         "id": "privacy_settings",
-        "name": "Privacy & Settings Dashboard",
+        "name": "Privacy & Settings Dashboard v2",
         "description": "Monitor privacy controls usage and settings preferences",
         "tiles": [
           {
@@ -332,7 +332,7 @@
       },
       {
         "id": "custom_categories",
-        "name": "Custom Category Dashboard",
+        "name": "Custom Category Dashboard v2",
         "description": "Monitor AI-generated category usage and quality",
         "tiles": [
           {
