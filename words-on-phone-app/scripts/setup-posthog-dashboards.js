@@ -538,9 +538,10 @@ async function cleanupDashboards() {
     // Delete each dashboard
     for (const dashboard of wordsOnPhoneDashboards) {
       try {
-        await handleRateLimit()
         await postHogRequest(`projects/${projectId}/dashboards/${dashboard.id}/`, 'DELETE')
         logger.success(`   ✅ Deleted: ${dashboard.name}`)
+        // Small delay to avoid overwhelming the API
+        await new Promise(resolve => setTimeout(resolve, 100))
       } catch (error) {
         logger.error(`   ❌ Failed to delete ${dashboard.name}: ${error.message}`)
       }
