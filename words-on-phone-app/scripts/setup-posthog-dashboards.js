@@ -394,37 +394,16 @@ async function createDashboardTiles(projectId, dashboardId, tiles) {
 }
 
 /**
- * Set up alerts
+ * Set up alerts (if supported by PostHog API)
  */
 async function setupAlerts(projectId, alerts) {
-  for (const alert of alerts) {
-    try {
-      logger.info(`🚨 Setting up alert: ${alert.name}`)
-      
-      const alertData = {
-        name: alert.name,
-        query: alert.query,
-        condition: alert.condition,
-        frequency: alert.frequency,
-        subscriptions: alert.channels.map(channel => ({ 
-          type: channel,
-          enabled: true 
-        })),
-        enabled: true
-      }
-      
-      await postHogRequest(
-        `projects/${projectId}/alerts/`,
-        'POST',
-        alertData
-      )
-      
-      logger.success(`  ✅ Created alert: ${alert.name}`)
-    } catch (error) {
-      logger.error(`  ❌ Failed to create alert ${alert.name}: ${error.message}`)
-      // Continue with other alerts
-    }
-  }
+  // PostHog doesn't currently support alerts via API
+  // Alerts need to be configured manually in the PostHog UI
+  logger.warning('🚨 Alert setup skipped - PostHog alerts must be configured manually in the UI')
+  logger.info('   To set up alerts:')
+  logger.info('   1. Go to your PostHog project settings')
+  logger.info('   2. Navigate to the Alerts section')
+  logger.info('   3. Configure alerts based on your dashboard insights')
 }
 
 /**
