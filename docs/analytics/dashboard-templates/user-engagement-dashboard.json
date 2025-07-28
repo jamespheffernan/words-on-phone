@@ -1,0 +1,152 @@
+{
+  "template_info": {
+    "name": "User Engagement Dashboard Template",
+    "description": "Template for creating user engagement and retention analytics dashboards",
+    "version": "1.0.0",
+    "created_date": "2025-01-22",
+    "use_cases": [
+      "Monitor daily active users and growth trends",
+      "Analyze user journey and conversion funnels", 
+      "Track feature adoption and category preferences",
+      "Measure session duration and engagement depth"
+    ],
+    "required_events": [
+      "app_start",
+      "category_selected", 
+      "game_started",
+      "game_completed",
+      "app_exit"
+    ],
+    "required_properties": [
+      "categoryName",
+      "isTeamMode", 
+      "sessionDurationMs",
+      "platform",
+      "appVersion"
+    ]
+  },
+  "dashboard_config": {
+    "id": "user_engagement",
+    "name": "User Engagement Dashboard",
+    "description": "Monitor user behavior, retention, and engagement patterns",
+    "tiles": [
+      {
+        "id": "dau_trend",
+        "name": "Daily Active Users",
+        "type": "time_series",
+        "query": {
+          "event": "app_start",
+          "breakdown": null,
+          "date_from": "-30d",
+          "interval": "day",
+          "aggregation": "unique_users"
+        },
+        "filters": {
+          "platform": ["web", "ios", "android"],
+          "app_version": "latest"
+        },
+        "layout": {
+          "position": {"x": 0, "y": 0},
+          "size": {"width": 6, "height": 4}
+        }
+      },
+      {
+        "id": "user_journey_funnel",
+        "name": "User Journey Funnel",
+        "type": "funnel",
+        "query": {
+          "events": [
+            { "event": "app_start" },
+            { "event": "category_selected" },
+            { "event": "game_started" },
+            { "event": "game_completed" }
+          ],
+          "date_from": "-7d"
+        },
+        "layout": {
+          "position": {"x": 6, "y": 0},
+          "size": {"width": 6, "height": 4}
+        }
+      },
+      {
+        "id": "popular_categories",
+        "name": "Most Popular Categories",
+        "type": "bar_chart",
+        "query": {
+          "event": "category_selected",
+          "breakdown": "categoryName",
+          "date_from": "-30d",
+          "aggregation": "total"
+        },
+        "layout": {
+          "position": {"x": 0, "y": 4},
+          "size": {"width": 6, "height": 4}
+        }
+      },
+      {
+        "id": "game_modes",
+        "name": "Game Mode Distribution",
+        "type": "pie_chart",
+        "query": {
+          "event": "game_started",
+          "breakdown": "isTeamMode",
+          "date_from": "-30d",
+          "aggregation": "total"
+        },
+        "layout": {
+          "position": {"x": 6, "y": 4},
+          "size": {"width": 3, "height": 4}
+        }
+      },
+      {
+        "id": "session_duration",
+        "name": "Average Session Duration",
+        "type": "number",
+        "query": {
+          "event": "app_exit",
+          "property": "sessionDurationMs",
+          "date_from": "-7d",
+          "aggregation": "avg"
+        },
+        "layout": {
+          "position": {"x": 9, "y": 4},
+          "size": {"width": 3, "height": 4}
+        }
+      }
+    ],
+    "filters": [
+      {
+        "name": "Platform",
+        "property": "platform",
+        "values": ["web", "ios", "android"]
+      },
+      {
+        "name": "App Version",
+        "property": "appVersion",
+        "values": ["all"]
+      }
+    ],
+    "refresh_interval": "auto",
+    "sharing": {
+      "public": false,
+      "team_access": true
+    }
+  },
+  "customization_guide": {
+    "event_mapping": {
+      "app_start": "Replace with your app initialization event",
+      "category_selected": "Replace with your feature selection event",
+      "game_started": "Replace with your primary action start event",
+      "game_completed": "Replace with your primary action completion event",
+      "app_exit": "Replace with your session end event"
+    },
+    "property_mapping": {
+      "categoryName": "Replace with your feature/category identifier",
+      "isTeamMode": "Replace with your mode/variant identifier",
+      "sessionDurationMs": "Replace with your session duration property",
+      "platform": "Keep standard platform tracking",
+      "appVersion": "Keep standard version tracking"
+    },
+    "layout_notes": "Adjust tile positions and sizes based on your dashboard width preferences. Standard grid is 12 columns wide."
+  }
+} 

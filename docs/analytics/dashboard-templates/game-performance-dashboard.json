@@ -1,0 +1,157 @@
+{
+  "template_info": {
+    "name": "Game Performance Dashboard Template",
+    "description": "Template for analyzing gameplay metrics, user success patterns, and game completion analytics",
+    "version": "1.0.0",
+    "created_date": "2025-01-22",
+    "use_cases": [
+      "Monitor game completion rates and success patterns",
+      "Analyze performance by category or game mode", 
+      "Track skip usage and difficulty indicators",
+      "Measure game duration and engagement time",
+      "Compare timer settings and mode preferences"
+    ],
+    "required_events": [
+      "game_started",
+      "game_completed",
+      "answer_correct",
+      "answer_pass"
+    ],
+    "required_properties": [
+      "categoryName",
+      "skipsRemaining", 
+      "timerMode",
+      "isTeamMode",
+      "durationMs"
+    ]
+  },
+  "dashboard_config": {
+    "id": "game_performance",
+    "name": "Game Performance Dashboard",
+    "description": "Analyze gameplay metrics and user success patterns",
+    "tiles": [
+      {
+        "id": "completion_rate",
+        "name": "Game Completion Rate",
+        "type": "time_series",
+        "query": {
+          "formula": "(game_completed / game_started) * 100",
+          "events": [
+            { "event": "game_started" },
+            { "event": "game_completed" }
+          ],
+          "date_from": "-30d",
+          "interval": "day"
+        },
+        "layout": {
+          "position": {"x": 0, "y": 0},
+          "size": {"width": 6, "height": 4}
+        }
+      },
+      {
+        "id": "avg_correct_answers",
+        "name": "Average Correct Answers",
+        "type": "bar_chart",
+        "query": {
+          "event": "answer_correct",
+          "breakdown": "categoryName",
+          "date_from": "-30d",
+          "aggregation": "avg"
+        },
+        "layout": {
+          "position": {"x": 6, "y": 0},
+          "size": {"width": 6, "height": 4}
+        }
+      },
+      {
+        "id": "skip_usage",
+        "name": "Skip Usage Distribution",
+        "type": "histogram",
+        "query": {
+          "event": "answer_pass",
+          "property": "skipsRemaining",
+          "date_from": "-30d",
+          "aggregation": "count"
+        },
+        "layout": {
+          "position": {"x": 0, "y": 4},
+          "size": {"width": 6, "height": 4}
+        }
+      },
+      {
+        "id": "timer_preferences",
+        "name": "Timer Setting Preferences",
+        "type": "stacked_bar",
+        "query": {
+          "event": "game_started",
+          "breakdown": ["timerMode", "isTeamMode"],
+          "date_from": "-30d",
+          "aggregation": "total"
+        },
+        "layout": {
+          "position": {"x": 6, "y": 4},
+          "size": {"width": 3, "height": 4}
+        }
+      },
+      {
+        "id": "game_duration_dist",
+        "name": "Game Duration Distribution",
+        "type": "histogram",
+        "query": {
+          "event": "game_completed",
+          "property": "durationMs",
+          "date_from": "-30d",
+          "aggregation": "count"
+        },
+        "layout": {
+          "position": {"x": 9, "y": 4},
+          "size": {"width": 3, "height": 4}
+        }
+      }
+    ],
+    "filters": [
+      {
+        "name": "Category",
+        "property": "categoryName",
+        "values": ["all"]
+      },
+      {
+        "name": "Game Mode",
+        "property": "isTeamMode",
+        "values": ["true", "false"]
+      },
+      {
+        "name": "Timer Mode",
+        "property": "timerMode",
+        "values": ["countdown", "stopwatch", "none"]
+      }
+    ],
+    "refresh_interval": "auto",
+    "sharing": {
+      "public": false,
+      "team_access": true
+    }
+  },
+  "customization_guide": {
+    "event_mapping": {
+      "game_started": "Replace with your primary activity start event",
+      "game_completed": "Replace with your primary activity completion event",
+      "answer_correct": "Replace with your success/correct action event",
+      "answer_pass": "Replace with your skip/pass action event"
+    },
+    "property_mapping": {
+      "categoryName": "Replace with your content category identifier",
+      "skipsRemaining": "Replace with your skip/help usage tracking property",
+      "timerMode": "Replace with your timing/mode variant property",
+      "isTeamMode": "Replace with your multiplayer/collaboration mode property",
+      "durationMs": "Replace with your activity duration property"
+    },
+    "metric_notes": {
+      "completion_rate": "Formula calculates percentage of started activities that were completed",
+      "avg_correct_answers": "Shows performance breakdown by category - useful for difficulty analysis",
+      "skip_usage": "Histogram reveals usage patterns and potential difficulty spikes",
+      "timer_preferences": "Stacked breakdown shows user preference patterns across modes",
+      "game_duration_dist": "Histogram shows engagement time distribution"
+    }
+  }
+} 

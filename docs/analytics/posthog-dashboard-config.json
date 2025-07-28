@@ -146,6 +146,39 @@
               "date_from": "-30d",
               "aggregation": "count"
             }
+          },
+          {
+            "id": "avg_round_duration",
+            "name": "Average Round Duration (s)",
+            "type": "number",
+            "query": {
+              "event": "round_completed",
+              "property": "durationSec",
+              "date_from": "-30d",
+              "aggregation": "avg"
+            }
+          },
+          {
+            "id": "avg_correct_per_round",
+            "name": "Average Correct Phrases per Round",
+            "type": "number",
+            "query": {
+              "event": "round_completed",
+              "property": "totalCorrect",
+              "date_from": "-30d",
+              "aggregation": "avg"
+            }
+          },
+          {
+            "id": "avg_skipped_per_round",
+            "name": "Average Skipped Phrases per Round",
+            "type": "number",
+            "query": {
+              "event": "round_completed",
+              "property": "totalSkip",
+              "date_from": "-30d",
+              "aggregation": "avg"
+            }
           }
         ]
       },

@@ -85,6 +85,14 @@ export interface AnalyticsEvent {
     endReason: 'timer' | 'score_limit' | 'victory'
     finalScores?: Record<string, number>
   }
+  round_completed: {
+    roundNumber: number
+    totalCorrect: number
+    totalSkip: number
+    durationMs: number
+    durationSec: number
+    isTeamMode: boolean
+  }
   
   // Settings events
   settings_opened: {

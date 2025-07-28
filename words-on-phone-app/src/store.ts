@@ -606,6 +606,17 @@ export const useGameStore = create<GameState>()(
               endReason: 'timer'
             });
           }
+
+          // Track round-level metrics (applies to both solo and team modes)
+          const roundDurationMs = (state.actualTimerDuration - state.timeRemaining) * 1000;
+          analytics.track('round_completed', {
+            roundNumber: state.roundNumber,
+            totalCorrect: state.currentRoundAnswers.length,
+            totalSkip: state.skipsUsed,
+            durationMs: roundDurationMs,
+            durationSec: Math.round(roundDurationMs / 1000),
+            isTeamMode: state.teams.length > 0
+          });
           
           // If teams are set up, go to round end; otherwise go directly to game end
           if (state.teams.length > 0) {

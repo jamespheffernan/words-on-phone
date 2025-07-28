@@ -1,0 +1,170 @@
+{
+  "template_info": {
+    "name": "Technical Performance Dashboard Template",
+    "description": "Template for monitoring app performance, error rates, and technical system health",
+    "version": "1.0.0",
+    "created_date": "2025-01-22",
+    "use_cases": [
+      "Monitor error rates and system reliability",
+      "Track performance metrics and response times", 
+      "Analyze audio/media system success rates",
+      "Monitor PWA installation conversion",
+      "Debug technical issues and system health"
+    ],
+    "required_events": [
+      "error_occurred",
+      "performance_metric",
+      "buzzer_played",
+      "pwa_install_prompt",
+      "install"
+    ],
+    "required_properties": [
+      "errorType",
+      "metricName",
+      "value",
+      "success",
+      "accepted"
+    ]
+  },
+  "dashboard_config": {
+    "id": "technical_performance",
+    "name": "Technical Performance Dashboard",
+    "description": "Monitor app performance, errors, and technical health",
+    "tiles": [
+      {
+        "id": "error_rate",
+        "name": "Error Rate",
+        "type": "alert_panel",
+        "query": {
+          "event": "error_occurred",
+          "breakdown": "errorType",
+          "date_from": "-24h",
+          "aggregation": "total"
+        },
+        "alerts": [
+          {
+            "condition": "total > 10",
+            "severity": "high",
+            "message": "High error rate detected"
+          }
+        ],
+        "layout": {
+          "position": {"x": 0, "y": 0},
+          "size": {"width": 6, "height": 4}
+        }
+      },
+      {
+        "id": "performance_metrics",
+        "name": "Performance Metrics",
+        "type": "time_series",
+        "query": {
+          "event": "performance_metric",
+          "breakdown": "metricName",
+          "property": "value",
+          "date_from": "-7d",
+          "aggregation": "avg",
+          "interval": "hour"
+        },
+        "layout": {
+          "position": {"x": 6, "y": 0},
+          "size": {"width": 6, "height": 4}
+        }
+      },
+      {
+        "id": "audio_success_rate",
+        "name": "Audio System Success Rate",
+        "type": "gauge",
+        "query": {
+          "formula": "(buzzer_success / total_buzzer_attempts) * 100",
+          "event": "buzzer_played",
+          "breakdown": "success",
+          "date_from": "-7d"
+        },
+        "gauge_settings": {
+          "min": 0,
+          "max": 100,
+          "target": 95
+        },
+        "layout": {
+          "position": {"x": 0, "y": 4},
+          "size": {"width": 4, "height": 4}
+        }
+      },
+      {
+        "id": "pwa_install_funnel",
+        "name": "PWA Install Conversion",
+        "type": "funnel",
+        "query": {
+          "events": [
+            { "event": "pwa_install_prompt" },
+            { "event": "pwa_install_prompt", "properties": { "accepted": true } },
+            { "event": "install" }
+          ],
+          "date_from": "-30d"
+        },
+        "layout": {
+          "position": {"x": 4, "y": 4},
+          "size": {"width": 4, "height": 4}
+        }
+      },
+      {
+        "id": "error_breakdown",
+        "name": "Error Types Breakdown",
+        "type": "bar_chart",
+        "query": {
+          "event": "error_occurred",
+          "breakdown": "errorType",
+          "date_from": "-7d",
+          "aggregation": "total"
+        },
+        "layout": {
+          "position": {"x": 8, "y": 4},
+          "size": {"width": 4, "height": 4}
+        }
+      }
+    ],
+    "filters": [
+      {
+        "name": "Error Type",
+        "property": "errorType",
+        "values": ["all"]
+      },
+      {
+        "name": "Metric Type",
+        "property": "metricName",
+        "values": ["page_load", "api_response", "render_time"]
+      }
+    ],
+    "refresh_interval": "1m",
+    "sharing": {
+      "public": false,
+      "team_access": true
+    }
+  },
+  "customization_guide": {
+    "event_mapping": {
+      "error_occurred": "Replace with your error tracking event",
+      "performance_metric": "Replace with your performance monitoring event",
+      "buzzer_played": "Replace with your audio/media system event",
+      "pwa_install_prompt": "Replace with your installation prompt event",
+      "install": "Replace with your app installation completion event"
+    },
+    "property_mapping": {
+      "errorType": "Replace with your error classification property (e.g., 'network', 'validation', 'runtime')",
+      "metricName": "Replace with your performance metric identifier (e.g., 'response_time', 'load_time')",
+      "value": "Replace with your metric value property",
+      "success": "Replace with your success/failure boolean property",
+      "accepted": "Replace with your user acceptance boolean property"
+    },
+    "alert_configuration": {
+      "error_rate": "Adjust threshold based on your acceptable error rate. Default is >10 errors in 24h",
+      "performance_metrics": "Set up alerts for response times >2000ms or load times >5000ms",
+      "audio_success_rate": "Alert when success rate drops below 95%"
+    },
+    "technical_notes": {
+      "refresh_interval": "Set to 1m for real-time monitoring, adjust based on data volume",
+      "gauge_target": "Audio success rate target of 95% - adjust based on your quality standards",
+      "funnel_conversion": "PWA install funnel tracks prompt → acceptance → completion"
+    }
+  }
+} 
