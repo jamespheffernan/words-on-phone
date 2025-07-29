@@ -346,6 +346,11 @@ export const useGameStore = create<GameState>()(
             }
             
             const nextPhrase = state.cursor.next();
+            console.log('🔍 Skip action - incrementing skipsUsed:', {
+              oldSkipsUsed: state.skipsUsed,
+              newSkipsUsed: state.skipsUsed + 1,
+              phraseId: state.currentPhrase
+            });
             return {
               currentPhrase: nextPhrase,
               skipsUsed: state.skipsUsed + 1,
@@ -606,9 +611,14 @@ export const useGameStore = create<GameState>()(
               endReason: 'timer'
             });
           }
-
+          
           // Track round-level metrics (applies to both solo and team modes)
           const roundDurationMs = (state.actualTimerDuration - state.timeRemaining) * 1000;
+          console.log('🔍 Round completed - Skip tracking debug:', {
+            skipsUsed: state.skipsUsed,
+            totalCorrect: state.currentRoundAnswers.length,
+            roundNumber: state.roundNumber
+          });
           analytics.track('round_completed', {
             roundNumber: state.roundNumber,
             totalCorrect: state.currentRoundAnswers.length,
