@@ -589,4 +589,15 @@ export const analytics = new AnalyticsService()
 // Initialize on import (but only if not opted out)
 if (typeof window !== 'undefined') {
   analytics.init()
+  
+  // Track app exit events for session duration
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      analytics.trackAppExit('visibility_change')
+    }
+  })
+  
+  window.addEventListener('beforeunload', () => {
+    analytics.trackAppExit('page_unload')
+  })
 } 

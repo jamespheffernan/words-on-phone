@@ -4,7 +4,7 @@
     "dashboards": [
       {
         "id": "user_engagement",
-        "name": "User Engagement Dashboard v2",
+        "name": "User Engagement Dashboard v3",
         "description": "Monitor user behavior, retention, and engagement patterns",
         "tiles": [
           {
@@ -86,7 +86,7 @@
       },
       {
         "id": "game_performance",
-        "name": "Game Performance Dashboard v2",
+        "name": "Game Performance Dashboard v3",
         "description": "Analyze gameplay metrics and user success patterns",
         "tiles": [
           {
@@ -105,10 +105,11 @@
           },
           {
             "id": "avg_correct_answers",
-            "name": "Average Correct Answers",
+            "name": "Average Correct Answers per Round",
             "type": "bar_chart",
             "query": {
-              "event": "answer_correct",
+              "event": "round_completed",
+              "property": "totalCorrect",
               "breakdown": "categoryName",
               "date_from": "-30d",
               "aggregation": "avg"
@@ -116,11 +117,11 @@
           },
           {
             "id": "skip_usage",
-            "name": "Skip Usage Distribution",
+            "name": "Skips Used per Round Distribution",
             "type": "histogram",
             "query": {
-              "event": "answer_pass",
-              "property": "skipsRemaining",
+              "event": "round_completed",
+              "property": "totalSkip",
               "date_from": "-30d",
               "aggregation": "count"
             }
@@ -184,7 +185,7 @@
       },
       {
         "id": "technical_performance",
-        "name": "Technical Performance Dashboard v2",
+        "name": "Technical Performance Dashboard v3",
         "description": "Monitor app performance, errors, and technical health",
         "tiles": [
           {
@@ -207,7 +208,7 @@
           },
           {
             "id": "performance_metrics",
-            "name": "Performance Metrics",
+            "name": "App Performance Metrics",
             "type": "time_series",
             "query": {
               "event": "performance_metric",
@@ -262,7 +263,7 @@
       },
       {
         "id": "privacy_settings",
-        "name": "Privacy & Settings Dashboard v2",
+        "name": "Privacy & Settings Dashboard v3",
         "description": "Monitor privacy controls usage and settings preferences",
         "tiles": [
           {
@@ -332,7 +333,7 @@
       },
       {
         "id": "custom_categories",
-        "name": "Custom Category Dashboard v2",
+        "name": "Custom Category Dashboard v3",
         "description": "Monitor AI-generated category usage and quality",
         "tiles": [
           {
