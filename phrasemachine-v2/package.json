@@ -20,7 +20,13 @@
     "wikidata:test": "node services/distinctiveness/cli.js test",
     "wikidata:stats": "node services/distinctiveness/cli.js stats",
     "wikidata:clear": "node services/distinctiveness/cli.js clear",
-    "test:distinctiveness": "node services/distinctiveness/test-distinctiveness.js"
+    "test:distinctiveness": "node services/distinctiveness/test-distinctiveness.js",
+    "pmi": "node services/distinctiveness/pmi-server.js",
+    "ngram:ingest": "node services/distinctiveness/ngram-cli.js ingest",
+    "ngram:sample": "node services/distinctiveness/ngram-cli.js sample",
+    "ngram:test": "node services/distinctiveness/ngram-cli.js test",
+    "ngram:stats": "node services/distinctiveness/ngram-cli.js stats",
+    "ngram:clear": "node services/distinctiveness/ngram-cli.js clear"
   },
   "dependencies": {
     "express": "^4.18.2",
