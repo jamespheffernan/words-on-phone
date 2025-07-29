@@ -118,7 +118,7 @@ npm run test:distinctiveness
 - [x] **Task 1**: Create Feature Branch and Project Structure ✅
 - [x] **Task 2**: Wikidata Data Ingestion Pipeline ✅
 - [x] **Task 3**: Google Books N-gram Data Pipeline ✅
-- [ ] **Task 4**: Concreteness Norms Integration
+- [x] **Task 4**: Concreteness Norms Integration ✅
 
 *See [Implementation Plan](../docs/implementation-plan/phrasemachine-v2-description-only-edition.md) for complete roadmap.*
 
