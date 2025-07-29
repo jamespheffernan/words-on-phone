@@ -44,7 +44,9 @@
     "legacy-heuristics-scorer": "node services/scoring/legacy-heuristics-server.js",
     "test:legacy-heuristics-scorer": "curl -X GET http://localhost:3006/test",
     "cultural-validation-scorer": "node services/scoring/cultural-validation-server.js",
-    "test:cultural-validation-scorer": "curl -X GET http://localhost:3007/test"
+    "test:cultural-validation-scorer": "curl -X GET http://localhost:3007/test",
+    "decision-engine": "node services/scoring/decision-engine-server.js",
+    "test:decision-engine": "curl -X GET http://localhost:3008/test"
   },
   "dependencies": {
     "express": "^4.18.2",
