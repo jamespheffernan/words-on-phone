@@ -46,7 +46,9 @@
     "cultural-validation-scorer": "node services/scoring/cultural-validation-server.js",
     "test:cultural-validation-scorer": "curl -X GET http://localhost:3007/test",
     "decision-engine": "node services/scoring/decision-engine-server.js",
-    "test:decision-engine": "curl -X GET http://localhost:3008/test"
+    "test:decision-engine": "curl -X GET http://localhost:3008/test",
+    "llm-generator": "node services/generation/llm-generator-server.js",
+    "test:llm-generator": "curl -X GET http://localhost:3009/test"
   },
   "dependencies": {
     "express": "^4.18.2",
