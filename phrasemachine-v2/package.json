@@ -26,7 +26,13 @@
     "ngram:sample": "node services/distinctiveness/ngram-cli.js sample",
     "ngram:test": "node services/distinctiveness/ngram-cli.js test",
     "ngram:stats": "node services/distinctiveness/ngram-cli.js stats",
-    "ngram:clear": "node services/distinctiveness/ngram-cli.js clear"
+    "ngram:clear": "node services/distinctiveness/ngram-cli.js clear",
+    "concreteness": "node services/describability/concreteness-server.js",
+    "concreteness:ingest": "node services/describability/concreteness-cli.js ingest",
+    "concreteness:test": "node services/describability/concreteness-cli.js test",
+    "concreteness:stats": "node services/describability/concreteness-cli.js stats",
+    "concreteness:clear": "node services/describability/concreteness-cli.js clear",
+    "concreteness:lookup": "node services/describability/concreteness-cli.js lookup"
   },
   "dependencies": {
     "express": "^4.18.2",
