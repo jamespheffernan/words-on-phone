@@ -32,7 +32,9 @@
     "concreteness:test": "node services/describability/concreteness-cli.js test",
     "concreteness:stats": "node services/describability/concreteness-cli.js stats",
     "concreteness:clear": "node services/describability/concreteness-cli.js clear",
-    "concreteness:lookup": "node services/describability/concreteness-cli.js lookup"
+    "concreteness:lookup": "node services/describability/concreteness-cli.js lookup",
+    "distinctiveness-scorer": "node services/scoring/distinctiveness-server.js",
+    "test:distinctiveness-scorer": "curl -X GET http://localhost:3004/test"
   },
   "dependencies": {
     "express": "^4.18.2",

@@ -195,7 +195,7 @@
 - [x] **Task 4**: Concreteness Norms Integration ✅ **COMPLETE**
 
 ### Phase 2: Scoring Algorithm Integration
-- [ ] **Task 5**: Legacy Heuristics Integration
+- [ ] **Task 5**: Distinctiveness Detector Implementation
 
 ### Phase 3: Legacy Integration & Decision Engine
 - [ ] **Task 8**: Legacy Heuristics Integration
@@ -231,7 +231,7 @@
 
 **📋 STATUS**: Phase 1 Complete - All data infrastructure operational, ready for scoring algorithm integration
 
-**🎯 CURRENT FOCUS**: Task 5 - Legacy Heuristics Integration (Phase 2 begins)
+**🎯 CURRENT FOCUS**: Task 5 - Distinctiveness Detector Implementation (Phase 2 begins)
 
 **⏱️ TIMELINE**: 8-week implementation plan with weekly milestones (Week 1: 100% complete, Phase 1 finished ahead of schedule)
 
