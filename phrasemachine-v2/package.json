@@ -48,7 +48,9 @@
     "decision-engine": "node services/scoring/decision-engine-server.js",
     "test:decision-engine": "curl -X GET http://localhost:3008/test",
     "llm-generator": "node services/generation/llm-generator-server.js",
-    "test:llm-generator": "curl -X GET http://localhost:3009/test"
+    "test:llm-generator": "curl -X GET http://localhost:3009/test",
+    "main-api": "node services/api/main-server.js",
+    "test:main-api": "curl -X GET http://localhost:3000/test"
   },
   "dependencies": {
     "express": "^4.18.2",
