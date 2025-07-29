@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # Redis for caching Wikidata entities and PMI calculations
+  redis:
+    image: redis:7-alpine
+    container_name: phrasemachine-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+
+  # PostgreSQL for phrase storage and scoring history
+  postgres:
+    image: postgres:15-alpine
+    container_name: phrasemachine-postgres
+    environment:
+      POSTGRES_DB: phrasemachine_v2
+      POSTGRES_USER: phrasemachine
+      POSTGRES_PASSWORD: dev_password_change_in_production
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./data/sql:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
+  # Main API service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: phrasemachine-api
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      REDIS_URL: redis://redis:6379
+      DATABASE_URL: postgresql://phrasemachine:dev_password_change_in_production@postgres:5432/phrasemachine_v2
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    restart: unless-stopped
+    command: npm run dev:api
+
+  # Admin Dashboard (React)
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: phrasemachine-admin
+    depends_on:
+      - api
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./admin:/app
+      - /app/node_modules
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  postgres_data: 
