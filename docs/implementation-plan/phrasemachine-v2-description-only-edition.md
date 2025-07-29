@@ -196,6 +196,7 @@
 
 ### Phase 2: Scoring Algorithm Integration
 - [x] **Task 5**: Distinctiveness Detector Implementation ✅ **COMPLETE**
+- [ ] **Task 6**: Describability Scorer Implementation
 
 ### Phase 3: Legacy Integration & Decision Engine
 - [ ] **Task 8**: Legacy Heuristics Integration
