@@ -42,7 +42,9 @@
     "describability-scorer": "node services/scoring/describability-server.js",
     "test:describability-scorer": "curl -X GET http://localhost:3005/test",
     "legacy-heuristics-scorer": "node services/scoring/legacy-heuristics-server.js",
-    "test:legacy-heuristics-scorer": "curl -X GET http://localhost:3006/test"
+    "test:legacy-heuristics-scorer": "curl -X GET http://localhost:3006/test",
+    "cultural-validation-scorer": "node services/scoring/cultural-validation-server.js",
+    "test:cultural-validation-scorer": "curl -X GET http://localhost:3007/test"
   },
   "dependencies": {
     "express": "^4.18.2",
