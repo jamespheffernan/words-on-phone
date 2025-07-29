@@ -116,7 +116,7 @@ npm run test:distinctiveness
 
 **Phase 1: Foundation & Data Infrastructure** (Week 1)
 - [x] **Task 1**: Create Feature Branch and Project Structure ✅
-- [ ] **Task 2**: Wikidata Data Ingestion Pipeline
+- [x] **Task 2**: Wikidata Data Ingestion Pipeline ✅
 - [ ] **Task 3**: Google Books N-gram Data Pipeline
 - [ ] **Task 4**: Concreteness Norms Integration
 
