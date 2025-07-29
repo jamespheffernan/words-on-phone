@@ -4,6 +4,13 @@ This scratchpad tracks the overarching vision, active implementation plans, and 
 
 ## Active Implementation Plans
 
+- [phrasemachine-v2-description-only-edition](implementation-plan/phrasemachine-v2-description-only-edition.md) - 📝 **PLANNED** - PhraseMachine v2 - "Description-Only Edition"
+  - 🎯 **GOAL**: Build automated service that generates & vets 2-4-word phrases optimized for verbal description in 60-second party-game rounds
+  - 📊 **SCOPE**: 8-week implementation plan with 25 tasks across 8 phases
+  - 🔧 **INNOVATION**: Data-driven quality assessment using Wikidata, Google Books N-gram, concreteness ratings, and cultural validation
+  - 🎯 **SUCCESS METRICS**: <300ms scoring latency, >80% "easy to describe" rating, <5% false-positive rate, <20% manual review queue
+  - 📋 **STATUS**: Planning complete - comprehensive 25-task roadmap with clear success criteria and technical architecture
+  - 🚀 **READY FOR**: Executor to begin Task 1 - Create Feature Branch and Project Structure
 - [posthog-dashboard-creation](implementation-plan/posthog-dashboard-creation.md) - 🎯 **60% COMPLETE** - PostHog Dashboard Creation
   - 🎯 **GOAL**: Programmatically create PostHog dashboards using API endpoints
   - ✅ **7/10 TASKS COMPLETE** (70%): Feature branch, API research, script enhancement, core insights creation, main dashboard creation, advanced dashboards, dashboard optimization
