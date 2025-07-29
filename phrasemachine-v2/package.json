@@ -40,7 +40,9 @@
     "distinctiveness-scorer": "node services/scoring/distinctiveness-server.js",
     "test:distinctiveness-scorer": "curl -X GET http://localhost:3004/test",
     "describability-scorer": "node services/scoring/describability-server.js",
-    "test:describability-scorer": "curl -X GET http://localhost:3005/test"
+    "test:describability-scorer": "curl -X GET http://localhost:3005/test",
+    "legacy-heuristics-scorer": "node services/scoring/legacy-heuristics-server.js",
+    "test:legacy-heuristics-scorer": "curl -X GET http://localhost:3006/test"
   },
   "dependencies": {
     "express": "^4.18.2",
