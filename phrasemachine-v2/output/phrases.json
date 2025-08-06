@@ -1,8 +1,8 @@
 {
   "meta": {
     "version": "2.0",
-    "generated": "2025-08-06T16:08:01.100Z",
-    "totalPhrases": 363,
+    "generated": "2025-08-06T16:13:48.876Z",
+    "totalPhrases": 524,
     "breakdown": {
       "byCategory": {
         "activity": 4,
@@ -12,21 +12,21 @@
         "food": 37,
         "general": 24,
         "movie": 37,
-        "other": 8,
-        "person": 96,
+        "other": 119,
+        "person": 146,
         "place": 38,
         "sport": 29,
         "tv_show": 25
       },
       "byDifficulty": {
-        "medium": 171,
+        "medium": 192,
         "hard": 58,
-        "easy": 134
+        "easy": 274
       },
       "bySource": {
         "compound": 44,
-        "entity_direct": 238,
-        "entity_alias": 81
+        "entity_direct": 388,
+        "entity_alias": 92
       }
     }
   },
@@ -1078,7 +1078,589 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "007",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "24",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Adobe",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Alien",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Athens",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Atlanta",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Bangkok",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Beijing",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Best Buy",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Blade Runner",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Braveheart",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Britain",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Brussels",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Budapest",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Burritos",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Canada",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Chicken Wings",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Chipotle",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Copenhagen",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Costco",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Criminal Minds",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Dallas",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Delhi",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Denver",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Detroit",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Dexter",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Die Hard",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Dunkin",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "eBay",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "F1",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Fast & Furious",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Fast and Furious",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Formula 1",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "France",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Germany",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Gladiator",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Heroes",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Home Depot",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Homeland",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Hong Kong",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "House",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Houston",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Istanbul",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Italy",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Jakarta",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "James Bond",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Japan",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "John Wick",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Law and Order",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Mad Max",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Mad Men",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Manila",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Memphis",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Mission Impossible",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Mumbai",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "NASCAR",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Nashville",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "New Orleans",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Olympics",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Pad Thai",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "PayPal",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Philadelphia",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Philly",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Phoenix",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Portland",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Prague",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Predator",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Prison Break",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Salt Lake City",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "San Antonio",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "San Diego",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Saving Private Ryan",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Seoul",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Shanghai",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Singapore",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Stockholm",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Super Bowl",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Supernatural",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Taco Bell",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Target",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Tel Aviv",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Terminator",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The Flash",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The Matrix",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The Sopranos",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The Wire",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The X-Files",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Transformers",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "UK",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "United Kingdom",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Vienna",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Walmart",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Warsaw",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "WhatsApp",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Wings",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "World Cup",
+      "category": "other",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Big Ben",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Black Hawk Down",
       "category": "other",
       "difficulty": "medium",
       "source": "entity_direct"
@@ -1090,7 +1672,25 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Fried Rice",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "GameStop",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Harry Potter",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Lo Mein",
       "category": "other",
       "difficulty": "medium",
       "source": "entity_direct"
@@ -1108,6 +1708,66 @@
       "source": "entity_alias"
     },
     {
+      "phrase": "Lyft",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "MMA",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Nachos",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Oracle",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Oslo",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Papa Johns",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Pearl Harbor",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Quesadilla",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Rambo",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Smallville",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "The Hobbit",
       "category": "other",
       "difficulty": "medium",
@@ -1120,9 +1780,27 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "UFC",
+      "category": "other",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Twilight",
       "category": "other",
       "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "50 Cent",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Aaron Rodgers",
+      "category": "person",
+      "difficulty": "easy",
       "source": "entity_direct"
     },
     {
@@ -1144,7 +1822,19 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Anthony Hopkins",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Barack Obama",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Ben Affleck",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_direct"
@@ -1156,16 +1846,46 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Christian Bale",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Clooney",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_alias"
     },
     {
+      "phrase": "Coldplay",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "CR7",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Cristiano Ronaldo",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "da Vinci",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_alias"
+    },
+    {
+      "phrase": "Daniel Craig",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
     },
     {
       "phrase": "Denzel Washington",
@@ -1180,10 +1900,22 @@
       "source": "entity_alias"
     },
     {
+      "phrase": "Dua Lipa",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Einstein",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_alias"
+    },
+    {
+      "phrase": "Eminem",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
     },
     {
       "phrase": "Fresh Prince",
@@ -1210,6 +1942,30 @@
       "source": "entity_alias"
     },
     {
+      "phrase": "Harrison Ford",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Hugh Jackman",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Ian McKellen",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Imagine Dragons",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Iron Man",
       "category": "person",
       "difficulty": "easy",
@@ -1220,6 +1976,12 @@
       "category": "person",
       "difficulty": "easy",
       "source": "entity_alias"
+    },
+    {
+      "phrase": "Jay-Z",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
     },
     {
       "phrase": "Jen",
@@ -1240,6 +2002,12 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "John Legend",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Jolie",
       "category": "person",
       "difficulty": "easy",
@@ -1253,6 +2021,24 @@
     },
     {
       "phrase": "Justin Timberlake",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Kendrick Lamar",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Kevin Durant",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Kevin Hart",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_direct"
@@ -1288,10 +2074,46 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Liam Neeson",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Lionel Messi",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Mark Wahlberg",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Maroon 5",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Matt Damon",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Meryl Streep",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_direct"
+    },
+    {
+      "phrase": "Messi",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
     },
     {
       "phrase": "Michael Jackson",
@@ -1312,10 +2134,46 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Neymar",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Novak Djokovic",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Obama",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_alias"
+    },
+    {
+      "phrase": "OneRepublic",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Patrick Mahomes",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Patrick Stewart",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Pierce Brosnan",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
     },
     {
       "phrase": "Pitt",
@@ -1328,6 +2186,12 @@
       "category": "person",
       "difficulty": "easy",
       "source": "entity_alias"
+    },
+    {
+      "phrase": "Rafael Nadal",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
     },
     {
       "phrase": "RDJ",
@@ -1352,6 +2216,18 @@
       "category": "person",
       "difficulty": "easy",
       "source": "entity_direct"
+    },
+    {
+      "phrase": "Roger Federer",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Ronaldo",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
     },
     {
       "phrase": "Sam Jackson",
@@ -1384,6 +2260,48 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Sean Connery",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Selena Gomez",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Serena Williams",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Snoop Dogg",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Stephen Curry",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Tiger Woods",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Tom Brady",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Tom Cruise",
       "category": "person",
       "difficulty": "easy",
@@ -1396,9 +2314,27 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Travis Scott",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Will Smith",
       "category": "person",
       "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Wolverine",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Alicia Keys",
+      "category": "person",
+      "difficulty": "medium",
       "source": "entity_direct"
     },
     {
@@ -1534,6 +2470,12 @@
       "source": "entity_alias"
     },
     {
+      "phrase": "Jason Statham",
+      "category": "person",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "JFK",
       "category": "person",
       "difficulty": "medium",
@@ -1541,6 +2483,12 @@
     },
     {
       "phrase": "John F. Kennedy",
+      "category": "person",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "John Mayer",
       "category": "person",
       "difficulty": "medium",
       "source": "entity_direct"
@@ -1636,6 +2584,12 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Roger Moore",
+      "category": "person",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Ryan Gosling",
       "category": "person",
       "difficulty": "medium",
@@ -1688,6 +2642,18 @@
       "category": "person",
       "difficulty": "medium",
       "source": "entity_alias"
+    },
+    {
+      "phrase": "Twenty One Pilots",
+      "category": "person",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Vin Diesel",
+      "category": "person",
+      "difficulty": "medium",
+      "source": "entity_direct"
     },
     {
       "phrase": "Ye",
