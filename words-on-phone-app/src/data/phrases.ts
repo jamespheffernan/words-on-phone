@@ -26,7 +26,11 @@ export enum PhraseCategory {
   CLOTHING = 'Clothing & Fashion',
   BRANDS = 'Brands & Companies',
   OCCUPATIONS = 'Occupations & Jobs',
-  ADULT = 'Adult Content'
+  ADULT = 'Adult Content',
+  ART = 'Art & Culture',
+  LITERATURE = 'Literature & Books',
+  IDIOMS = 'Idioms & Phrases',
+  GAMING = 'Video Games & Gaming'
 }
 
 // Category mapping from JSON keys to enum values
@@ -51,7 +55,11 @@ const categoryMapping: Record<string, PhraseCategory> = {
   'Clothing & Fashion': PhraseCategory.CLOTHING,
   'Brands & Companies': PhraseCategory.BRANDS,
   'Occupations & Jobs': PhraseCategory.OCCUPATIONS,
-  'Adult Content': PhraseCategory.ADULT
+  'Adult Content': PhraseCategory.ADULT,
+  'Art & Culture': PhraseCategory.ART,
+  'Literature & Books': PhraseCategory.LITERATURE,
+  'Idioms & Phrases': PhraseCategory.IDIOMS,
+  'Video Games & Gaming': PhraseCategory.GAMING
 };
 
 // Convert imported data to categorized phrases

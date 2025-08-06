@@ -2,7 +2,7 @@ import phrases from '../public/phrases.json';
 
 describe('Phrases', () => {
   test('should have the expected number of phrases', () => {
-    expect(phrases.length).toBe(3019);
+    expect(phrases.length).toBe(6081);
   });
 
   test('should have no duplicate phrases', () => {
@@ -25,7 +25,13 @@ describe('Phrases', () => {
       'Places & Travel',
       'Sports & Athletes',
       'Technology & Science',
-      'Adult Content'
+      'Adult Content',
+      'Clothing & Fashion',
+      'Art & Culture',
+      'Literature & Books',
+      'Idioms & Phrases',
+      'Video Games & Gaming',
+      'Fantasy & Magic'
     ];
     
     phrases.forEach(phrase => {
