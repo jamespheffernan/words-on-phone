@@ -60,7 +60,9 @@
 }
 
 .disclosure-title {
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   flex: 1;
 }
 
@@ -103,7 +105,9 @@
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -162,7 +166,9 @@
 
 .option-title {
   font-size: 0.9rem;
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   color: #333;
   margin-bottom: 0.125rem;
 }

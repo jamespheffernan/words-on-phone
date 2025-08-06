@@ -71,7 +71,9 @@
 .end-title {
   font-size: clamp(2.5rem, 8vw, 4rem);
   margin: 0 0 30px;
-  font-weight: 900;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 800;
+  font-style: normal;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
   animation: titleBounce 1s ease-out 0.5s both;
 }
@@ -109,7 +111,9 @@
 .team-scores h2 {
   margin: 0 0 1.5rem 0;
   font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .team-result {
@@ -133,12 +137,16 @@
 
 .team-result .team-name {
   font-size: clamp(1.1rem, 3.5vw, 1.3rem);
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .team-result .team-score {
   font-size: clamp(1rem, 3vw, 1.2rem);
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   background: rgba(255, 255, 255, 0.2);
   padding: 0.5rem 1rem;
   border-radius: 1.5rem;
@@ -152,7 +160,9 @@
 .game-stats h3 {
   margin: 0 0 1rem 0;
   font-size: clamp(1.2rem, 3.5vw, 1.5rem);
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   text-align: center;
 }
 
@@ -178,13 +188,17 @@
 }
 
 .stat-label {
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   opacity: 0.9;
   font-size: clamp(0.9rem, 3vw, 1rem);
 }
 
 .stat-value {
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   font-size: clamp(0.9rem, 3vw, 1rem);
   text-align: right;
 }

@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Gruppo:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@200;300;400;500;700;800&display=swap');
 
 :root {
-  font-family: 'Gruppo', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Turret Road', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -21,6 +21,43 @@
   --success-color-hover: #059669;
   --error-color: #ef4444;
   --error-color-hover: #dc2626;
+}
+
+/* Turret Road Font Weight Classes */
+.turret-road-extralight {
+  font-family: "Turret Road", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.turret-road-light {
+  font-family: "Turret Road", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.turret-road-regular {
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.turret-road-medium {
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.turret-road-bold {
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.turret-road-extrabold {
+  font-family: "Turret Road", sans-serif;
+  font-weight: 800;
+  font-style: normal;
 }
 
 * {
