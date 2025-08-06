@@ -33,7 +33,9 @@
   margin: 0 0 0.5rem 0;
   color: white;
   font-size: clamp(1.5rem, 5vw, 2rem);
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -41,6 +43,9 @@
   margin: 0;
   color: rgba(255, 255, 255, 0.9);
   font-size: clamp(0.9rem, 3vw, 1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   opacity: 0.8;
 }
 
@@ -60,7 +65,9 @@
 }
 
 .team-setup__team label {
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   color: white;
   font-size: clamp(1rem, 3.5vw, 1.1rem);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
@@ -76,7 +83,9 @@
   color: white;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
-  font-family: inherit;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .team-setup__team input:focus {
@@ -92,7 +101,9 @@
 
 .team-setup__vs {
   font-size: clamp(1.2rem, 4vw, 1.5rem);
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   color: rgba(255, 255, 255, 0.9);
   padding: 0.5rem;
   margin: 0 0.5rem;
@@ -127,8 +138,9 @@
   align-items: center;
   gap: 0.5rem;
   backdrop-filter: blur(10px);
-  font-family: inherit;
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .team-setup__shuffle-btn:hover {
@@ -145,12 +157,13 @@
   background: rgba(76, 175, 80, 0.3);
   color: white;
   font-size: clamp(1rem, 3.5vw, 1.2rem);
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
-  font-family: inherit;
 }
 
 .team-setup__start-btn:hover:not(:disabled) {
@@ -181,7 +194,9 @@
   color: white;
   font-size: clamp(1.1rem, 3.5vw, 1.2rem);
   text-align: center;
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -195,6 +210,9 @@
   margin-bottom: 0.5rem;
   line-height: 1.4;
   font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .team-setup__rules li:last-child {

@@ -17,7 +17,9 @@
   padding: 1rem 0.75rem;
   color: white;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -59,7 +61,9 @@
 
 .tile-name {
   font-size: 0.75rem;
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   line-height: 1.1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -73,7 +77,9 @@
 .tile-count {
   font-size: 0.65rem;
   opacity: 0.9;
+  font-family: "Turret Road", sans-serif;
   font-weight: 400;
+  font-style: normal;
 }
 
 /* Responsive adjustments */
@@ -112,6 +118,9 @@
 .loading-text {
   font-size: 0.9rem;
   opacity: 0.7;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /* Category-specific gradient variations */

@@ -28,7 +28,9 @@
 .round-title {
   font-size: clamp(1.5rem, 5vw, 2.5rem);
   margin: 0 0 1.5rem 0;
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 800;
+  font-style: normal;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -53,12 +55,16 @@
 }
 
 .stat-label {
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   opacity: 0.9;
 }
 
 .stat-value {
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   background: rgba(255, 255, 255, 0.2);
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
@@ -72,7 +78,9 @@
 .team-selection h3 {
   font-size: clamp(1.2rem, 4vw, 1.5rem);
   margin: 0 0 0.5rem 0;
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .selection-hint {
@@ -80,12 +88,17 @@
   opacity: 0.9;
   margin: 0 0 1.5rem 0;
   line-height: 1.4;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .correction-hint {
   font-size: clamp(0.8rem, 2.2vw, 0.9rem);
   opacity: 0.7;
   margin: 1.5rem 0 1rem 0;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
   font-style: italic;
 }
 
@@ -118,7 +131,9 @@
   display: block;
   margin-bottom: 0.5rem;
   text-transform: uppercase;
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   letter-spacing: 0.5px;
 }
 
@@ -131,12 +146,17 @@
 
 .team-info .team-name {
   font-size: clamp(1rem, 3vw, 1.2rem);
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .score-after {
   font-size: clamp(0.8rem, 2.2vw, 0.9rem);
   opacity: 0.8;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .team-buttons {
@@ -175,7 +195,9 @@
   align-items: center;
   gap: 0.5rem;
   min-width: 120px;
-  font-family: inherit;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .team-win-button:hover {
@@ -187,12 +209,17 @@
 
 .team-win-button .team-name {
   font-size: clamp(1rem, 3.5vw, 1.2rem);
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .team-win-button .current-score {
   font-size: clamp(0.8rem, 2.5vw, 0.9rem);
   opacity: 0.8;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .game-progress {
@@ -205,7 +232,9 @@
 .game-progress p {
   margin: 0 0 1rem 0;
   font-size: clamp(0.9rem, 3vw, 1rem);
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   opacity: 0.9;
 }
 
@@ -221,11 +250,16 @@
   align-items: center;
   gap: 0.5rem;
   font-size: clamp(1rem, 3.5vw, 1.2rem);
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .team-score-display .team-name {
   opacity: 0.9;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .team-score-display .score {
@@ -296,7 +330,9 @@
 .next-round-setup h3 {
   font-size: clamp(1.2rem, 4vw, 1.5rem);
   margin: 0 0 0.5rem 0;
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .team-starter-button {
@@ -311,7 +347,9 @@
   align-items: center;
   justify-content: center;
   min-width: 120px;
-  font-family: inherit;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .team-starter-button:hover {
@@ -323,12 +361,16 @@
 
 .team-starter-button .team-name {
   font-size: clamp(1rem, 3.5vw, 1.2rem);
-  font-weight: bold;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .default-label {
   font-size: clamp(0.7rem, 2vw, 0.8rem);
   opacity: 0.7;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
   font-style: italic;
   margin-left: 0.5rem;
 }
@@ -346,9 +388,10 @@
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: inherit;
+  font-family: "Turret Road", sans-serif;
   font-size: clamp(1rem, 3.5vw, 1.2rem);
-  font-weight: bold;
+  font-weight: 700;
+  font-style: normal;
   margin-top: 1.5rem;
 }
 

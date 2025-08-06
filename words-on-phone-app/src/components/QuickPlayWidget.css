@@ -32,7 +32,9 @@
 .quick-play-header h3 {
   margin: 0;
   font-size: 24px;
+  font-family: "Turret Road", sans-serif;
   font-weight: 700;
+  font-style: normal;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -110,7 +112,9 @@
 
 .action-title {
   font-size: 18px;
-  font-weight: 600;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   margin-bottom: 4px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
@@ -118,7 +122,9 @@
 .action-subtitle {
   font-size: 14px;
   opacity: 0.8;
+  font-family: "Turret Road", sans-serif;
   font-weight: 400;
+  font-style: normal;
 }
 
 .last-played {
