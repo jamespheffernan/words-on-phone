@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './RoundEndScreen.css';
 import { useGameStore, GameMode, GameStatus } from '../store';
 import { useHaptics } from '../hooks/useHaptics';
+import { PlayerNameModal } from './PlayerNameModal';
 
 interface RoundEndScreenProps {
   onTeamWon: (teamIndex: number) => void;
@@ -16,8 +17,9 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
     roundNumber, 
     currentTeamIndex, 
     setCurrentTeamIndex,
-    soloScore,
-    soloRounds 
+    currentSoloPlayer,
+    soloGameResults,
+    completeSoloRound 
   } = useGameStore();
   const { triggerHaptic } = useHaptics();
   
@@ -34,6 +36,7 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
     // The losing team (who was holding device) starts next round
     assumedLosingTeamIndex
   );
+  const [showPlayerNameModal, setShowPlayerNameModal] = useState(false);
   
   // Calculate round statistics
   const totalCorrect = currentRoundAnswers.length;
@@ -65,7 +68,14 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
 
   const handleSoloContinue = () => {
     triggerHaptic('gameplay', 'round-continue');
-    onContinue(); // This will add the round to soloRounds and start next round
+    completeSoloRound(currentSoloPlayer);
+    setShowPlayerNameModal(true);
+  };
+
+  const handleNextPlayerName = (name: string) => {
+    useGameStore.getState().setCurrentSoloPlayer(name);
+    useGameStore.setState({ status: GameStatus.PLAYING });
+    setShowPlayerNameModal(false);
   };
 
   const handleSoloEndGame = () => {
@@ -88,13 +98,13 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
           <h2 className="round-title">Round {roundNumber} Complete! 🎯</h2>
           
           <div className="solo-score">
+            <div className="current-player">
+              <span className="player-label">Player:</span>
+              <span className="player-name">{currentSoloPlayer}</span>
+            </div>
             <div className="current-round-score">
               <span className="score-label">This Round:</span>
               <span className="score-value">{totalCorrect} correct</span>
-            </div>
-            <div className="total-score">
-              <span className="score-label">Total Score:</span>
-              <span className="score-value">{soloScore} correct answers</span>
             </div>
           </div>
           
@@ -125,19 +135,21 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
             )}
           </div>
 
-          {soloRounds.length > 0 && (
+          {soloGameResults.length > 0 && (
             <div className="leaderboard">
-              <h3>Your Performance</h3>
+              <h3>Current Game Leaderboard</h3>
               <div className="round-history">
-                {soloRounds.map((round, index) => (
-                  <div key={index} className="round-summary">
-                    <span className="round-num">Round {round.roundNumber}:</span>
-                    <span className="round-score">{round.correctAnswers} correct</span>
-                  </div>
-                ))}
+                {soloGameResults
+                  .sort((a, b) => b.score - a.score)
+                  .map((result, index) => (
+                    <div key={index} className="round-summary">
+                      <span className="round-num">{result.playerName}:</span>
+                      <span className="round-score">{result.score} correct</span>
+                    </div>
+                  ))}
                 <div className="round-summary current">
-                  <span className="round-num">Round {roundNumber}:</span>
-                  <span className="round-score">{totalCorrect} correct</span>
+                  <span className="round-num">{currentSoloPlayer}:</span>
+                  <span className="round-score">{totalCorrect} correct (current)</span>
                 </div>
               </div>
             </div>
@@ -148,7 +160,7 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
               className="continue-button primary"
               onClick={handleSoloContinue}
             >
-              🚀 New Round
+              👤 Next Player
             </button>
             <button
               className="end-game-button secondary"
@@ -158,6 +170,14 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
             </button>
           </div>
         </div>
+        
+        <PlayerNameModal
+          isOpen={showPlayerNameModal}
+          onClose={() => setShowPlayerNameModal(false)}
+          onConfirm={handleNextPlayerName}
+          title="Next Player"
+          message="Who's playing next?"
+        />
       </div>
     );
   }

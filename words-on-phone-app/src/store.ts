@@ -64,6 +64,43 @@ export interface RoundStats {
   winningTeamIndex?: number;
 }
 
+export interface LeaderboardEntry {
+  id: string;
+  playerName: string;
+  score: number;
+  rounds: number;
+  averagePerRound: number;
+  fastestAnswer?: {
+    phrase: string;
+    timeMs: number;
+  };
+  slowestAnswer?: {
+    phrase: string;
+    timeMs: number;
+  };
+  categories: string[];
+  date: number; // timestamp
+}
+
+export interface SoloRoundResult {
+  playerName: string;
+  score: number;
+  answers: Array<{ phrase: string; timeMs: number }>;
+  fastestAnswer?: { phrase: string; timeMs: number };
+  slowestAnswer?: { phrase: string; timeMs: number };
+  roundNumber: number;
+}
+
+export interface AllTimeEntry {
+  id: string;
+  playerName: string;
+  score: number;
+  fastestAnswer?: { phrase: string; timeMs: number };
+  slowestAnswer?: { phrase: string; timeMs: number };
+  categories: string[];
+  date: number;
+}
+
 interface GameState {
   // Game status
   status: GameStatus;
@@ -114,17 +151,15 @@ interface GameState {
   roundStats: RoundStats[];
   currentRoundAnswers: Array<{ phrase: string; timeMs: number }>;
   
-  // Solo gameplay
-  soloPlayerName: string;
-  soloScore: number; // total correct answers across all rounds
-  soloRounds: Array<{
-    roundNumber: number;
-    correctAnswers: number;
-    totalTime: number;
-    fastestAnswer?: { phrase: string; timeMs: number };
-    slowestAnswer?: { phrase: string; timeMs: number };
-    answers: Array<{ phrase: string; timeMs: number }>;
-  }>;
+  // Solo gameplay (multiplayer turn-based)
+  currentSoloPlayer: string; // name of current player
+  soloGameResults: SoloRoundResult[]; // results for current game
+  currentSoloRound: number; // which round of the solo game
+  
+  // Leaderboards  
+  allTimeLeaderboard: AllTimeEntry[]; // persistent all-time best rounds
+  showingLeaderboard: boolean;
+  showingAllTimeLeaderboard: boolean;
   
   // Category grouping (Task 3)
   expandedGroups: Set<string>; // Set of group IDs that are currently expanded
@@ -180,7 +215,13 @@ interface GameState {
   resetTeams: () => void;
   setCurrentTeamIndex: (index: number) => void;
   // Solo actions
-  setSoloPlayerName: (name: string) => void;
+  setCurrentSoloPlayer: (name: string) => void;
+  completeSoloRound: (playerName: string) => void;
+  addToAllTimeLeaderboard: (entry: AllTimeEntry) => void;
+  clearAllTimeLeaderboard: () => void;
+  setShowingLeaderboard: (showing: boolean) => void;
+  setShowingAllTimeLeaderboard: (showing: boolean) => void;
+  startNewSoloGame: () => void;
   // Round stats actions
   recordAnswer: (phrase: string, timeMs: number) => void;
   completeRound: (winningTeamIndex: number) => void;
@@ -298,10 +339,15 @@ export const useGameStore = create<GameState>()(
         roundStats: [],
         currentRoundAnswers: [],
         
-        // Solo gameplay
-        soloPlayerName: '',
-        soloScore: 0,
-        soloRounds: [],
+        // Solo gameplay (multiplayer turn-based)
+        currentSoloPlayer: '',
+        soloGameResults: [],
+        currentSoloRound: 1,
+        
+        // Leaderboards
+        allTimeLeaderboard: [],
+        showingLeaderboard: false,
+        showingAllTimeLeaderboard: false,
         
         // Category grouping (Task 3) - Default to first group expanded
         expandedGroups: new Set(['entertainment-media']),
@@ -326,8 +372,8 @@ export const useGameStore = create<GameState>()(
             analytics.track('answer_correct', {
               phraseId,
               timeRemaining: Math.max(0, state.timeRemaining),
-              teamName: state.gameMode === GameMode.SOLO ? state.soloPlayerName || 'Solo Player' : state.teams[state.currentTeamIndex]?.name,
-              scoreAfter: state.gameMode === GameMode.SOLO ? (state.soloScore + 1) : (state.currentRoundAnswers.length + 1),
+              teamName: state.gameMode === GameMode.SOLO ? state.currentSoloPlayer || 'Solo Player' : state.teams[state.currentTeamIndex]?.name,
+              scoreAfter: state.gameMode === GameMode.SOLO ? (state.currentRoundAnswers.length + 1) : (state.currentRoundAnswers.length + 1),
               responseTimeMs: duration,
               gameMode: state.gameMode
             });
@@ -345,9 +391,7 @@ export const useGameStore = create<GameState>()(
             phraseStartTime: Date.now(),
             currentTeamIndex: newTeamIndex,
             // Increment solo score if in solo mode and we had a current phrase (success)
-            soloScore: state.gameMode === GameMode.SOLO && state.currentPhrase && state.phraseStartTime 
-              ? state.soloScore + 1 
-              : state.soloScore
+            // Solo score is now tracked per round in currentRoundAnswers
           };
         }),
         
@@ -525,8 +569,7 @@ export const useGameStore = create<GameState>()(
             actualTimerDuration: actualDuration,
             isTimerRunning: true,
             phraseStartTime: Date.now(),
-            currentRoundAnswers: [], // Reset for new game
-            soloScore: 0, // Reset solo score
+            currentRoundAnswers: [], // Reset for new round
             roundNumber: 1,
             teams: [], // Empty teams for solo mode
             currentTeamIndex: 0
@@ -631,39 +674,11 @@ export const useGameStore = create<GameState>()(
         }),
 
         continueFromRoundEnd: () => set((state) => {
-          // Handle solo mode - save current round stats and continue
+          // Solo mode is now handled by completeSoloRound action
           if (state.gameMode === GameMode.SOLO) {
-            // Calculate round stats
-            const fastestAnswer = state.currentRoundAnswers.length > 0 
-              ? state.currentRoundAnswers.reduce((fastest, current) => 
-                  current.timeMs < fastest.timeMs ? current : fastest)
-              : undefined;
-            const slowestAnswer = state.currentRoundAnswers.length > 0 
-              ? state.currentRoundAnswers.reduce((slowest, current) => 
-                  current.timeMs > slowest.timeMs ? current : slowest)
-              : undefined;
-
-            const newSoloRound = {
-              roundNumber: state.roundNumber,
-              correctAnswers: state.currentRoundAnswers.length,
-              totalTime: state.actualTimerDuration,
-              fastestAnswer,
-              slowestAnswer,
-              answers: [...state.currentRoundAnswers]
-            };
-
-            return {
-              status: GameStatus.PLAYING,
-              timeRemaining: state.actualTimerDuration,
-              isTimerRunning: true,
-              phraseStartTime: Date.now(),
-              currentPhrase: state.cursor.next(),
-              skipsUsed: 0,
-              skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
-              roundNumber: state.roundNumber + 1,
-              currentRoundAnswers: [], // Reset for new round
-              soloRounds: [...state.soloRounds, newSoloRound]
-            };
+            // This shouldn't be called for solo mode anymore
+            console.warn('continueFromRoundEnd called for solo mode - use completeSoloRound instead');
+            return state;
           }
 
           // Handle team mode - check if any team has won (configurable game length)
@@ -830,7 +845,71 @@ export const useGameStore = create<GameState>()(
         setCurrentTeamIndex: (index) => set({ currentTeamIndex: index }),
         
         // Solo actions
-        setSoloPlayerName: (name) => set({ soloPlayerName: name }),
+        setCurrentSoloPlayer: (name) => set({ currentSoloPlayer: name }),
+        completeSoloRound: (playerName) => set((state) => {
+          // Calculate stats for the current round
+          const answers = state.currentRoundAnswers;
+          const score = answers.length;
+          const fastestAnswer = answers.length > 0 
+            ? answers.reduce((fastest, answer) => answer.timeMs < fastest.timeMs ? answer : fastest)
+            : undefined;
+          const slowestAnswer = answers.length > 0 
+            ? answers.reduce((slowest, answer) => answer.timeMs > slowest.timeMs ? answer : slowest)
+            : undefined;
+
+          const roundResult: SoloRoundResult = {
+            playerName,
+            score,
+            answers,
+            fastestAnswer,
+            slowestAnswer,
+            roundNumber: state.currentSoloRound
+          };
+
+          // Add to all-time leaderboard if it's a good score
+          const allTimeEntry: AllTimeEntry = {
+            id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            playerName,
+            score,
+            fastestAnswer,
+            slowestAnswer,
+            categories: state.selectedCategories,
+            date: Date.now()
+          };
+
+          // Update all-time leaderboard and sort
+          const updatedAllTime = [...state.allTimeLeaderboard, allTimeEntry]
+            .sort((a, b) => {
+              if (a.score !== b.score) return b.score - a.score;
+              return b.date - a.date;
+            })
+            .slice(0, 100); // Keep top 100
+
+          return {
+            soloGameResults: [...state.soloGameResults, roundResult],
+            allTimeLeaderboard: updatedAllTime,
+            currentSoloRound: state.currentSoloRound + 1,
+            currentRoundAnswers: [], // Reset for next round
+            status: GameStatus.ROUND_END
+          };
+        }),
+        addToAllTimeLeaderboard: (entry) => set((state) => {
+          const updated = [...state.allTimeLeaderboard, entry]
+            .sort((a, b) => {
+              if (a.score !== b.score) return b.score - a.score;
+              return b.date - a.date;
+            })
+            .slice(0, 100);
+          return { allTimeLeaderboard: updated };
+        }),
+        clearAllTimeLeaderboard: () => set({ allTimeLeaderboard: [] }),
+        setShowingLeaderboard: (showing) => set({ showingLeaderboard: showing }),
+        setShowingAllTimeLeaderboard: (showing) => set({ showingAllTimeLeaderboard: showing }),
+        startNewSoloGame: () => set({
+          soloGameResults: [],
+          currentSoloRound: 1,
+          currentSoloPlayer: ''
+        }),
         
         // Round stats actions
         recordAnswer: (phrase, timeMs) => set((state) => ({

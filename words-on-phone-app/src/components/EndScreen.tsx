@@ -12,8 +12,7 @@ export const EndScreen: React.FC = () => {
     startSoloGame, 
     resetTeams, 
     resetCurrentRoundAnswers,
-    soloScore,
-    soloRounds 
+    soloGameResults 
   } = useGameStore();
   const { triggerHaptic } = useHaptics();
 
@@ -54,16 +53,16 @@ export const EndScreen: React.FC = () => {
   // Solo mode render
   if (gameMode === GameMode.SOLO) {
     // Calculate solo game stats
-    const totalRounds = soloRounds.length;
-    const totalCorrect = soloScore;
-    const fastestAnswer = soloRounds
-      .flatMap(round => round.answers)
+    const totalRounds = soloGameResults.length;
+    const totalCorrect = soloGameResults.reduce((sum, result) => sum + result.score, 0);
+    const fastestAnswer = soloGameResults
+      .flatMap((result) => result.answers)
       .reduce((fastest, answer) => 
         !fastest || answer.timeMs < fastest.timeMs ? answer : fastest, 
         null as { phrase: string; timeMs: number } | null
       );
-    const slowestAnswer = soloRounds
-      .flatMap(round => round.answers)
+    const slowestAnswer = soloGameResults
+      .flatMap((result) => result.answers)
       .reduce((slowest, answer) => 
         !slowest || answer.timeMs > slowest.timeMs ? answer : slowest, 
         null as { phrase: string; timeMs: number } | null
@@ -116,16 +115,19 @@ export const EndScreen: React.FC = () => {
             </div>
           </div>
 
-          {soloRounds.length > 1 && (
+          {soloGameResults.length > 1 && (
             <div className="round-performance">
-              <h3>Round by Round</h3>
+              <h3>Final Leaderboard</h3>
               <div className="rounds-grid">
-                {soloRounds.map((round, index) => (
-                  <div key={index} className="round-result">
-                    <span className="round-label">Round {round.roundNumber}:</span>
-                    <span className="round-score">{round.correctAnswers} correct</span>
-                  </div>
-                ))}
+                {soloGameResults
+                  .sort((a, b) => b.score - a.score)
+                  .map((result, index) => (
+                    <div key={index} className="round-result">
+                      <span className="round-label">{result.playerName}:</span>
+                      <span className="round-score">{result.score} correct</span>
+                      {index === 0 && <span className="winner-badge">🏆</span>}
+                    </div>
+                  ))}
               </div>
             </div>
           )}

@@ -13,6 +13,7 @@ import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
 import { CategorySelector } from './CategorySelector';
 import { SelectionBanner } from './SelectionBanner';
 import { HeroSection } from './HeroSection';
+import { PlayerNameModal } from './PlayerNameModal';
 import { analytics } from '../services/analytics';
 import './MenuScreen.css';
 
@@ -31,6 +32,7 @@ export const MenuScreen: React.FC = () => {
   const [showCategoryRequest, setShowCategoryRequest] = useState(false);
   const [showPrivacySettings, setShowPrivacySettings] = useState(false);
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
+  const [showPlayerNameModal, setShowPlayerNameModal] = useState(false);
   
   const { defaultCategories, customCategories, loading: categoriesLoading, reload: reloadCategories } = useCategoryMetadata();
 
@@ -94,6 +96,17 @@ export const MenuScreen: React.FC = () => {
     }
   };
 
+  const handleSoloGameStart = () => {
+    setShowPlayerNameModal(true);
+  };
+
+  const handleFirstPlayerName = (name: string) => {
+    useGameStore.getState().setCurrentSoloPlayer(name);
+    useGameStore.getState().startNewSoloGame();
+    startSoloGame();
+    setShowPlayerNameModal(false);
+  };
+
   return (
     <main className="menu-screen" data-testid="menu-screen">
       <div className="menu-content">
@@ -151,7 +164,7 @@ export const MenuScreen: React.FC = () => {
                   <div className="browse-actions">
                     <button
                       className="start-button solo-game"
-                      onClick={startSoloGame}
+                      onClick={handleSoloGameStart}
                       aria-label="Start solo game with selected categories"
                     >
                       👤 Start Solo Game
@@ -285,6 +298,14 @@ export const MenuScreen: React.FC = () => {
       <PrivacySettings
         isOpen={showPrivacySettings}
         onClose={() => setShowPrivacySettings(false)}
+      />
+
+      <PlayerNameModal
+        isOpen={showPlayerNameModal}
+        onClose={() => setShowPlayerNameModal(false)}
+        onConfirm={handleFirstPlayerName}
+        title="Solo Game"
+        message="Who's playing first?"
       />
     </main>
   );
