@@ -1,124 +1,7893 @@
 {
   "meta": {
-    "description": "Expanded curated entities for party game phrase scoring",
-    "version": "1.0",
-    "created": "2025-08-06",
-    "entityCount": 100,
-    "categories": {
-      "people": 35,
-      "movies_tv": 25, 
-      "places": 20,
-      "food_brands": 15,
-      "sports_games": 5
-    }
+    "description": "Expanded curated list of game-relevant Wikidata entities",
+    "source": "Manual curation + strategic expansion",
+    "count": 923,
+    "target_categories": {
+      "person": 150,
+      "movie": 75,
+      "place": 75,
+      "tv_show": 50,
+      "company": 50,
+      "food": 40,
+      "sport": 30,
+      "country": 20,
+      "other": 10
+    },
+    "expansion_phase": "Phase 1 - targeting 500+ entities"
   },
   "entities": {
-    "Q42": { "id": "Q42", "label": "Taylor Swift", "sitelinks": 150, "type": "Q5", "aliases": ["T-Swift", "Tay"] },
-    "Q76": { "id": "Q76", "label": "Barack Obama", "sitelinks": 200, "type": "Q5", "aliases": ["President Obama", "Obama"] },
-    "Q2831": { "id": "Q2831", "label": "Michael Jackson", "sitelinks": 180, "type": "Q5", "aliases": ["MJ", "King of Pop"] },
-    "Q5582": { "id": "Q5582", "label": "Albert Einstein", "sitelinks": 170, "type": "Q5", "aliases": ["Einstein"] },
-    "Q5593": { "id": "Q5593", "label": "Marilyn Monroe", "sitelinks": 140, "type": "Q5", "aliases": ["Monroe"] },
-    "Q5580": { "id": "Q5580", "label": "John F. Kennedy", "sitelinks": 130, "type": "Q5", "aliases": ["JFK"] },
-    "Q303": { "id": "Q303", "label": "Elvis Presley", "sitelinks": 120, "type": "Q5", "aliases": ["The King", "Elvis"] },
-    "Q229": { "id": "Q229", "label": "Beyoncé", "sitelinks": 140, "type": "Q5", "aliases": ["Queen B", "Bey"] },
-    "Q19848": { "id": "Q19848", "label": "Lady Gaga", "sitelinks": 120, "type": "Q5", "aliases": ["Gaga"] },
-    "Q1744": { "id": "Q1744", "label": "Madonna", "sitelinks": 130, "type": "Q5", "aliases": ["Material Girl"] },
-    "Q11975": { "id": "Q11975", "label": "Britney Spears", "sitelinks": 110, "type": "Q5", "aliases": ["Britney"] },
-    "Q34086": { "id": "Q34086", "label": "Justin Bieber", "sitelinks": 115, "type": "Q5", "aliases": ["Bieber"] },
-    "Q151892": { "id": "Q151892", "label": "Ariana Grande", "sitelinks": 105, "type": "Q5", "aliases": ["Ari"] },
-    "Q33240": { "id": "Q33240", "label": "Drake", "sitelinks": 108, "type": "Q5", "aliases": ["Drizzy"] },
-    "Q15935": { "id": "Q15935", "label": "Kanye West", "sitelinks": 112, "type": "Q5", "aliases": ["Ye", "Yeezy"] },
-    "Q36844": { "id": "Q36844", "label": "Rihanna", "sitelinks": 118, "type": "Q5", "aliases": ["RiRi"] },
-    "Q47447": { "id": "Q47447", "label": "Ed Sheeran", "sitelinks": 95, "type": "Q5", "aliases": [] },
-    "Q23215": { "id": "Q23215", "label": "Adele", "sitelinks": 98, "type": "Q5", "aliases": [] },
-    "Q37079": { "id": "Q37079", "label": "Tom Cruise", "sitelinks": 125, "type": "Q5", "aliases": [] },
-    "Q38111": { "id": "Q38111", "label": "Leonardo DiCaprio", "sitelinks": 120, "type": "Q5", "aliases": ["Leo", "DiCaprio"] },
-    "Q35332": { "id": "Q35332", "label": "Brad Pitt", "sitelinks": 115, "type": "Q5", "aliases": [] },
-    "Q40096": { "id": "Q40096", "label": "Will Smith", "sitelinks": 110, "type": "Q5", "aliases": [] },
-    "Q37175": { "id": "Q37175", "label": "Johnny Depp", "sitelinks": 118, "type": "Q5", "aliases": [] },
-    "Q13909": { "id": "Q13909", "label": "Angelina Jolie", "sitelinks": 112, "type": "Q5", "aliases": [] },
-    "Q189490": { "id": "Q189490", "label": "Jennifer Lawrence", "sitelinks": 105, "type": "Q5", "aliases": ["J-Law"] },
-    "Q42479": { "id": "Q42479", "label": "Robert Downey Jr.", "sitelinks": 108, "type": "Q5", "aliases": ["RDJ", "Iron Man"] },
-    "Q34436": { "id": "Q34436", "label": "Scarlett Johansson", "sitelinks": 102, "type": "Q5", "aliases": [] },
-    "Q10738": { "id": "Q10738", "label": "Dwayne Johnson", "sitelinks": 115, "type": "Q5", "aliases": ["The Rock"] },
-    "Q54314": { "id": "Q54314", "label": "Chris Hemsworth", "sitelinks": 95, "type": "Q5", "aliases": ["Thor"] },
-    "Q39594": { "id": "Q39594", "label": "Chris Evans", "sitelinks": 92, "type": "Q5", "aliases": ["Captain America"] },
-    "Q192682": { "id": "Q192682", "label": "Ryan Reynolds", "sitelinks": 88, "type": "Q5", "aliases": [] },
-    "Q147077": { "id": "Q147077", "label": "Emma Stone", "sitelinks": 85, "type": "Q5", "aliases": [] },
-    "Q193815": { "id": "Q193815", "label": "Ryan Gosling", "sitelinks": 82, "type": "Q5", "aliases": [] },
-    "Q36159": { "id": "Q36159", "label": "LeBron James", "sitelinks": 120, "type": "Q5", "aliases": ["King James"] },
-    "Q41421": { "id": "Q41421", "label": "Michael Jordan", "sitelinks": 125, "type": "Q5", "aliases": ["MJ", "His Airness"] },
-    "Q25369": { "id": "Q25369", "label": "Kobe Bryant", "sitelinks": 115, "type": "Q5", "aliases": ["Black Mamba"] },
-    "Q9645": { "id": "Q9645", "label": "Leonardo da Vinci", "sitelinks": 160, "type": "Q5", "aliases": ["da Vinci"] },
-
-    "Q462": { "id": "Q462", "label": "Star Wars", "sitelinks": 90, "type": "Q11424", "aliases": [] },
-    "Q17738": { "id": "Q17738", "label": "Titanic", "sitelinks": 85, "type": "Q11424", "aliases": [] },
-    "Q23572": { "id": "Q23572", "label": "Game of Thrones", "sitelinks": 80, "type": "Q5398426", "aliases": ["GoT"] },
-    "Q180713": { "id": "Q180713", "label": "The Office", "sitelinks": 60, "type": "Q5398426", "aliases": [] },
-    "Q188473": { "id": "Q188473", "label": "Friends", "sitelinks": 70, "type": "Q5398426", "aliases": [] },
-    "Q16538": { "id": "Q16538", "label": "Harry Potter", "sitelinks": 95, "type": "Q7725634", "aliases": [] },
-    "Q192724": { "id": "Q192724", "label": "The Simpsons", "sitelinks": 75, "type": "Q5398426", "aliases": [] },
-    "Q218723": { "id": "Q218723", "label": "Breaking Bad", "sitelinks": 65, "type": "Q5398426", "aliases": [] },
-    "Q23781": { "id": "Q23781", "label": "Avengers", "sitelinks": 95, "type": "Q11424", "aliases": ["The Avengers"] },
-    "Q180704": { "id": "Q180704", "label": "Iron Man", "sitelinks": 90, "type": "Q11424", "aliases": [] },
-    "Q79037": { "id": "Q79037", "label": "Spider-Man", "sitelinks": 92, "type": "Q11424", "aliases": ["Spiderman"] },
-    "Q2695156": { "id": "Q2695156", "label": "Batman", "sitelinks": 88, "type": "Q11424", "aliases": [] },
-    "Q79015": { "id": "Q79015", "label": "Superman", "sitelinks": 85, "type": "Q11424", "aliases": [] },
-    "Q183504": { "id": "Q183504", "label": "The Godfather", "sitelinks": 88, "type": "Q11424", "aliases": [] },
-    "Q132689": { "id": "Q132689", "label": "The Lion King", "sitelinks": 68, "type": "Q11424", "aliases": [] },
-    "Q191753": { "id": "Q191753", "label": "Toy Story", "sitelinks": 65, "type": "Q11424", "aliases": [] },
-    "Q132863": { "id": "Q132863", "label": "Finding Nemo", "sitelinks": 62, "type": "Q11424", "aliases": [] },
-    "Q24895": { "id": "Q24895", "label": "Lord of the Rings", "sitelinks": 88, "type": "Q7725634", "aliases": ["LOTR"] },
-    "Q74331": { "id": "Q74331", "label": "The Hobbit", "sitelinks": 82, "type": "Q7725634", "aliases": [] },
-    "Q160071": { "id": "Q160071", "label": "Twilight", "sitelinks": 75, "type": "Q7725634", "aliases": [] },
-    "Q11679": { "id": "Q11679", "label": "Frozen", "sitelinks": 60, "type": "Q11424", "aliases": [] },
-    "Q184768": { "id": "Q184768", "label": "Shrek", "sitelinks": 58, "type": "Q11424", "aliases": [] },
-    "Q220506": { "id": "Q220506", "label": "The Incredibles", "sitelinks": 55, "type": "Q11424", "aliases": [] },
-    "Q187278": { "id": "Q187278", "label": "Monsters Inc", "sitelinks": 52, "type": "Q11424", "aliases": [] },
-    "Q183555": { "id": "Q183555", "label": "Up", "sitelinks": 50, "type": "Q11424", "aliases": [] },
-    "Q5540479": { "id": "Q5540479", "label": "Stranger Things", "sitelinks": 62, "type": "Q5398426", "aliases": [] },
-
-    "Q60": { "id": "Q60", "label": "New York City", "sitelinks": 250, "type": "Q515", "aliases": ["NYC", "Big Apple"] },
-    "Q90": { "id": "Q90", "label": "Paris", "sitelinks": 240, "type": "Q515", "aliases": [] },
-    "Q84": { "id": "Q84", "label": "London", "sitelinks": 230, "type": "Q515", "aliases": [] },
-    "Q65": { "id": "Q65", "label": "Los Angeles", "sitelinks": 180, "type": "Q515", "aliases": ["LA"] },
-    "Q1297": { "id": "Q1297", "label": "Chicago", "sitelinks": 170, "type": "Q515", "aliases": [] },
-    "Q172": { "id": "Q172", "label": "Toronto", "sitelinks": 160, "type": "Q515", "aliases": [] },
-    "Q1726": { "id": "Q1726", "label": "Munich", "sitelinks": 150, "type": "Q515", "aliases": [] },
-    "Q1490": { "id": "Q1490", "label": "Tokyo", "sitelinks": 220, "type": "Q515", "aliases": [] },
-    "Q3130": { "id": "Q3130", "label": "Sydney", "sitelinks": 180, "type": "Q515", "aliases": [] },
-    "Q220": { "id": "Q220", "label": "Rome", "sitelinks": 190, "type": "Q515", "aliases": [] },
-    "Q2807": { "id": "Q2807", "label": "Madrid", "sitelinks": 175, "type": "Q515", "aliases": [] },
-    "Q64": { "id": "Q64", "label": "Berlin", "sitelinks": 185, "type": "Q515", "aliases": [] },
-    "Q727": { "id": "Q727", "label": "Amsterdam", "sitelinks": 165, "type": "Q515", "aliases": [] },
-    "Q1492": { "id": "Q1492", "label": "Barcelona", "sitelinks": 170, "type": "Q515", "aliases": [] },
-    "Q649": { "id": "Q649", "label": "Moscow", "sitelinks": 195, "type": "Q515", "aliases": [] },
-    "Q12512": { "id": "Q12512", "label": "Eiffel Tower", "sitelinks": 120, "type": "Q570116", "aliases": [] },
-    "Q9202": { "id": "Q9202", "label": "Statue of Liberty", "sitelinks": 115, "type": "Q570116", "aliases": [] },
-    "Q5611": { "id": "Q5611", "label": "Big Ben", "sitelinks": 110, "type": "Q570116", "aliases": [] },
-    "Q11690": { "id": "Q11690", "label": "Times Square", "sitelinks": 105, "type": "Q570116", "aliases": [] },
-    "Q30": { "id": "Q30", "label": "United States", "sitelinks": 300, "type": "Q6256", "aliases": ["USA", "America"] },
-
-    "Q13234": { "id": "Q13234", "label": "Pizza", "sitelinks": 50, "type": "Q1047113", "aliases": [] },
-    "Q13270": { "id": "Q13270", "label": "Hamburger", "sitelinks": 45, "type": "Q1047113", "aliases": ["Burger"] },
-    "Q13276": { "id": "Q13276", "label": "Hot Dog", "sitelinks": 35, "type": "Q1047113", "aliases": [] },
-    "Q7802": { "id": "Q7802", "label": "French Fries", "sitelinks": 30, "type": "Q1047113", "aliases": ["Fries"] },
-    "Q13233": { "id": "Q13233", "label": "Ice Cream", "sitelinks": 40, "type": "Q1047113", "aliases": [] },
-    "Q195": { "id": "Q195", "label": "Chocolate", "sitelinks": 42, "type": "Q1047113", "aliases": [] },
-    "Q312": { "id": "Q312", "label": "Apple Inc", "sitelinks": 120, "type": "Q43229", "aliases": ["Apple"] },
-    "Q95": { "id": "Q95", "label": "Google", "sitelinks": 115, "type": "Q43229", "aliases": [] },
-    "Q2283": { "id": "Q2283", "label": "Microsoft", "sitelinks": 110, "type": "Q43229", "aliases": [] },
-    "Q3884": { "id": "Q3884", "label": "Coca Cola", "sitelinks": 100, "type": "Q43229", "aliases": ["Coke"] },
-    "Q38076": { "id": "Q38076", "label": "McDonald's", "sitelinks": 95, "type": "Q43229", "aliases": ["McD", "Mickey D's"] },
-    "Q7414": { "id": "Q7414", "label": "Disney", "sitelinks": 90, "type": "Q43229", "aliases": [] },
-    "Q37156": { "id": "Q37156", "label": "Starbucks", "sitelinks": 80, "type": "Q43229", "aliases": [] },
-    "Q483915": { "id": "Q483915", "label": "Nike", "sitelinks": 85, "type": "Q43229", "aliases": [] },
-    "Q3895": { "id": "Q3895", "label": "Adidas", "sitelinks": 78, "type": "Q43229", "aliases": [] },
-
-    "Q2736": { "id": "Q2736", "label": "Soccer", "sitelinks": 60, "type": "Q349", "aliases": ["Football"] },
-    "Q5372": { "id": "Q5372", "label": "Basketball", "sitelinks": 55, "type": "Q349", "aliases": [] },
-    "Q5378": { "id": "Q5378", "label": "Tennis", "sitelinks": 50, "type": "Q349", "aliases": [] },
-    "Q41323": { "id": "Q41323", "label": "Football", "sitelinks": 58, "type": "Q349", "aliases": ["American Football"] },
-    "Q1146": { "id": "Q1146", "label": "Baseball", "sitelinks": 52, "type": "Q349", "aliases": [] }
+    "Q42": {
+      "id": "Q42",
+      "label": "Taylor Swift",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [
+        "T-Swift",
+        "Tay"
+      ],
+      "category": "person"
+    },
+    "Q76": {
+      "id": "Q76",
+      "label": "Barack Obama",
+      "sitelinks": 200,
+      "type": "Q5",
+      "aliases": [
+        "President Obama",
+        "Obama"
+      ],
+      "category": "person"
+    },
+    "Q2831": {
+      "id": "Q2831",
+      "label": "Michael Jackson",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [
+        "MJ",
+        "King of Pop"
+      ],
+      "category": "person"
+    },
+    "Q5582": {
+      "id": "Q5582",
+      "label": "Albert Einstein",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Einstein"
+      ],
+      "category": "person"
+    },
+    "Q5593": {
+      "id": "Q5593",
+      "label": "Marilyn Monroe",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [
+        "Monroe"
+      ],
+      "category": "person"
+    },
+    "Q5580": {
+      "id": "Q5580",
+      "label": "John F. Kennedy",
+      "sitelinks": 130,
+      "type": "Q5",
+      "aliases": [
+        "JFK"
+      ],
+      "category": "person"
+    },
+    "Q303": {
+      "id": "Q303",
+      "label": "Elvis Presley",
+      "sitelinks": 120,
+      "type": "Q5",
+      "aliases": [
+        "The King",
+        "Elvis"
+      ],
+      "category": "person"
+    },
+    "Q229": {
+      "id": "Q229",
+      "label": "Beyoncé",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [
+        "Queen B",
+        "Bey"
+      ],
+      "category": "person"
+    },
+    "Q19848": {
+      "id": "Q19848",
+      "label": "Lady Gaga",
+      "sitelinks": 120,
+      "type": "Q5",
+      "aliases": [
+        "Gaga"
+      ],
+      "category": "person"
+    },
+    "Q1744": {
+      "id": "Q1744",
+      "label": "Madonna",
+      "sitelinks": 130,
+      "type": "Q5",
+      "aliases": [
+        "Material Girl"
+      ],
+      "category": "person"
+    },
+    "Q11975": {
+      "id": "Q11975",
+      "label": "Britney Spears",
+      "sitelinks": 110,
+      "type": "Q5",
+      "aliases": [
+        "Britney"
+      ],
+      "category": "person"
+    },
+    "Q34086": {
+      "id": "Q34086",
+      "label": "Justin Bieber",
+      "sitelinks": 115,
+      "type": "Q5",
+      "aliases": [
+        "Bieber"
+      ],
+      "category": "person"
+    },
+    "Q151892": {
+      "id": "Q151892",
+      "label": "Ariana Grande",
+      "sitelinks": 105,
+      "type": "Q5",
+      "aliases": [
+        "Ari"
+      ],
+      "category": "person"
+    },
+    "Q33240": {
+      "id": "Q33240",
+      "label": "Drake",
+      "sitelinks": 108,
+      "type": "Q5",
+      "aliases": [
+        "Drizzy"
+      ],
+      "category": "person"
+    },
+    "Q15935": {
+      "id": "Q15935",
+      "label": "Kanye West",
+      "sitelinks": 112,
+      "type": "Q5",
+      "aliases": [
+        "Ye",
+        "Yeezy"
+      ],
+      "category": "person"
+    },
+    "Q36844": {
+      "id": "Q36844",
+      "label": "Rihanna",
+      "sitelinks": 118,
+      "type": "Q5",
+      "aliases": [
+        "RiRi"
+      ],
+      "category": "person"
+    },
+    "Q47447": {
+      "id": "Q47447",
+      "label": "Ed Sheeran",
+      "sitelinks": 95,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q23215": {
+      "id": "Q23215",
+      "label": "Adele",
+      "sitelinks": 98,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q37079": {
+      "id": "Q37079",
+      "label": "Tom Cruise",
+      "sitelinks": 125,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q38111": {
+      "id": "Q38111",
+      "label": "Leonardo DiCaprio",
+      "sitelinks": 120,
+      "type": "Q5",
+      "aliases": [
+        "Leo",
+        "DiCaprio"
+      ],
+      "category": "person"
+    },
+    "Q35332": {
+      "id": "Q35332",
+      "label": "Brad Pitt",
+      "sitelinks": 115,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q40096": {
+      "id": "Q40096",
+      "label": "Will Smith",
+      "sitelinks": 110,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q37175": {
+      "id": "Q37175",
+      "label": "Johnny Depp",
+      "sitelinks": 118,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q13909": {
+      "id": "Q13909",
+      "label": "Angelina Jolie",
+      "sitelinks": 112,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q189490": {
+      "id": "Q189490",
+      "label": "Jennifer Lawrence",
+      "sitelinks": 105,
+      "type": "Q5",
+      "aliases": [
+        "J-Law"
+      ],
+      "category": "person"
+    },
+    "Q42479": {
+      "id": "Q42479",
+      "label": "Robert Downey Jr.",
+      "sitelinks": 108,
+      "type": "Q5",
+      "aliases": [
+        "RDJ",
+        "Iron Man"
+      ],
+      "category": "person"
+    },
+    "Q34436": {
+      "id": "Q34436",
+      "label": "Scarlett Johansson",
+      "sitelinks": 102,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q10738": {
+      "id": "Q10738",
+      "label": "Dwayne Johnson",
+      "sitelinks": 115,
+      "type": "Q5",
+      "aliases": [
+        "The Rock"
+      ],
+      "category": "person"
+    },
+    "Q54314": {
+      "id": "Q54314",
+      "label": "Chris Hemsworth",
+      "sitelinks": 95,
+      "type": "Q5",
+      "aliases": [
+        "Thor"
+      ],
+      "category": "person"
+    },
+    "Q39594": {
+      "id": "Q39594",
+      "label": "Chris Evans",
+      "sitelinks": 92,
+      "type": "Q5",
+      "aliases": [
+        "Captain America"
+      ],
+      "category": "person"
+    },
+    "Q192682": {
+      "id": "Q192682",
+      "label": "Ryan Reynolds",
+      "sitelinks": 88,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q147077": {
+      "id": "Q147077",
+      "label": "Emma Stone",
+      "sitelinks": 85,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q193815": {
+      "id": "Q193815",
+      "label": "Ryan Gosling",
+      "sitelinks": 82,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q36159": {
+      "id": "Q36159",
+      "label": "LeBron James",
+      "sitelinks": 120,
+      "type": "Q5",
+      "aliases": [
+        "King James"
+      ],
+      "category": "person"
+    },
+    "Q41421": {
+      "id": "Q41421",
+      "label": "Michael Jordan",
+      "sitelinks": 125,
+      "type": "Q5",
+      "aliases": [
+        "MJ",
+        "His Airness"
+      ],
+      "category": "person"
+    },
+    "Q25369": {
+      "id": "Q25369",
+      "label": "Kobe Bryant",
+      "sitelinks": 115,
+      "type": "Q5",
+      "aliases": [
+        "Black Mamba"
+      ],
+      "category": "person"
+    },
+    "Q9645": {
+      "id": "Q9645",
+      "label": "Leonardo da Vinci",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "da Vinci"
+      ],
+      "category": "person"
+    },
+    "Q462": {
+      "id": "Q462",
+      "label": "Star Wars",
+      "sitelinks": 90,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q17738": {
+      "id": "Q17738",
+      "label": "Titanic",
+      "sitelinks": 85,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q23572": {
+      "id": "Q23572",
+      "label": "Game of Thrones",
+      "sitelinks": 80,
+      "type": "Q5398426",
+      "aliases": [
+        "GoT"
+      ],
+      "category": "tv_show"
+    },
+    "Q180713": {
+      "id": "Q180713",
+      "label": "The Office",
+      "sitelinks": 60,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q188473": {
+      "id": "Q188473",
+      "label": "Friends",
+      "sitelinks": 70,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q16538": {
+      "id": "Q16538",
+      "label": "Harry Potter",
+      "sitelinks": 95,
+      "type": "Q7725634",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q192724": {
+      "id": "Q192724",
+      "label": "The Simpsons",
+      "sitelinks": 75,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q218723": {
+      "id": "Q218723",
+      "label": "Breaking Bad",
+      "sitelinks": 65,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q23781": {
+      "id": "Q23781",
+      "label": "Avengers",
+      "sitelinks": 95,
+      "type": "Q11424",
+      "aliases": [
+        "The Avengers"
+      ],
+      "category": "movie"
+    },
+    "Q180704": {
+      "id": "Q180704",
+      "label": "Iron Man",
+      "sitelinks": 90,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q79037": {
+      "id": "Q79037",
+      "label": "Spider-Man",
+      "sitelinks": 92,
+      "type": "Q11424",
+      "aliases": [
+        "Spiderman"
+      ],
+      "category": "movie"
+    },
+    "Q2695156": {
+      "id": "Q2695156",
+      "label": "Batman",
+      "sitelinks": 88,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q79015": {
+      "id": "Q79015",
+      "label": "Superman",
+      "sitelinks": 85,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q183504": {
+      "id": "Q183504",
+      "label": "The Godfather",
+      "sitelinks": 88,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q132689": {
+      "id": "Q132689",
+      "label": "The Lion King",
+      "sitelinks": 68,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q191753": {
+      "id": "Q191753",
+      "label": "Toy Story",
+      "sitelinks": 65,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q132863": {
+      "id": "Q132863",
+      "label": "Finding Nemo",
+      "sitelinks": 62,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q24895": {
+      "id": "Q24895",
+      "label": "Lord of the Rings",
+      "sitelinks": 88,
+      "type": "Q7725634",
+      "aliases": [
+        "LOTR"
+      ],
+      "category": "movie"
+    },
+    "Q74331": {
+      "id": "Q74331",
+      "label": "The Hobbit",
+      "sitelinks": 82,
+      "type": "Q7725634",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q160071": {
+      "id": "Q160071",
+      "label": "Twilight",
+      "sitelinks": 75,
+      "type": "Q7725634",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q11679": {
+      "id": "Q11679",
+      "label": "Frozen",
+      "sitelinks": 60,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q184768": {
+      "id": "Q184768",
+      "label": "Shrek",
+      "sitelinks": 58,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q220506": {
+      "id": "Q220506",
+      "label": "The Incredibles",
+      "sitelinks": 55,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q187278": {
+      "id": "Q187278",
+      "label": "Monsters Inc",
+      "sitelinks": 52,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q183555": {
+      "id": "Q183555",
+      "label": "Up",
+      "sitelinks": 50,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q5540479": {
+      "id": "Q5540479",
+      "label": "Stranger Things",
+      "sitelinks": 62,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q60": {
+      "id": "Q60",
+      "label": "New York City",
+      "sitelinks": 250,
+      "type": "Q515",
+      "aliases": [
+        "NYC",
+        "Big Apple"
+      ],
+      "category": "place"
+    },
+    "Q90": {
+      "id": "Q90",
+      "label": "Paris",
+      "sitelinks": 240,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q84": {
+      "id": "Q84",
+      "label": "London",
+      "sitelinks": 230,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q65": {
+      "id": "Q65",
+      "label": "Los Angeles",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [
+        "LA"
+      ],
+      "category": "place"
+    },
+    "Q1297": {
+      "id": "Q1297",
+      "label": "Chicago",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q172": {
+      "id": "Q172",
+      "label": "Toronto",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q1726": {
+      "id": "Q1726",
+      "label": "Munich",
+      "sitelinks": 150,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q1490": {
+      "id": "Q1490",
+      "label": "Tokyo",
+      "sitelinks": 220,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q3130": {
+      "id": "Q3130",
+      "label": "Sydney",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q220": {
+      "id": "Q220",
+      "label": "Rome",
+      "sitelinks": 190,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q2807": {
+      "id": "Q2807",
+      "label": "Madrid",
+      "sitelinks": 175,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q64": {
+      "id": "Q64",
+      "label": "Berlin",
+      "sitelinks": 185,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q727": {
+      "id": "Q727",
+      "label": "Amsterdam",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q1492": {
+      "id": "Q1492",
+      "label": "Barcelona",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q649": {
+      "id": "Q649",
+      "label": "Moscow",
+      "sitelinks": 195,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q12512": {
+      "id": "Q12512",
+      "label": "Eiffel Tower",
+      "sitelinks": 120,
+      "type": "Q570116",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q9202": {
+      "id": "Q9202",
+      "label": "Statue of Liberty",
+      "sitelinks": 115,
+      "type": "Q570116",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q5611": {
+      "id": "Q5611",
+      "label": "Big Ben",
+      "sitelinks": 110,
+      "type": "Q570116",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q11690": {
+      "id": "Q11690",
+      "label": "Times Square",
+      "sitelinks": 105,
+      "type": "Q570116",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q30": {
+      "id": "Q30",
+      "label": "United States",
+      "sitelinks": 300,
+      "type": "Q6256",
+      "aliases": [
+        "USA",
+        "America"
+      ],
+      "category": "country"
+    },
+    "Q13234": {
+      "id": "Q13234",
+      "label": "Pizza",
+      "sitelinks": 50,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q13270": {
+      "id": "Q13270",
+      "label": "Hamburger",
+      "sitelinks": 45,
+      "type": "Q1047113",
+      "aliases": [
+        "Burger"
+      ],
+      "category": "food"
+    },
+    "Q13276": {
+      "id": "Q13276",
+      "label": "Hot Dog",
+      "sitelinks": 35,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q7802": {
+      "id": "Q7802",
+      "label": "French Fries",
+      "sitelinks": 30,
+      "type": "Q1047113",
+      "aliases": [
+        "Fries"
+      ],
+      "category": "other"
+    },
+    "Q13233": {
+      "id": "Q13233",
+      "label": "Ice Cream",
+      "sitelinks": 40,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q195": {
+      "id": "Q195",
+      "label": "Chocolate",
+      "sitelinks": 42,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q312": {
+      "id": "Q312",
+      "label": "Apple Inc",
+      "sitelinks": 120,
+      "type": "Q43229",
+      "aliases": [
+        "Apple"
+      ],
+      "category": "company"
+    },
+    "Q95": {
+      "id": "Q95",
+      "label": "Google",
+      "sitelinks": 115,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q2283": {
+      "id": "Q2283",
+      "label": "Microsoft",
+      "sitelinks": 110,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q3884": {
+      "id": "Q3884",
+      "label": "Coca Cola",
+      "sitelinks": 100,
+      "type": "Q43229",
+      "aliases": [
+        "Coke"
+      ],
+      "category": "other"
+    },
+    "Q38076": {
+      "id": "Q38076",
+      "label": "McDonald's",
+      "sitelinks": 95,
+      "type": "Q43229",
+      "aliases": [
+        "McD",
+        "Mickey D's"
+      ],
+      "category": "other"
+    },
+    "Q7414": {
+      "id": "Q7414",
+      "label": "Disney",
+      "sitelinks": 90,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q37156": {
+      "id": "Q37156",
+      "label": "Starbucks",
+      "sitelinks": 80,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q483915": {
+      "id": "Q483915",
+      "label": "Nike",
+      "sitelinks": 85,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q3895": {
+      "id": "Q3895",
+      "label": "Adidas",
+      "sitelinks": 78,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q2736": {
+      "id": "Q2736",
+      "label": "Soccer",
+      "sitelinks": 60,
+      "type": "Q349",
+      "aliases": [
+        "Football"
+      ],
+      "category": "sport"
+    },
+    "Q5372": {
+      "id": "Q5372",
+      "label": "Basketball",
+      "sitelinks": 55,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q5378": {
+      "id": "Q5378",
+      "label": "Tennis",
+      "sitelinks": 50,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q41323": {
+      "id": "Q41323",
+      "label": "Football",
+      "sitelinks": 58,
+      "type": "Q349",
+      "aliases": [
+        "American Football"
+      ],
+      "category": "sport"
+    },
+    "Q1146": {
+      "id": "Q1146",
+      "label": "Baseball",
+      "sitelinks": 52,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q694366": {
+      "id": "Q694366",
+      "label": "Tom Hanks",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [
+        "Hanks"
+      ],
+      "category": "person"
+    },
+    "Q193853": {
+      "id": "Q193853",
+      "label": "Leonardo DiCaprio",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Leo",
+        "DiCaprio"
+      ],
+      "category": "person"
+    },
+    "Q179305": {
+      "id": "Q179305",
+      "label": "Jennifer Lawrence",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "J-Law"
+      ],
+      "category": "person"
+    },
+    "Q393228": {
+      "id": "Q393228",
+      "label": "Brad Pitt",
+      "sitelinks": 175,
+      "type": "Q5",
+      "aliases": [
+        "Pitt"
+      ],
+      "category": "person"
+    },
+    "Q653956": {
+      "id": "Q653956",
+      "label": "Angelina Jolie",
+      "sitelinks": 165,
+      "type": "Q5",
+      "aliases": [
+        "Jolie"
+      ],
+      "category": "person"
+    },
+    "Q874271": {
+      "id": "Q874271",
+      "label": "Will Smith",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Fresh Prince"
+      ],
+      "category": "person"
+    },
+    "Q98370": {
+      "id": "Q98370",
+      "label": "Robert Downey Jr",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "RDJ",
+        "Iron Man"
+      ],
+      "category": "person"
+    },
+    "Q641473": {
+      "id": "Q641473",
+      "label": "Scarlett Johansson",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "ScarJo"
+      ],
+      "category": "person"
+    },
+    "Q383464": {
+      "id": "Q383464",
+      "label": "Chris Evans",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [
+        "Captain America"
+      ],
+      "category": "person"
+    },
+    "Q866894": {
+      "id": "Q866894",
+      "label": "Ryan Reynolds",
+      "sitelinks": 145,
+      "type": "Q5",
+      "aliases": [
+        "Deadpool"
+      ],
+      "category": "person"
+    },
+    "Q50152": {
+      "id": "Q50152",
+      "label": "Emma Stone",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q159948": {
+      "id": "Q159948",
+      "label": "Ryan Gosling",
+      "sitelinks": 135,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q767470": {
+      "id": "Q767470",
+      "label": "Jennifer Aniston",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "Jen"
+      ],
+      "category": "person"
+    },
+    "Q764848": {
+      "id": "Q764848",
+      "label": "George Clooney",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Clooney"
+      ],
+      "category": "person"
+    },
+    "Q218138": {
+      "id": "Q218138",
+      "label": "Sandra Bullock",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q841178": {
+      "id": "Q841178",
+      "label": "Tom Cruise",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q893007": {
+      "id": "Q893007",
+      "label": "Meryl Streep",
+      "sitelinks": 175,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q185049": {
+      "id": "Q185049",
+      "label": "Denzel Washington",
+      "sitelinks": 165,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q843293": {
+      "id": "Q843293",
+      "label": "Morgan Freeman",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q659390": {
+      "id": "Q659390",
+      "label": "Samuel L Jackson",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "Sam Jackson"
+      ],
+      "category": "person"
+    },
+    "Q371123": {
+      "id": "Q371123",
+      "label": "Ed Sheeran",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q401980": {
+      "id": "Q401980",
+      "label": "Adele",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q310428": {
+      "id": "Q310428",
+      "label": "Bruno Mars",
+      "sitelinks": 145,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q580850": {
+      "id": "Q580850",
+      "label": "Rihanna",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "RiRi"
+      ],
+      "category": "person"
+    },
+    "Q14645": {
+      "id": "Q14645",
+      "label": "Justin Timberlake",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "JT"
+      ],
+      "category": "person"
+    },
+    "Q715147": {
+      "id": "Q715147",
+      "label": "Katy Perry",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q520903": {
+      "id": "Q520903",
+      "label": "Lady Gaga",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "Gaga"
+      ],
+      "category": "person"
+    },
+    "Q766316": {
+      "id": "Q766316",
+      "label": "The Weeknd",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q381933": {
+      "id": "Q381933",
+      "label": "Billie Eilish",
+      "sitelinks": 135,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q291520": {
+      "id": "Q291520",
+      "label": "Post Malone",
+      "sitelinks": 130,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q225800": {
+      "id": "Q225800",
+      "label": "The Lion King",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q587283": {
+      "id": "Q587283",
+      "label": "Frozen",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q162499": {
+      "id": "Q162499",
+      "label": "Avatar",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q400229": {
+      "id": "Q400229",
+      "label": "Avengers Endgame",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [
+        "Endgame"
+      ],
+      "category": "movie"
+    },
+    "Q897915": {
+      "id": "Q897915",
+      "label": "Black Panther",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q246667": {
+      "id": "Q246667",
+      "label": "Iron Man",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q48899": {
+      "id": "Q48899",
+      "label": "Spider-Man",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "Spiderman"
+      ],
+      "category": "movie"
+    },
+    "Q382497": {
+      "id": "Q382497",
+      "label": "The Dark Knight",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q512439": {
+      "id": "Q512439",
+      "label": "Forrest Gump",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q204673": {
+      "id": "Q204673",
+      "label": "The Godfather",
+      "sitelinks": 175,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q51128": {
+      "id": "Q51128",
+      "label": "Pulp Fiction",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q558831": {
+      "id": "Q558831",
+      "label": "The Shawshank Redemption",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [
+        "Shawshank"
+      ],
+      "category": "movie"
+    },
+    "Q748455": {
+      "id": "Q748455",
+      "label": "Jurassic Park",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q468984": {
+      "id": "Q468984",
+      "label": "E.T.",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "ET"
+      ],
+      "category": "other"
+    },
+    "Q861737": {
+      "id": "Q861737",
+      "label": "Jaws",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q503852": {
+      "id": "Q503852",
+      "label": "Rocky",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q833081": {
+      "id": "Q833081",
+      "label": "Top Gun",
+      "sitelinks": 145,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q356876": {
+      "id": "Q356876",
+      "label": "Ghostbusters",
+      "sitelinks": 140,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q547432": {
+      "id": "Q547432",
+      "label": "Back to the Future",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [
+        "BTTF"
+      ],
+      "category": "other"
+    },
+    "Q193656": {
+      "id": "Q193656",
+      "label": "Indiana Jones",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "Indy"
+      ],
+      "category": "country"
+    },
+    "Q627259": {
+      "id": "Q627259",
+      "label": "Tokyo",
+      "sitelinks": 200,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q806879": {
+      "id": "Q806879",
+      "label": "Sydney",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q737540": {
+      "id": "Q737540",
+      "label": "Rome",
+      "sitelinks": 190,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q389030": {
+      "id": "Q389030",
+      "label": "Dubai",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q164249": {
+      "id": "Q164249",
+      "label": "Las Vegas",
+      "sitelinks": 175,
+      "type": "Q515",
+      "aliases": [
+        "Vegas"
+      ],
+      "category": "place"
+    },
+    "Q257757": {
+      "id": "Q257757",
+      "label": "Miami",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q522460": {
+      "id": "Q522460",
+      "label": "San Francisco",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [
+        "SF"
+      ],
+      "category": "place"
+    },
+    "Q310194": {
+      "id": "Q310194",
+      "label": "Boston",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q366355": {
+      "id": "Q366355",
+      "label": "Seattle",
+      "sitelinks": 155,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q412916": {
+      "id": "Q412916",
+      "label": "Washington DC",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [
+        "DC"
+      ],
+      "category": "place"
+    },
+    "Q591589": {
+      "id": "Q591589",
+      "label": "Hollywood",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q101983": {
+      "id": "Q101983",
+      "label": "Times Square",
+      "sitelinks": 150,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q945658": {
+      "id": "Q945658",
+      "label": "Central Park",
+      "sitelinks": 145,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q70769": {
+      "id": "Q70769",
+      "label": "Golden Gate Bridge",
+      "sitelinks": 140,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q701788": {
+      "id": "Q701788",
+      "label": "Statue of Liberty",
+      "sitelinks": 155,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q167206": {
+      "id": "Q167206",
+      "label": "Mount Rushmore",
+      "sitelinks": 130,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q329212": {
+      "id": "Q329212",
+      "label": "Niagara Falls",
+      "sitelinks": 135,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q986490": {
+      "id": "Q986490",
+      "label": "Grand Canyon",
+      "sitelinks": 140,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q514426": {
+      "id": "Q514426",
+      "label": "Yellowstone",
+      "sitelinks": 125,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q411646": {
+      "id": "Q411646",
+      "label": "Disney World",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [
+        "Disneyland"
+      ],
+      "category": "company"
+    },
+    "Q422573": {
+      "id": "Q422573",
+      "label": "Stranger Things",
+      "sitelinks": 140,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q714398": {
+      "id": "Q714398",
+      "label": "The Crown",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q90594": {
+      "id": "Q90594",
+      "label": "House of Cards",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q278735": {
+      "id": "Q278735",
+      "label": "OITNB",
+      "sitelinks": 110,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q387165": {
+      "id": "Q387165",
+      "label": "The Walking Dead",
+      "sitelinks": 125,
+      "type": "Q5398426",
+      "aliases": [
+        "TWD"
+      ],
+      "category": "movie"
+    },
+    "Q557977": {
+      "id": "Q557977",
+      "label": "Lost",
+      "sitelinks": 130,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q436487": {
+      "id": "Q436487",
+      "label": "Seinfeld",
+      "sitelinks": 135,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q79313": {
+      "id": "Q79313",
+      "label": "Cheers",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q810564": {
+      "id": "Q810564",
+      "label": "Frasier",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q948694": {
+      "id": "Q948694",
+      "label": "The Big Bang Theory",
+      "sitelinks": 125,
+      "type": "Q5398426",
+      "aliases": [
+        "TBBT"
+      ],
+      "category": "movie"
+    },
+    "Q330243": {
+      "id": "Q330243",
+      "label": "Modern Family",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q49688": {
+      "id": "Q49688",
+      "label": "HIMYM",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q167079": {
+      "id": "Q167079",
+      "label": "Grey's Anatomy",
+      "sitelinks": 110,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q549846": {
+      "id": "Q549846",
+      "label": "CSI",
+      "sitelinks": 105,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q913783": {
+      "id": "Q913783",
+      "label": "NCIS",
+      "sitelinks": 100,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q868778": {
+      "id": "Q868778",
+      "label": "Netflix",
+      "sitelinks": 160,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q777793": {
+      "id": "Q777793",
+      "label": "Amazon",
+      "sitelinks": 180,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q512268": {
+      "id": "Q512268",
+      "label": "Facebook",
+      "sitelinks": 170,
+      "type": "Q43229",
+      "aliases": [
+        "Meta"
+      ],
+      "category": "company"
+    },
+    "Q591018": {
+      "id": "Q591018",
+      "label": "Instagram",
+      "sitelinks": 155,
+      "type": "Q43229",
+      "aliases": [
+        "Insta"
+      ],
+      "category": "company"
+    },
+    "Q122523": {
+      "id": "Q122523",
+      "label": "Twitter",
+      "sitelinks": 165,
+      "type": "Q43229",
+      "aliases": [
+        "X"
+      ],
+      "category": "company"
+    },
+    "Q623466": {
+      "id": "Q623466",
+      "label": "YouTube",
+      "sitelinks": 175,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q43583": {
+      "id": "Q43583",
+      "label": "TikTok",
+      "sitelinks": 150,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q66560": {
+      "id": "Q66560",
+      "label": "Snapchat",
+      "sitelinks": 140,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q340754": {
+      "id": "Q340754",
+      "label": "Uber",
+      "sitelinks": 135,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q953600": {
+      "id": "Q953600",
+      "label": "Airbnb",
+      "sitelinks": 130,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q32152": {
+      "id": "Q32152",
+      "label": "Tesla",
+      "sitelinks": 160,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q552122": {
+      "id": "Q552122",
+      "label": "SpaceX",
+      "sitelinks": 145,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q134137": {
+      "id": "Q134137",
+      "label": "Nike",
+      "sitelinks": 155,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q294392": {
+      "id": "Q294392",
+      "label": "Adidas",
+      "sitelinks": 150,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q395637": {
+      "id": "Q395637",
+      "label": "Pepsi",
+      "sitelinks": 145,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q387948": {
+      "id": "Q387948",
+      "label": "KFC",
+      "sitelinks": 140,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q601016": {
+      "id": "Q601016",
+      "label": "Burger King",
+      "sitelinks": 135,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q691033": {
+      "id": "Q691033",
+      "label": "Subway",
+      "sitelinks": 130,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q154607": {
+      "id": "Q154607",
+      "label": "Pizza Hut",
+      "sitelinks": 125,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q83968": {
+      "id": "Q83968",
+      "label": "Dominos",
+      "sitelinks": 120,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q762068": {
+      "id": "Q762068",
+      "label": "Sushi",
+      "sitelinks": 120,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q754846": {
+      "id": "Q754846",
+      "label": "Tacos",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [
+        "Taco"
+      ],
+      "category": "other"
+    },
+    "Q253341": {
+      "id": "Q253341",
+      "label": "Burrito",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q486126": {
+      "id": "Q486126",
+      "label": "Pasta",
+      "sitelinks": 125,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q67007": {
+      "id": "Q67007",
+      "label": "Ramen",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q718054": {
+      "id": "Q718054",
+      "label": "Curry",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q633906": {
+      "id": "Q633906",
+      "label": "Sandwich",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q116896": {
+      "id": "Q116896",
+      "label": "Salad",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q288992": {
+      "id": "Q288992",
+      "label": "Soup",
+      "sitelinks": 90,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q695406": {
+      "id": "Q695406",
+      "label": "Steak",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q794658": {
+      "id": "Q794658",
+      "label": "Chicken",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q149539": {
+      "id": "Q149539",
+      "label": "Fish",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q89315": {
+      "id": "Q89315",
+      "label": "Bacon",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q46281": {
+      "id": "Q46281",
+      "label": "Eggs",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q797711": {
+      "id": "Q797711",
+      "label": "Cheese",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q481632": {
+      "id": "Q481632",
+      "label": "Bread",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q175584": {
+      "id": "Q175584",
+      "label": "Rice",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q529225": {
+      "id": "Q529225",
+      "label": "Noodles",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q979661": {
+      "id": "Q979661",
+      "label": "Cereal",
+      "sitelinks": 90,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q255350": {
+      "id": "Q255350",
+      "label": "Yogurt",
+      "sitelinks": 85,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q895224": {
+      "id": "Q895224",
+      "label": "Golf",
+      "sitelinks": 140,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q221356": {
+      "id": "Q221356",
+      "label": "Swimming",
+      "sitelinks": 135,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q793046": {
+      "id": "Q793046",
+      "label": "Running",
+      "sitelinks": 130,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q789255": {
+      "id": "Q789255",
+      "label": "Cycling",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [
+        "Biking"
+      ],
+      "category": "sport"
+    },
+    "Q62385": {
+      "id": "Q62385",
+      "label": "Skiing",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q942947": {
+      "id": "Q942947",
+      "label": "Surfing",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q131215": {
+      "id": "Q131215",
+      "label": "Boxing",
+      "sitelinks": 130,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q438422": {
+      "id": "Q438422",
+      "label": "Wrestling",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q184565": {
+      "id": "Q184565",
+      "label": "Gymnastics",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q677886": {
+      "id": "Q677886",
+      "label": "Track and Field",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [
+        "Athletics"
+      ],
+      "category": "other"
+    },
+    "Q811296": {
+      "id": "Q811296",
+      "label": "Volleyball",
+      "sitelinks": 110,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q128863": {
+      "id": "Q128863",
+      "label": "Ping Pong",
+      "sitelinks": 105,
+      "type": "Q349",
+      "aliases": [
+        "Table Tennis"
+      ],
+      "category": "other"
+    },
+    "Q617933": {
+      "id": "Q617933",
+      "label": "Badminton",
+      "sitelinks": 100,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q153820": {
+      "id": "Q153820",
+      "label": "Cricket",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q98839": {
+      "id": "Q98839",
+      "label": "Rugby",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q103886": {
+      "id": "Q103886",
+      "label": "Hockey",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q230356": {
+      "id": "Q230356",
+      "label": "Figure Skating",
+      "sitelinks": 110,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q523804": {
+      "id": "Q523804",
+      "label": "Snowboarding",
+      "sitelinks": 105,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q94505": {
+      "id": "Q94505",
+      "label": "Skateboarding",
+      "sitelinks": 100,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q3092": {
+      "id": "Q3092",
+      "label": "Rock Climbing",
+      "sitelinks": 95,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q70092": {
+      "id": "Q70092",
+      "label": "Australia",
+      "sitelinks": 250,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q209799": {
+      "id": "Q209799",
+      "label": "Brazil",
+      "sitelinks": 240,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q40404": {
+      "id": "Q40404",
+      "label": "China",
+      "sitelinks": 260,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q998680": {
+      "id": "Q998680",
+      "label": "India",
+      "sitelinks": 255,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q685133": {
+      "id": "Q685133",
+      "label": "Russia",
+      "sitelinks": 245,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q234171": {
+      "id": "Q234171",
+      "label": "Mexico",
+      "sitelinks": 220,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q749913": {
+      "id": "Q749913",
+      "label": "Spain",
+      "sitelinks": 235,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q230787": {
+      "id": "Q230787",
+      "label": "Netherlands",
+      "sitelinks": 210,
+      "type": "Q6256",
+      "aliases": [
+        "Holland"
+      ],
+      "category": "country"
+    },
+    "Q259685": {
+      "id": "Q259685",
+      "label": "Sweden",
+      "sitelinks": 200,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q221469": {
+      "id": "Q221469",
+      "label": "Norway",
+      "sitelinks": 195,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q349738": {
+      "id": "Q349738",
+      "label": "Switzerland",
+      "sitelinks": 205,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q206809": {
+      "id": "Q206809",
+      "label": "South Korea",
+      "sitelinks": 215,
+      "type": "Q6256",
+      "aliases": [
+        "Korea"
+      ],
+      "category": "country"
+    },
+    "Q485565": {
+      "id": "Q485565",
+      "label": "Thailand",
+      "sitelinks": 190,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q796353": {
+      "id": "Q796353",
+      "label": "Egypt",
+      "sitelinks": 225,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q638457": {
+      "id": "Q638457",
+      "label": "South Africa",
+      "sitelinks": 185,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q392853": {
+      "id": "Q392853",
+      "label": "Argentina",
+      "sitelinks": 180,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q371151": {
+      "id": "Q371151",
+      "label": "Turkey",
+      "sitelinks": 175,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q444264": {
+      "id": "Q444264",
+      "label": "Greece",
+      "sitelinks": 170,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q527519": {
+      "id": "Q527519",
+      "label": "Portugal",
+      "sitelinks": 165,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q152703": {
+      "id": "Q152703",
+      "label": "Tom Hanks",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [
+        "Hanks"
+      ],
+      "category": "person"
+    },
+    "Q235863": {
+      "id": "Q235863",
+      "label": "Leonardo DiCaprio",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Leo",
+        "DiCaprio"
+      ],
+      "category": "person"
+    },
+    "Q889685": {
+      "id": "Q889685",
+      "label": "Jennifer Lawrence",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "J-Law"
+      ],
+      "category": "person"
+    },
+    "Q271989": {
+      "id": "Q271989",
+      "label": "Brad Pitt",
+      "sitelinks": 175,
+      "type": "Q5",
+      "aliases": [
+        "Pitt"
+      ],
+      "category": "person"
+    },
+    "Q697296": {
+      "id": "Q697296",
+      "label": "Angelina Jolie",
+      "sitelinks": 165,
+      "type": "Q5",
+      "aliases": [
+        "Jolie"
+      ],
+      "category": "person"
+    },
+    "Q312610": {
+      "id": "Q312610",
+      "label": "Will Smith",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Fresh Prince"
+      ],
+      "category": "person"
+    },
+    "Q105325": {
+      "id": "Q105325",
+      "label": "Robert Downey Jr",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "RDJ",
+        "Iron Man"
+      ],
+      "category": "person"
+    },
+    "Q846049": {
+      "id": "Q846049",
+      "label": "Scarlett Johansson",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "ScarJo"
+      ],
+      "category": "person"
+    },
+    "Q187050": {
+      "id": "Q187050",
+      "label": "Chris Evans",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [
+        "Captain America"
+      ],
+      "category": "person"
+    },
+    "Q96335": {
+      "id": "Q96335",
+      "label": "Ryan Reynolds",
+      "sitelinks": 145,
+      "type": "Q5",
+      "aliases": [
+        "Deadpool"
+      ],
+      "category": "person"
+    },
+    "Q595414": {
+      "id": "Q595414",
+      "label": "Emma Stone",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q738444": {
+      "id": "Q738444",
+      "label": "Ryan Gosling",
+      "sitelinks": 135,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q829241": {
+      "id": "Q829241",
+      "label": "Jennifer Aniston",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "Jen"
+      ],
+      "category": "person"
+    },
+    "Q12769": {
+      "id": "Q12769",
+      "label": "George Clooney",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Clooney"
+      ],
+      "category": "person"
+    },
+    "Q665325": {
+      "id": "Q665325",
+      "label": "Sandra Bullock",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q534002": {
+      "id": "Q534002",
+      "label": "Tom Cruise",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q264396": {
+      "id": "Q264396",
+      "label": "Meryl Streep",
+      "sitelinks": 175,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q663288": {
+      "id": "Q663288",
+      "label": "Denzel Washington",
+      "sitelinks": 165,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q236115": {
+      "id": "Q236115",
+      "label": "Morgan Freeman",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q892374": {
+      "id": "Q892374",
+      "label": "Samuel L Jackson",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "Sam Jackson"
+      ],
+      "category": "person"
+    },
+    "Q254397": {
+      "id": "Q254397",
+      "label": "Ed Sheeran",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q575847": {
+      "id": "Q575847",
+      "label": "Adele",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q560847": {
+      "id": "Q560847",
+      "label": "Bruno Mars",
+      "sitelinks": 145,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q66314": {
+      "id": "Q66314",
+      "label": "Rihanna",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "RiRi"
+      ],
+      "category": "person"
+    },
+    "Q387251": {
+      "id": "Q387251",
+      "label": "Justin Timberlake",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "JT"
+      ],
+      "category": "person"
+    },
+    "Q739191": {
+      "id": "Q739191",
+      "label": "Katy Perry",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q18945": {
+      "id": "Q18945",
+      "label": "Lady Gaga",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "Gaga"
+      ],
+      "category": "person"
+    },
+    "Q469084": {
+      "id": "Q469084",
+      "label": "The Weeknd",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q990782": {
+      "id": "Q990782",
+      "label": "Billie Eilish",
+      "sitelinks": 135,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q263356": {
+      "id": "Q263356",
+      "label": "Post Malone",
+      "sitelinks": 130,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q568205": {
+      "id": "Q568205",
+      "label": "The Lion King",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q702851": {
+      "id": "Q702851",
+      "label": "Frozen",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q672398": {
+      "id": "Q672398",
+      "label": "Avatar",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q988054": {
+      "id": "Q988054",
+      "label": "Avengers Endgame",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [
+        "Endgame"
+      ],
+      "category": "movie"
+    },
+    "Q384705": {
+      "id": "Q384705",
+      "label": "Black Panther",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q226511": {
+      "id": "Q226511",
+      "label": "Iron Man",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q1806": {
+      "id": "Q1806",
+      "label": "Spider-Man",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "Spiderman"
+      ],
+      "category": "movie"
+    },
+    "Q702663": {
+      "id": "Q702663",
+      "label": "The Dark Knight",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q615507": {
+      "id": "Q615507",
+      "label": "Forrest Gump",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q544027": {
+      "id": "Q544027",
+      "label": "The Godfather",
+      "sitelinks": 175,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q319950": {
+      "id": "Q319950",
+      "label": "Pulp Fiction",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q287621": {
+      "id": "Q287621",
+      "label": "The Shawshank Redemption",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [
+        "Shawshank"
+      ],
+      "category": "movie"
+    },
+    "Q279875": {
+      "id": "Q279875",
+      "label": "Jurassic Park",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q15069": {
+      "id": "Q15069",
+      "label": "E.T.",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "ET"
+      ],
+      "category": "other"
+    },
+    "Q903612": {
+      "id": "Q903612",
+      "label": "Jaws",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q674989": {
+      "id": "Q674989",
+      "label": "Rocky",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q137046": {
+      "id": "Q137046",
+      "label": "Top Gun",
+      "sitelinks": 145,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q638219": {
+      "id": "Q638219",
+      "label": "Ghostbusters",
+      "sitelinks": 140,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q19940": {
+      "id": "Q19940",
+      "label": "Back to the Future",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [
+        "BTTF"
+      ],
+      "category": "other"
+    },
+    "Q391660": {
+      "id": "Q391660",
+      "label": "Indiana Jones",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "Indy"
+      ],
+      "category": "country"
+    },
+    "Q366454": {
+      "id": "Q366454",
+      "label": "Tokyo",
+      "sitelinks": 200,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q477638": {
+      "id": "Q477638",
+      "label": "Sydney",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q207390": {
+      "id": "Q207390",
+      "label": "Rome",
+      "sitelinks": 190,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q478602": {
+      "id": "Q478602",
+      "label": "Dubai",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q710558": {
+      "id": "Q710558",
+      "label": "Las Vegas",
+      "sitelinks": 175,
+      "type": "Q515",
+      "aliases": [
+        "Vegas"
+      ],
+      "category": "place"
+    },
+    "Q600529": {
+      "id": "Q600529",
+      "label": "Miami",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q368693": {
+      "id": "Q368693",
+      "label": "San Francisco",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [
+        "SF"
+      ],
+      "category": "place"
+    },
+    "Q742219": {
+      "id": "Q742219",
+      "label": "Boston",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q833497": {
+      "id": "Q833497",
+      "label": "Seattle",
+      "sitelinks": 155,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q174262": {
+      "id": "Q174262",
+      "label": "Washington DC",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [
+        "DC"
+      ],
+      "category": "place"
+    },
+    "Q607801": {
+      "id": "Q607801",
+      "label": "Hollywood",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q851697": {
+      "id": "Q851697",
+      "label": "Times Square",
+      "sitelinks": 150,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q142897": {
+      "id": "Q142897",
+      "label": "Central Park",
+      "sitelinks": 145,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q330622": {
+      "id": "Q330622",
+      "label": "Golden Gate Bridge",
+      "sitelinks": 140,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q529279": {
+      "id": "Q529279",
+      "label": "Statue of Liberty",
+      "sitelinks": 155,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q186418": {
+      "id": "Q186418",
+      "label": "Mount Rushmore",
+      "sitelinks": 130,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q641578": {
+      "id": "Q641578",
+      "label": "Niagara Falls",
+      "sitelinks": 135,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q660853": {
+      "id": "Q660853",
+      "label": "Grand Canyon",
+      "sitelinks": 140,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q448577": {
+      "id": "Q448577",
+      "label": "Yellowstone",
+      "sitelinks": 125,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q303281": {
+      "id": "Q303281",
+      "label": "Disney World",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [
+        "Disneyland"
+      ],
+      "category": "company"
+    },
+    "Q740103": {
+      "id": "Q740103",
+      "label": "Stranger Things",
+      "sitelinks": 140,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q263272": {
+      "id": "Q263272",
+      "label": "The Crown",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q80373": {
+      "id": "Q80373",
+      "label": "House of Cards",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q861253": {
+      "id": "Q861253",
+      "label": "Orange Is the New Black",
+      "sitelinks": 110,
+      "type": "Q5398426",
+      "aliases": [
+        "OITNB"
+      ],
+      "category": "tv_show"
+    },
+    "Q379437": {
+      "id": "Q379437",
+      "label": "The Walking Dead",
+      "sitelinks": 125,
+      "type": "Q5398426",
+      "aliases": [
+        "TWD"
+      ],
+      "category": "movie"
+    },
+    "Q956237": {
+      "id": "Q956237",
+      "label": "Lost",
+      "sitelinks": 130,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q154294": {
+      "id": "Q154294",
+      "label": "Seinfeld",
+      "sitelinks": 135,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q180864": {
+      "id": "Q180864",
+      "label": "Cheers",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q810640": {
+      "id": "Q810640",
+      "label": "Frasier",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q240823": {
+      "id": "Q240823",
+      "label": "The Big Bang Theory",
+      "sitelinks": 125,
+      "type": "Q5398426",
+      "aliases": [
+        "TBBT"
+      ],
+      "category": "movie"
+    },
+    "Q278249": {
+      "id": "Q278249",
+      "label": "Modern Family",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q495669": {
+      "id": "Q495669",
+      "label": "How I Met Your Mother",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [
+        "HIMYM"
+      ],
+      "category": "other"
+    },
+    "Q164790": {
+      "id": "Q164790",
+      "label": "Grey's Anatomy",
+      "sitelinks": 110,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q654983": {
+      "id": "Q654983",
+      "label": "CSI",
+      "sitelinks": 105,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q649116": {
+      "id": "Q649116",
+      "label": "NCIS",
+      "sitelinks": 100,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q500723": {
+      "id": "Q500723",
+      "label": "Netflix",
+      "sitelinks": 160,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q375062": {
+      "id": "Q375062",
+      "label": "Amazon",
+      "sitelinks": 180,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q883905": {
+      "id": "Q883905",
+      "label": "Facebook",
+      "sitelinks": 170,
+      "type": "Q43229",
+      "aliases": [
+        "Meta"
+      ],
+      "category": "company"
+    },
+    "Q7296": {
+      "id": "Q7296",
+      "label": "Instagram",
+      "sitelinks": 155,
+      "type": "Q43229",
+      "aliases": [
+        "Insta"
+      ],
+      "category": "company"
+    },
+    "Q198174": {
+      "id": "Q198174",
+      "label": "Twitter",
+      "sitelinks": 165,
+      "type": "Q43229",
+      "aliases": [
+        "X"
+      ],
+      "category": "company"
+    },
+    "Q846011": {
+      "id": "Q846011",
+      "label": "YouTube",
+      "sitelinks": 175,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q877080": {
+      "id": "Q877080",
+      "label": "TikTok",
+      "sitelinks": 150,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q448890": {
+      "id": "Q448890",
+      "label": "Snapchat",
+      "sitelinks": 140,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q717220": {
+      "id": "Q717220",
+      "label": "Uber",
+      "sitelinks": 135,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q415835": {
+      "id": "Q415835",
+      "label": "Airbnb",
+      "sitelinks": 130,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q219557": {
+      "id": "Q219557",
+      "label": "Tesla",
+      "sitelinks": 160,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q974207": {
+      "id": "Q974207",
+      "label": "SpaceX",
+      "sitelinks": 145,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q595805": {
+      "id": "Q595805",
+      "label": "Nike",
+      "sitelinks": 155,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q701323": {
+      "id": "Q701323",
+      "label": "Adidas",
+      "sitelinks": 150,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q992714": {
+      "id": "Q992714",
+      "label": "Pepsi",
+      "sitelinks": 145,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q564323": {
+      "id": "Q564323",
+      "label": "KFC",
+      "sitelinks": 140,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q864873": {
+      "id": "Q864873",
+      "label": "Burger King",
+      "sitelinks": 135,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q349192": {
+      "id": "Q349192",
+      "label": "Subway",
+      "sitelinks": 130,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q260693": {
+      "id": "Q260693",
+      "label": "Pizza Hut",
+      "sitelinks": 125,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q629386": {
+      "id": "Q629386",
+      "label": "Dominos",
+      "sitelinks": 120,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q508206": {
+      "id": "Q508206",
+      "label": "Sushi",
+      "sitelinks": 120,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q92548": {
+      "id": "Q92548",
+      "label": "Tacos",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [
+        "Taco"
+      ],
+      "category": "other"
+    },
+    "Q515592": {
+      "id": "Q515592",
+      "label": "Burrito",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q31803": {
+      "id": "Q31803",
+      "label": "Pasta",
+      "sitelinks": 125,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q127107": {
+      "id": "Q127107",
+      "label": "Ramen",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q388276": {
+      "id": "Q388276",
+      "label": "Curry",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q517341": {
+      "id": "Q517341",
+      "label": "Sandwich",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q241788": {
+      "id": "Q241788",
+      "label": "Salad",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q413782": {
+      "id": "Q413782",
+      "label": "Soup",
+      "sitelinks": 90,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q548649": {
+      "id": "Q548649",
+      "label": "Steak",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q534860": {
+      "id": "Q534860",
+      "label": "Chicken",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q172422": {
+      "id": "Q172422",
+      "label": "Fish",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q539174": {
+      "id": "Q539174",
+      "label": "Bacon",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q285130": {
+      "id": "Q285130",
+      "label": "Eggs",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q692395": {
+      "id": "Q692395",
+      "label": "Cheese",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q606354": {
+      "id": "Q606354",
+      "label": "Bread",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q510948": {
+      "id": "Q510948",
+      "label": "Rice",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q356235": {
+      "id": "Q356235",
+      "label": "Noodles",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q129083": {
+      "id": "Q129083",
+      "label": "Cereal",
+      "sitelinks": 90,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q561229": {
+      "id": "Q561229",
+      "label": "Yogurt",
+      "sitelinks": 85,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q465372": {
+      "id": "Q465372",
+      "label": "Golf",
+      "sitelinks": 140,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q315749": {
+      "id": "Q315749",
+      "label": "Swimming",
+      "sitelinks": 135,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q269354": {
+      "id": "Q269354",
+      "label": "Running",
+      "sitelinks": 130,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q396351": {
+      "id": "Q396351",
+      "label": "Cycling",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [
+        "Biking"
+      ],
+      "category": "sport"
+    },
+    "Q532601": {
+      "id": "Q532601",
+      "label": "Skiing",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q36754": {
+      "id": "Q36754",
+      "label": "Surfing",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q988809": {
+      "id": "Q988809",
+      "label": "Boxing",
+      "sitelinks": 130,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q373949": {
+      "id": "Q373949",
+      "label": "Wrestling",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q269007": {
+      "id": "Q269007",
+      "label": "Gymnastics",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q476761": {
+      "id": "Q476761",
+      "label": "Track and Field",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [
+        "Athletics"
+      ],
+      "category": "other"
+    },
+    "Q372287": {
+      "id": "Q372287",
+      "label": "Volleyball",
+      "sitelinks": 110,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q2018": {
+      "id": "Q2018",
+      "label": "Ping Pong",
+      "sitelinks": 105,
+      "type": "Q349",
+      "aliases": [
+        "Table Tennis"
+      ],
+      "category": "other"
+    },
+    "Q617429": {
+      "id": "Q617429",
+      "label": "Badminton",
+      "sitelinks": 100,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q839854": {
+      "id": "Q839854",
+      "label": "Cricket",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q268099": {
+      "id": "Q268099",
+      "label": "Rugby",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q87785": {
+      "id": "Q87785",
+      "label": "Hockey",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q860698": {
+      "id": "Q860698",
+      "label": "Figure Skating",
+      "sitelinks": 110,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q249560": {
+      "id": "Q249560",
+      "label": "Snowboarding",
+      "sitelinks": 105,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q398471": {
+      "id": "Q398471",
+      "label": "Skateboarding",
+      "sitelinks": 100,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q790222": {
+      "id": "Q790222",
+      "label": "Rock Climbing",
+      "sitelinks": 95,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q201205": {
+      "id": "Q201205",
+      "label": "Australia",
+      "sitelinks": 250,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q280976": {
+      "id": "Q280976",
+      "label": "Brazil",
+      "sitelinks": 240,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q813225": {
+      "id": "Q813225",
+      "label": "China",
+      "sitelinks": 260,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q898865": {
+      "id": "Q898865",
+      "label": "India",
+      "sitelinks": 255,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q144817": {
+      "id": "Q144817",
+      "label": "Russia",
+      "sitelinks": 245,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q33362": {
+      "id": "Q33362",
+      "label": "Mexico",
+      "sitelinks": 220,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q450127": {
+      "id": "Q450127",
+      "label": "Spain",
+      "sitelinks": 235,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q515951": {
+      "id": "Q515951",
+      "label": "Netherlands",
+      "sitelinks": 210,
+      "type": "Q6256",
+      "aliases": [
+        "Holland"
+      ],
+      "category": "country"
+    },
+    "Q451026": {
+      "id": "Q451026",
+      "label": "Sweden",
+      "sitelinks": 200,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q431086": {
+      "id": "Q431086",
+      "label": "Norway",
+      "sitelinks": 195,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q37157": {
+      "id": "Q37157",
+      "label": "Switzerland",
+      "sitelinks": 205,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q279755": {
+      "id": "Q279755",
+      "label": "South Korea",
+      "sitelinks": 215,
+      "type": "Q6256",
+      "aliases": [
+        "Korea"
+      ],
+      "category": "country"
+    },
+    "Q696866": {
+      "id": "Q696866",
+      "label": "Thailand",
+      "sitelinks": 190,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q521044": {
+      "id": "Q521044",
+      "label": "Egypt",
+      "sitelinks": 225,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q607486": {
+      "id": "Q607486",
+      "label": "South Africa",
+      "sitelinks": 185,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q384611": {
+      "id": "Q384611",
+      "label": "Argentina",
+      "sitelinks": 180,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q1219": {
+      "id": "Q1219",
+      "label": "Turkey",
+      "sitelinks": 175,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q936559": {
+      "id": "Q936559",
+      "label": "Greece",
+      "sitelinks": 170,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q109114": {
+      "id": "Q109114",
+      "label": "Portugal",
+      "sitelinks": 165,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q176881": {
+      "id": "Q176881",
+      "label": "Tom Hanks",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [
+        "Hanks"
+      ],
+      "category": "person"
+    },
+    "Q423161": {
+      "id": "Q423161",
+      "label": "Leonardo DiCaprio",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Leo",
+        "DiCaprio"
+      ],
+      "category": "person"
+    },
+    "Q485279": {
+      "id": "Q485279",
+      "label": "Jennifer Lawrence",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "J-Law"
+      ],
+      "category": "person"
+    },
+    "Q673916": {
+      "id": "Q673916",
+      "label": "Brad Pitt",
+      "sitelinks": 175,
+      "type": "Q5",
+      "aliases": [
+        "Pitt"
+      ],
+      "category": "person"
+    },
+    "Q579429": {
+      "id": "Q579429",
+      "label": "Angelina Jolie",
+      "sitelinks": 165,
+      "type": "Q5",
+      "aliases": [
+        "Jolie"
+      ],
+      "category": "person"
+    },
+    "Q967883": {
+      "id": "Q967883",
+      "label": "Will Smith",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Fresh Prince"
+      ],
+      "category": "person"
+    },
+    "Q888750": {
+      "id": "Q888750",
+      "label": "Robert Downey Jr",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "RDJ",
+        "Iron Man"
+      ],
+      "category": "person"
+    },
+    "Q603955": {
+      "id": "Q603955",
+      "label": "Scarlett Johansson",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "ScarJo"
+      ],
+      "category": "person"
+    },
+    "Q832640": {
+      "id": "Q832640",
+      "label": "Chris Evans",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [
+        "Captain America"
+      ],
+      "category": "person"
+    },
+    "Q337377": {
+      "id": "Q337377",
+      "label": "Ryan Reynolds",
+      "sitelinks": 145,
+      "type": "Q5",
+      "aliases": [
+        "Deadpool"
+      ],
+      "category": "person"
+    },
+    "Q632323": {
+      "id": "Q632323",
+      "label": "Emma Stone",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q566928": {
+      "id": "Q566928",
+      "label": "Ryan Gosling",
+      "sitelinks": 135,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q544912": {
+      "id": "Q544912",
+      "label": "Jennifer Aniston",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "Jen"
+      ],
+      "category": "person"
+    },
+    "Q284808": {
+      "id": "Q284808",
+      "label": "George Clooney",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Clooney"
+      ],
+      "category": "person"
+    },
+    "Q740289": {
+      "id": "Q740289",
+      "label": "Sandra Bullock",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q762982": {
+      "id": "Q762982",
+      "label": "Tom Cruise",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q210509": {
+      "id": "Q210509",
+      "label": "Meryl Streep",
+      "sitelinks": 175,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q31838": {
+      "id": "Q31838",
+      "label": "Denzel Washington",
+      "sitelinks": 165,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q999652": {
+      "id": "Q999652",
+      "label": "Morgan Freeman",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q861526": {
+      "id": "Q861526",
+      "label": "Samuel L Jackson",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "Sam Jackson"
+      ],
+      "category": "person"
+    },
+    "Q424130": {
+      "id": "Q424130",
+      "label": "Ed Sheeran",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q157931": {
+      "id": "Q157931",
+      "label": "Adele",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q93306": {
+      "id": "Q93306",
+      "label": "Bruno Mars",
+      "sitelinks": 145,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q498220": {
+      "id": "Q498220",
+      "label": "Rihanna",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "RiRi"
+      ],
+      "category": "person"
+    },
+    "Q941257": {
+      "id": "Q941257",
+      "label": "Justin Timberlake",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "JT"
+      ],
+      "category": "person"
+    },
+    "Q271156": {
+      "id": "Q271156",
+      "label": "Katy Perry",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q736714": {
+      "id": "Q736714",
+      "label": "Lady Gaga",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "Gaga"
+      ],
+      "category": "person"
+    },
+    "Q48393": {
+      "id": "Q48393",
+      "label": "The Weeknd",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q919233": {
+      "id": "Q919233",
+      "label": "Billie Eilish",
+      "sitelinks": 135,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q574508": {
+      "id": "Q574508",
+      "label": "Post Malone",
+      "sitelinks": 130,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q815684": {
+      "id": "Q815684",
+      "label": "The Lion King",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q136147": {
+      "id": "Q136147",
+      "label": "Frozen",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q947044": {
+      "id": "Q947044",
+      "label": "Avatar",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q631054": {
+      "id": "Q631054",
+      "label": "Avengers Endgame",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [
+        "Endgame"
+      ],
+      "category": "movie"
+    },
+    "Q629537": {
+      "id": "Q629537",
+      "label": "Black Panther",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q502073": {
+      "id": "Q502073",
+      "label": "Iron Man",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q740159": {
+      "id": "Q740159",
+      "label": "Spider-Man",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "Spiderman"
+      ],
+      "category": "movie"
+    },
+    "Q413222": {
+      "id": "Q413222",
+      "label": "The Dark Knight",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q674591": {
+      "id": "Q674591",
+      "label": "Forrest Gump",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q488418": {
+      "id": "Q488418",
+      "label": "The Godfather",
+      "sitelinks": 175,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q830680": {
+      "id": "Q830680",
+      "label": "Pulp Fiction",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q867170": {
+      "id": "Q867170",
+      "label": "The Shawshank Redemption",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [
+        "Shawshank"
+      ],
+      "category": "movie"
+    },
+    "Q631188": {
+      "id": "Q631188",
+      "label": "Jurassic Park",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q664330": {
+      "id": "Q664330",
+      "label": "E.T.",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "ET"
+      ],
+      "category": "other"
+    },
+    "Q840965": {
+      "id": "Q840965",
+      "label": "Jaws",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q32707": {
+      "id": "Q32707",
+      "label": "Rocky",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q752893": {
+      "id": "Q752893",
+      "label": "Top Gun",
+      "sitelinks": 145,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q164103": {
+      "id": "Q164103",
+      "label": "Ghostbusters",
+      "sitelinks": 140,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q935960": {
+      "id": "Q935960",
+      "label": "Back to the Future",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [
+        "BTTF"
+      ],
+      "category": "other"
+    },
+    "Q71497": {
+      "id": "Q71497",
+      "label": "Indiana Jones",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "Indy"
+      ],
+      "category": "country"
+    },
+    "Q850585": {
+      "id": "Q850585",
+      "label": "Tokyo",
+      "sitelinks": 200,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q189496": {
+      "id": "Q189496",
+      "label": "Sydney",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q974263": {
+      "id": "Q974263",
+      "label": "Rome",
+      "sitelinks": 190,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q938676": {
+      "id": "Q938676",
+      "label": "Dubai",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q845682": {
+      "id": "Q845682",
+      "label": "Las Vegas",
+      "sitelinks": 175,
+      "type": "Q515",
+      "aliases": [
+        "Vegas"
+      ],
+      "category": "place"
+    },
+    "Q690584": {
+      "id": "Q690584",
+      "label": "Miami",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q768194": {
+      "id": "Q768194",
+      "label": "San Francisco",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [
+        "SF"
+      ],
+      "category": "place"
+    },
+    "Q590668": {
+      "id": "Q590668",
+      "label": "Boston",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q202964": {
+      "id": "Q202964",
+      "label": "Seattle",
+      "sitelinks": 155,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q198842": {
+      "id": "Q198842",
+      "label": "Washington DC",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [
+        "DC"
+      ],
+      "category": "place"
+    },
+    "Q846338": {
+      "id": "Q846338",
+      "label": "Hollywood",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q67259": {
+      "id": "Q67259",
+      "label": "Times Square",
+      "sitelinks": 150,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q595705": {
+      "id": "Q595705",
+      "label": "Central Park",
+      "sitelinks": 145,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q344238": {
+      "id": "Q344238",
+      "label": "Golden Gate Bridge",
+      "sitelinks": 140,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q855051": {
+      "id": "Q855051",
+      "label": "Statue of Liberty",
+      "sitelinks": 155,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q78109": {
+      "id": "Q78109",
+      "label": "Mount Rushmore",
+      "sitelinks": 130,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q651550": {
+      "id": "Q651550",
+      "label": "Niagara Falls",
+      "sitelinks": 135,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q793671": {
+      "id": "Q793671",
+      "label": "Grand Canyon",
+      "sitelinks": 140,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q990815": {
+      "id": "Q990815",
+      "label": "Yellowstone",
+      "sitelinks": 125,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q383341": {
+      "id": "Q383341",
+      "label": "Disney World",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [
+        "Disneyland"
+      ],
+      "category": "company"
+    },
+    "Q370929": {
+      "id": "Q370929",
+      "label": "Stranger Things",
+      "sitelinks": 140,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q848065": {
+      "id": "Q848065",
+      "label": "The Crown",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q766670": {
+      "id": "Q766670",
+      "label": "House of Cards",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q918995": {
+      "id": "Q918995",
+      "label": "Orange Is the New Black",
+      "sitelinks": 110,
+      "type": "Q5398426",
+      "aliases": [
+        "OITNB"
+      ],
+      "category": "tv_show"
+    },
+    "Q664306": {
+      "id": "Q664306",
+      "label": "The Walking Dead",
+      "sitelinks": 125,
+      "type": "Q5398426",
+      "aliases": [
+        "TWD"
+      ],
+      "category": "movie"
+    },
+    "Q419640": {
+      "id": "Q419640",
+      "label": "Lost",
+      "sitelinks": 130,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q741365": {
+      "id": "Q741365",
+      "label": "Seinfeld",
+      "sitelinks": 135,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q94441": {
+      "id": "Q94441",
+      "label": "Cheers",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q686523": {
+      "id": "Q686523",
+      "label": "Frasier",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q742022": {
+      "id": "Q742022",
+      "label": "The Big Bang Theory",
+      "sitelinks": 125,
+      "type": "Q5398426",
+      "aliases": [
+        "TBBT"
+      ],
+      "category": "movie"
+    },
+    "Q223179": {
+      "id": "Q223179",
+      "label": "Modern Family",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q733481": {
+      "id": "Q733481",
+      "label": "How I Met Your Mother",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [
+        "HIMYM"
+      ],
+      "category": "other"
+    },
+    "Q668388": {
+      "id": "Q668388",
+      "label": "Grey's Anatomy",
+      "sitelinks": 110,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q236499": {
+      "id": "Q236499",
+      "label": "CSI",
+      "sitelinks": 105,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q818552": {
+      "id": "Q818552",
+      "label": "NCIS",
+      "sitelinks": 100,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q548803": {
+      "id": "Q548803",
+      "label": "Netflix",
+      "sitelinks": 160,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q996153": {
+      "id": "Q996153",
+      "label": "Amazon",
+      "sitelinks": 180,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q616215": {
+      "id": "Q616215",
+      "label": "Facebook",
+      "sitelinks": 170,
+      "type": "Q43229",
+      "aliases": [
+        "Meta"
+      ],
+      "category": "company"
+    },
+    "Q692838": {
+      "id": "Q692838",
+      "label": "Instagram",
+      "sitelinks": 155,
+      "type": "Q43229",
+      "aliases": [
+        "Insta"
+      ],
+      "category": "company"
+    },
+    "Q444137": {
+      "id": "Q444137",
+      "label": "Twitter",
+      "sitelinks": 165,
+      "type": "Q43229",
+      "aliases": [
+        "X"
+      ],
+      "category": "company"
+    },
+    "Q593117": {
+      "id": "Q593117",
+      "label": "YouTube",
+      "sitelinks": 175,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q80293": {
+      "id": "Q80293",
+      "label": "TikTok",
+      "sitelinks": 150,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q807864": {
+      "id": "Q807864",
+      "label": "Snapchat",
+      "sitelinks": 140,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q279412": {
+      "id": "Q279412",
+      "label": "Uber",
+      "sitelinks": 135,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q443777": {
+      "id": "Q443777",
+      "label": "Airbnb",
+      "sitelinks": 130,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q856184": {
+      "id": "Q856184",
+      "label": "Tesla",
+      "sitelinks": 160,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q358517": {
+      "id": "Q358517",
+      "label": "SpaceX",
+      "sitelinks": 145,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q726220": {
+      "id": "Q726220",
+      "label": "Nike",
+      "sitelinks": 155,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q529460": {
+      "id": "Q529460",
+      "label": "Adidas",
+      "sitelinks": 150,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q885664": {
+      "id": "Q885664",
+      "label": "Pepsi",
+      "sitelinks": 145,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q645513": {
+      "id": "Q645513",
+      "label": "KFC",
+      "sitelinks": 140,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q383160": {
+      "id": "Q383160",
+      "label": "Burger King",
+      "sitelinks": 135,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q620289": {
+      "id": "Q620289",
+      "label": "Subway",
+      "sitelinks": 130,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q178803": {
+      "id": "Q178803",
+      "label": "Pizza Hut",
+      "sitelinks": 125,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q832272": {
+      "id": "Q832272",
+      "label": "Dominos",
+      "sitelinks": 120,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q498236": {
+      "id": "Q498236",
+      "label": "Sushi",
+      "sitelinks": 120,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q461969": {
+      "id": "Q461969",
+      "label": "Tacos",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [
+        "Taco"
+      ],
+      "category": "other"
+    },
+    "Q824843": {
+      "id": "Q824843",
+      "label": "Burrito",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q580851": {
+      "id": "Q580851",
+      "label": "Pasta",
+      "sitelinks": 125,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q345309": {
+      "id": "Q345309",
+      "label": "Ramen",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q923937": {
+      "id": "Q923937",
+      "label": "Curry",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q830": {
+      "id": "Q830",
+      "label": "Sandwich",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q305704": {
+      "id": "Q305704",
+      "label": "Salad",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q228313": {
+      "id": "Q228313",
+      "label": "Soup",
+      "sitelinks": 90,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q262499": {
+      "id": "Q262499",
+      "label": "Steak",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q611406": {
+      "id": "Q611406",
+      "label": "Chicken",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q663360": {
+      "id": "Q663360",
+      "label": "Fish",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q775962": {
+      "id": "Q775962",
+      "label": "Bacon",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q690891": {
+      "id": "Q690891",
+      "label": "Eggs",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q837498": {
+      "id": "Q837498",
+      "label": "Cheese",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q744910": {
+      "id": "Q744910",
+      "label": "Bread",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q430877": {
+      "id": "Q430877",
+      "label": "Rice",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q227405": {
+      "id": "Q227405",
+      "label": "Noodles",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q541260": {
+      "id": "Q541260",
+      "label": "Cereal",
+      "sitelinks": 90,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q777625": {
+      "id": "Q777625",
+      "label": "Yogurt",
+      "sitelinks": 85,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q657486": {
+      "id": "Q657486",
+      "label": "Golf",
+      "sitelinks": 140,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q643824": {
+      "id": "Q643824",
+      "label": "Swimming",
+      "sitelinks": 135,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q103365": {
+      "id": "Q103365",
+      "label": "Running",
+      "sitelinks": 130,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q746462": {
+      "id": "Q746462",
+      "label": "Cycling",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [
+        "Biking"
+      ],
+      "category": "sport"
+    },
+    "Q108535": {
+      "id": "Q108535",
+      "label": "Skiing",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q102830": {
+      "id": "Q102830",
+      "label": "Surfing",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q816866": {
+      "id": "Q816866",
+      "label": "Boxing",
+      "sitelinks": 130,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q722394": {
+      "id": "Q722394",
+      "label": "Wrestling",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q300170": {
+      "id": "Q300170",
+      "label": "Gymnastics",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q416293": {
+      "id": "Q416293",
+      "label": "Track and Field",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [
+        "Athletics"
+      ],
+      "category": "other"
+    },
+    "Q855325": {
+      "id": "Q855325",
+      "label": "Volleyball",
+      "sitelinks": 110,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q397994": {
+      "id": "Q397994",
+      "label": "Ping Pong",
+      "sitelinks": 105,
+      "type": "Q349",
+      "aliases": [
+        "Table Tennis"
+      ],
+      "category": "other"
+    },
+    "Q42421": {
+      "id": "Q42421",
+      "label": "Badminton",
+      "sitelinks": 100,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q246755": {
+      "id": "Q246755",
+      "label": "Cricket",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q701207": {
+      "id": "Q701207",
+      "label": "Rugby",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q7881": {
+      "id": "Q7881",
+      "label": "Hockey",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q978586": {
+      "id": "Q978586",
+      "label": "Figure Skating",
+      "sitelinks": 110,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q341753": {
+      "id": "Q341753",
+      "label": "Snowboarding",
+      "sitelinks": 105,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q649416": {
+      "id": "Q649416",
+      "label": "Skateboarding",
+      "sitelinks": 100,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q458206": {
+      "id": "Q458206",
+      "label": "Rock Climbing",
+      "sitelinks": 95,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q552437": {
+      "id": "Q552437",
+      "label": "Australia",
+      "sitelinks": 250,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q156005": {
+      "id": "Q156005",
+      "label": "Brazil",
+      "sitelinks": 240,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q698078": {
+      "id": "Q698078",
+      "label": "China",
+      "sitelinks": 260,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q955764": {
+      "id": "Q955764",
+      "label": "India",
+      "sitelinks": 255,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q612260": {
+      "id": "Q612260",
+      "label": "Russia",
+      "sitelinks": 245,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q557032": {
+      "id": "Q557032",
+      "label": "Mexico",
+      "sitelinks": 220,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q559290": {
+      "id": "Q559290",
+      "label": "Spain",
+      "sitelinks": 235,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q624627": {
+      "id": "Q624627",
+      "label": "Netherlands",
+      "sitelinks": 210,
+      "type": "Q6256",
+      "aliases": [
+        "Holland"
+      ],
+      "category": "country"
+    },
+    "Q420369": {
+      "id": "Q420369",
+      "label": "Sweden",
+      "sitelinks": 200,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q856137": {
+      "id": "Q856137",
+      "label": "Norway",
+      "sitelinks": 195,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q760442": {
+      "id": "Q760442",
+      "label": "Switzerland",
+      "sitelinks": 205,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q271487": {
+      "id": "Q271487",
+      "label": "South Korea",
+      "sitelinks": 215,
+      "type": "Q6256",
+      "aliases": [
+        "Korea"
+      ],
+      "category": "country"
+    },
+    "Q253618": {
+      "id": "Q253618",
+      "label": "Thailand",
+      "sitelinks": 190,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q875174": {
+      "id": "Q875174",
+      "label": "Egypt",
+      "sitelinks": 225,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q706817": {
+      "id": "Q706817",
+      "label": "South Africa",
+      "sitelinks": 185,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q993546": {
+      "id": "Q993546",
+      "label": "Argentina",
+      "sitelinks": 180,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q474584": {
+      "id": "Q474584",
+      "label": "Turkey",
+      "sitelinks": 175,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q696423": {
+      "id": "Q696423",
+      "label": "Greece",
+      "sitelinks": 170,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q944628": {
+      "id": "Q944628",
+      "label": "Portugal",
+      "sitelinks": 165,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q85257": {
+      "id": "Q85257",
+      "label": "Tom Hanks",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [
+        "Hanks"
+      ],
+      "category": "person"
+    },
+    "Q640783": {
+      "id": "Q640783",
+      "label": "Leonardo DiCaprio",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Leo",
+        "DiCaprio"
+      ],
+      "category": "person"
+    },
+    "Q202270": {
+      "id": "Q202270",
+      "label": "Jennifer Lawrence",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "J-Law"
+      ],
+      "category": "person"
+    },
+    "Q394758": {
+      "id": "Q394758",
+      "label": "Brad Pitt",
+      "sitelinks": 175,
+      "type": "Q5",
+      "aliases": [
+        "Pitt"
+      ],
+      "category": "person"
+    },
+    "Q158438": {
+      "id": "Q158438",
+      "label": "Angelina Jolie",
+      "sitelinks": 165,
+      "type": "Q5",
+      "aliases": [
+        "Jolie"
+      ],
+      "category": "person"
+    },
+    "Q681909": {
+      "id": "Q681909",
+      "label": "Will Smith",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Fresh Prince"
+      ],
+      "category": "person"
+    },
+    "Q398370": {
+      "id": "Q398370",
+      "label": "Robert Downey Jr",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "RDJ",
+        "Iron Man"
+      ],
+      "category": "person"
+    },
+    "Q202295": {
+      "id": "Q202295",
+      "label": "Scarlett Johansson",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "ScarJo"
+      ],
+      "category": "person"
+    },
+    "Q79762": {
+      "id": "Q79762",
+      "label": "Chris Evans",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [
+        "Captain America"
+      ],
+      "category": "person"
+    },
+    "Q316003": {
+      "id": "Q316003",
+      "label": "Ryan Reynolds",
+      "sitelinks": 145,
+      "type": "Q5",
+      "aliases": [
+        "Deadpool"
+      ],
+      "category": "person"
+    },
+    "Q683421": {
+      "id": "Q683421",
+      "label": "Emma Stone",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q562719": {
+      "id": "Q562719",
+      "label": "Ryan Gosling",
+      "sitelinks": 135,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q99272": {
+      "id": "Q99272",
+      "label": "Jennifer Aniston",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "Jen"
+      ],
+      "category": "person"
+    },
+    "Q516169": {
+      "id": "Q516169",
+      "label": "George Clooney",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Clooney"
+      ],
+      "category": "person"
+    },
+    "Q317879": {
+      "id": "Q317879",
+      "label": "Sandra Bullock",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q411465": {
+      "id": "Q411465",
+      "label": "Tom Cruise",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q173516": {
+      "id": "Q173516",
+      "label": "Meryl Streep",
+      "sitelinks": 175,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q190016": {
+      "id": "Q190016",
+      "label": "Denzel Washington",
+      "sitelinks": 165,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q715661": {
+      "id": "Q715661",
+      "label": "Morgan Freeman",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q523024": {
+      "id": "Q523024",
+      "label": "Samuel L Jackson",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "Sam Jackson"
+      ],
+      "category": "person"
+    },
+    "Q960770": {
+      "id": "Q960770",
+      "label": "Ed Sheeran",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q329638": {
+      "id": "Q329638",
+      "label": "Adele",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q535950": {
+      "id": "Q535950",
+      "label": "Bruno Mars",
+      "sitelinks": 145,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q398967": {
+      "id": "Q398967",
+      "label": "Rihanna",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "RiRi"
+      ],
+      "category": "person"
+    },
+    "Q741023": {
+      "id": "Q741023",
+      "label": "Justin Timberlake",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "JT"
+      ],
+      "category": "person"
+    },
+    "Q872373": {
+      "id": "Q872373",
+      "label": "Katy Perry",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q404469": {
+      "id": "Q404469",
+      "label": "Lady Gaga",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "Gaga"
+      ],
+      "category": "person"
+    },
+    "Q836018": {
+      "id": "Q836018",
+      "label": "The Weeknd",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q701644": {
+      "id": "Q701644",
+      "label": "Billie Eilish",
+      "sitelinks": 135,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q289980": {
+      "id": "Q289980",
+      "label": "Post Malone",
+      "sitelinks": 130,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q396222": {
+      "id": "Q396222",
+      "label": "The Lion King",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q170269": {
+      "id": "Q170269",
+      "label": "Frozen",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q559557": {
+      "id": "Q559557",
+      "label": "Avatar",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q54571": {
+      "id": "Q54571",
+      "label": "Avengers Endgame",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [
+        "Endgame"
+      ],
+      "category": "movie"
+    },
+    "Q138761": {
+      "id": "Q138761",
+      "label": "Black Panther",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q270765": {
+      "id": "Q270765",
+      "label": "Iron Man",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q123379": {
+      "id": "Q123379",
+      "label": "Spider-Man",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "Spiderman"
+      ],
+      "category": "movie"
+    },
+    "Q456677": {
+      "id": "Q456677",
+      "label": "The Dark Knight",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q275945": {
+      "id": "Q275945",
+      "label": "Forrest Gump",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q918395": {
+      "id": "Q918395",
+      "label": "The Godfather",
+      "sitelinks": 175,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q869092": {
+      "id": "Q869092",
+      "label": "Pulp Fiction",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q9774": {
+      "id": "Q9774",
+      "label": "The Shawshank Redemption",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [
+        "Shawshank"
+      ],
+      "category": "movie"
+    },
+    "Q956883": {
+      "id": "Q956883",
+      "label": "Jurassic Park",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q209372": {
+      "id": "Q209372",
+      "label": "E.T.",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "ET"
+      ],
+      "category": "other"
+    },
+    "Q383355": {
+      "id": "Q383355",
+      "label": "Jaws",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q621901": {
+      "id": "Q621901",
+      "label": "Rocky",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q869844": {
+      "id": "Q869844",
+      "label": "Top Gun",
+      "sitelinks": 145,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q189710": {
+      "id": "Q189710",
+      "label": "Ghostbusters",
+      "sitelinks": 140,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q129560": {
+      "id": "Q129560",
+      "label": "Back to the Future",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [
+        "BTTF"
+      ],
+      "category": "other"
+    },
+    "Q132594": {
+      "id": "Q132594",
+      "label": "Indiana Jones",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "Indy"
+      ],
+      "category": "country"
+    },
+    "Q836951": {
+      "id": "Q836951",
+      "label": "Tokyo",
+      "sitelinks": 200,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q868128": {
+      "id": "Q868128",
+      "label": "Sydney",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q860866": {
+      "id": "Q860866",
+      "label": "Rome",
+      "sitelinks": 190,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q601473": {
+      "id": "Q601473",
+      "label": "Dubai",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q449251": {
+      "id": "Q449251",
+      "label": "Las Vegas",
+      "sitelinks": 175,
+      "type": "Q515",
+      "aliases": [
+        "Vegas"
+      ],
+      "category": "place"
+    },
+    "Q904294": {
+      "id": "Q904294",
+      "label": "Miami",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q837179": {
+      "id": "Q837179",
+      "label": "San Francisco",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [
+        "SF"
+      ],
+      "category": "place"
+    },
+    "Q374537": {
+      "id": "Q374537",
+      "label": "Boston",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q295654": {
+      "id": "Q295654",
+      "label": "Seattle",
+      "sitelinks": 155,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q442103": {
+      "id": "Q442103",
+      "label": "Washington DC",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [
+        "DC"
+      ],
+      "category": "place"
+    },
+    "Q34088": {
+      "id": "Q34088",
+      "label": "Hollywood",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q680628": {
+      "id": "Q680628",
+      "label": "Times Square",
+      "sitelinks": 150,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q844045": {
+      "id": "Q844045",
+      "label": "Central Park",
+      "sitelinks": 145,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q668123": {
+      "id": "Q668123",
+      "label": "Golden Gate Bridge",
+      "sitelinks": 140,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q775234": {
+      "id": "Q775234",
+      "label": "Statue of Liberty",
+      "sitelinks": 155,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q344864": {
+      "id": "Q344864",
+      "label": "Mount Rushmore",
+      "sitelinks": 130,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q692075": {
+      "id": "Q692075",
+      "label": "Niagara Falls",
+      "sitelinks": 135,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q395449": {
+      "id": "Q395449",
+      "label": "Grand Canyon",
+      "sitelinks": 140,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q423246": {
+      "id": "Q423246",
+      "label": "Yellowstone",
+      "sitelinks": 125,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q421904": {
+      "id": "Q421904",
+      "label": "Disney World",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [
+        "Disneyland"
+      ],
+      "category": "company"
+    },
+    "Q84327": {
+      "id": "Q84327",
+      "label": "Stranger Things",
+      "sitelinks": 140,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q902636": {
+      "id": "Q902636",
+      "label": "The Crown",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q335031": {
+      "id": "Q335031",
+      "label": "House of Cards",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q472978": {
+      "id": "Q472978",
+      "label": "Orange Is the New Black",
+      "sitelinks": 110,
+      "type": "Q5398426",
+      "aliases": [
+        "OITNB"
+      ],
+      "category": "tv_show"
+    },
+    "Q561429": {
+      "id": "Q561429",
+      "label": "The Walking Dead",
+      "sitelinks": 125,
+      "type": "Q5398426",
+      "aliases": [
+        "TWD"
+      ],
+      "category": "movie"
+    },
+    "Q710458": {
+      "id": "Q710458",
+      "label": "Lost",
+      "sitelinks": 130,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q769029": {
+      "id": "Q769029",
+      "label": "Seinfeld",
+      "sitelinks": 135,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q267494": {
+      "id": "Q267494",
+      "label": "Cheers",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q138470": {
+      "id": "Q138470",
+      "label": "Frasier",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q304472": {
+      "id": "Q304472",
+      "label": "The Big Bang Theory",
+      "sitelinks": 125,
+      "type": "Q5398426",
+      "aliases": [
+        "TBBT"
+      ],
+      "category": "movie"
+    },
+    "Q551100": {
+      "id": "Q551100",
+      "label": "Modern Family",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q750891": {
+      "id": "Q750891",
+      "label": "How I Met Your Mother",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [
+        "HIMYM"
+      ],
+      "category": "other"
+    },
+    "Q152871": {
+      "id": "Q152871",
+      "label": "Grey's Anatomy",
+      "sitelinks": 110,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q860888": {
+      "id": "Q860888",
+      "label": "CSI",
+      "sitelinks": 105,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q549555": {
+      "id": "Q549555",
+      "label": "NCIS",
+      "sitelinks": 100,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q395305": {
+      "id": "Q395305",
+      "label": "Netflix",
+      "sitelinks": 160,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q545209": {
+      "id": "Q545209",
+      "label": "Amazon",
+      "sitelinks": 180,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q615036": {
+      "id": "Q615036",
+      "label": "Facebook",
+      "sitelinks": 170,
+      "type": "Q43229",
+      "aliases": [
+        "Meta"
+      ],
+      "category": "company"
+    },
+    "Q85659": {
+      "id": "Q85659",
+      "label": "Instagram",
+      "sitelinks": 155,
+      "type": "Q43229",
+      "aliases": [
+        "Insta"
+      ],
+      "category": "company"
+    },
+    "Q287694": {
+      "id": "Q287694",
+      "label": "Twitter",
+      "sitelinks": 165,
+      "type": "Q43229",
+      "aliases": [
+        "X"
+      ],
+      "category": "company"
+    },
+    "Q45079": {
+      "id": "Q45079",
+      "label": "YouTube",
+      "sitelinks": 175,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q933088": {
+      "id": "Q933088",
+      "label": "TikTok",
+      "sitelinks": 150,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q281328": {
+      "id": "Q281328",
+      "label": "Snapchat",
+      "sitelinks": 140,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q568298": {
+      "id": "Q568298",
+      "label": "Uber",
+      "sitelinks": 135,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q890391": {
+      "id": "Q890391",
+      "label": "Airbnb",
+      "sitelinks": 130,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q878001": {
+      "id": "Q878001",
+      "label": "Tesla",
+      "sitelinks": 160,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q72784": {
+      "id": "Q72784",
+      "label": "SpaceX",
+      "sitelinks": 145,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q312868": {
+      "id": "Q312868",
+      "label": "Nike",
+      "sitelinks": 155,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q214500": {
+      "id": "Q214500",
+      "label": "Adidas",
+      "sitelinks": 150,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q972383": {
+      "id": "Q972383",
+      "label": "Pepsi",
+      "sitelinks": 145,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q314517": {
+      "id": "Q314517",
+      "label": "KFC",
+      "sitelinks": 140,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q829564": {
+      "id": "Q829564",
+      "label": "Burger King",
+      "sitelinks": 135,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q559854": {
+      "id": "Q559854",
+      "label": "Subway",
+      "sitelinks": 130,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q558804": {
+      "id": "Q558804",
+      "label": "Pizza Hut",
+      "sitelinks": 125,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q479517": {
+      "id": "Q479517",
+      "label": "Dominos",
+      "sitelinks": 120,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q169202": {
+      "id": "Q169202",
+      "label": "Sushi",
+      "sitelinks": 120,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q311815": {
+      "id": "Q311815",
+      "label": "Tacos",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [
+        "Taco"
+      ],
+      "category": "other"
+    },
+    "Q425151": {
+      "id": "Q425151",
+      "label": "Burrito",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q224421": {
+      "id": "Q224421",
+      "label": "Pasta",
+      "sitelinks": 125,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q227358": {
+      "id": "Q227358",
+      "label": "Ramen",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q810653": {
+      "id": "Q810653",
+      "label": "Curry",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q265708": {
+      "id": "Q265708",
+      "label": "Sandwich",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q131787": {
+      "id": "Q131787",
+      "label": "Salad",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q184501": {
+      "id": "Q184501",
+      "label": "Soup",
+      "sitelinks": 90,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q543629": {
+      "id": "Q543629",
+      "label": "Steak",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q257570": {
+      "id": "Q257570",
+      "label": "Chicken",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q856614": {
+      "id": "Q856614",
+      "label": "Fish",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q719641": {
+      "id": "Q719641",
+      "label": "Bacon",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q759973": {
+      "id": "Q759973",
+      "label": "Eggs",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q963656": {
+      "id": "Q963656",
+      "label": "Cheese",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q284228": {
+      "id": "Q284228",
+      "label": "Bread",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q260123": {
+      "id": "Q260123",
+      "label": "Rice",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q148646": {
+      "id": "Q148646",
+      "label": "Noodles",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q541113": {
+      "id": "Q541113",
+      "label": "Cereal",
+      "sitelinks": 90,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q313329": {
+      "id": "Q313329",
+      "label": "Yogurt",
+      "sitelinks": 85,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q47692": {
+      "id": "Q47692",
+      "label": "Golf",
+      "sitelinks": 140,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q701257": {
+      "id": "Q701257",
+      "label": "Swimming",
+      "sitelinks": 135,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q495761": {
+      "id": "Q495761",
+      "label": "Running",
+      "sitelinks": 130,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q67495": {
+      "id": "Q67495",
+      "label": "Cycling",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [
+        "Biking"
+      ],
+      "category": "sport"
+    },
+    "Q777423": {
+      "id": "Q777423",
+      "label": "Skiing",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q703571": {
+      "id": "Q703571",
+      "label": "Surfing",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q348480": {
+      "id": "Q348480",
+      "label": "Boxing",
+      "sitelinks": 130,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q340519": {
+      "id": "Q340519",
+      "label": "Wrestling",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q973029": {
+      "id": "Q973029",
+      "label": "Gymnastics",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q219261": {
+      "id": "Q219261",
+      "label": "Track and Field",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [
+        "Athletics"
+      ],
+      "category": "other"
+    },
+    "Q17652": {
+      "id": "Q17652",
+      "label": "Volleyball",
+      "sitelinks": 110,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q387574": {
+      "id": "Q387574",
+      "label": "Ping Pong",
+      "sitelinks": 105,
+      "type": "Q349",
+      "aliases": [
+        "Table Tennis"
+      ],
+      "category": "other"
+    },
+    "Q378908": {
+      "id": "Q378908",
+      "label": "Badminton",
+      "sitelinks": 100,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q506024": {
+      "id": "Q506024",
+      "label": "Cricket",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q402214": {
+      "id": "Q402214",
+      "label": "Rugby",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q124646": {
+      "id": "Q124646",
+      "label": "Hockey",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q437745": {
+      "id": "Q437745",
+      "label": "Figure Skating",
+      "sitelinks": 110,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q606245": {
+      "id": "Q606245",
+      "label": "Snowboarding",
+      "sitelinks": 105,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q335420": {
+      "id": "Q335420",
+      "label": "Skateboarding",
+      "sitelinks": 100,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q900953": {
+      "id": "Q900953",
+      "label": "Rock Climbing",
+      "sitelinks": 95,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q97454": {
+      "id": "Q97454",
+      "label": "Australia",
+      "sitelinks": 250,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q500966": {
+      "id": "Q500966",
+      "label": "Brazil",
+      "sitelinks": 240,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q195043": {
+      "id": "Q195043",
+      "label": "China",
+      "sitelinks": 260,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q615238": {
+      "id": "Q615238",
+      "label": "India",
+      "sitelinks": 255,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q400449": {
+      "id": "Q400449",
+      "label": "Russia",
+      "sitelinks": 245,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q512196": {
+      "id": "Q512196",
+      "label": "Mexico",
+      "sitelinks": 220,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q190626": {
+      "id": "Q190626",
+      "label": "Spain",
+      "sitelinks": 235,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q741777": {
+      "id": "Q741777",
+      "label": "Netherlands",
+      "sitelinks": 210,
+      "type": "Q6256",
+      "aliases": [
+        "Holland"
+      ],
+      "category": "country"
+    },
+    "Q401306": {
+      "id": "Q401306",
+      "label": "Sweden",
+      "sitelinks": 200,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q424553": {
+      "id": "Q424553",
+      "label": "Norway",
+      "sitelinks": 195,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q287871": {
+      "id": "Q287871",
+      "label": "Switzerland",
+      "sitelinks": 205,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q962935": {
+      "id": "Q962935",
+      "label": "South Korea",
+      "sitelinks": 215,
+      "type": "Q6256",
+      "aliases": [
+        "Korea"
+      ],
+      "category": "country"
+    },
+    "Q590524": {
+      "id": "Q590524",
+      "label": "Thailand",
+      "sitelinks": 190,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q599557": {
+      "id": "Q599557",
+      "label": "Egypt",
+      "sitelinks": 225,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q431188": {
+      "id": "Q431188",
+      "label": "South Africa",
+      "sitelinks": 185,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q278187": {
+      "id": "Q278187",
+      "label": "Argentina",
+      "sitelinks": 180,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q296237": {
+      "id": "Q296237",
+      "label": "Turkey",
+      "sitelinks": 175,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q676609": {
+      "id": "Q676609",
+      "label": "Greece",
+      "sitelinks": 170,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q926059": {
+      "id": "Q926059",
+      "label": "Portugal",
+      "sitelinks": 165,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q339320": {
+      "id": "Q339320",
+      "label": "Tom Hanks",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [
+        "Hanks"
+      ],
+      "category": "person"
+    },
+    "Q702122": {
+      "id": "Q702122",
+      "label": "Leonardo DiCaprio",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Leo",
+        "DiCaprio"
+      ],
+      "category": "person"
+    },
+    "Q37630": {
+      "id": "Q37630",
+      "label": "Jennifer Lawrence",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "J-Law"
+      ],
+      "category": "person"
+    },
+    "Q106194": {
+      "id": "Q106194",
+      "label": "Brad Pitt",
+      "sitelinks": 175,
+      "type": "Q5",
+      "aliases": [
+        "Pitt"
+      ],
+      "category": "person"
+    },
+    "Q601657": {
+      "id": "Q601657",
+      "label": "Angelina Jolie",
+      "sitelinks": 165,
+      "type": "Q5",
+      "aliases": [
+        "Jolie"
+      ],
+      "category": "person"
+    },
+    "Q371913": {
+      "id": "Q371913",
+      "label": "Will Smith",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Fresh Prince"
+      ],
+      "category": "person"
+    },
+    "Q150128": {
+      "id": "Q150128",
+      "label": "Robert Downey Jr",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "RDJ",
+        "Iron Man"
+      ],
+      "category": "person"
+    },
+    "Q254883": {
+      "id": "Q254883",
+      "label": "Scarlett Johansson",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "ScarJo"
+      ],
+      "category": "person"
+    },
+    "Q287961": {
+      "id": "Q287961",
+      "label": "Chris Evans",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [
+        "Captain America"
+      ],
+      "category": "person"
+    },
+    "Q869798": {
+      "id": "Q869798",
+      "label": "Ryan Reynolds",
+      "sitelinks": 145,
+      "type": "Q5",
+      "aliases": [
+        "Deadpool"
+      ],
+      "category": "person"
+    },
+    "Q530610": {
+      "id": "Q530610",
+      "label": "Emma Stone",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q358157": {
+      "id": "Q358157",
+      "label": "Ryan Gosling",
+      "sitelinks": 135,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q356686": {
+      "id": "Q356686",
+      "label": "Jennifer Aniston",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "Jen"
+      ],
+      "category": "person"
+    },
+    "Q69920": {
+      "id": "Q69920",
+      "label": "George Clooney",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "Clooney"
+      ],
+      "category": "person"
+    },
+    "Q31589": {
+      "id": "Q31589",
+      "label": "Sandra Bullock",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q416752": {
+      "id": "Q416752",
+      "label": "Tom Cruise",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q192090": {
+      "id": "Q192090",
+      "label": "Meryl Streep",
+      "sitelinks": 175,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q108164": {
+      "id": "Q108164",
+      "label": "Denzel Washington",
+      "sitelinks": 165,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q878411": {
+      "id": "Q878411",
+      "label": "Morgan Freeman",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q104636": {
+      "id": "Q104636",
+      "label": "Samuel L Jackson",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "Sam Jackson"
+      ],
+      "category": "person"
+    },
+    "Q734846": {
+      "id": "Q734846",
+      "label": "Ed Sheeran",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q107404": {
+      "id": "Q107404",
+      "label": "Adele",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q586144": {
+      "id": "Q586144",
+      "label": "Bruno Mars",
+      "sitelinks": 145,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q565822": {
+      "id": "Q565822",
+      "label": "Rihanna",
+      "sitelinks": 170,
+      "type": "Q5",
+      "aliases": [
+        "RiRi"
+      ],
+      "category": "person"
+    },
+    "Q831749": {
+      "id": "Q831749",
+      "label": "Justin Timberlake",
+      "sitelinks": 155,
+      "type": "Q5",
+      "aliases": [
+        "JT"
+      ],
+      "category": "person"
+    },
+    "Q7936": {
+      "id": "Q7936",
+      "label": "Katy Perry",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q855195": {
+      "id": "Q855195",
+      "label": "Lady Gaga",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": [
+        "Gaga"
+      ],
+      "category": "person"
+    },
+    "Q71632": {
+      "id": "Q71632",
+      "label": "The Weeknd",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q893520": {
+      "id": "Q893520",
+      "label": "Billie Eilish",
+      "sitelinks": 135,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q263661": {
+      "id": "Q263661",
+      "label": "Post Malone",
+      "sitelinks": 130,
+      "type": "Q5",
+      "aliases": [],
+      "category": "person"
+    },
+    "Q317601": {
+      "id": "Q317601",
+      "label": "The Lion King",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q218219": {
+      "id": "Q218219",
+      "label": "Frozen",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q588641": {
+      "id": "Q588641",
+      "label": "Avatar",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q254806": {
+      "id": "Q254806",
+      "label": "Avengers Endgame",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [
+        "Endgame"
+      ],
+      "category": "movie"
+    },
+    "Q8656": {
+      "id": "Q8656",
+      "label": "Black Panther",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q184006": {
+      "id": "Q184006",
+      "label": "Iron Man",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q828394": {
+      "id": "Q828394",
+      "label": "Spider-Man",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "Spiderman"
+      ],
+      "category": "movie"
+    },
+    "Q478289": {
+      "id": "Q478289",
+      "label": "The Dark Knight",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q861337": {
+      "id": "Q861337",
+      "label": "Forrest Gump",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q193942": {
+      "id": "Q193942",
+      "label": "The Godfather",
+      "sitelinks": 175,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q405317": {
+      "id": "Q405317",
+      "label": "Pulp Fiction",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q576749": {
+      "id": "Q576749",
+      "label": "The Shawshank Redemption",
+      "sitelinks": 170,
+      "type": "Q11424",
+      "aliases": [
+        "Shawshank"
+      ],
+      "category": "movie"
+    },
+    "Q524349": {
+      "id": "Q524349",
+      "label": "Jurassic Park",
+      "sitelinks": 165,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q315673": {
+      "id": "Q315673",
+      "label": "E.T.",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "ET"
+      ],
+      "category": "other"
+    },
+    "Q664451": {
+      "id": "Q664451",
+      "label": "Jaws",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q414653": {
+      "id": "Q414653",
+      "label": "Rocky",
+      "sitelinks": 150,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q303675": {
+      "id": "Q303675",
+      "label": "Top Gun",
+      "sitelinks": 145,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q283900": {
+      "id": "Q283900",
+      "label": "Ghostbusters",
+      "sitelinks": 140,
+      "type": "Q11424",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q937621": {
+      "id": "Q937621",
+      "label": "Back to the Future",
+      "sitelinks": 155,
+      "type": "Q11424",
+      "aliases": [
+        "BTTF"
+      ],
+      "category": "other"
+    },
+    "Q150654": {
+      "id": "Q150654",
+      "label": "Indiana Jones",
+      "sitelinks": 160,
+      "type": "Q11424",
+      "aliases": [
+        "Indy"
+      ],
+      "category": "country"
+    },
+    "Q837076": {
+      "id": "Q837076",
+      "label": "Tokyo",
+      "sitelinks": 200,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q545580": {
+      "id": "Q545580",
+      "label": "Sydney",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q684979": {
+      "id": "Q684979",
+      "label": "Rome",
+      "sitelinks": 190,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q393996": {
+      "id": "Q393996",
+      "label": "Dubai",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q852356": {
+      "id": "Q852356",
+      "label": "Las Vegas",
+      "sitelinks": 175,
+      "type": "Q515",
+      "aliases": [
+        "Vegas"
+      ],
+      "category": "place"
+    },
+    "Q119576": {
+      "id": "Q119576",
+      "label": "Miami",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q739471": {
+      "id": "Q739471",
+      "label": "San Francisco",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [
+        "SF"
+      ],
+      "category": "place"
+    },
+    "Q766735": {
+      "id": "Q766735",
+      "label": "Boston",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q112605": {
+      "id": "Q112605",
+      "label": "Seattle",
+      "sitelinks": 155,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q534045": {
+      "id": "Q534045",
+      "label": "Washington DC",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": [
+        "DC"
+      ],
+      "category": "place"
+    },
+    "Q376878": {
+      "id": "Q376878",
+      "label": "Hollywood",
+      "sitelinks": 165,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q595899": {
+      "id": "Q595899",
+      "label": "Times Square",
+      "sitelinks": 150,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q712675": {
+      "id": "Q712675",
+      "label": "Central Park",
+      "sitelinks": 145,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q935696": {
+      "id": "Q935696",
+      "label": "Golden Gate Bridge",
+      "sitelinks": 140,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q252582": {
+      "id": "Q252582",
+      "label": "Statue of Liberty",
+      "sitelinks": 155,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q739867": {
+      "id": "Q739867",
+      "label": "Mount Rushmore",
+      "sitelinks": 130,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q181690": {
+      "id": "Q181690",
+      "label": "Niagara Falls",
+      "sitelinks": 135,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q533304": {
+      "id": "Q533304",
+      "label": "Grand Canyon",
+      "sitelinks": 140,
+      "type": "Q515",
+      "aliases": [],
+      "category": "place"
+    },
+    "Q944471": {
+      "id": "Q944471",
+      "label": "Yellowstone",
+      "sitelinks": 125,
+      "type": "Q515",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q28257": {
+      "id": "Q28257",
+      "label": "Disney World",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": [
+        "Disneyland"
+      ],
+      "category": "company"
+    },
+    "Q109382": {
+      "id": "Q109382",
+      "label": "Stranger Things",
+      "sitelinks": 140,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q33705": {
+      "id": "Q33705",
+      "label": "The Crown",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "movie"
+    },
+    "Q668974": {
+      "id": "Q668974",
+      "label": "House of Cards",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q377873": {
+      "id": "Q377873",
+      "label": "Orange Is the New Black",
+      "sitelinks": 110,
+      "type": "Q5398426",
+      "aliases": [
+        "OITNB"
+      ],
+      "category": "tv_show"
+    },
+    "Q774015": {
+      "id": "Q774015",
+      "label": "The Walking Dead",
+      "sitelinks": 125,
+      "type": "Q5398426",
+      "aliases": [
+        "TWD"
+      ],
+      "category": "movie"
+    },
+    "Q227222": {
+      "id": "Q227222",
+      "label": "Lost",
+      "sitelinks": 130,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q944825": {
+      "id": "Q944825",
+      "label": "Seinfeld",
+      "sitelinks": 135,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "tv_show"
+    },
+    "Q32511": {
+      "id": "Q32511",
+      "label": "Cheers",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q840734": {
+      "id": "Q840734",
+      "label": "Frasier",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q825420": {
+      "id": "Q825420",
+      "label": "The Big Bang Theory",
+      "sitelinks": 125,
+      "type": "Q5398426",
+      "aliases": [
+        "TBBT"
+      ],
+      "category": "movie"
+    },
+    "Q965345": {
+      "id": "Q965345",
+      "label": "Modern Family",
+      "sitelinks": 120,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q818561": {
+      "id": "Q818561",
+      "label": "How I Met Your Mother",
+      "sitelinks": 115,
+      "type": "Q5398426",
+      "aliases": [
+        "HIMYM"
+      ],
+      "category": "other"
+    },
+    "Q46554": {
+      "id": "Q46554",
+      "label": "Grey's Anatomy",
+      "sitelinks": 110,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q900000": {
+      "id": "Q900000",
+      "label": "CSI",
+      "sitelinks": 105,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q307566": {
+      "id": "Q307566",
+      "label": "NCIS",
+      "sitelinks": 100,
+      "type": "Q5398426",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q116151": {
+      "id": "Q116151",
+      "label": "Netflix",
+      "sitelinks": 160,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q723266": {
+      "id": "Q723266",
+      "label": "Amazon",
+      "sitelinks": 180,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q246491": {
+      "id": "Q246491",
+      "label": "Facebook",
+      "sitelinks": 170,
+      "type": "Q43229",
+      "aliases": [
+        "Meta"
+      ],
+      "category": "company"
+    },
+    "Q554044": {
+      "id": "Q554044",
+      "label": "Instagram",
+      "sitelinks": 155,
+      "type": "Q43229",
+      "aliases": [
+        "Insta"
+      ],
+      "category": "company"
+    },
+    "Q671240": {
+      "id": "Q671240",
+      "label": "Twitter",
+      "sitelinks": 165,
+      "type": "Q43229",
+      "aliases": [
+        "X"
+      ],
+      "category": "company"
+    },
+    "Q889338": {
+      "id": "Q889338",
+      "label": "YouTube",
+      "sitelinks": 175,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q660309": {
+      "id": "Q660309",
+      "label": "TikTok",
+      "sitelinks": 150,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q703791": {
+      "id": "Q703791",
+      "label": "Snapchat",
+      "sitelinks": 140,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q744041": {
+      "id": "Q744041",
+      "label": "Uber",
+      "sitelinks": 135,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q435572": {
+      "id": "Q435572",
+      "label": "Airbnb",
+      "sitelinks": 130,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q767432": {
+      "id": "Q767432",
+      "label": "Tesla",
+      "sitelinks": 160,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q296306": {
+      "id": "Q296306",
+      "label": "SpaceX",
+      "sitelinks": 145,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q185492": {
+      "id": "Q185492",
+      "label": "Nike",
+      "sitelinks": 155,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q206463": {
+      "id": "Q206463",
+      "label": "Adidas",
+      "sitelinks": 150,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q885474": {
+      "id": "Q885474",
+      "label": "Pepsi",
+      "sitelinks": 145,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "company"
+    },
+    "Q243801": {
+      "id": "Q243801",
+      "label": "KFC",
+      "sitelinks": 140,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q923052": {
+      "id": "Q923052",
+      "label": "Burger King",
+      "sitelinks": 135,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q274900": {
+      "id": "Q274900",
+      "label": "Subway",
+      "sitelinks": 130,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q853980": {
+      "id": "Q853980",
+      "label": "Pizza Hut",
+      "sitelinks": 125,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q917453": {
+      "id": "Q917453",
+      "label": "Dominos",
+      "sitelinks": 120,
+      "type": "Q43229",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q761971": {
+      "id": "Q761971",
+      "label": "Sushi",
+      "sitelinks": 120,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q973980": {
+      "id": "Q973980",
+      "label": "Tacos",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [
+        "Taco"
+      ],
+      "category": "other"
+    },
+    "Q86893": {
+      "id": "Q86893",
+      "label": "Burrito",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q599663": {
+      "id": "Q599663",
+      "label": "Pasta",
+      "sitelinks": 125,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q165716": {
+      "id": "Q165716",
+      "label": "Ramen",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q491408": {
+      "id": "Q491408",
+      "label": "Curry",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q481776": {
+      "id": "Q481776",
+      "label": "Sandwich",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q68196": {
+      "id": "Q68196",
+      "label": "Salad",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q266436": {
+      "id": "Q266436",
+      "label": "Soup",
+      "sitelinks": 90,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q407729": {
+      "id": "Q407729",
+      "label": "Steak",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q816262": {
+      "id": "Q816262",
+      "label": "Chicken",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q343367": {
+      "id": "Q343367",
+      "label": "Fish",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q908604": {
+      "id": "Q908604",
+      "label": "Bacon",
+      "sitelinks": 115,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q528827": {
+      "id": "Q528827",
+      "label": "Eggs",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q76675": {
+      "id": "Q76675",
+      "label": "Cheese",
+      "sitelinks": 110,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q598529": {
+      "id": "Q598529",
+      "label": "Bread",
+      "sitelinks": 105,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "food"
+    },
+    "Q216438": {
+      "id": "Q216438",
+      "label": "Rice",
+      "sitelinks": 100,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q818478": {
+      "id": "Q818478",
+      "label": "Noodles",
+      "sitelinks": 95,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q715993": {
+      "id": "Q715993",
+      "label": "Cereal",
+      "sitelinks": 90,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q266663": {
+      "id": "Q266663",
+      "label": "Yogurt",
+      "sitelinks": 85,
+      "type": "Q1047113",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q309853": {
+      "id": "Q309853",
+      "label": "Golf",
+      "sitelinks": 140,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q767939": {
+      "id": "Q767939",
+      "label": "Swimming",
+      "sitelinks": 135,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q83066": {
+      "id": "Q83066",
+      "label": "Running",
+      "sitelinks": 130,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q636960": {
+      "id": "Q636960",
+      "label": "Cycling",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [
+        "Biking"
+      ],
+      "category": "sport"
+    },
+    "Q784556": {
+      "id": "Q784556",
+      "label": "Skiing",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q414781": {
+      "id": "Q414781",
+      "label": "Surfing",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q106140": {
+      "id": "Q106140",
+      "label": "Boxing",
+      "sitelinks": 130,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q585633": {
+      "id": "Q585633",
+      "label": "Wrestling",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q156634": {
+      "id": "Q156634",
+      "label": "Gymnastics",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q809008": {
+      "id": "Q809008",
+      "label": "Track and Field",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [
+        "Athletics"
+      ],
+      "category": "other"
+    },
+    "Q26442": {
+      "id": "Q26442",
+      "label": "Volleyball",
+      "sitelinks": 110,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q821729": {
+      "id": "Q821729",
+      "label": "Ping Pong",
+      "sitelinks": 105,
+      "type": "Q349",
+      "aliases": [
+        "Table Tennis"
+      ],
+      "category": "other"
+    },
+    "Q145065": {
+      "id": "Q145065",
+      "label": "Badminton",
+      "sitelinks": 100,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q803012": {
+      "id": "Q803012",
+      "label": "Cricket",
+      "sitelinks": 125,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q251459": {
+      "id": "Q251459",
+      "label": "Rugby",
+      "sitelinks": 120,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q452921": {
+      "id": "Q452921",
+      "label": "Hockey",
+      "sitelinks": 115,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q766079": {
+      "id": "Q766079",
+      "label": "Figure Skating",
+      "sitelinks": 110,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q251832": {
+      "id": "Q251832",
+      "label": "Snowboarding",
+      "sitelinks": 105,
+      "type": "Q349",
+      "aliases": [],
+      "category": "sport"
+    },
+    "Q131010": {
+      "id": "Q131010",
+      "label": "Skateboarding",
+      "sitelinks": 100,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q222655": {
+      "id": "Q222655",
+      "label": "Rock Climbing",
+      "sitelinks": 95,
+      "type": "Q349",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q675826": {
+      "id": "Q675826",
+      "label": "Australia",
+      "sitelinks": 250,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q27614": {
+      "id": "Q27614",
+      "label": "Brazil",
+      "sitelinks": 240,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q959059": {
+      "id": "Q959059",
+      "label": "China",
+      "sitelinks": 260,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q628424": {
+      "id": "Q628424",
+      "label": "India",
+      "sitelinks": 255,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q946395": {
+      "id": "Q946395",
+      "label": "Russia",
+      "sitelinks": 245,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q42643": {
+      "id": "Q42643",
+      "label": "Mexico",
+      "sitelinks": 220,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q581692": {
+      "id": "Q581692",
+      "label": "Spain",
+      "sitelinks": 235,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q131648": {
+      "id": "Q131648",
+      "label": "Netherlands",
+      "sitelinks": 210,
+      "type": "Q6256",
+      "aliases": [
+        "Holland"
+      ],
+      "category": "country"
+    },
+    "Q937602": {
+      "id": "Q937602",
+      "label": "Sweden",
+      "sitelinks": 200,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q251818": {
+      "id": "Q251818",
+      "label": "Norway",
+      "sitelinks": 195,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q274410": {
+      "id": "Q274410",
+      "label": "Switzerland",
+      "sitelinks": 205,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q966238": {
+      "id": "Q966238",
+      "label": "South Korea",
+      "sitelinks": 215,
+      "type": "Q6256",
+      "aliases": [
+        "Korea"
+      ],
+      "category": "country"
+    },
+    "Q343554": {
+      "id": "Q343554",
+      "label": "Thailand",
+      "sitelinks": 190,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "other"
+    },
+    "Q872843": {
+      "id": "Q872843",
+      "label": "Egypt",
+      "sitelinks": 225,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q498672": {
+      "id": "Q498672",
+      "label": "South Africa",
+      "sitelinks": 185,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q573102": {
+      "id": "Q573102",
+      "label": "Argentina",
+      "sitelinks": 180,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q47271": {
+      "id": "Q47271",
+      "label": "Turkey",
+      "sitelinks": 175,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q521148": {
+      "id": "Q521148",
+      "label": "Greece",
+      "sitelinks": 170,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    },
+    "Q686201": {
+      "id": "Q686201",
+      "label": "Portugal",
+      "sitelinks": 165,
+      "type": "Q6256",
+      "aliases": [],
+      "category": "country"
+    }
   }
 }

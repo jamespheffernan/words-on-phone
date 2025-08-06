@@ -543,6 +543,7 @@ addEntity();
    - [ ] No duplicates in output
 
 3. **Quality Success**
+   - [ ] Phrases are 1-4 words
    - [ ] Mix of easy/medium/hard
    - [ ] Multiple categories represented
 

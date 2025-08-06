@@ -1,10 +1,10 @@
 {
   "meta": {
     "version": "1.0",
-    "buildDate": "2025-08-06T12:40:33.896Z",
+    "buildDate": "2025-08-06T15:37:59.653Z",
     "wordCount": 124,
     "totalProcessed": 120,
-    "buildTimeMs": 4,
+    "buildTimeMs": 5,
     "description": "Concreteness ratings for PhraseMachine v2 describability scoring",
     "source": "Curated from Brysbaert et al. concreteness norms",
     "ratingScale": "1.0 (abstract) to 5.0 (concrete)"

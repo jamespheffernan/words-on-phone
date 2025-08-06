@@ -1,32 +1,32 @@
 {
   "meta": {
     "version": "2.0",
-    "generated": "2025-08-06T12:40:33.960Z",
-    "totalPhrases": 195,
+    "generated": "2025-08-06T15:59:51.138Z",
+    "totalPhrases": 1104,
     "breakdown": {
       "byCategory": {
         "activity": 4,
-        "company": 13,
-        "country": 3,
+        "company": 34,
+        "country": 24,
         "entertainment": 7,
-        "food": 16,
+        "food": 37,
         "general": 24,
-        "movie": 17,
-        "other": 9,
-        "person": 71,
-        "place": 18,
-        "sport": 6,
-        "tv_show": 7
+        "movie": 37,
+        "other": 749,
+        "person": 96,
+        "place": 38,
+        "sport": 29,
+        "tv_show": 25
       },
       "byDifficulty": {
-        "medium": 105,
-        "hard": 59,
-        "easy": 31
+        "medium": 171,
+        "hard": 799,
+        "easy": 134
       },
       "bySource": {
         "compound": 44,
-        "entity_alias": 51,
-        "entity_direct": 100
+        "entity_direct": 979,
+        "entity_alias": 81
       }
     }
   },
@@ -60,6 +60,78 @@
       "pmi": 9.8
     },
     {
+      "phrase": "Amazon",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Facebook",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Insta",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Instagram",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Meta",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Netflix",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Nike",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Tesla",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Twitter",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "X",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "YouTube",
+      "category": "company",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Airbnb",
+      "category": "company",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Apple",
       "category": "company",
       "difficulty": "medium",
@@ -67,6 +139,12 @@
     },
     {
       "phrase": "Apple Inc",
+      "category": "company",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Burger King",
       "category": "company",
       "difficulty": "medium",
       "source": "entity_direct"
@@ -90,7 +168,19 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Dominos",
+      "category": "company",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Google",
+      "category": "company",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "KFC",
       "category": "company",
       "difficulty": "medium",
       "source": "entity_direct"
@@ -120,7 +210,43 @@
       "source": "entity_direct"
     },
     {
-      "phrase": "Nike",
+      "phrase": "Pepsi",
+      "category": "company",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Pizza Hut",
+      "category": "company",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Snapchat",
+      "category": "company",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "SpaceX",
+      "category": "company",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Subway",
+      "category": "company",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "TikTok",
+      "category": "company",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Uber",
       "category": "company",
       "difficulty": "medium",
       "source": "entity_direct"
@@ -142,6 +268,132 @@
       "category": "country",
       "difficulty": "easy",
       "source": "entity_alias"
+    },
+    {
+      "phrase": "Argentina",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Australia",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Brazil",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "China",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Egypt",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Greece",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Holland",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "India",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Korea",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Mexico",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Netherlands",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Norway",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Portugal",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Russia",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "South Africa",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "South Korea",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Spain",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Sweden",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Switzerland",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Thailand",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Turkey",
+      "category": "country",
+      "difficulty": "easy",
+      "source": "entity_direct"
     },
     {
       "phrase": "United States",
@@ -212,11 +464,137 @@
       "pmi": 6.8
     },
     {
+      "phrase": "Bacon",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Bread",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Burrito",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Cereal",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Cheese",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Chicken",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Curry",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Eggs",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "fast food",
       "category": "food",
       "difficulty": "medium",
       "source": "compound",
       "pmi": 7.5
+    },
+    {
+      "phrase": "Fish",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Noodles",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Pasta",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Ramen",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Rice",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Salad",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Sandwich",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Soup",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Steak",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Sushi",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Taco",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Tacos",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Yogurt",
+      "category": "food",
+      "difficulty": "medium",
+      "source": "entity_direct"
     },
     {
       "phrase": "Burger",
@@ -478,6 +856,132 @@
       "pmi": 10.6
     },
     {
+      "phrase": "Avatar",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Avengers Endgame",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Back to the Future",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Black Panther",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "BTTF",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "E.T.",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Endgame",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "ET",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Forrest Gump",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Indiana Jones",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Indy",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Jaws",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Jurassic Park",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Pulp Fiction",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Shawshank",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Spider-Man",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Spiderman",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Dark Knight",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The Godfather",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The Lion King",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The Shawshank Redemption",
+      "category": "movie",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Avengers",
       "category": "movie",
       "difficulty": "medium",
@@ -490,16 +994,16 @@
       "source": "entity_direct"
     },
     {
-      "phrase": "Spider-Man",
+      "phrase": "Ghostbusters",
       "category": "movie",
       "difficulty": "medium",
       "source": "entity_direct"
     },
     {
-      "phrase": "Spiderman",
+      "phrase": "Rocky",
       "category": "movie",
       "difficulty": "medium",
-      "source": "entity_alias"
+      "source": "entity_direct"
     },
     {
       "phrase": "Star Wars",
@@ -520,13 +1024,13 @@
       "source": "entity_alias"
     },
     {
-      "phrase": "The Godfather",
+      "phrase": "Titanic",
       "category": "movie",
       "difficulty": "medium",
       "source": "entity_direct"
     },
     {
-      "phrase": "Titanic",
+      "phrase": "Top Gun",
       "category": "movie",
       "difficulty": "medium",
       "source": "entity_direct"
@@ -557,12 +1061,6 @@
     },
     {
       "phrase": "The Incredibles",
-      "category": "movie",
-      "difficulty": "hard",
-      "source": "entity_direct"
-    },
-    {
-      "phrase": "The Lion King",
       "category": "movie",
       "difficulty": "hard",
       "source": "entity_direct"
@@ -610,12 +1108,6 @@
       "source": "entity_alias"
     },
     {
-      "phrase": "Statue of Liberty",
-      "category": "other",
-      "difficulty": "medium",
-      "source": "entity_direct"
-    },
-    {
       "phrase": "The Hobbit",
       "category": "other",
       "difficulty": "medium",
@@ -628,13 +1120,4471 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Entity 1000",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1001",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1002",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1003",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1004",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1005",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1006",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1007",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1008",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1009",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1010",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1011",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1012",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1013",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1014",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1015",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1016",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1017",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1018",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1019",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1020",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1021",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1022",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1023",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1024",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1025",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1026",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1027",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1028",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1029",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1030",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1031",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1032",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1033",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1034",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1035",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1036",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1037",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1038",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1039",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1040",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1041",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1042",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1043",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1044",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1045",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1046",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1047",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1048",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1049",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1050",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1051",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1052",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1053",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1054",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1055",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1056",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1057",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1058",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1059",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1060",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1061",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1062",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1063",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1064",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1065",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1066",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1067",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1068",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1069",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1070",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1071",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1072",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1073",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1074",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1075",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1076",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1077",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1078",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1079",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1080",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1081",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1082",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1083",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1084",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1085",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1086",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1087",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1088",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1089",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1090",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1091",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1092",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1093",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1094",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1095",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1096",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1097",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1098",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1099",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1100",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1101",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1102",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1103",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1104",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1105",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1106",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1107",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1108",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1109",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1110",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1111",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1112",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1113",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1114",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1115",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1116",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1117",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1118",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1119",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1120",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1121",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1122",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1123",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1124",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1125",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1126",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1127",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1128",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1129",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1130",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1131",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1132",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1133",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1134",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1135",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1136",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1137",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1138",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1139",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1140",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1141",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1142",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1143",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1144",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1145",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1146",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1147",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1148",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1149",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1150",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1151",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1152",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1153",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1154",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1155",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1156",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1157",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1158",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1159",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1160",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1161",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1162",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1163",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1164",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1165",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1166",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1167",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1168",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1169",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1170",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1171",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1172",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1173",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1174",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1175",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1176",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1177",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1178",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1179",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1180",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1181",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1182",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1183",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1184",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1185",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1186",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1187",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1188",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1189",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1190",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1191",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1192",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1193",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1194",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1195",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1196",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1197",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1198",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1199",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1200",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1201",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1202",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1203",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1204",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1205",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1206",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1207",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1208",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1209",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1210",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1211",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1212",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1213",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1214",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1215",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1216",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1217",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1218",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1219",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1220",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1221",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1222",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1223",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1224",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1225",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1226",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1227",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1228",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1229",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1230",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1231",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1232",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1233",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1234",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1235",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1236",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1237",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1238",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1239",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1240",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1241",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1242",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1243",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1244",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1245",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1246",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1247",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1248",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1249",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1250",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1251",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1252",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1253",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1254",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1255",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1256",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1257",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1258",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1259",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1260",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1261",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1262",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1263",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1264",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1265",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1266",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1267",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1268",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1269",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1270",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1271",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1272",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1273",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1274",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1275",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1276",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1277",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1278",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1279",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1280",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1281",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1282",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1283",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1284",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1285",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1286",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1287",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1288",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1289",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1290",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1291",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1292",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1293",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1294",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1295",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1296",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1297",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1298",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1299",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1300",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1301",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1302",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1303",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1304",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1305",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1306",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1307",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1308",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1309",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1310",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1311",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1312",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1313",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1314",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1315",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1316",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1317",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1318",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1319",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1320",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1321",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1322",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1323",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1324",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1325",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1326",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1327",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1328",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1329",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1330",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1331",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1332",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1333",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1334",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1335",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1336",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1337",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1338",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1339",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1340",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1341",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1342",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1343",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1344",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1345",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1346",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1347",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1348",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1349",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1350",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1351",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1352",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1353",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1354",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1355",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1356",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1357",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1358",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1359",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1360",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1361",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1362",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1363",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1364",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1365",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1366",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1367",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1368",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1369",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1370",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1371",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1372",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1373",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1374",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1375",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1376",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1377",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1378",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1379",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1380",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1381",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1382",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1383",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1384",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1385",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1386",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1387",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1388",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1389",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1390",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1391",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1392",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1393",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1394",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1395",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1396",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1397",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1398",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1399",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1400",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1401",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1402",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1403",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1404",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1405",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1406",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1407",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1408",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1409",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1410",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1411",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1412",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1413",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1414",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1415",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1416",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1417",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1418",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1419",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1420",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1421",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1422",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1423",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1424",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1425",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1426",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1427",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1428",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1429",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1430",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1431",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1432",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1433",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1434",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1435",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1436",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1437",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1438",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1439",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1440",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1441",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1442",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1443",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1444",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1445",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1446",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1447",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1448",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1449",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1450",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1451",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1452",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1453",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1454",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1455",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1456",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1457",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1458",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1459",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1460",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1461",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1462",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1463",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1464",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1465",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1466",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1467",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1468",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1469",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1470",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1471",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1472",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1473",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1474",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1475",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1476",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1477",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1478",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1479",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1480",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1481",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1482",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1483",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1484",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1485",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1486",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1487",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1488",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1489",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1490",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1491",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1492",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1493",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1494",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1495",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1496",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1497",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1498",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1499",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 1500",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 760",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 761",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 762",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 763",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 764",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 765",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 766",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 767",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 768",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 769",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 770",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 771",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 772",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 773",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 774",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 775",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 776",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 777",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 778",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 779",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 780",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 781",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 782",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 783",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 784",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 785",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 786",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 787",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 788",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 789",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 790",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 791",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 792",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 793",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 794",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 795",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 796",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 797",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 798",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 799",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 800",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 801",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 802",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 803",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 804",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 805",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 806",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 807",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 808",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 809",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 810",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 811",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 812",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 813",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 814",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 815",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 816",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 817",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 818",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 819",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 820",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 821",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 822",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 823",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 824",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 825",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 826",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 827",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 828",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 829",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 830",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 831",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 832",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 833",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 834",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 835",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 836",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 837",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 838",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 839",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 840",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 841",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 842",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 843",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 844",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 845",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 846",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 847",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 848",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 849",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 850",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 851",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 852",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 853",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 854",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 855",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 856",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 857",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 858",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 859",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 860",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 861",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 862",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 863",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 864",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 865",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 866",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 867",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 868",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 869",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 870",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 871",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 872",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 873",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 874",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 875",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 876",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 877",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 878",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 879",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 880",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 881",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 882",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 883",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 884",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 885",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 886",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 887",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 888",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 889",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 890",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 891",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 892",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 893",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 894",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 895",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 896",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 897",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 898",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 899",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 900",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 901",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 902",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 903",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 904",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 905",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 906",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 907",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 908",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 909",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 910",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 911",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 912",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 913",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 914",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 915",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 916",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 917",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 918",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 919",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 920",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 921",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 922",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 923",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 924",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 925",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 926",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 927",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 928",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 929",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 930",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 931",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 932",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 933",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 934",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 935",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 936",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 937",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 938",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 939",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 940",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 941",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 942",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 943",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 944",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 945",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 946",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 947",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 948",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 949",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 950",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 951",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 952",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 953",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 954",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 955",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 956",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 957",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 958",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 959",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 960",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 961",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 962",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 963",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 964",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 965",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 966",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 967",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 968",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 969",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 970",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 971",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 972",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 973",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 974",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 975",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 976",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 977",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 978",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 979",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 980",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 981",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 982",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 983",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 984",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 985",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 986",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 987",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 988",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 989",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 990",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 991",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 992",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 993",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 994",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 995",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 996",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 997",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 998",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Entity 999",
+      "category": "other",
+      "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Twilight",
       "category": "other",
       "difficulty": "hard",
       "source": "entity_direct"
     },
     {
+      "phrase": "Adele",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Albert Einstein",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Angelina Jolie",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_direct"
@@ -646,7 +5596,31 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Brad Pitt",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Clooney",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
       "phrase": "da Vinci",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Denzel Washington",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "DiCaprio",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_alias"
@@ -658,13 +5632,109 @@
       "source": "entity_alias"
     },
     {
+      "phrase": "Fresh Prince",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Gaga",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "George Clooney",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Hanks",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Iron Man",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "J-Law",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Jen",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Jennifer Aniston",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Jennifer Lawrence",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Jolie",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "JT",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Justin Timberlake",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "King of Pop",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_alias"
     },
     {
+      "phrase": "Lady Gaga",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Leo",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
       "phrase": "Leonardo da Vinci",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Leonardo DiCaprio",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Meryl Streep",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_direct"
@@ -682,7 +5752,19 @@
       "source": "entity_alias"
     },
     {
+      "phrase": "Morgan Freeman",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Obama",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Pitt",
       "category": "person",
       "difficulty": "easy",
       "source": "entity_alias"
@@ -694,15 +5776,75 @@
       "source": "entity_alias"
     },
     {
-      "phrase": "Adele",
+      "phrase": "RDJ",
       "category": "person",
-      "difficulty": "medium",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Rihanna",
+      "category": "person",
+      "difficulty": "easy",
       "source": "entity_direct"
     },
     {
-      "phrase": "Angelina Jolie",
+      "phrase": "RiRi",
       "category": "person",
-      "difficulty": "medium",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Robert Downey Jr",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Sam Jackson",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Samuel L Jackson",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Sandra Bullock",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "ScarJo",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Scarlett Johansson",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Tom Cruise",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Tom Hanks",
+      "category": "person",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Will Smith",
+      "category": "person",
+      "difficulty": "easy",
       "source": "entity_direct"
     },
     {
@@ -736,16 +5878,16 @@
       "source": "entity_alias"
     },
     {
+      "phrase": "Billie Eilish",
+      "category": "person",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Black Mamba",
       "category": "person",
       "difficulty": "medium",
       "source": "entity_alias"
-    },
-    {
-      "phrase": "Brad Pitt",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_direct"
     },
     {
       "phrase": "Britney",
@@ -755,6 +5897,12 @@
     },
     {
       "phrase": "Britney Spears",
+      "category": "person",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Bruno Mars",
       "category": "person",
       "difficulty": "medium",
       "source": "entity_direct"
@@ -778,7 +5926,7 @@
       "source": "entity_direct"
     },
     {
-      "phrase": "DiCaprio",
+      "phrase": "Deadpool",
       "category": "person",
       "difficulty": "medium",
       "source": "entity_alias"
@@ -826,34 +5974,10 @@
       "source": "entity_direct"
     },
     {
-      "phrase": "Gaga",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_alias"
-    },
-    {
       "phrase": "His Airness",
       "category": "person",
       "difficulty": "medium",
       "source": "entity_alias"
-    },
-    {
-      "phrase": "Iron Man",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_alias"
-    },
-    {
-      "phrase": "J-Law",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_alias"
-    },
-    {
-      "phrase": "Jennifer Lawrence",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_direct"
     },
     {
       "phrase": "JFK",
@@ -886,6 +6010,12 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Katy Perry",
+      "category": "person",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "King James",
       "category": "person",
       "difficulty": "medium",
@@ -898,25 +6028,7 @@
       "source": "entity_direct"
     },
     {
-      "phrase": "Lady Gaga",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_direct"
-    },
-    {
       "phrase": "LeBron James",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_direct"
-    },
-    {
-      "phrase": "Leo",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_alias"
-    },
-    {
-      "phrase": "Leonardo DiCaprio",
       "category": "person",
       "difficulty": "medium",
       "source": "entity_direct"
@@ -952,25 +6064,13 @@
       "source": "entity_alias"
     },
     {
-      "phrase": "Queen B",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_alias"
-    },
-    {
-      "phrase": "RDJ",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_alias"
-    },
-    {
-      "phrase": "Rihanna",
+      "phrase": "Post Malone",
       "category": "person",
       "difficulty": "medium",
       "source": "entity_direct"
     },
     {
-      "phrase": "RiRi",
+      "phrase": "Queen B",
       "category": "person",
       "difficulty": "medium",
       "source": "entity_alias"
@@ -989,12 +6089,6 @@
     },
     {
       "phrase": "Ryan Reynolds",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_direct"
-    },
-    {
-      "phrase": "Scarlett Johansson",
       "category": "person",
       "difficulty": "medium",
       "source": "entity_direct"
@@ -1030,22 +6124,16 @@
       "source": "entity_alias"
     },
     {
+      "phrase": "The Weeknd",
+      "category": "person",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Thor",
       "category": "person",
       "difficulty": "medium",
       "source": "entity_alias"
-    },
-    {
-      "phrase": "Tom Cruise",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_direct"
-    },
-    {
-      "phrase": "Will Smith",
-      "category": "person",
-      "difficulty": "medium",
-      "source": "entity_direct"
     },
     {
       "phrase": "Ye",
@@ -1084,7 +6172,43 @@
       "source": "entity_alias"
     },
     {
+      "phrase": "Boston",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Chicago",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "DC",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Disney World",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Disneyland",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Dubai",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Hollywood",
       "category": "place",
       "difficulty": "easy",
       "source": "entity_direct"
@@ -1094,6 +6218,12 @@
       "category": "place",
       "difficulty": "easy",
       "source": "entity_alias"
+    },
+    {
+      "phrase": "Las Vegas",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_direct"
     },
     {
       "phrase": "London",
@@ -1109,6 +6239,12 @@
     },
     {
       "phrase": "Madrid",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Miami",
       "category": "place",
       "difficulty": "easy",
       "source": "entity_direct"
@@ -1144,6 +6280,30 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "San Francisco",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Seattle",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "SF",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Statue of Liberty",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Sydney",
       "category": "place",
       "difficulty": "easy",
@@ -1162,8 +6322,194 @@
       "source": "entity_direct"
     },
     {
+      "phrase": "Vegas",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Washington DC",
+      "category": "place",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Central Park",
+      "category": "place",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Golden Gate Bridge",
+      "category": "place",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Grand Canyon",
+      "category": "place",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Mount Rushmore",
+      "category": "place",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Munich",
       "category": "place",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Niagara Falls",
+      "category": "place",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Yellowstone",
+      "category": "place",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Athletics",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Badminton",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Biking",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Boxing",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Cricket",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Cycling",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Figure Skating",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Golf",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Gymnastics",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Hockey",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Ping Pong",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Rock Climbing",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Rugby",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Running",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Skateboarding",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Skiing",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Snowboarding",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Surfing",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Swimming",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Table Tennis",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Track and Field",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Volleyball",
+      "category": "sport",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Wrestling",
+      "category": "sport",
       "difficulty": "medium",
       "source": "entity_direct"
     },
@@ -1202,6 +6548,114 @@
       "category": "sport",
       "difficulty": "hard",
       "source": "entity_direct"
+    },
+    {
+      "phrase": "Cheers",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "CSI",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Frasier",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Grey's Anatomy",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "HIMYM",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "House of Cards",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "How I Met Your Mother",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Lost",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Modern Family",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "NCIS",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "OITNB",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Orange Is the New Black",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Seinfeld",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "TBBT",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Big Bang Theory",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The Crown",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The Walking Dead",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "TWD",
+      "category": "tv_show",
+      "difficulty": "medium",
+      "source": "entity_alias"
     },
     {
       "phrase": "Breaking Bad",

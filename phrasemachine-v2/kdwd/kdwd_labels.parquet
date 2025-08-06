@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error><Code>NoSuchBucket</Code><Message>The specified bucket does not exist</Message><BucketName>kd-open-datasets</BucketName><RequestId>DCG5NZBM8ERV1PDE</RequestId><HostId>+0p3Ii7kQC+AoBG6NMNp/eqYVGlQzvaM9yLGqoVmM+9B8X8hq5Cyszvb2T+0FEN2g5uflS0hdbprE/iZxfgg4IEY1Aq9tTbm</HostId></Error>
