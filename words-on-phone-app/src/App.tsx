@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useGameStore, GameStatus } from './store';
-import { MenuScreen } from './components/MenuScreen';
+import { MenuScreenSteps } from './components/MenuScreenSteps';
 import { GameScreen } from './components/GameScreen';
 import { EndScreen } from './components/EndScreen';
 import { TeamSetup } from './components/TeamSetup';
@@ -64,7 +64,7 @@ function App() {
 
   return (
     <div className="app">
-      {status === GameStatus.MENU && <MenuScreen />}
+      {status === GameStatus.MENU && <MenuScreenSteps />}
       {status === GameStatus.TEAM_SETUP && (
         <TeamSetup onStartGame={handleStartGame} />
       )}

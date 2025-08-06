@@ -1,0 +1,630 @@
+.game-options-step {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.step-header {
+  text-align: center;
+}
+
+.step-title {
+  margin: 0 0 0.5rem 0;
+  color: white;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.step-description {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(1rem, 3vw, 1.1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  opacity: 0.8;
+}
+
+.options-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.team-setup-section,
+.player-setup-section,
+.game-settings-section,
+.summary-section {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.section-title {
+  margin: 0 0 0.5rem 0;
+  color: white;
+  font-size: clamp(1.3rem, 4vw, 1.6rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.section-description {
+  margin: 0 0 1.5rem 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.team-input-group,
+.player-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.team-label,
+.player-label {
+  color: white;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.team-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.team-input,
+.player-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.75rem;
+  font-size: clamp(0.9rem, 2.8vw, 1rem);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.team-input:focus,
+.player-input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.team-input::placeholder,
+.player-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Remove team button styles removed - only 2 teams supported */
+
+.settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.setting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.setting-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: white;
+  font-size: clamp(0.9rem, 2.8vw, 1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  cursor: pointer;
+}
+
+.setting-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: rgb(76, 175, 80);
+}
+
+.checkbox-label {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.setting-select {
+  padding: 0.5rem 0.75rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  max-width: 200px;
+}
+
+.setting-select option {
+  background: rgba(102, 126, 234, 0.95);
+  color: white;
+}
+
+.dual-slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.slider {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(76, 175, 80, 0.9);
+  border: 2px solid white;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(76, 175, 80, 0.9);
+  border: 2px solid white;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.range-min::-webkit-slider-thumb {
+  background: rgba(255, 193, 7, 0.9);
+}
+
+.range-max::-webkit-slider-thumb {
+  background: rgba(76, 175, 80, 0.9);
+}
+
+.range-min::-moz-range-thumb {
+  background: rgba(255, 193, 7, 0.9);
+}
+
+.range-max::-moz-range-thumb {
+  background: rgba(76, 175, 80, 0.9);
+}
+
+.setting-description {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  opacity: 0.8;
+}
+
+.summary-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.summary-item.tappable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.summary-item.tappable:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.summary-item.tappable:active {
+  transform: translateY(0);
+}
+
+.tap-indicator {
+  margin-left: 0.5rem;
+  font-size: 0.8em;
+  opacity: 0.7;
+  animation: pulseHand 2s infinite;
+}
+
+@keyframes pulseHand {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.summary-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(0.85rem, 2.3vw, 0.95rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.summary-value {
+  color: white;
+  font-size: clamp(0.85rem, 2.3vw, 0.95rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  text-align: right;
+}
+
+.step-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  gap: 1rem;
+}
+
+.back-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  color: white;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.start-game-button {
+  background: rgba(76, 175, 80, 0.3);
+  border: 2px solid rgba(76, 175, 80, 0.6);
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  color: white;
+  font-size: clamp(1rem, 3.5vw, 1.3rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 180px;
+  justify-content: center;
+}
+
+.start-game-button:hover:not(:disabled) {
+  background: rgba(76, 175, 80, 0.5);
+  border-color: rgba(76, 175, 80, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.start-game-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.button-icon {
+  font-size: 1.2rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .game-options-step {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .team-setup-section,
+  .player-setup-section,
+  .game-settings-section,
+  .summary-section {
+    padding: 1.5rem;
+  }
+
+  .teams-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-details {
+    grid-template-columns: 1fr;
+  }
+
+  .step-navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .back-button,
+  .start-game-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .team-input,
+  .player-input,
+  .add-team-button,
+  .back-button,
+  .start-game-button:hover:not(:disabled) {
+    transition: none;
+  }
+  
+  .add-team-button:hover,
+  .back-button:hover,
+  .start-game-button:hover:not(:disabled) {
+    transform: none;
+  }
+  
+  .remove-team-button:hover {
+    transform: translateY(-50%);
+  }
+  
+  .summary-item.tappable:hover {
+    transform: none;
+  }
+  
+  .tap-indicator {
+    animation: none;
+  }
+}
+
+/* Categories Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 1rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  color: #333;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(80vh - 120px);
+}
+
+.categories-by-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.category-group {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.group-title {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: rgba(102, 126, 234, 0.1);
+  color: #4c63d2;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.category-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.category-row:last-child {
+  border-bottom: none;
+}
+
+.category-row:hover {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.category-icon {
+  font-size: 1.5rem;
+  width: 2rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.category-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.category-name {
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: clamp(0.9rem, 2.8vw, 1rem);
+  color: #333;
+}
+
+.category-count {
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(0.75rem, 2.2vw, 0.85rem);
+  color: #666;
+}
+
+.no-categories {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.no-categories p {
+  margin: 0;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.categories-summary {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.categories-summary p {
+  margin: 0;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #2e7d32;
+  text-align: center;
+}

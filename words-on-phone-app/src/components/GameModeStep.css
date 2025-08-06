@@ -1,0 +1,206 @@
+.game-mode-step {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.step-header {
+  text-align: center;
+}
+
+.step-title {
+  margin: 0 0 0.5rem 0;
+  color: white;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.step-description {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(1rem, 3vw, 1.1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  opacity: 0.8;
+}
+
+.mode-options {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mode-option {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 300px;
+  max-width: 350px;
+  flex: 1;
+  backdrop-filter: blur(10px);
+  font-family: "Turret Road", sans-serif;
+}
+
+.mode-option:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.mode-option.selected {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: rgba(76, 175, 80, 0.8);
+  box-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
+}
+
+.mode-option.selected:hover {
+  background: rgba(76, 175, 80, 0.25);
+  border-color: rgba(76, 175, 80, 0.9);
+}
+
+.mode-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.mode-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.mode-title {
+  margin: 0;
+  font-size: clamp(1.3rem, 4vw, 1.6rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.mode-description {
+  margin: 0;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+.mode-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.feature {
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  opacity: 0.8;
+  text-align: left;
+}
+
+.step-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.next-button {
+  background: rgba(76, 175, 80, 0.3);
+  border: 2px solid rgba(76, 175, 80, 0.6);
+  border-radius: 1rem;
+  padding: 1rem 3rem;
+  color: white;
+  font-size: clamp(1rem, 3.5vw, 1.2rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  min-width: 150px;
+}
+
+.next-button:hover:not(:disabled) {
+  background: rgba(76, 175, 80, 0.5);
+  border-color: rgba(76, 175, 80, 0.8);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+}
+
+.next-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .game-mode-step {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .mode-options {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .mode-option {
+    min-width: 100%;
+    max-width: 400px;
+    padding: 1.5rem;
+  }
+
+  .mode-icon {
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .next-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .mode-option {
+    transition: none;
+  }
+  
+  .mode-option:hover {
+    transform: none;
+  }
+  
+  .next-button:hover:not(:disabled) {
+    transform: none;
+  }
+}
