@@ -2,13 +2,13 @@ import phrases from '../public/phrases.json';
 
 describe('Phrases', () => {
   test('should have the expected number of phrases', () => {
-    expect(phrases.length).toBe(2172);
+    expect(phrases.length).toBe(2969);
   });
 
   test('should have no duplicate phrases', () => {
     const phraseTexts = phrases.map(p => p.phrase);
     const unique = new Set(phraseTexts);
-    expect(unique.size).toBe(2172);
+    expect(unique.size).toBe(2969);
   });
 
   test('should have valid category assignments', () => {
@@ -19,7 +19,12 @@ describe('Phrases', () => {
       'Entertainment & Pop Culture',
       'Brands & Companies',
       'History & Events',
-      'Everything'
+      'Everything',
+      'Food & Drink',
+      'Nature & Animals',
+      'Places & Travel',
+      'Sports & Athletes',
+      'Technology & Science'
     ];
     
     phrases.forEach(phrase => {
