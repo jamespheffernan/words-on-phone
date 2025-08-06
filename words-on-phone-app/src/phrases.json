@@ -46182,5 +46182,405 @@
   {
     "phrase": "Ziggurat",
     "category": "Everything"
+  },
+  {
+    "phrase": "Accountant",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Actor",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Architect",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Artist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Athlete",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Author",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Baker",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Banker",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Barista",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Bartender",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Bricklayer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Builder",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Bus Driver",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Butcher",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Carpenter",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Chef",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Chemist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Cleaner",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Coach",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Consultant",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Cook",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Copywriter",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Dentist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Designer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Developer (Software)",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Dietitian",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Doctor",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Driver (General)",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Editor",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Electrician",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Engineer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Entrepreneur",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Event Planner",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Farmer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Firefighter",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Fisherman",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Florist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Gardener",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Graphic Designer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Hairdresser",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Hotel Manager",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Human Resources Manager",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "IT Support Specialist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Janitor",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Journalist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Judge",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Lawyer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Librarian",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Machine Operator",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Mail Carrier",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Manager",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Marketing Specialist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Mechanic",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Medical Assistant",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Miner",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Model",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Musician",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Nurse",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Optician",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Painter",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Paralegal",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Paramedic",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Personal Trainer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Pharmacist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Photographer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Physical Therapist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Pilot",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Plumber",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Police Officer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Politician",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Professor",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Programmer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Project Manager",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Psychologist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Real Estate Agent",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Receptionist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Researcher",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Retail Assistant",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Roofer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Salesperson",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Scientist",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Security Guard",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Social Media Manager",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Social Worker",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Soldier",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Statistician",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Student",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Surgeon",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Tailor",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Taxi Driver",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Teacher",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Translator",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Travel Agent",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Truck Driver",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Tutor",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Vet (Veterinarian)",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Waiter/Waitress",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Warehouse Worker",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Web Designer",
+    "category": "Occupations & Jobs"
+  },
+  {
+    "phrase": "Writer",
+    "category": "Occupations & Jobs"
   }
 ]
