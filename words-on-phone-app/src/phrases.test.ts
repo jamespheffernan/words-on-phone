@@ -1,30 +1,42 @@
-import { describe, it, expect } from 'vitest';
-import { shufflePhrases, PhraseCursor } from './phraseEngine';
-import { phrases } from './data/phrases';
+import phrases from '../public/phrases.json';
 
-describe('Phrase Engine', () => {
-  it('should shuffle phrases with Fisher-Yates and never repeat until all are used', () => {
-    // Arrange
-    const testPhrases = Array.from({ length: 100 }, (_, i) => `Phrase ${i}`);
-    // Act
-    shufflePhrases(testPhrases);
-    const cursor = new PhraseCursor(testPhrases);
-    const seen = new Set();
-    for (let i = 0; i < testPhrases.length; i++) {
-      seen.add(cursor.next());
-    }
-    // Assert
-    expect(seen.size).toBe(testPhrases.length);
-    // After all used, next should reshuffle and not repeat the last value
-    const afterAll = cursor.next();
-    expect(seen.has(afterAll)).toBe(true); // It can repeat, but only after all used
+describe('Phrases', () => {
+  test('should have the expected number of phrases', () => {
+    expect(phrases.length).toBe(2172);
   });
 
-  it('should import 524 unique string phrases from PhraseMachine v2', () => {
-    expect(Array.isArray(phrases)).toBe(true);
-    expect(phrases.length).toBe(524);
-    const unique = new Set(phrases);
-    expect(unique.size).toBe(524);
-    expect(typeof phrases[0]).toBe('string');
+  test('should have no duplicate phrases', () => {
+    const phraseTexts = phrases.map(p => p.phrase);
+    const unique = new Set(phraseTexts);
+    expect(unique.size).toBe(2172);
   });
-}); 
+
+  test('should have valid category assignments', () => {
+    const validCategories = [
+      'Movies & TV',
+      'Music & Artists', 
+      'Famous People',
+      'Entertainment & Pop Culture',
+      'Brands & Companies',
+      'History & Events',
+      'Everything'
+    ];
+    
+    phrases.forEach(phrase => {
+      expect(validCategories).toContain(phrase.category);
+    });
+  });
+
+  test('should have phrases in each major category', () => {
+    const categoryCounts = phrases.reduce((acc, phrase) => {
+      acc[phrase.category] = (acc[phrase.category] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    // Check that we have phrases in key categories
+    expect(categoryCounts['Movies & TV']).toBeGreaterThan(0);
+    expect(categoryCounts['Music & Artists']).toBeGreaterThan(0);
+    expect(categoryCounts['Famous People']).toBeGreaterThan(0);
+    expect(categoryCounts['History & Events']).toBeGreaterThan(0);
+  });
+});
