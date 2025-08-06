@@ -61,14 +61,14 @@ class DescribabilityScorer {
   }
 
   /**
-   * Initialize the describability scorer
+   * Initialize the describability scorer (auto-detects Redis vs JSON mode)
    */
   async initialize() {
     console.log('🔄 Initializing DescribabilityScorer...');
     
     try {
-      // Initialize concreteness processor
-      const concretenessConnected = await this.concretenessProcessor.initRedis();
+      // Initialize concreteness processor (auto-detects Redis vs JSON mode)
+      const concretenessConnected = await this.concretenessProcessor.initialize();
       if (!concretenessConnected) {
         console.warn('⚠️ Concreteness processor not connected - concreteness scoring disabled');
       }
@@ -167,10 +167,10 @@ class DescribabilityScorer {
       let points = 0;
       let band = 'unknown';
       
-      if (concretenessResult.overall_concreteness >= 4.0) {
+      if (concretenessResult.concreteness >= 4.0) {
         points = this.SCORING.CONCRETENESS_HIGH;  // 15 points
         band = 'high';
-      } else if (concretenessResult.overall_concreteness >= 3.0) {
+      } else if (concretenessResult.concreteness >= 3.0) {
         points = this.SCORING.CONCRETENESS_MEDIUM; // 8 points
         band = 'medium';
       } else {
@@ -181,7 +181,7 @@ class DescribabilityScorer {
       return {
         points,
         band,
-        concreteness_score: concretenessResult.overall_concreteness,
+        concreteness_score: concretenessResult.concreteness,
         word_scores: concretenessResult.word_scores,
         words_found: concretenessResult.words_found,
         duration_ms: concretenessResult.duration_ms

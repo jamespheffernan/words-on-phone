@@ -5,6 +5,7 @@ const { createReadStream, createWriteStream } = require('fs');
 const csv = require('csv-parser');
 const redis = require('redis');
 const natural = require('natural');
+const DatasetLoader = require('../shared/dataset-loader');
 
 /**
  * ConcretenessProcessor - Downloads and processes Brysbaert concreteness norms for describability scoring
@@ -20,6 +21,10 @@ class ConcretenessProcessor {
     // Initialize lemmatizer for word normalization
     this.stemmer = natural.PorterStemmer;
     this.lemmatizer = new natural.WordTokenizer();
+    
+    // Dataset loader for JSON fallback mode
+    this.datasetLoader = new DatasetLoader(options);
+    this.mode = null; // 'redis' or 'json'
     
     // Ensure data directory exists
     if (!fs.existsSync(this.dataDir)) {
@@ -37,7 +42,7 @@ class ConcretenessProcessor {
       });
       
       await this.redisClient.connect();
-      console.log('✅ Connected to Redis for concreteness storage');
+      console.log('✅ ConcretenessProcessor connected to Redis');
       
       // Test Redis performance
       const start = Date.now();
@@ -50,11 +55,59 @@ class ConcretenessProcessor {
         console.warn('⚠️ Redis performance above target threshold');
       }
       
+      this.mode = 'redis';
       return true;
     } catch (error) {
       console.error('❌ Failed to connect to Redis:', error.message);
       return false;
     }
+  }
+
+  /**
+   * Initialize JSON dataset mode (fallback for serverless)
+   */
+  async initJSON() {
+    try {
+      console.log('🔄 Initializing ConcretenessProcessor in JSON mode...');
+      
+      const success = await this.datasetLoader.initialize();
+      if (!success) {
+        throw new Error('Failed to initialize DatasetLoader');
+      }
+      
+      // Verify we have concreteness data
+      const concretenesData = this.datasetLoader.getConcreteness();
+      const wordCount = Object.keys(concretenesData).length;
+      
+      if (wordCount === 0) {
+        throw new Error('No concreteness data found in JSON datasets');
+      }
+      
+      console.log(`✅ ConcretenessProcessor JSON mode ready: ${wordCount} words loaded`);
+      this.mode = 'json';
+      return true;
+      
+    } catch (error) {
+      console.error('❌ Failed to initialize ConcretenessProcessor JSON mode:', error.message);
+      return false;
+    }
+  }
+
+  /**
+   * Initialize processor in optimal mode (Redis first, JSON fallback)
+   */
+  async initialize() {
+    console.log('🔄 Initializing ConcretenessProcessor (auto-detecting mode)...');
+    
+    // Try Redis first
+    const redisSuccess = await this.initRedis();
+    if (redisSuccess) {
+      return true;
+    }
+    
+    // Fallback to JSON mode
+    console.log('🔄 Redis unavailable, falling back to JSON mode...');
+    return await this.initJSON();
   }
 
   /**
@@ -311,12 +364,27 @@ class ConcretenessProcessor {
    * Returns 0-15 points based on phrase concreteness
    */
   async scoreConcreteness(phrase) {
-    if (!this.redisClient) {
-      throw new Error('Redis client not initialized');
+    if (!this.mode) {
+      throw new Error('ConcretenessProcessor not initialized - call initialize() first');
     }
     
     const startTime = Date.now();
     const normalizedPhrase = phrase.toLowerCase().trim();
+    
+    if (this.mode === 'redis') {
+      return await this.scoreConcretenesRedis(normalizedPhrase, startTime);
+    } else {
+      return await this.scoreConcretenesJSON(normalizedPhrase, startTime);
+    }
+  }
+
+  /**
+   * Score concreteness using Redis mode
+   */
+  async scoreConcretenesRedis(normalizedPhrase, startTime) {
+    if (!this.redisClient) {
+      throw new Error('Redis client not initialized');
+    }
     
     // Tokenize phrase into words
     const words = this.lemmatizer.tokenize(normalizedPhrase) || [];
@@ -365,6 +433,104 @@ class ConcretenessProcessor {
           });
         } else {
           // Word not found - use neutral score for missing words
+          wordDetails.push({
+            word,
+            concreteness: null,
+            lookup_type: 'not_found'
+          });
+        }
+      }
+    }
+    
+    if (wordScores.length === 0) {
+      return {
+        score: 0,
+        concreteness: 0,  
+        type: 'words_not_found',
+        phrase: normalizedPhrase,
+        word_count: validWords.length,
+        found_count: 0,
+        word_details: wordDetails,
+        duration_ms: Date.now() - startTime
+      };
+    }
+    
+    // Calculate average concreteness
+    const avgConcreteness = wordScores.reduce((sum, score) => sum + score, 0) / wordScores.length;
+    const roundedConcreteness = Math.round(avgConcreteness * 100) / 100;
+    
+    // Convert to score points (per algorithm spec)
+    let score = 0;
+    if (roundedConcreteness >= 4.0) {
+      score = 15; // High concreteness
+    } else if (roundedConcreteness >= 3.0) {
+      score = 8;  // Medium concreteness
+    } else {
+      score = 0;  // Low concreteness
+    }
+    
+    const duration = Date.now() - startTime;
+    
+    return {
+      score,
+      concreteness: roundedConcreteness,
+      type: 'concreteness_calculated',
+      phrase: normalizedPhrase,
+      word_count: validWords.length,
+      found_count: wordScores.length,
+      coverage: Math.round((wordScores.length / validWords.length) * 100),
+      word_details: wordDetails,
+      duration_ms: duration
+    };
+  }
+
+  /**
+   * Score concreteness using JSON mode
+   */
+  async scoreConcretenesJSON(normalizedPhrase, startTime) {
+    // Tokenize phrase into words
+    const words = this.lemmatizer.tokenize(normalizedPhrase) || [];
+    const validWords = words.filter(word => /^[a-z]+$/.test(word) && word.length >= 2);
+    
+    if (validWords.length === 0) {
+      return {
+        score: 0,
+        concreteness: 0,
+        type: 'no_valid_words',
+        phrase: normalizedPhrase,
+        duration_ms: Date.now() - startTime
+      };
+    }
+    
+    // Look up concreteness for each word from JSON data
+    const wordScores = [];
+    const wordDetails = [];
+    
+    for (const word of validWords) {
+      const concreteness = this.datasetLoader.getConcretenesScore(word);
+      
+      if (concreteness !== null) {
+        wordScores.push(concreteness);
+        wordDetails.push({
+          word,
+          concreteness,
+          lookup_type: 'direct'
+        });
+      } else {
+        // Try stemmed lookup
+        const stemmed = this.stemmer.stem(word);
+        const stemmedConcreteness = this.datasetLoader.getConcretenesScore(stemmed);
+        
+        if (stemmedConcreteness !== null) {
+          wordScores.push(stemmedConcreteness);
+          wordDetails.push({
+            word,
+            concreteness: stemmedConcreteness,
+            lookup_type: 'stemmed',
+            stem: stemmed
+          });
+        } else {
+          // Word not found
           wordDetails.push({
             word,
             concreteness: null,

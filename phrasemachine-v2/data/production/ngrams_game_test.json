@@ -1,0 +1,585 @@
+{
+  "meta": {
+    "version": "1.0",
+    "buildDate": "2025-07-30T11:56:43.405Z",
+    "ngramCount": 53,
+    "totalProcessed": 57,
+    "buildTimeMs": 5,
+    "description": "Game-relevant n-grams with PMI scores for PhraseMachine v2"
+  },
+  "ngrams": [
+    {
+      "phrase": "of thrones",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "entertainment"
+      ]
+    },
+    {
+      "phrase": "breaking bad",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "entertainment"
+      ]
+    },
+    {
+      "phrase": "harry potter",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "entertainment"
+      ]
+    },
+    {
+      "phrase": "the office",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "entertainment"
+      ]
+    },
+    {
+      "phrase": "french fries",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "food"
+      ]
+    },
+    {
+      "phrase": "chicken wings",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "food"
+      ]
+    },
+    {
+      "phrase": "smart phone",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "social media",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "real estate",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "credit card",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "rock band",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "pop music",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "ride bike",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "take photo",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "send message",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "make dinner",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "call friend",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "wear clothes",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "birthday cake",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "wedding dress",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "christmas tree",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "summer vacation",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "fire truck",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "hotel room",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "parking lot",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "swimming pool",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "shopping cart",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "new book",
+      "count": 1,
+      "pmi": 5.883,
+      "length": 2,
+      "categories": [
+        "compound"
+      ]
+    },
+    {
+      "phrase": "star wars",
+      "count": 1,
+      "pmi": 4.883,
+      "length": 2,
+      "categories": [
+        "entertainment"
+      ]
+    },
+    {
+      "phrase": "pizza slice",
+      "count": 1,
+      "pmi": 4.883,
+      "length": 2,
+      "categories": [
+        "food"
+      ]
+    },
+    {
+      "phrase": "fast food",
+      "count": 2,
+      "pmi": 4.883,
+      "length": 2,
+      "categories": [
+        "common",
+        "compound"
+      ]
+    },
+    {
+      "phrase": "high school",
+      "count": 1,
+      "pmi": 4.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "watch movie",
+      "count": 1,
+      "pmi": 4.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "eat pizza",
+      "count": 1,
+      "pmi": 4.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "buy ticket",
+      "count": 1,
+      "pmi": 4.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "school bus",
+      "count": 1,
+      "pmi": 4.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "airplane ticket",
+      "count": 1,
+      "pmi": 4.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "game of",
+      "count": 1,
+      "pmi": 4.298,
+      "length": 2,
+      "categories": [
+        "entertainment"
+      ]
+    },
+    {
+      "phrase": "ice cream",
+      "count": 3,
+      "pmi": 4.298,
+      "length": 2,
+      "categories": [
+        "food",
+        "common",
+        "compound"
+      ]
+    },
+    {
+      "phrase": "big screen",
+      "count": 1,
+      "pmi": 4.298,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "play game",
+      "count": 1,
+      "pmi": 4.298,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "big house",
+      "count": 1,
+      "pmi": 4.298,
+      "length": 2,
+      "categories": [
+        "compound"
+      ]
+    },
+    {
+      "phrase": "game of thrones",
+      "count": 1,
+      "pmi": 4.263,
+      "length": 3,
+      "categories": [
+        "entertainment"
+      ]
+    },
+    {
+      "phrase": "hot dog",
+      "count": 3,
+      "pmi": 3.883,
+      "length": 2,
+      "categories": [
+        "food",
+        "common",
+        "compound"
+      ]
+    },
+    {
+      "phrase": "cold drink",
+      "count": 2,
+      "pmi": 3.883,
+      "length": 2,
+      "categories": [
+        "common",
+        "compound"
+      ]
+    },
+    {
+      "phrase": "movie star",
+      "count": 1,
+      "pmi": 3.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "drink coffee",
+      "count": 1,
+      "pmi": 3.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "drive car",
+      "count": 1,
+      "pmi": 3.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "police car",
+      "count": 1,
+      "pmi": 3.883,
+      "length": 2,
+      "categories": [
+        "common"
+      ]
+    },
+    {
+      "phrase": "small car",
+      "count": 1,
+      "pmi": 3.883,
+      "length": 2,
+      "categories": [
+        "compound"
+      ]
+    },
+    {
+      "phrase": "old car",
+      "count": 1,
+      "pmi": 3.883,
+      "length": 2,
+      "categories": [
+        "compound"
+      ]
+    },
+    {
+      "phrase": "big game",
+      "count": 1,
+      "pmi": 2.713,
+      "length": 2,
+      "categories": [
+        "compound"
+      ]
+    },
+    {
+      "phrase": "hot drink",
+      "count": 1,
+      "pmi": 1.883,
+      "length": 2,
+      "categories": [
+        "compound"
+      ]
+    }
+  ],
+  "wordCounts": {
+    "game": 3,
+    "of": 1,
+    "thrones": 1,
+    "breaking": 1,
+    "bad": 1,
+    "star": 2,
+    "wars": 1,
+    "harry": 1,
+    "potter": 1,
+    "the": 1,
+    "office": 1,
+    "ice": 3,
+    "cream": 3,
+    "hot": 4,
+    "dog": 3,
+    "french": 1,
+    "fries": 1,
+    "pizza": 2,
+    "slice": 1,
+    "chicken": 1,
+    "wings": 1,
+    "cold": 2,
+    "drink": 4,
+    "fast": 2,
+    "food": 2,
+    "big": 3,
+    "screen": 1,
+    "smart": 1,
+    "phone": 1,
+    "social": 1,
+    "media": 1,
+    "high": 1,
+    "school": 2,
+    "real": 1,
+    "estate": 1,
+    "credit": 1,
+    "card": 1,
+    "movie": 2,
+    "rock": 1,
+    "band": 1,
+    "pop": 1,
+    "music": 1,
+    "play": 1,
+    "watch": 1,
+    "eat": 1,
+    "coffee": 1,
+    "drive": 1,
+    "car": 4,
+    "ride": 1,
+    "bike": 1,
+    "take": 1,
+    "photo": 1,
+    "send": 1,
+    "message": 1,
+    "make": 1,
+    "dinner": 1,
+    "call": 1,
+    "friend": 1,
+    "buy": 1,
+    "ticket": 2,
+    "wear": 1,
+    "clothes": 1,
+    "birthday": 1,
+    "cake": 1,
+    "wedding": 1,
+    "dress": 1,
+    "christmas": 1,
+    "tree": 1,
+    "summer": 1,
+    "vacation": 1,
+    "bus": 1,
+    "fire": 1,
+    "truck": 1,
+    "police": 1,
+    "airplane": 1,
+    "hotel": 1,
+    "room": 1,
+    "parking": 1,
+    "lot": 1,
+    "swimming": 1,
+    "pool": 1,
+    "shopping": 1,
+    "cart": 1,
+    "house": 1,
+    "small": 1,
+    "new": 1,
+    "book": 1,
+    "old": 1
+  }
+}

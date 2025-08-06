@@ -3,8 +3,17 @@ const cors = require('cors');
 const helmet = require('helmet');
 const fetch = require('node-fetch');
 
+// Database integration
+const { initializeDatabase, getDatabase } = require('../../database/connection');
+const Phrase = require('../../database/models/phrase');
+const PhraseScore = require('../../database/models/phrase-score');
+const GenerationSession = require('../../database/models/generation-session');
+
 const app = express();
 const PORT = process.env.PHRASEMACHINE_API_PORT || 3000;
+
+// Database instance
+let db = null;
 
 // Service configuration
 const SERVICES = {
@@ -171,11 +180,22 @@ app.get('/health', async (req, res) => {
   try {
     const healthCheck = await checkSystemHealth();
     
+    // Check database health
+    let databaseHealth = { status: 'unknown', error: 'Database not initialized' };
+    if (db) {
+      try {
+        databaseHealth = await db.checkHealth();
+      } catch (error) {
+        databaseHealth = { status: 'unhealthy', error: error.message };
+      }
+    }
+    
     const summary = {
-      system_status: systemHealth.system_ready ? 'healthy' : 'degraded',
+      system_status: systemHealth.system_ready && databaseHealth.status === 'healthy' ? 'healthy' : 'degraded',
       phrasemachine_version: '2.0.0',
       api_version: '1.0.0',
       services: healthCheck,
+      database: databaseHealth,
       metrics: {
         uptime_ms: Date.now() - systemHealth.startup_time,
         total_requests: requestMetrics.total_requests,
@@ -186,7 +206,7 @@ app.get('/health', async (req, res) => {
       timestamp: new Date().toISOString()
     };
     
-    const statusCode = systemHealth.system_ready ? 200 : 503;
+    const statusCode = systemHealth.system_ready && databaseHealth.status === 'healthy' ? 200 : 503;
     res.status(statusCode).json(summary);
   } catch (error) {
     res.status(500).json({
@@ -711,6 +731,10 @@ async function startServer() {
       console.log(`   ${service.name}: http://localhost:${service.port}`);
     });
     
+    // Initialize database
+    db = await initializeDatabase();
+    console.log('✅ Database initialized');
+
     // Perform initial health check
     await checkSystemHealth();
     
@@ -742,11 +766,19 @@ async function startServer() {
 // Graceful shutdown
 process.on('SIGINT', async () => {
   console.log('\n🛑 Shutting down PhraseMachine v2 API Server...');
+  if (db) {
+    await db.close();
+    console.log('✅ Database connection closed');
+  }
   process.exit(0);
 });
 
 process.on('SIGTERM', async () => {
   console.log('\n🛑 Shutting down PhraseMachine v2 API Server...');
+  if (db) {
+    await db.close();
+    console.log('✅ Database connection closed');
+  }
   process.exit(0);
 });
 

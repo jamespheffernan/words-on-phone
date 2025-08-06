@@ -3,15 +3,21 @@ const DescribabilityScorer = require('./describability-scorer');
 const LegacyHeuristicsScorer = require('./legacy-heuristics-scorer');
 const CulturalValidationScorer = require('./cultural-validation-scorer');
 
+// Database integration
+const { getDatabase } = require('../../database/connection');
+const Phrase = require('../../database/models/phrase');
+const PhraseScore = require('../../database/models/phrase-score');
+
 /**
- * DecisionEngine - Unified scoring orchestrator for PhraseMachine v2 (0-100 points)
- * Combines all scoring components with weighted algorithm and decision thresholds
+ * DecisionEngine - Unified scoring orchestrator for PhraseMachine v2
  * 
- * Components:
- * - Distinctiveness (0-25 points): Wikidata + N-gram PMI + WordNet
- * - Describability (0-25 points): Concreteness + Proper Nouns + Weak-head Penalties  
- * - Legacy Heuristics (0-30 points): Word Simplicity + Length Bonus
- * - Cultural Validation (0-20+ points): Category Boost + Reddit Validation + Language Bonus
+ * Features:
+ * - Orchestrates all 4 scoring components (Distinctiveness, Describability, Legacy Heuristics, Cultural Validation)
+ * - Implements weighted scoring algorithm (0-100 points)
+ * - Provides quality classification and decision recommendations  
+ * - Supports parallel component execution for performance
+ * - Handles batch scoring and statistics
+ * - Integrates with PostgreSQL for score persistence and analytics
  */
 class DecisionEngine {
   constructor(options = {}) {
@@ -188,8 +194,70 @@ class DecisionEngine {
   }
 
   /**
-   * Score phrase with unified decision engine
-   * Returns comprehensive analysis with final score, quality classification, and decision
+   * Persist phrase and score to database
+   */
+  async persistScore(phrase, scoringResult, options = {}) {
+    const { 
+      source = 'llm_generated', 
+      generation_session_id = null,
+      scorer_instance = 'decision-engine-v2'
+    } = options;
+    
+    try {
+      // Find or create phrase in database
+      let phraseRecord = await Phrase.findByNormalizedPhrase(phrase);
+      
+      if (!phraseRecord) {
+        // Create new phrase
+        phraseRecord = new Phrase({
+          phrase: phrase,
+          category: 'general', // Default category, can be overridden by options
+          source: source,
+          generation_session_id: generation_session_id
+        });
+        await phraseRecord.save();
+        console.log(`   💾 Created new phrase record: ${phraseRecord.id}`);
+      } else {
+        console.log(`   💾 Found existing phrase record: ${phraseRecord.id}`);
+      }
+
+      // Create score record
+      const scoreRecord = new PhraseScore({
+        phrase_id: phraseRecord.id,
+        distinctiveness_score: scoringResult.component_scores.distinctiveness,
+        describability_score: scoringResult.component_scores.describability,
+        legacy_heuristics_score: scoringResult.component_scores.legacy_heuristics,
+        cultural_validation_score: scoringResult.component_scores.cultural_validation,
+        final_score: scoringResult.final_score,
+        quality_classification: scoringResult.quality_classification,
+        decision_recommendation: scoringResult.decision.recommendation,
+        scoring_duration_ms: scoringResult.performance.total_duration_ms,
+        scorer_instance: scorer_instance,
+        distinctiveness_details: scoringResult.component_details.distinctiveness,
+        describability_details: scoringResult.component_details.describability,
+        legacy_heuristics_details: scoringResult.component_details.legacy_heuristics,
+        cultural_validation_details: scoringResult.component_details.cultural_validation
+      });
+      
+      await scoreRecord.save();
+      console.log(`   💾 Saved score record: ${scoreRecord.id} (${scoreRecord.final_score}/100)`);
+      
+      return {
+        phrase_id: phraseRecord.id,
+        score_id: scoreRecord.id,
+        phrase_record: phraseRecord,
+        score_record: scoreRecord
+      };
+      
+    } catch (error) {
+      console.error(`❌ Failed to persist score for "${phrase}":`, error.message);
+      // Don't throw - persistence failure shouldn't break scoring
+      return null;
+    }
+  }
+
+  /**
+   * Score a single phrase with decision engine (with optional database persistence)
    */
   async scorePhrase(phrase) {
     const startTime = Date.now();
@@ -271,6 +339,22 @@ class DecisionEngine {
       }
       
       this.processedCount++;
+      
+      // Persist score to database (optional - doesn't affect scoring result)
+      try {
+        const persistenceResult = await this.persistScore(phrase, result);
+        if (persistenceResult) {
+          result.database = {
+            phrase_id: persistenceResult.phrase_id,
+            score_id: persistenceResult.score_id,
+            persisted: true
+          };
+        }
+      } catch (persistError) {
+        console.warn(`⚠️ Database persistence failed for "${phrase}": ${persistError.message}`);
+        result.database = { persisted: false, error: persistError.message };
+      }
+      
       return result;
       
     } catch (error) {

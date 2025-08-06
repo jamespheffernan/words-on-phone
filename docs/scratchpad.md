@@ -25,6 +25,10 @@
 
 **System Now Generates Quality Rather Than Finding Quality:** Infinitely scalable through curated entity expansion.
 
+### 📌 Upcoming Projects
+1. **Entity Expansion – Phase 1 (500+ entities)** → see `docs/implementation-plan/entity-expansion-500-entities.md`
+2. **Game Integration – Use Generated Phrases** → see `docs/implementation-plan/game-integration-new-phrases.md`
+
 ---
 
 ## Lessons Learned

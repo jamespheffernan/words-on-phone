@@ -1,6 +1,6 @@
 const WikidataProcessor = require('../distinctiveness/wikidata-processor');
 const NgramProcessor = require('../distinctiveness/ngram-processor');
-const natural = require('natural');
+const WordNetProcessor = require('../distinctiveness/wordnet-processor');
 
 /**
  * DistinctivenessScorer - Unified scoring service combining Wikidata, PMI, and WordNet scoring into a single service.
@@ -10,7 +10,7 @@ class DistinctivenessScorer {
   constructor(options = {}) {
     this.wikidataProcessor = new WikidataProcessor(options.wikidata);
     this.ngramProcessor = new NgramProcessor(options.ngram);
-    this.wordNet = natural.WordNet;
+    this.wordNetProcessor = new WordNetProcessor(options.wordnet);
     this.processedCount = 0;
     
     // Scoring bands according to algorithm specification
@@ -24,20 +24,20 @@ class DistinctivenessScorer {
   }
 
   /**
-   * Initialize all processors
+   * Initialize all processors (auto-detects Redis vs JSON mode)
    */
   async initialize() {
     console.log('🔄 Initializing DistinctivenessScorer...');
     
     try {
-      // Initialize Wikidata processor
-      const wikidataConnected = await this.wikidataProcessor.initRedis();
+      // Initialize Wikidata processor (auto-detects Redis vs JSON mode)
+      const wikidataConnected = await this.wikidataProcessor.initialize();
       if (!wikidataConnected) {
         console.warn('⚠️ Wikidata processor not connected - Wikidata scoring disabled');
       }
       
-      // Initialize N-gram processor
-      const ngramConnected = await this.ngramProcessor.initRedis();
+      // Initialize N-gram processor (auto-detects Redis vs JSON mode)
+      const ngramConnected = await this.ngramProcessor.initialize();
       if (!ngramConnected) {
         console.warn('⚠️ N-gram processor not connected - PMI scoring disabled');
       }
@@ -151,19 +151,19 @@ class DistinctivenessScorer {
     try {
       const wikidataResult = await this.wikidataProcessor.checkDistinctiveness(phrase);
       
-      if (wikidataResult.type === 'exact_match') {
+      if (wikidataResult.type === 'wikidata_exact' || wikidataResult.type === 'exact_match') {
         return {
           score: this.SCORING.EXACT_WIKIDATA_MATCH,
           type: 'exact_match',
-          entity_id: wikidataResult.entity_id,
+          entity_id: wikidataResult.id || wikidataResult.entity_id,
           sitelinks: wikidataResult.sitelinks,
           duration_ms: wikidataResult.duration_ms
         };
-      } else if (wikidataResult.type === 'alias_match') {
+      } else if (wikidataResult.type === 'wikidata_alias' || wikidataResult.type === 'alias_match') {
         return {
           score: this.SCORING.WIKIPEDIA_REDIRECT,
           type: 'alias_match',
-          entity_id: wikidataResult.entity_id,
+          entity_id: wikidataResult.id || wikidataResult.entity_id,
           alias: wikidataResult.alias,
           duration_ms: wikidataResult.duration_ms
         };
@@ -240,38 +240,24 @@ class DistinctivenessScorer {
         };
       }
       
-      // Check if phrase exists as a multi-word entry in WordNet
-      const lookupPromise = new Promise((resolve, reject) => {
-        const joinedPhrase = words.join('_'); // WordNet uses underscores
-        
-        this.wordNet.lookup(joinedPhrase, (results) => {
-          if (results && results.length > 0) {
-            // Found multi-word entry
-            resolve({
-              score: this.SCORING.WORDNET_MULTIWORD,
-              type: 'multiword_entry_found',
-              synsets: results.length,
-              definitions: results.slice(0, 2).map(r => r.def), // First 2 definitions
-              duration_ms: Date.now() - startTime
-            });
-          } else {
-            // Not found as multi-word entry
-            resolve({
-              score: 0,
-              type: 'multiword_entry_not_found',
-              lookup_phrase: joinedPhrase,
-              duration_ms: Date.now() - startTime
-            });
-          }
-        });
-        
-        // Timeout after 1 second
-        setTimeout(() => {
-          reject(new Error('WordNet lookup timeout'));
-        }, 1000);
-      });
+      // Check WordNet for multi-word entries
+      const wordnetResult = await this.wordNetProcessor.checkMultiWordEntry(phrase);
       
-      return await lookupPromise;
+      if (wordnetResult.score > 0) {
+        return {
+          score: this.SCORING.WORDNET_MULTIWORD,
+          type: 'multiword_entry_found',
+          method: wordnetResult.method,
+          pattern: wordnetResult.pattern,
+          duration_ms: wordnetResult.duration_ms
+        };
+      } else {
+        return {
+          score: 0,
+          type: 'multiword_entry_not_found',
+          duration_ms: wordnetResult.duration_ms
+        };
+      }
       
     } catch (error) {
       console.warn('⚠️ WordNet check failed:', error.message);
@@ -349,16 +335,14 @@ class DistinctivenessScorer {
     try {
       const wikidataStats = await this.wikidataProcessor.getStats();
       const ngramStats = await this.ngramProcessor.getStats();
+      const wordnetStats = await this.wordNetProcessor.getStats();
       
       return {
         service: 'distinctiveness_scorer',
         components: {
           wikidata: wikidataStats,
           ngram: ngramStats,
-          wordnet: {
-            available: true,
-            description: 'Natural WordNet integration for multi-word entries'
-          }
+          wordnet: wordnetStats
         },
         scoring_bands: this.SCORING,
         processed_count: this.processedCount,

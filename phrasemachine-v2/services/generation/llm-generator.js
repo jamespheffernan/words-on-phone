@@ -1,16 +1,22 @@
 const LLMPromptBuilder = require('./llm-prompt-builder');
 const DecisionEngine = require('../scoring/decision-engine');
 
+// Database integration
+const { getDatabase } = require('../../database/connection');
+const Phrase = require('../../database/models/phrase');
+const PhraseScore = require('../../database/models/phrase-score');
+const GenerationSession = require('../../database/models/generation-session');
+
 /**
- * LLMGenerator - Complete phrase generation and quality optimization service
- * Combines enhanced prompt engineering with decision engine evaluation
+ * LLMGenerator - Orchestrates phrase generation with quality optimization
  * 
  * Features:
- * - Quality-optimized phrase generation targeting 60+ points
- * - Iterative improvement based on scoring feedback
- * - Category-specific generation with cultural relevance optimization
- * - Batch generation with diversity controls and quality filtering
- * - Real-time scoring integration for immediate quality assessment
+ * - Uses LLMPromptBuilder to create optimized prompts for LLMs
+ * - Integrates with DecisionEngine for real-time quality assessment  
+ * - Implements iterative feedback loops for quality improvement
+ * - Supports diverse batch generation across categories
+ * - Manages generation history and statistics
+ * - Integrates with PostgreSQL for session tracking and persistence
  */
 class LLMGenerator {
   constructor(options = {}) {
@@ -87,6 +93,27 @@ class LLMGenerator {
     
     console.log(`🎯 Generating ${count} ${quality_target} quality phrases (${category} category)...`);
     
+    // Create generation session for tracking
+    let session = null;
+    try {
+      session = new GenerationSession({
+        category,
+        count_requested: count,
+        quality_target,
+        use_feedback,
+        generation_type: 'single',
+        status: 'running',
+        llm_model: 'simulated-llm', // Will be updated when real LLM integration is added
+        llm_temperature: 0.7,
+        prompt_template_version: '2.0.0',
+        session_config: options
+      });
+      await session.save();
+      console.log(`📊 Created generation session: ${session.id}`);
+    } catch (error) {
+      console.warn(`⚠️ Failed to create generation session: ${error.message}`);
+    }
+    
     const result = {
       generated_phrases: [],
       scored_phrases: [],
@@ -106,7 +133,8 @@ class LLMGenerator {
         category,
         quality_target,
         count,
-        feedback_used: use_feedback
+        feedback_used: use_feedback,
+        session_id: session?.id
       }
     };
     
@@ -193,6 +221,31 @@ class LLMGenerator {
       this.updateGenerationHistory(category, result);
       
       console.log(`✅ Generation complete: ${result.quality_metrics.avg_score.toFixed(1)}/100 avg score, ${result.quality_metrics.acceptance_rate}% acceptance rate`);
+      
+      // Complete generation session with results
+      if (session) {
+        try {
+          session.phrases_generated = result.generated_phrases.length;
+          session.phrases_accepted = result.scored_phrases.filter(p => 
+            p.quality_classification && ['excellent', 'good', 'acceptable'].includes(p.quality_classification)
+          ).length;
+          session.avg_quality_score = result.quality_metrics.avg_score;
+          session.total_duration_ms = result.performance.total_duration_ms;
+          session.generation_duration_ms = result.performance.generation_time_ms;
+          session.scoring_duration_ms = result.performance.scoring_time_ms;
+          session.generation_attempts = result.generation_attempts;
+          session.session_results = {
+            quality_metrics: result.quality_metrics,
+            performance: result.performance,
+            metadata: result.metadata
+          };
+          
+          await session.complete();
+          console.log(`📊 Updated generation session: ${session.id}`);
+        } catch (error) {
+          console.warn(`⚠️ Failed to update generation session: ${error.message}`);
+        }
+      }
       
       this.generationCount += result.generated_phrases.length;
       return result;

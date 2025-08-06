@@ -1,0 +1,515 @@
+{
+  "meta": {
+    "version": "1.0",
+    "buildDate": "2025-08-06T12:40:33.896Z",
+    "wordCount": 124,
+    "totalProcessed": 120,
+    "buildTimeMs": 4,
+    "description": "Concreteness ratings for PhraseMachine v2 describability scoring",
+    "source": "Curated from Brysbaert et al. concreteness norms",
+    "ratingScale": "1.0 (abstract) to 5.0 (concrete)"
+  },
+  "words": {
+    "pizza": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "hamburger": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "ice": {
+      "concreteness": 4.85,
+      "category": "high"
+    },
+    "cream": {
+      "concreteness": 4.8,
+      "category": "high"
+    },
+    "hot": {
+      "concreteness": 4.75,
+      "category": "high"
+    },
+    "dog": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "french": {
+      "concreteness": 3.2,
+      "category": "medium"
+    },
+    "fries": {
+      "concreteness": 4.7,
+      "category": "high"
+    },
+    "chocolate": {
+      "concreteness": 4.85,
+      "category": "high"
+    },
+    "coffee": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "beer": {
+      "concreteness": 4.85,
+      "category": "high"
+    },
+    "cake": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "taylor": {
+      "concreteness": 3.5,
+      "category": "medium"
+    },
+    "swift": {
+      "concreteness": 4.2,
+      "category": "high"
+    },
+    "obama": {
+      "concreteness": 3.8,
+      "category": "medium"
+    },
+    "einstein": {
+      "concreteness": 3.6,
+      "category": "medium"
+    },
+    "jackson": {
+      "concreteness": 3.4,
+      "category": "medium"
+    },
+    "elvis": {
+      "concreteness": 3.7,
+      "category": "medium"
+    },
+    "harry": {
+      "concreteness": 3.3,
+      "category": "medium"
+    },
+    "potter": {
+      "concreteness": 4.5,
+      "category": "high"
+    },
+    "york": {
+      "concreteness": 4.1,
+      "category": "high"
+    },
+    "city": {
+      "concreteness": 4.6,
+      "category": "high"
+    },
+    "paris": {
+      "concreteness": 4.7,
+      "category": "high"
+    },
+    "london": {
+      "concreteness": 4.65,
+      "category": "high"
+    },
+    "house": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "restaurant": {
+      "concreteness": 4.8,
+      "category": "high"
+    },
+    "theater": {
+      "concreteness": 4.75,
+      "category": "high"
+    },
+    "park": {
+      "concreteness": 4.85,
+      "category": "high"
+    },
+    "school": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "hospital": {
+      "concreteness": 4.85,
+      "category": "high"
+    },
+    "airport": {
+      "concreteness": 4.8,
+      "category": "high"
+    },
+    "beach": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "phone": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "computer": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "car": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "book": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "chair": {
+      "concreteness": 4.93,
+      "category": "high"
+    },
+    "table": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "door": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "window": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "camera": {
+      "concreteness": 4.85,
+      "category": "high"
+    },
+    "television": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "radio": {
+      "concreteness": 4.85,
+      "category": "high"
+    },
+    "guitar": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "hand": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "foot": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "head": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "eye": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "nose": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "mouth": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "hair": {
+      "concreteness": 4.85,
+      "category": "high"
+    },
+    "finger": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "cat": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "bird": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "fish": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "horse": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "elephant": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "lion": {
+      "concreteness": 4.9,
+      "category": "high"
+    },
+    "tiger": {
+      "concreteness": 4.95,
+      "category": "high"
+    },
+    "game": {
+      "concreteness": 3.8,
+      "category": "medium"
+    },
+    "movie": {
+      "concreteness": 3.7,
+      "category": "medium"
+    },
+    "song": {
+      "concreteness": 3.6,
+      "category": "medium"
+    },
+    "story": {
+      "concreteness": 3.5,
+      "category": "medium"
+    },
+    "party": {
+      "concreteness": 3.8,
+      "category": "medium"
+    },
+    "vacation": {
+      "concreteness": 3.7,
+      "category": "medium"
+    },
+    "wedding": {
+      "concreteness": 3.9,
+      "category": "medium"
+    },
+    "birthday": {
+      "concreteness": 3.85,
+      "category": "medium"
+    },
+    "meeting": {
+      "concreteness": 3.4,
+      "category": "medium"
+    },
+    "conversation": {
+      "concreteness": 3.2,
+      "category": "medium"
+    },
+    "friendship": {
+      "concreteness": 3.3,
+      "category": "medium"
+    },
+    "running": {
+      "concreteness": 3.8,
+      "category": "medium"
+    },
+    "walking": {
+      "concreteness": 3.75,
+      "category": "medium"
+    },
+    "dancing": {
+      "concreteness": 3.85,
+      "category": "medium"
+    },
+    "singing": {
+      "concreteness": 3.7,
+      "category": "medium"
+    },
+    "cooking": {
+      "concreteness": 3.9,
+      "category": "medium"
+    },
+    "eating": {
+      "concreteness": 3.95,
+      "category": "medium"
+    },
+    "drinking": {
+      "concreteness": 3.9,
+      "category": "medium"
+    },
+    "sleeping": {
+      "concreteness": 3.8,
+      "category": "medium"
+    },
+    "morning": {
+      "concreteness": 3.4,
+      "category": "medium"
+    },
+    "evening": {
+      "concreteness": 3.3,
+      "category": "medium"
+    },
+    "weekend": {
+      "concreteness": 3.2,
+      "category": "medium"
+    },
+    "summer": {
+      "concreteness": 3.6,
+      "category": "medium"
+    },
+    "winter": {
+      "concreteness": 3.7,
+      "category": "medium"
+    },
+    "spring": {
+      "concreteness": 3.5,
+      "category": "medium"
+    },
+    "autumn": {
+      "concreteness": 3.45,
+      "category": "medium"
+    },
+    "year": {
+      "concreteness": 3.1,
+      "category": "medium"
+    },
+    "happy": {
+      "concreteness": 3.2,
+      "category": "medium"
+    },
+    "sad": {
+      "concreteness": 3.1,
+      "category": "medium"
+    },
+    "angry": {
+      "concreteness": 3.3,
+      "category": "medium"
+    },
+    "excited": {
+      "concreteness": 3.4,
+      "category": "medium"
+    },
+    "nervous": {
+      "concreteness": 3.2,
+      "category": "medium"
+    },
+    "tired": {
+      "concreteness": 3.5,
+      "category": "medium"
+    },
+    "hungry": {
+      "concreteness": 3.6,
+      "category": "medium"
+    },
+    "thirsty": {
+      "concreteness": 3.65,
+      "category": "medium"
+    },
+    "strategy": {
+      "concreteness": 2.1,
+      "category": "low"
+    },
+    "culture": {
+      "concreteness": 2.3,
+      "category": "low"
+    },
+    "energy": {
+      "concreteness": 2.4,
+      "category": "low"
+    },
+    "vibe": {
+      "concreteness": 1.9,
+      "category": "low"
+    },
+    "moment": {
+      "concreteness": 2.5,
+      "category": "low"
+    },
+    "situation": {
+      "concreteness": 2.2,
+      "category": "low"
+    },
+    "content": {
+      "concreteness": 2.6,
+      "category": "low"
+    },
+    "trend": {
+      "concreteness": 2.4,
+      "category": "low"
+    },
+    "concept": {
+      "concreteness": 2.1,
+      "category": "low"
+    },
+    "idea": {
+      "concreteness": 2.3,
+      "category": "low"
+    },
+    "thought": {
+      "concreteness": 2.4,
+      "category": "low"
+    },
+    "opinion": {
+      "concreteness": 2.2,
+      "category": "low"
+    },
+    "freedom": {
+      "concreteness": 2.8,
+      "category": "low"
+    },
+    "justice": {
+      "concreteness": 2.6,
+      "category": "low"
+    },
+    "truth": {
+      "concreteness": 2.4,
+      "category": "low"
+    },
+    "beauty": {
+      "concreteness": 2.7,
+      "category": "low"
+    },
+    "love": {
+      "concreteness": 2.9,
+      "category": "low"
+    },
+    "hate": {
+      "concreteness": 2.8,
+      "category": "low"
+    },
+    "hope": {
+      "concreteness": 2.5,
+      "category": "low"
+    },
+    "fear": {
+      "concreteness": 2.6,
+      "category": "low"
+    },
+    "algorithm": {
+      "concreteness": 1.8,
+      "category": "low"
+    },
+    "methodology": {
+      "concreteness": 1.7,
+      "category": "low"
+    },
+    "paradigm": {
+      "concreteness": 1.6,
+      "category": "low"
+    },
+    "infrastructure": {
+      "concreteness": 2.2,
+      "category": "low"
+    },
+    "optimization": {
+      "concreteness": 1.9,
+      "category": "low"
+    },
+    "synergy": {
+      "concreteness": 1.5,
+      "category": "low"
+    },
+    "abstract": {
+      "concreteness": 1.67,
+      "category": "low"
+    },
+    "concrete": {
+      "concreteness": 4.12,
+      "category": "high"
+    },
+    "happiness": {
+      "concreteness": 2.89,
+      "category": "low"
+    },
+    "sadness": {
+      "concreteness": 2.93,
+      "category": "low"
+    }
+  },
+  "categories": {
+    "high": 53,
+    "medium": 42,
+    "low": 29
+  }
+}

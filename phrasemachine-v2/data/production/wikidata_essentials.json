@@ -1,0 +1,356 @@
+{
+  "meta": {
+    "version": "1.0",
+    "buildDate": "2025-08-05T17:21:39.634Z",
+    "entityCount": 44,
+    "totalProcessed": 48,
+    "buildTimeMs": 190169,
+    "description": "Top 100k notable Wikidata entities for PhraseMachine v2"
+  },
+  "entities": {
+    "Q42": {
+      "id": "Q42",
+      "label": "Taylor Swift",
+      "sitelinks": 150,
+      "type": "Q5",
+      "aliases": [
+        "T-Swift"
+      ]
+    },
+    "Q76": {
+      "id": "Q76",
+      "label": "Barack Obama",
+      "sitelinks": 200,
+      "type": "Q5",
+      "aliases": [
+        "President Obama"
+      ]
+    },
+    "Q2831": {
+      "id": "Q2831",
+      "label": "Michael Jackson",
+      "sitelinks": 180,
+      "type": "Q5",
+      "aliases": [
+        "MJ",
+        "King of Pop"
+      ]
+    },
+    "Q5582": {
+      "id": "Q5582",
+      "label": "Elvis Presley",
+      "sitelinks": 120,
+      "type": "Q5",
+      "aliases": [
+        "The King"
+      ]
+    },
+    "Q9645": {
+      "id": "Q9645",
+      "label": "Leonardo da Vinci",
+      "sitelinks": 160,
+      "type": "Q5",
+      "aliases": []
+    },
+    "Q5593": {
+      "id": "Q5593",
+      "label": "Marilyn Monroe",
+      "sitelinks": 140,
+      "type": "Q5",
+      "aliases": []
+    },
+    "Q5580": {
+      "id": "Q5580",
+      "label": "John F. Kennedy",
+      "sitelinks": 130,
+      "type": "Q5",
+      "aliases": [
+        "JFK"
+      ]
+    },
+    "Q23572": {
+      "id": "Q23572",
+      "label": "Game of Thrones",
+      "sitelinks": 80,
+      "type": "Q5398426",
+      "aliases": [
+        "GoT"
+      ]
+    },
+    "Q180713": {
+      "id": "Q180713",
+      "label": "The Office",
+      "sitelinks": 60,
+      "type": "Q5398426",
+      "aliases": []
+    },
+    "Q188473": {
+      "id": "Q188473",
+      "label": "Friends",
+      "sitelinks": 70,
+      "type": "Q5398426",
+      "aliases": []
+    },
+    "Q462": {
+      "id": "Q462",
+      "label": "Star Wars",
+      "sitelinks": 90,
+      "type": "Q11424",
+      "aliases": []
+    },
+    "Q17738": {
+      "id": "Q17738",
+      "label": "Titanic",
+      "sitelinks": 85,
+      "type": "Q11424",
+      "aliases": []
+    },
+    "Q16538": {
+      "id": "Q16538",
+      "label": "Harry Potter",
+      "sitelinks": 95,
+      "type": "Q7725634",
+      "aliases": []
+    },
+    "Q192724": {
+      "id": "Q192724",
+      "label": "The Simpsons",
+      "sitelinks": 75,
+      "type": "Q5398426",
+      "aliases": []
+    },
+    "Q218723": {
+      "id": "Q218723",
+      "label": "Breaking Bad",
+      "sitelinks": 65,
+      "type": "Q5398426",
+      "aliases": []
+    },
+    "Q60": {
+      "id": "Q60",
+      "label": "New York City",
+      "sitelinks": 250,
+      "type": "Q515",
+      "aliases": [
+        "NYC",
+        "Big Apple"
+      ]
+    },
+    "Q90": {
+      "id": "Q90",
+      "label": "Paris",
+      "sitelinks": 240,
+      "type": "Q515",
+      "aliases": []
+    },
+    "Q84": {
+      "id": "Q84",
+      "label": "London",
+      "sitelinks": 230,
+      "type": "Q515",
+      "aliases": []
+    },
+    "Q65": {
+      "id": "Q65",
+      "label": "Los Angeles",
+      "sitelinks": 180,
+      "type": "Q515",
+      "aliases": [
+        "LA"
+      ]
+    },
+    "Q172": {
+      "id": "Q172",
+      "label": "Toronto",
+      "sitelinks": 160,
+      "type": "Q515",
+      "aliases": []
+    },
+    "Q1297": {
+      "id": "Q1297",
+      "label": "Chicago",
+      "sitelinks": 170,
+      "type": "Q515",
+      "aliases": []
+    },
+    "Q1726": {
+      "id": "Q1726",
+      "label": "Munich",
+      "sitelinks": 150,
+      "type": "Q515",
+      "aliases": []
+    },
+    "Q30": {
+      "id": "Q30",
+      "label": "United States",
+      "sitelinks": 300,
+      "type": "Q6256",
+      "aliases": [
+        "USA",
+        "America"
+      ]
+    },
+    "Q16": {
+      "id": "Q16",
+      "label": "Canada",
+      "sitelinks": 280,
+      "type": "Q6256",
+      "aliases": []
+    },
+    "Q142": {
+      "id": "Q142",
+      "label": "France",
+      "sitelinks": 290,
+      "type": "Q6256",
+      "aliases": []
+    },
+    "Q145": {
+      "id": "Q145",
+      "label": "United Kingdom",
+      "sitelinks": 285,
+      "type": "Q6256",
+      "aliases": [
+        "UK",
+        "Britain"
+      ]
+    },
+    "Q183": {
+      "id": "Q183",
+      "label": "Germany",
+      "sitelinks": 275,
+      "type": "Q6256",
+      "aliases": []
+    },
+    "Q17": {
+      "id": "Q17",
+      "label": "Japan",
+      "sitelinks": 270,
+      "type": "Q6256",
+      "aliases": []
+    },
+    "Q312": {
+      "id": "Q312",
+      "label": "Apple Inc",
+      "sitelinks": 120,
+      "type": "Q43229",
+      "aliases": [
+        "Apple"
+      ]
+    },
+    "Q95": {
+      "id": "Q95",
+      "label": "Google",
+      "sitelinks": 115,
+      "type": "Q43229",
+      "aliases": []
+    },
+    "Q2283": {
+      "id": "Q2283",
+      "label": "Microsoft",
+      "sitelinks": 110,
+      "type": "Q43229",
+      "aliases": []
+    },
+    "Q3884": {
+      "id": "Q3884",
+      "label": "Coca Cola",
+      "sitelinks": 100,
+      "type": "Q43229",
+      "aliases": []
+    },
+    "Q38": {
+      "id": "Q38",
+      "label": "McDonald's",
+      "sitelinks": 95,
+      "type": "Q43229",
+      "aliases": [
+        "McD"
+      ]
+    },
+    "Q3196": {
+      "id": "Q3196",
+      "label": "Disney",
+      "sitelinks": 90,
+      "type": "Q43229",
+      "aliases": []
+    },
+    "Q37156": {
+      "id": "Q37156",
+      "label": "Starbucks",
+      "sitelinks": 80,
+      "type": "Q43229",
+      "aliases": []
+    },
+    "Q13234": {
+      "id": "Q13234",
+      "label": "Chocolate",
+      "sitelinks": 42,
+      "type": "Q1047113",
+      "aliases": []
+    },
+    "Q13270": {
+      "id": "Q13270",
+      "label": "Hamburger",
+      "sitelinks": 45,
+      "type": "Q1047113",
+      "aliases": [
+        "Burger"
+      ]
+    },
+    "Q13276": {
+      "id": "Q13276",
+      "label": "Hot Dog",
+      "sitelinks": 35,
+      "type": "Q1047113",
+      "aliases": []
+    },
+    "Q7802": {
+      "id": "Q7802",
+      "label": "French Fries",
+      "sitelinks": 30,
+      "type": "Q1047113",
+      "aliases": [
+        "Fries"
+      ]
+    },
+    "Q2736": {
+      "id": "Q2736",
+      "label": "Soccer",
+      "sitelinks": 60,
+      "type": "Q349",
+      "aliases": [
+        "Football"
+      ]
+    },
+    "Q5372": {
+      "id": "Q5372",
+      "label": "Basketball",
+      "sitelinks": 55,
+      "type": "Q349",
+      "aliases": []
+    },
+    "Q5378": {
+      "id": "Q5378",
+      "label": "Tennis",
+      "sitelinks": 50,
+      "type": "Q349",
+      "aliases": []
+    },
+    "Q41323": {
+      "id": "Q41323",
+      "label": "Football",
+      "sitelinks": 58,
+      "type": "Q349",
+      "aliases": [
+        "American Football"
+      ]
+    },
+    "Q1146": {
+      "id": "Q1146",
+      "label": "Baseball",
+      "sitelinks": 52,
+      "type": "Q349",
+      "aliases": []
+    }
+  }
+}

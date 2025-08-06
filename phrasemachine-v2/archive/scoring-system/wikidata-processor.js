@@ -5,6 +5,7 @@ const { createReadStream, createWriteStream } = require('fs');
 const { createBrotliDecompress } = require('zlib');
 const readline = require('readline');
 const redis = require('redis');
+const DatasetLoader = require('../shared/dataset-loader');
 
 /**
  * WikidataProcessor - Downloads and processes Wikidata dump for phrase distinctiveness
@@ -18,6 +19,10 @@ class WikidataProcessor {
     this.batchSize = options.batchSize || 10000; // Redis batch size
     this.processedCount = 0;
     this.skippedCount = 0;
+    
+    // Dataset loader for JSON fallback mode
+    this.datasetLoader = new DatasetLoader(options);
+    this.mode = null; // 'redis' or 'json'
     
     // Ensure data directory exists
     if (!fs.existsSync(this.dataDir)) {
@@ -35,7 +40,7 @@ class WikidataProcessor {
       });
       
       await this.redisClient.connect();
-      console.log('✅ Connected to Redis');
+      console.log('✅ WikidataProcessor connected to Redis');
       
       // Test Redis performance
       const start = Date.now();
@@ -49,11 +54,59 @@ class WikidataProcessor {
         console.warn('⚠️ Redis performance above target threshold');
       }
       
+      this.mode = 'redis';
       return true;
     } catch (error) {
       console.error('❌ Failed to connect to Redis:', error.message);
       return false;
     }
+  }
+
+  /**
+   * Initialize JSON dataset mode (fallback for serverless)
+   */
+  async initJSON() {
+    try {
+      console.log('🔄 Initializing WikidataProcessor in JSON mode...');
+      
+      const success = await this.datasetLoader.initialize();
+      if (!success) {
+        throw new Error('Failed to initialize DatasetLoader');
+      }
+      
+      // Verify we have Wikidata data
+      const wikidataEntities = this.datasetLoader.getWikidataEntities();
+      const entityCount = Object.keys(wikidataEntities).length;
+      
+      if (entityCount === 0) {
+        throw new Error('No Wikidata entities found in JSON datasets');
+      }
+      
+      console.log(`✅ WikidataProcessor JSON mode ready: ${entityCount} entities loaded`);
+      this.mode = 'json';
+      return true;
+      
+    } catch (error) {
+      console.error('❌ Failed to initialize WikidataProcessor JSON mode:', error.message);
+      return false;
+    }
+  }
+
+  /**
+   * Initialize processor in optimal mode (Redis first, JSON fallback)
+   */
+  async initialize() {
+    console.log('🔄 Initializing WikidataProcessor (auto-detecting mode)...');
+    
+    // Try Redis first
+    const redisSuccess = await this.initRedis();
+    if (redisSuccess) {
+      return true;
+    }
+    
+    // Fallback to JSON mode
+    console.log('🔄 Redis unavailable, falling back to JSON mode...');
+    return await this.initJSON();
   }
 
   /**
@@ -250,12 +303,27 @@ class WikidataProcessor {
    * Returns distinctiveness score (0-25 points)
    */
   async checkDistinctiveness(phrase) {
-    if (!this.redisClient) {
-      throw new Error('Redis client not initialized');
+    if (!this.mode) {
+      throw new Error('WikidataProcessor not initialized - call initialize() first');
     }
     
     const startTime = Date.now();
     const normalizedPhrase = phrase.toLowerCase().trim();
+    
+    if (this.mode === 'redis') {
+      return await this.checkDistinctivenessRedis(normalizedPhrase, startTime);
+    } else {
+      return await this.checkDistinctivenessJSON(normalizedPhrase, startTime);
+    }
+  }
+
+  /**
+   * Check distinctiveness using Redis mode
+   */
+  async checkDistinctivenessRedis(normalizedPhrase, startTime) {
+    if (!this.redisClient) {
+      throw new Error('Redis client not initialized');
+    }
     
     // Check exact match first (25 points)
     const exactMatch = await this.redisClient.hGetAll(`wikidata:${normalizedPhrase}`);
@@ -296,9 +364,66 @@ class WikidataProcessor {
   }
 
   /**
+   * Check distinctiveness using JSON mode
+   */
+  async checkDistinctivenessJSON(normalizedPhrase, startTime) {
+    // Check exact match first (25 points)
+    const exactExists = this.datasetLoader.checkWikidataEntity(normalizedPhrase);
+    if (exactExists) {
+      const duration = Date.now() - startTime;
+      return {
+        score: 25,
+        type: 'wikidata_exact',
+        id: `json_${normalizedPhrase}`, // Simplified ID for JSON mode
+        sitelinks: 1, // Simplified sitelink count
+        duration_ms: duration
+      };
+    }
+    
+    // Check for partial word matches (20 points)
+    const words = normalizedPhrase.split(' ');
+    for (const word of words) {
+      if (word.length >= 3) { // Only check meaningful words
+        const wordExists = this.datasetLoader.checkWikidataEntity(word);
+        if (wordExists) {
+          const duration = Date.now() - startTime;
+          return {
+            score: 20,
+            type: 'wikidata_partial',
+            id: `json_${word}`,
+            main_label: word,
+            sitelinks: 1,
+            duration_ms: duration
+          };
+        }
+      }
+    }
+    
+    const duration = Date.now() - startTime;
+    return {
+      score: 0,
+      type: 'not_found',
+      duration_ms: duration
+    };
+  }
+
+  /**
    * Get processing statistics
    */
   async getStats() {
+    if (this.mode === 'redis') {
+      return await this.getStatsRedis();
+    } else if (this.mode === 'json') {
+      return this.getStatsJSON();
+    } else {
+      return { connected: false, mode: 'not_initialized' };
+    }
+  }
+
+  /**
+   * Get Redis mode statistics
+   */
+  async getStatsRedis() {
     if (!this.redisClient) {
       return { connected: false };
     }
@@ -309,11 +434,32 @@ class WikidataProcessor {
     
     return {
       connected: true,
+      mode: 'redis',
       total_keys: keyCount,
       processed_entities: this.processedCount,
       skipped_entities: this.skippedCount,
       target_entries: this.maxEntries,
       progress_percent: ((this.processedCount / this.maxEntries) * 100).toFixed(1)
+    };
+  }
+
+  /**
+   * Get JSON mode statistics
+   */
+  getStatsJSON() {
+    if (!this.datasetLoader) {
+      return { connected: false, mode: 'json', error: 'DatasetLoader not initialized' };
+    }
+    
+    const loaderStats = this.datasetLoader.getStats();
+    return {
+      connected: true,
+      mode: 'json',
+      total_entities: loaderStats.datasetSizes.wikidata,
+      load_time_ms: loaderStats.loadTime,
+      avg_lookup_time_ms: loaderStats.avgLookupTime,
+      total_lookups: loaderStats.lookupCount,
+      environment: loaderStats.environment
     };
   }
 

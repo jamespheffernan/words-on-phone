@@ -5,6 +5,7 @@ const { createReadStream, createWriteStream } = require('fs');
 const { createGunzip } = require('zlib');
 const readline = require('readline');
 const redis = require('redis');
+const DatasetLoader = require('../shared/dataset-loader');
 
 /**
  * NgramProcessor - Downloads and processes Google Books N-gram data for PMI calculations
@@ -22,6 +23,10 @@ class NgramProcessor {
     this.processedCount = 0;
     this.totalNgrams = 0;
     
+    // Dataset loader for JSON fallback mode
+    this.datasetLoader = new DatasetLoader(options);
+    this.mode = null; // 'redis' or 'json'
+    
     // Ensure data directory exists
     if (!fs.existsSync(this.dataDir)) {
       fs.mkdirSync(this.dataDir, { recursive: true });
@@ -38,7 +43,7 @@ class NgramProcessor {
       });
       
       await this.redisClient.connect();
-      console.log('✅ Connected to Redis for N-gram storage');
+      console.log('✅ NgramProcessor connected to Redis');
       
       // Test Redis performance
       const start = Date.now();
@@ -51,11 +56,59 @@ class NgramProcessor {
         console.warn('⚠️ Redis performance above target threshold');
       }
       
+      this.mode = 'redis';
       return true;
     } catch (error) {
       console.error('❌ Failed to connect to Redis:', error.message);
       return false;
     }
+  }
+
+  /**
+   * Initialize JSON dataset mode (fallback for serverless)
+   */
+  async initJSON() {
+    try {
+      console.log('🔄 Initializing NgramProcessor in JSON mode...');
+      
+      const success = await this.datasetLoader.initialize();
+      if (!success) {
+        throw new Error('Failed to initialize DatasetLoader');
+      }
+      
+      // Verify we have N-gram data
+      const ngramData = this.datasetLoader.getNgrams();
+      const ngramCount = Object.keys(ngramData).length;
+      
+      if (ngramCount === 0) {
+        throw new Error('No N-gram data found in JSON datasets');
+      }
+      
+      console.log(`✅ NgramProcessor JSON mode ready: ${ngramCount} n-grams loaded`);
+      this.mode = 'json';
+      return true;
+      
+    } catch (error) {
+      console.error('❌ Failed to initialize NgramProcessor JSON mode:', error.message);
+      return false;
+    }
+  }
+
+  /**
+   * Initialize processor in optimal mode (Redis first, JSON fallback)
+   */
+  async initialize() {
+    console.log('🔄 Initializing NgramProcessor (auto-detecting mode)...');
+    
+    // Try Redis first
+    const redisSuccess = await this.initRedis();
+    if (redisSuccess) {
+      return true;
+    }
+    
+    // Fallback to JSON mode
+    console.log('🔄 Redis unavailable, falling back to JSON mode...');
+    return await this.initJSON();
   }
 
   /**
@@ -338,12 +391,27 @@ class NgramProcessor {
    * Returns score from 0-15 points based on PMI value
    */
   async calculatePMI(phrase) {
-    if (!this.redisClient) {
-      throw new Error('Redis client not initialized');
+    if (!this.mode) {
+      throw new Error('NgramProcessor not initialized - call initialize() first');
     }
     
     const startTime = Date.now();
     const normalizedPhrase = phrase.toLowerCase().trim();
+    
+    if (this.mode === 'redis') {
+      return await this.calculatePMIRedis(normalizedPhrase, startTime);
+    } else {
+      return await this.calculatePMIJSON(normalizedPhrase, startTime);
+    }
+  }
+
+  /**
+   * Calculate PMI using Redis mode
+   */
+  async calculatePMIRedis(normalizedPhrase, startTime) {
+    if (!this.redisClient) {
+      throw new Error('Redis client not initialized');
+    }
     
     // Get phrase frequency
     const ngramData = await this.redisClient.hGetAll(`ngram:${normalizedPhrase}`);
@@ -395,12 +463,50 @@ class NgramProcessor {
     
     return {
       score,
-      pmi: Math.round(pmi * 100) / 100, // Round to 2 decimal places
+      pmi: Math.round(pmi * 100) / 100,
       type: 'pmi_calculated',
       phrase: normalizedPhrase,
       phrase_count: phraseCount,
       word_counts: wordCounts,
       total_corpus: totalNgrams,
+      duration_ms: duration
+    };
+  }
+
+  /**
+   * Calculate PMI using JSON mode (pre-computed PMI scores)
+   */
+  async calculatePMIJSON(normalizedPhrase, startTime) {
+    // Get pre-computed PMI score from JSON data
+    const pmiScore = this.datasetLoader.getNgramPMI(normalizedPhrase);
+    
+    if (pmiScore === null) {
+      return {
+        score: 0,
+        pmi: 0,
+        type: 'not_found',
+        phrase: normalizedPhrase,
+        duration_ms: Date.now() - startTime
+      };
+    }
+    
+    // Convert PMI to score (0-15 points) - same logic as Redis mode
+    let score = 0;
+    if (pmiScore >= 4) {
+      score = 15;
+    } else if (pmiScore >= 2) {
+      score = 10;
+    } else if (pmiScore >= 0) {
+      score = 5;
+    }
+    
+    const duration = Date.now() - startTime;
+    
+    return {
+      score,
+      pmi: Math.round(pmiScore * 100) / 100,
+      type: 'pmi_precomputed',
+      phrase: normalizedPhrase,
       duration_ms: duration
     };
   }
