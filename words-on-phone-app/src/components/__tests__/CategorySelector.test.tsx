@@ -15,7 +15,7 @@ vi.mock('../../store', () => ({
   useGameStore: () => ({
     pinnedCategories: ['Movies & TV'],
     togglePinnedCategory: mockTogglePinnedCategory,
-    expandedGroups: new Set(['entertainment']),
+    expandedGroups: new Set(['entertainment-media', 'other-categories']),
     toggleGroupExpanded: mockToggleGroupExpanded,
     expandAllGroups: mockExpandAllGroups,
     collapseAllGroups: mockCollapseAllGroups
@@ -65,8 +65,8 @@ describe('CategorySelector', () => {
       />
     );
 
-    // Entertainment group should be visible and expanded
-    expect(screen.getByText('Entertainment')).toBeInTheDocument();
+    // Entertainment & Media group should be visible and expanded
+    expect(screen.getByText('Entertainment & Media')).toBeInTheDocument();
     expect(screen.getAllByText('🎬')).toHaveLength(2); // Accordion icon + category icon
     
     // Should show grouped categories when expanded
@@ -84,10 +84,10 @@ describe('CategorySelector', () => {
       />
     );
 
-    const entertainmentHeader = screen.getByLabelText(/Entertainment category group/);
+    const entertainmentHeader = screen.getByLabelText(/Entertainment & Media category group/);
     fireEvent.click(entertainmentHeader);
 
-    expect(mockToggleGroupExpanded).toHaveBeenCalledWith('entertainment');
+    expect(mockToggleGroupExpanded).toHaveBeenCalledWith('entertainment-media');
   });
 
   it('shows expand/collapse all buttons for default categories', () => {
@@ -100,7 +100,7 @@ describe('CategorySelector', () => {
       />
     );
 
-    expect(screen.getByText('Expand All')).toBeInTheDocument();
+    expect(screen.getByTitle('Expand all groups')).toBeInTheDocument();
   });
 
   it('calls expand all groups when clicking expand all button', () => {
@@ -113,7 +113,7 @@ describe('CategorySelector', () => {
       />
     );
 
-    const expandAllButton = screen.getByText('Expand All');
+    const expandAllButton = screen.getByTitle('Expand all groups');
     fireEvent.click(expandAllButton);
 
     expect(mockExpandAllGroups).toHaveBeenCalled();
@@ -194,6 +194,10 @@ describe('CategorySelector', () => {
       />
     );
 
+    // First click the "More" button to reveal advanced controls
+    const moreButton = screen.getByText(/More/);
+    fireEvent.click(moreButton);
+    
     // Change to sort by phrase count
     const sortSelect = screen.getByLabelText('Sort categories');
     fireEvent.change(sortSelect, { target: { value: 'count' } });
@@ -253,8 +257,10 @@ describe('CategorySelector', () => {
       />
     );
 
-    // Should show the Other Categories group for ungrouped items
-    expect(screen.getByText('📂')).toBeInTheDocument();
+    // Should show the Other Categories group for ungrouped items 
     expect(screen.getByText('Other Categories')).toBeInTheDocument();
+    
+    // Should show the group aria-label that indicates it has 1 category
+    expect(screen.getByLabelText(/Other Categories category group, 0 of 1 selected/)).toBeInTheDocument();
   });
 }); 

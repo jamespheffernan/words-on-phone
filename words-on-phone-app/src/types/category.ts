@@ -41,28 +41,47 @@ export interface CategoryGroupingState {
   expandedGroups: Set<string>;  // Set of group IDs that are currently expanded
 }
 
-// Define the default category groups
+// Define the default category groups - organized for scaling to 40+ categories
 export const DEFAULT_CATEGORY_GROUPS: CategoryGroup[] = [
   {
-    id: 'entertainment',
-    name: 'Entertainment',
+    id: 'entertainment-media',
+    name: 'Entertainment & Media',
     emoji: '🎬',
     categoryNames: [
       'Movies & TV',
-      'Music & Artists',
+      'Music & Artists', 
       'Entertainment & Pop Culture',
-      'Famous People'
+      'Video Games & Gaming',
+      'Art & Culture',
+      'Literature & Books',
+      'Famous People',
+      'Comics & Animation',
+      'Theater & Performing Arts',
+      'Film Industry',
+      'Music Industry'
     ],
-    description: 'Movies, TV shows, music, celebrities, and pop culture'
+    description: 'Movies, TV, music, games, art, books, and celebrities'
   },
   {
-    id: 'daily-life',
-    name: 'Daily Life', 
+    id: 'daily-life-culture',
+    name: 'Daily Life & Culture',
     emoji: '🏠',
     categoryNames: [
-      'Food & Drink'
+      'Food & Drink',
+      'Clothing & Fashion',
+      'Occupations & Jobs',
+      'Idioms & Phrases',
+      'Home & Garden',
+      'Health & Wellness',
+      'Beauty & Personal Care',
+      'Relationships & Family',
+      'Education & Learning',
+      'Household Items',
+      'In the Office',
+      'Childhood & Nostalgia',
+      'Holidays & Celebrations'
     ],
-    description: 'Food, household items, daily activities'
+    description: 'Food, fashion, work, expressions, home life, and celebrations'
   },
   {
     id: 'world-knowledge',
@@ -70,30 +89,108 @@ export const DEFAULT_CATEGORY_GROUPS: CategoryGroup[] = [
     emoji: '🌍',
     categoryNames: [
       'Places & Travel',
-      'History & Events', 
+      'History & Events',
       'Technology & Science',
-      'Nature & Animals'
+      'Nature & Animals',
+      'Geography',
+      'Mathematics',
+      'Physics & Chemistry',
+      'Biology & Medicine',
+      'Astronomy & Space',
+      'Outer Space & Astronomy',
+      'Geology & Earth Science',
+      'Anatomy & Medical',
+      'Under the Sea',
+      'On the Farm',
+      'Natural Wonders',
+      'Units of Measurement'
     ],
-    description: 'Geography, history, science, and nature'
+    description: 'Geography, history, science, nature, space, medicine, and academic subjects'
   },
   {
     id: 'activities-sports',
     name: 'Activities & Sports',
-    emoji: '🏃',
+    emoji: '⚽',
     categoryNames: [
-      'Sports & Athletes'
+      'Sports & Athletes',
+      'Outdoor Activities',
+      'Fitness & Exercise',
+      'Recreational Games',
+      'Adventure & Extreme Sports',
+      'Team Sports',
+      'Individual Sports',
+      'Olympic Sports',
+      'Board Games & Toys'
     ],
-    description: 'Sports, activities, and actions'
+    description: 'Sports, fitness, outdoor activities, games, and recreational pursuits'
   },
   {
-    id: 'creative-misc',
-    name: 'Creative & Misc',
+    id: 'modern-life-tech',
+    name: 'Modern Life & Technology',
+    emoji: '💻',
+    categoryNames: [
+      'Transportation',
+      'Internet & Social Media', 
+      'Brands & Companies',
+      'Gadgets & Electronics',
+      'Software & Apps',
+      'Cryptocurrency & Finance',
+      'Business & Economy',
+      'Current Events',
+      'Money & Finance',
+      'Tools & Home Improvement'
+    ],
+    description: 'Technology, business, transport, finance, and contemporary topics'
+  },
+  {
+    id: 'creative-arts',
+    name: 'Creative Arts & Hobbies',
     emoji: '🎨',
+    categoryNames: [
+      'Fantasy & Magic',
+      'Crafts & DIY',
+      'Photography',
+      'Design & Architecture',
+      'Music Production',
+      'Creative Writing',
+      'Dance & Movement',
+      'Hobbies & Crafts',
+      'Musical Instruments',
+      'World Architecture'
+    ],
+    description: 'Creative pursuits, artistic endeavors, and hobby activities'
+  },
+  {
+    id: 'stories-culture',
+    name: 'Stories & Culture',
+    emoji: '📖',
+    categoryNames: [
+      'Mythology & Folklore',
+      'Fairy Tales & Fables',
+      'Famous Duos & Trios',
+      'Crimes & Justice',
+      'School & Education'
+    ],
+    description: 'Cultural stories, education, mythology, and famous pairs'
+  },
+  {
+    id: 'mixed-everything',
+    name: 'Mixed & Everything',
+    emoji: '🎲',
     categoryNames: [
       'Everything',
       'Everything+'
     ],
-    description: 'Mixed categories and creative topics'
+    description: 'Mixed categories with phrases from all topics'
+  },
+  {
+    id: 'mature-content',
+    name: 'Adult Content',
+    emoji: '🔞',
+    categoryNames: [
+      'Adult Content'
+    ],
+    description: 'Mature content for adult players only'
   }
 ];
 
@@ -129,39 +226,102 @@ export function groupCategoriesByGroup(categories: CategoryMetadata[]): Record<s
   return grouped;
 }
 
-// Task 4: Category icon mapping for UI enhancement
+// Category icon mapping for UI enhancement - expanded for 40+ categories
 export const CATEGORY_ICONS: Record<string, string> = {
-  // Entertainment & Pop Culture group
+  // Entertainment & Media group
   'Movies & TV': '🎬',
   'Music & Artists': '🎵',
   'Entertainment & Pop Culture': '🎭',
   'Famous People': '⭐',
+  'Video Games & Gaming': '🎮',
+  'Art & Culture': '🎨',
+  'Literature & Books': '📚',
+  'Comics & Animation': '📖',
+  'Theater & Performing Arts': '🎭',
+  'Film Industry': '🎥',
+  'Music Industry': '🎤',
   
-  // Daily Life group
+  // Daily Life & Culture group
   'Food & Drink': '🍕',
   'Clothing & Fashion': '👗',
   'Occupations & Jobs': '💼',
+  'Idioms & Phrases': '💬',
+  'Home & Garden': '🏡',
+  'Health & Wellness': '🏥',
+  'Beauty & Personal Care': '💄',
+  'Relationships & Family': '👨‍👩‍👧‍👦',
+  'Education & Learning': '🎓',
   
   // World & Knowledge group
   'Places & Travel': '🌍',
   'History & Events': '📜',
   'Technology & Science': '🔬',
   'Nature & Animals': '🐾',
+  'Geography': '🗺️',
+  'Mathematics': '🔢',
+  'Physics & Chemistry': '⚗️',
+  'Biology & Medicine': '🧬',
+  'Astronomy & Space': '🚀',
   
   // Activities & Sports group
   'Sports & Athletes': '⚽',
-  'Transportation': '🚗',
+  'Outdoor Activities': '🏔️',
+  'Fitness & Exercise': '💪',
+  'Recreational Games': '🎯',
+  'Adventure & Extreme Sports': '🏄',
+  'Team Sports': '🏀',
+  'Individual Sports': '🎾',
+  'Olympic Sports': '🥇',
+  'Board Games & Toys': '🎲',
   
-  // Creative & Misc group
+  // Modern Life & Technology group
+  'Transportation': '🚗',
+  'Internet & Social Media': '💻',
+  'Brands & Companies': '🏢',
+  'Gadgets & Electronics': '📱',
+  'Software & Apps': '💾',
+  'Cryptocurrency & Finance': '💰',
+  'Business & Economy': '📈',
+  'Current Events': '📰',
+  
+  // Creative Arts & Hobbies group
+  'Fantasy & Magic': '🔮',
+  'Crafts & DIY': '🔨',
+  'Photography': '📷',
+  'Design & Architecture': '🏛️',
+  'Music Production': '🎧',
+  'Creative Writing': '✍️',
+  'Dance & Movement': '💃',
+  
+  // Mixed & Everything group
   'Everything': '🎲',
   'Everything+': '✨',
-  'Fantasy & Magic': '🔮',
   
-  // Additional categories not in groups yet
-  'Brands & Companies': '🏢',
-  'Emotions & Feelings': '😊',
-  'Internet & Social Media': '💻',
-  'Weather & Seasons': '🌤️'
+  // Adult Content
+  'Adult Content': '🔞',
+  
+  // New Gemini batch categories
+  'Hobbies & Crafts': '🎨',
+  'Holidays & Celebrations': '🎉',
+  'Mythology & Folklore': '🐉',
+  'Fairy Tales & Fables': '🧚',
+  'Household Items': '🏠',
+  'School & Education': '🎓',
+  'On the Farm': '🚜',
+  'Under the Sea': '🌊',
+  'Outer Space & Astronomy': '🚀',
+  'Geology & Earth Science': '🏔️',
+  'Anatomy & Medical': '🩺',
+  'Tools & Home Improvement': '🔧',
+  'Musical Instruments': '🎹',
+  'Famous Duos & Trios': '👥',
+  'In the Office': '🏢',
+  'Money & Finance': '💰',
+  'Crimes & Justice': '⚖️',
+  'Childhood & Nostalgia': '🧸',
+  'Natural Wonders': '🏔️',
+  'World Architecture': '🏛️',
+  'Units of Measurement': '📏'
 };
 
 // Helper function to get icon for a category

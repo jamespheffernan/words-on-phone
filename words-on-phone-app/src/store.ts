@@ -7,6 +7,7 @@ import { BUZZER_SOUNDS, type BuzzerSoundType } from './hooks/useAudio';
 import { indexedDBStorage } from './storage/indexedDBStorage';
 import { categoryPopularityService } from './services/categoryPopularityService';
 import { DEFAULT_CATEGORY_GROUPS } from './types/category';
+import { getRandomTeamNames } from './data/teamNames';
 import { 
   trackRoundStart, 
   trackPhraseSuccess, 
@@ -24,6 +25,11 @@ export enum GameStatus {
   BUZZER_PLAYING = 'buzzer_playing',
   ROUND_END = 'round_end',
   ENDED = 'ended'
+}
+
+export enum GameMode {
+  SOLO = 'solo',
+  TEAM = 'team'
 }
 
 // Phrase statistics interface
@@ -61,6 +67,7 @@ export interface RoundStats {
 interface GameState {
   // Game status
   status: GameStatus;
+  gameMode: GameMode;
   
   // Phrase management
   cursor: PhraseCursor<string>;
@@ -70,14 +77,15 @@ interface GameState {
   pinnedCategories: string[]; // favorites
   
   // Game settings
-  timerDuration: number; // in seconds (30-90)
+  timerDuration: number; // in seconds (60-300)
   showTimer: boolean; // whether to display timer visually (default: false)
   useRandomTimer: boolean; // whether to use random timer duration (default: true)
-  timerRangeMin: number; // minimum timer duration for randomization (default: 45)
-  timerRangeMax: number; // maximum timer duration for randomization (default: 75)
+  timerRangeMin: number; // minimum timer duration for randomization (default: 90)
+  timerRangeMax: number; // maximum timer duration for randomization (default: 180)
   actualTimerDuration: number; // actual timer duration used (randomized or fixed)
   skipLimit: number; // 0 = unlimited, 1-5 = fixed cap
   buzzerSound: BuzzerSoundType; // buzzer sound type
+  gameLength: number; // points needed to win (default: 7)
   
   // Beep ramp settings (Phase 8C)
   enableBeepRamp: boolean; // enable accelerating beep system
@@ -85,6 +93,7 @@ interface GameState {
   beepFirstInterval: number; // initial beep interval in ms
   beepFinalInterval: number; // final rapid beep interval in ms
   beepVolume: number; // beep volume (0-1)
+  buzzerVolume: number; // buzzer volume (0-1)
   
   // Round state
   skipsUsed: number;
@@ -105,6 +114,18 @@ interface GameState {
   roundStats: RoundStats[];
   currentRoundAnswers: Array<{ phrase: string; timeMs: number }>;
   
+  // Solo gameplay
+  soloPlayerName: string;
+  soloScore: number; // total correct answers across all rounds
+  soloRounds: Array<{
+    roundNumber: number;
+    correctAnswers: number;
+    totalTime: number;
+    fastestAnswer?: { phrase: string; timeMs: number };
+    slowestAnswer?: { phrase: string; timeMs: number };
+    answers: Array<{ phrase: string; timeMs: number }>;
+  }>;
+  
   // Category grouping (Task 3)
   expandedGroups: Set<string>; // Set of group IDs that are currently expanded
   
@@ -120,6 +141,7 @@ interface GameState {
   setTimerRangeMax: (max: number) => void;
   setSkipLimit: (limit: number) => void;
   setBuzzerSound: (sound: BuzzerSoundType) => void;
+  setGameLength: (length: number) => void;
   
   // Beep ramp actions
   setEnableBeepRamp: (enabled: boolean) => void;
@@ -127,8 +149,10 @@ interface GameState {
   setBeepFirstInterval: (ms: number) => void;
   setBeepFinalInterval: (ms: number) => void;
   setBeepVolume: (volume: number) => void;
+  setBuzzerVolume: (volume: number) => void;
   
   startTeamSetup: () => void;
+  startSoloGame: () => void;
   startGame: () => void;
   pauseGame: () => void;
   resumeGame: () => void;
@@ -155,6 +179,8 @@ interface GameState {
   rotateTeam: () => void;
   resetTeams: () => void;
   setCurrentTeamIndex: (index: number) => void;
+  // Solo actions
+  setSoloPlayerName: (name: string) => void;
   // Round stats actions
   recordAnswer: (phrase: string, timeMs: number) => void;
   completeRound: (winningTeamIndex: number) => void;
@@ -228,33 +254,37 @@ export const useGameStore = create<GameState>()(
         }));
       };
       
-      // Helper: default teams
+      // Helper: default teams with fun random names
+      const randomNames = getRandomTeamNames();
       const defaultTeams: Team[] = [
-        { name: 'Team 1', score: 0 },
-        { name: 'Team 2', score: 0 }
+        { name: randomNames[0], score: 0 },
+        { name: randomNames[1], score: 0 }
       ];
       
       return {
         // Initial state
         status: GameStatus.MENU,
+        gameMode: GameMode.TEAM, // Default to team mode
         cursor,
         currentPhrase: '',
         selectedCategory: PhraseCategory.EVERYTHING,
         selectedCategories: [PhraseCategory.EVERYTHING],
         pinnedCategories: [],
-        timerDuration: 60,
+        timerDuration: 120, // Default to 2 minutes for fixed timer
         showTimer: false,
         useRandomTimer: true,
-        timerRangeMin: 45,
-        timerRangeMax: 75,
-        actualTimerDuration: 60,
+        timerRangeMin: 90, // Default random range 90-180 seconds (1.5-3 minutes)
+        timerRangeMax: 180,
+        actualTimerDuration: 120,
         skipLimit: initialSkipLimit,
-        buzzerSound: 'classic',
+        buzzerSound: 'game-show',
+        gameLength: 7, // Default first to 7 points
         enableBeepRamp: true,
         beepRampStart: 30,
-        beepFirstInterval: 2000,
-        beepFinalInterval: 200,
+        beepFirstInterval: 3000, // Start even slower
+        beepFinalInterval: 50,   // End MUCH faster - absolutely flying
         beepVolume: 0.6,
+        buzzerVolume: 0.8,
         skipsUsed: 0,
         skipsRemaining: initialSkipLimit,
         timeRemaining: 60,
@@ -268,8 +298,13 @@ export const useGameStore = create<GameState>()(
         roundStats: [],
         currentRoundAnswers: [],
         
+        // Solo gameplay
+        soloPlayerName: '',
+        soloScore: 0,
+        soloRounds: [],
+        
         // Category grouping (Task 3) - Default to first group expanded
-        expandedGroups: new Set(['entertainment']),
+        expandedGroups: new Set(['entertainment-media']),
         
         // Actions
         nextPhrase: () => set((state) => {
@@ -291,9 +326,10 @@ export const useGameStore = create<GameState>()(
             analytics.track('answer_correct', {
               phraseId,
               timeRemaining: Math.max(0, state.timeRemaining),
-              teamName: state.teams.length > 0 ? state.teams[state.currentTeamIndex]?.name : undefined,
-              scoreAfter: state.teams.length > 0 ? (state.currentRoundAnswers.length + 1) : (state.currentRoundAnswers.length + 1),
-              responseTimeMs: duration
+              teamName: state.gameMode === GameMode.SOLO ? state.soloPlayerName || 'Solo Player' : state.teams[state.currentTeamIndex]?.name,
+              scoreAfter: state.gameMode === GameMode.SOLO ? (state.soloScore + 1) : (state.currentRoundAnswers.length + 1),
+              responseTimeMs: duration,
+              gameMode: state.gameMode
             });
           }
           const nextPhrase = state.cursor.next();
@@ -307,7 +343,11 @@ export const useGameStore = create<GameState>()(
             currentPhrase: nextPhrase,
             skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
             phraseStartTime: Date.now(),
-            currentTeamIndex: newTeamIndex
+            currentTeamIndex: newTeamIndex,
+            // Increment solo score if in solo mode and we had a current phrase (success)
+            soloScore: state.gameMode === GameMode.SOLO && state.currentPhrase && state.phraseStartTime 
+              ? state.soloScore + 1 
+              : state.soloScore
           };
         }),
         
@@ -416,6 +456,8 @@ export const useGameStore = create<GameState>()(
         
         setBuzzerSound: (sound) => set({ buzzerSound: sound }),
         
+        setGameLength: (length) => set({ gameLength: length }),
+        
         setEnableBeepRamp: (enabled) => set({ enableBeepRamp: enabled }),
         
         setBeepRampStart: (seconds) => set({ 
@@ -438,7 +480,58 @@ export const useGameStore = create<GameState>()(
           beepVolume: Math.max(0, Math.min(1, volume))
         }),
         
+        setBuzzerVolume: (volume) => set({ 
+          buzzerVolume: Math.max(0, Math.min(1, volume))
+        }),
+        
         startTeamSetup: () => set({ status: GameStatus.TEAM_SETUP }),
+
+        startSoloGame: () => set((state) => {
+          // Solo mode always uses fixed timer (no randomization) for fairness
+          const actualDuration = state.timerDuration;
+          
+          // Build phrase list based on selectedCategories
+          const cats = state.selectedCategories && state.selectedCategories.length > 0
+            ? state.selectedCategories
+            : [state.selectedCategory];
+          
+          const phraseSet = new Set<string>();
+          cats.forEach((cat) => {
+            phraseService.getPhrasesByCategory(cat as any).forEach((p) => phraseSet.add(p));
+          });
+
+          const newCursor = new PhraseCursor(Array.from(phraseSet));
+          const gameId = `solo_game_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+          // Track solo game start
+          analytics.track('game_started', {
+            categoryName: cats.join(', '),
+            timerMode: state.showTimer ? 'visible' : 'hidden',
+            isTeamMode: false,
+            gameMode: 'solo',
+            skipLimit: state.skipLimit,
+            gameId,
+            phraseCount: phraseSet.size
+          });
+
+          return {
+            status: GameStatus.PLAYING,
+            gameMode: GameMode.SOLO,
+            cursor: newCursor,
+            currentPhrase: newCursor.next(),
+            skipsUsed: 0,
+            skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
+            timeRemaining: actualDuration,
+            actualTimerDuration: actualDuration,
+            isTimerRunning: true,
+            phraseStartTime: Date.now(),
+            currentRoundAnswers: [], // Reset for new game
+            soloScore: 0, // Reset solo score
+            roundNumber: 1,
+            teams: [], // Empty teams for solo mode
+            currentTeamIndex: 0
+          };
+        }),
 
         startGame: () => set((state) => {
           const gameStartTime = performance.now();
@@ -538,8 +631,43 @@ export const useGameStore = create<GameState>()(
         }),
 
         continueFromRoundEnd: () => set((state) => {
-          // Check if any team has won (7 points)
-          const winningTeam = state.teams.find(team => team.score >= 7);
+          // Handle solo mode - save current round stats and continue
+          if (state.gameMode === GameMode.SOLO) {
+            // Calculate round stats
+            const fastestAnswer = state.currentRoundAnswers.length > 0 
+              ? state.currentRoundAnswers.reduce((fastest, current) => 
+                  current.timeMs < fastest.timeMs ? current : fastest)
+              : undefined;
+            const slowestAnswer = state.currentRoundAnswers.length > 0 
+              ? state.currentRoundAnswers.reduce((slowest, current) => 
+                  current.timeMs > slowest.timeMs ? current : slowest)
+              : undefined;
+
+            const newSoloRound = {
+              roundNumber: state.roundNumber,
+              correctAnswers: state.currentRoundAnswers.length,
+              totalTime: state.actualTimerDuration,
+              fastestAnswer,
+              slowestAnswer,
+              answers: [...state.currentRoundAnswers]
+            };
+
+            return {
+              status: GameStatus.PLAYING,
+              timeRemaining: state.actualTimerDuration,
+              isTimerRunning: true,
+              phraseStartTime: Date.now(),
+              currentPhrase: state.cursor.next(),
+              skipsUsed: 0,
+              skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
+              roundNumber: state.roundNumber + 1,
+              currentRoundAnswers: [], // Reset for new round
+              soloRounds: [...state.soloRounds, newSoloRound]
+            };
+          }
+
+          // Handle team mode - check if any team has won (configurable game length)
+          const winningTeam = state.teams.find(team => team.score >= state.gameLength);
           if (winningTeam) {
             return { status: GameStatus.ENDED };
           }
@@ -687,11 +815,23 @@ export const useGameStore = create<GameState>()(
         rotateTeam: () => set((state) => ({
           currentTeamIndex: (state.currentTeamIndex + 1) % state.teams.length
         })),
-        resetTeams: () => set({
-          teams: defaultTeams.map(t => ({ ...t, score: 0 })),
-          currentTeamIndex: 0
-        }),
+        resetTeams: () => {
+          // Generate fresh random team names each time
+          const freshRandomNames = getRandomTeamNames();
+          const freshDefaultTeams: Team[] = [
+            { name: freshRandomNames[0], score: 0 },
+            { name: freshRandomNames[1], score: 0 }
+          ];
+          set({
+            teams: freshDefaultTeams,
+            currentTeamIndex: 0
+          });
+        },
         setCurrentTeamIndex: (index) => set({ currentTeamIndex: index }),
+        
+        // Solo actions
+        setSoloPlayerName: (name) => set({ soloPlayerName: name }),
+        
         // Round stats actions
         recordAnswer: (phrase, timeMs) => set((state) => ({
           currentRoundAnswers: [...state.currentRoundAnswers, { phrase, timeMs }]
@@ -712,9 +852,9 @@ export const useGameStore = create<GameState>()(
           const teams = [...state.teams];
           if (teams[winningTeamIndex]) teams[winningTeamIndex].score += 1;
           
-          // Check if this team victory ends the game (7 points)
+          // Check if this team victory ends the game (configurable game length)
           const winningTeam = teams[winningTeamIndex];
-          if (winningTeam && winningTeam.score >= 7) {
+          if (winningTeam && winningTeam.score >= state.gameLength) {
             const gameId = `game_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
             const totalCorrect = state.roundStats.reduce((sum, round) => sum + round.totalCorrect, 0) + state.currentRoundAnswers.length;
             const totalPass = state.roundStats.length * 10; // Rough estimate
@@ -788,11 +928,13 @@ export const useGameStore = create<GameState>()(
         timerRangeMax: state.timerRangeMax,
         skipLimit: state.skipLimit,
         buzzerSound: state.buzzerSound,
+        gameLength: state.gameLength,
         enableBeepRamp: state.enableBeepRamp,
         beepRampStart: state.beepRampStart,
         beepFirstInterval: state.beepFirstInterval,
         beepFinalInterval: state.beepFinalInterval,
         beepVolume: state.beepVolume,
+        buzzerVolume: state.buzzerVolume,
         phraseStats: state.phraseStats,
         teams: state.teams,
         currentTeamIndex: state.currentTeamIndex,
@@ -816,11 +958,13 @@ export const useGameStore = create<GameState>()(
           timerRangeMax: persisted.timerRangeMax ?? currentState.timerRangeMax,
           skipLimit: persisted.skipLimit ?? currentState.skipLimit,
           buzzerSound: persisted.buzzerSound ?? currentState.buzzerSound,
+          gameLength: persisted.gameLength ?? currentState.gameLength,
           enableBeepRamp: persisted.enableBeepRamp ?? currentState.enableBeepRamp,
           beepRampStart: persisted.beepRampStart ?? currentState.beepRampStart,
           beepFirstInterval: persisted.beepFirstInterval ?? currentState.beepFirstInterval,
           beepFinalInterval: persisted.beepFinalInterval ?? currentState.beepFinalInterval,
           beepVolume: persisted.beepVolume ?? currentState.beepVolume,
+          buzzerVolume: persisted.buzzerVolume ?? currentState.buzzerVolume,
           phraseStats: persisted.phraseStats && Object.keys(persisted.phraseStats).length > 0
             ? persisted.phraseStats
             : currentState.phraseStats,

@@ -22,7 +22,7 @@ export const MenuScreen: React.FC = () => {
     showTimer,
     setSelectedCategories,
     setShowTimer,
-    startGame
+    startSoloGame
   } = useGameStore();
 
   const [showHowToPlay, setShowHowToPlay] = useState(false);
@@ -151,7 +151,7 @@ export const MenuScreen: React.FC = () => {
                   <div className="browse-actions">
                     <button
                       className="start-button solo-game"
-                      onClick={startGame}
+                      onClick={startSoloGame}
                       aria-label="Start solo game with selected categories"
                     >
                       👤 Start Solo Game

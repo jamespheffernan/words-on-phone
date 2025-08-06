@@ -22,13 +22,15 @@ export const GameSettingsModal: React.FC<GameSettingsModalProps> = ({
     timerRangeMax,
     skipLimit,
     buzzerSound,
+    gameLength,
     setTimerDuration,
     setShowTimer,
     setUseRandomTimer,
     setTimerRangeMin,
     setTimerRangeMax,
     setSkipLimit,
-    setBuzzerSound
+    setBuzzerSound,
+    setGameLength
   } = useGameStore();
 
   const { 
@@ -131,9 +133,9 @@ export const GameSettingsModal: React.FC<GameSettingsModalProps> = ({
                   <input
                     id="timer-range-min"
                     type="range"
-                    min="30"
-                    max="90"
-                    step="5"
+                    min="60"
+                    max="300"
+                    step="15"
                     value={timerRangeMin}
                     onChange={(e) => setTimerRangeMin(Number(e.target.value))}
                     className="slider range-min"
@@ -142,9 +144,9 @@ export const GameSettingsModal: React.FC<GameSettingsModalProps> = ({
                   <input
                     id="timer-range-max"
                     type="range"
-                    min="30"
-                    max="90"
-                    step="5"
+                    min="60"
+                    max="300"
+                    step="15"
                     value={timerRangeMax}
                     onChange={(e) => setTimerRangeMax(Number(e.target.value))}
                     className="slider range-max"
@@ -160,9 +162,9 @@ export const GameSettingsModal: React.FC<GameSettingsModalProps> = ({
                 <input
                   id="timer-slider"
                   type="range"
-                  min="30"
-                  max="90"
-                  step="10"
+                  min="60"
+                  max="300"
+                  step="15"
                   value={timerDuration}
                   onChange={(e) => {
                     const newValue = Number(e.target.value);
@@ -207,6 +209,33 @@ export const GameSettingsModal: React.FC<GameSettingsModalProps> = ({
               />
               <p className="setting-description">
                 Maximum number of phrases players can skip per round (0 = unlimited)
+              </p>
+            </div>
+
+            <div className="setting-item">
+              <label htmlFor="game-length">
+                Game Length: First to {gameLength} {gameLength === 1 ? 'point' : 'points'}
+              </label>
+              <input
+                id="game-length"
+                type="range"
+                min="3"
+                max="15"
+                step="1"
+                value={gameLength}
+                onChange={(e) => {
+                  const newValue = Number(e.target.value);
+                  analytics.track('setting_changed', {
+                    settingName: 'gameLength',
+                    previousValue: gameLength,
+                    newValue
+                  });
+                  setGameLength(newValue);
+                }}
+                className="slider"
+              />
+              <p className="setting-description">
+                Number of points a team needs to win the game (3-15 points)
               </p>
             </div>
           </div>

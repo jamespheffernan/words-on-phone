@@ -5,6 +5,7 @@ import { GameScreen } from './components/GameScreen';
 import { EndScreen } from './components/EndScreen';
 import { TeamSetup } from './components/TeamSetup';
 import { RoundEndScreen } from './components/RoundEndScreen';
+import { PauseMenu } from './components/PauseMenu';
 import { usePhraseWorker } from './hooks/usePhraseWorker';
 import { phraseService } from './services/phraseService';
 import { analytics } from './services/analytics';
@@ -75,17 +76,7 @@ function App() {
         />
       )}
       {status === GameStatus.ENDED && <EndScreen />}
-      {status === GameStatus.PAUSED && (
-        <div className="paused-overlay">
-          <h2>Game Paused</h2>
-          <button onClick={() => useGameStore.getState().resumeGame()}>
-            Resume
-          </button>
-          <button onClick={() => useGameStore.getState().endGame()}>
-            End Game
-          </button>
-        </div>
-      )}
+      {status === GameStatus.PAUSED && <PauseMenu />}
       <PWABadge />
     </div>
   );

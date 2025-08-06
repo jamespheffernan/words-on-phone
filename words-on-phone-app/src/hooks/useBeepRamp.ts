@@ -39,8 +39,9 @@ export const useBeepRamp = ({ remainingMs, beepConfig, enabled, onBeep }: UseBee
     const t = rampStartMs > 0 ? 1 - (remaining / rampStartMs) : 1;
     const clampedT = clamp(t, 0, 1);
     
-    // Smooth interpolation from first to final interval
-    return lerp(firstInterval, finalInterval, clampedT);
+    // Exponential interpolation for dramatic acceleration - gets MUCH faster toward end
+    const exponentialT = Math.pow(clampedT, 3); // Cubic curve for dramatic acceleration
+    return lerp(firstInterval, finalInterval, exponentialT);
   }, [beepConfig]);
 
   const shouldBeepNow = useCallback((remaining: number): boolean => {

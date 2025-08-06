@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './RoundEndScreen.css';
-import { useGameStore } from '../store';
+import { useGameStore, GameMode, GameStatus } from '../store';
 import { useHaptics } from '../hooks/useHaptics';
 
 interface RoundEndScreenProps {
@@ -9,12 +9,30 @@ interface RoundEndScreenProps {
 }
 
 export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onContinue }) => {
-  const { teams, currentRoundAnswers, roundNumber, currentTeamIndex, setCurrentTeamIndex } = useGameStore();
+  const { 
+    gameMode, 
+    teams, 
+    currentRoundAnswers, 
+    roundNumber, 
+    currentTeamIndex, 
+    setCurrentTeamIndex,
+    soloScore,
+    soloRounds 
+  } = useGameStore();
   const { triggerHaptic } = useHaptics();
-  const [selectedWinnerIndex, setSelectedWinnerIndex] = useState<number | null>(null);
+  
+  // Assume the team that was holding the device (currentTeamIndex) lost the round
+  // So the winner is the other team(s). For 2-team games, it's the other team.
+  // For multi-team games, we'll default to the next team in rotation as winner
+  const assumedLosingTeamIndex = currentTeamIndex;
+  const assumedWinnerIndex = teams.length === 2 
+    ? (currentTeamIndex + 1) % teams.length  // In 2-team game, the other team wins
+    : (currentTeamIndex + 1) % teams.length; // In multi-team, next team wins by default
+  
+  const [selectedWinnerIndex, setSelectedWinnerIndex] = useState<number | null>(assumedWinnerIndex);
   const [nextRoundStarterIndex, setNextRoundStarterIndex] = useState<number>(
-    // Pre-select the team that would start next based on current rotation
-    currentTeamIndex
+    // The losing team (who was holding device) starts next round
+    assumedLosingTeamIndex
   );
   
   // Calculate round statistics
@@ -45,6 +63,106 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
     }
   };
 
+  const handleSoloContinue = () => {
+    triggerHaptic('gameplay', 'round-continue');
+    onContinue(); // This will add the round to soloRounds and start next round
+  };
+
+  const handleSoloEndGame = () => {
+    triggerHaptic('ui', 'button-tap');
+    useGameStore.setState({ status: GameStatus.ENDED });
+  };
+
+  // Solo mode render
+  if (gameMode === GameMode.SOLO) {
+    // Calculate current round stats
+    const slowestAnswer = currentRoundAnswers.length > 0 
+      ? currentRoundAnswers.reduce((slowest, answer) => 
+          answer.timeMs > slowest.timeMs ? answer : slowest
+        )
+      : null;
+
+    return (
+      <div className="round-end-screen solo-mode">
+        <div className="round-end-content">
+          <h2 className="round-title">Round {roundNumber} Complete! 🎯</h2>
+          
+          <div className="solo-score">
+            <div className="current-round-score">
+              <span className="score-label">This Round:</span>
+              <span className="score-value">{totalCorrect} correct</span>
+            </div>
+            <div className="total-score">
+              <span className="score-label">Total Score:</span>
+              <span className="score-value">{soloScore} correct answers</span>
+            </div>
+          </div>
+          
+          <div className="round-stats">
+            {fastestAnswer && (
+              <div className="stat-item highlight">
+                <span className="stat-label">⚡ Fastest Answer:</span>
+                <span className="stat-value">
+                  "{fastestAnswer.phrase}" ({(fastestAnswer.timeMs / 1000).toFixed(1)}s)
+                </span>
+              </div>
+            )}
+            
+            {slowestAnswer && (
+              <div className="stat-item">
+                <span className="stat-label">🐌 Slowest Answer:</span>
+                <span className="stat-value">
+                  "{slowestAnswer.phrase}" ({(slowestAnswer.timeMs / 1000).toFixed(1)}s)
+                </span>
+              </div>
+            )}
+            
+            {totalCorrect > 1 && (
+              <div className="stat-item">
+                <span className="stat-label">📊 Average Time:</span>
+                <span className="stat-value">{(averageTime / 1000).toFixed(1)}s</span>
+              </div>
+            )}
+          </div>
+
+          {soloRounds.length > 0 && (
+            <div className="leaderboard">
+              <h3>Your Performance</h3>
+              <div className="round-history">
+                {soloRounds.map((round, index) => (
+                  <div key={index} className="round-summary">
+                    <span className="round-num">Round {round.roundNumber}:</span>
+                    <span className="round-score">{round.correctAnswers} correct</span>
+                  </div>
+                ))}
+                <div className="round-summary current">
+                  <span className="round-num">Round {roundNumber}:</span>
+                  <span className="round-score">{totalCorrect} correct</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="solo-actions">
+            <button
+              className="continue-button primary"
+              onClick={handleSoloContinue}
+            >
+              🚀 New Round
+            </button>
+            <button
+              className="end-game-button secondary"
+              onClick={handleSoloEndGame}
+            >
+              🏁 End Game
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Team mode render (existing)
   return (
     <div className="round-end-screen">
       <div className="round-end-content">
@@ -74,16 +192,38 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
         </div>
 
         <div className="team-selection">
-          <h3>Which team won this round?</h3>
+          <h3>Round Result</h3>
           <p className="selection-hint">
-            The team NOT holding the device when the buzzer sounded gets the point!
+            <strong>{teams[assumedLosingTeamIndex].name}</strong> was holding the device when time ran out, so <strong>{teams[assumedWinnerIndex].name}</strong> gets the point!
           </p>
           
-          <div className="team-buttons">
+          <div className="round-result-display">
+            <div className="losing-team">
+              <span className="result-label">Lost the round:</span>
+              <div className="team-info">
+                <span className="team-name">{teams[assumedLosingTeamIndex].name}</span>
+                <span className="score-after">Score: {teams[assumedLosingTeamIndex].score}</span>
+              </div>
+            </div>
+            
+            <div className="winning-team">
+              <span className="result-label">Won the round:</span>
+              <div className="team-info winner">
+                <span className="team-name">{teams[assumedWinnerIndex].name}</span>
+                <span className="score-after">Score: {teams[assumedWinnerIndex].score} + 1 = {teams[assumedWinnerIndex].score + 1}</span>
+              </div>
+            </div>
+          </div>
+          
+          <p className="correction-hint">
+            Wrong? Tap a team below to correct the winner:
+          </p>
+          
+          <div className="team-buttons correction-buttons">
             {teams.map((team, index) => (
               <button
                 key={index}
-                className={`team-win-button ${selectedWinnerIndex === index ? 'selected' : ''}`}
+                className={`team-win-button ${selectedWinnerIndex === index ? 'selected' : ''} ${index === assumedWinnerIndex ? 'assumed-winner' : ''}`}
                 onClick={() => handleTeamWon(index)}
               >
                 <span className="team-name">{team.name}</span>
@@ -93,36 +233,39 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
           </div>
         </div>
 
-        {selectedWinnerIndex !== null && (
-          <div className="next-round-setup">
-            <h3>Who should start the next round?</h3>
-            <p className="selection-hint">
-              Choose which team will hold the device when the next round begins.
-            </p>
-            
-            <div className="team-buttons">
-              {teams.map((team, index) => (
-                <button
-                  key={index}
-                  className={`team-starter-button ${nextRoundStarterIndex === index ? 'selected' : ''}`}
-                  onClick={() => {
-                    setNextRoundStarterIndex(index);
-                    triggerHaptic('ui', 'button-tap');
-                  }}
-                >
-                  <span className="team-name">{team.name}</span>
-                </button>
-              ))}
-            </div>
-
-            <button 
-              className="continue-button"
-              onClick={handleContinueToNextRound}
-            >
-              Continue to Next Round
-            </button>
+        <div className="next-round-setup">
+          <h3>Next Round Setup</h3>
+          <p className="selection-hint">
+            <strong>{teams[nextRoundStarterIndex].name}</strong> will start the next round with the device.
+          </p>
+          
+          <p className="correction-hint">
+            Different team should start? Tap below to change:
+          </p>
+          
+          <div className="team-buttons">
+            {teams.map((team, index) => (
+              <button
+                key={index}
+                className={`team-starter-button ${nextRoundStarterIndex === index ? 'selected' : ''} ${index === assumedLosingTeamIndex ? 'default-starter' : ''}`}
+                onClick={() => {
+                  setNextRoundStarterIndex(index);
+                  triggerHaptic('ui', 'button-tap');
+                }}
+              >
+                <span className="team-name">{team.name}</span>
+                {index === assumedLosingTeamIndex && <span className="default-label">(Default)</span>}
+              </button>
+            ))}
           </div>
-        )}
+
+          <button 
+            className="continue-button"
+            onClick={handleContinueToNextRound}
+          >
+            Continue to Next Round
+          </button>
+        </div>
         
         <div className="game-progress">
           <p>First team to 7 points wins!</p>

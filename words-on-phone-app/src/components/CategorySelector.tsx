@@ -109,6 +109,7 @@ export const CategorySelector: React.FC<Props> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'default' | 'custom'>('default');
   const [search, setSearch] = useState('');
+  const [showAdvancedControls, setShowAdvancedControls] = useState(false);
 
   const { 
     pinnedCategories, 
@@ -122,17 +123,41 @@ export const CategorySelector: React.FC<Props> = ({
 
   const rawList = activeTab === 'default' ? defaultCategories : customCategories;
   
-  // For default categories, use grouping; for custom, use flat list
-  const { groupedCategories, flatList } = useMemo(() => {
+  // Optimized filtering with search - memoized for performance with large datasets
+  const filteredData = useMemo(() => {
+    const searchLower = search.toLowerCase().trim();
+    
     if (activeTab === 'default') {
-      return {
-        groupedCategories: groupCategoriesByGroup(defaultCategories),
-        flatList: []
-      };
+      const grouped = groupCategoriesByGroup(defaultCategories);
+      
+      // If no search, return all groups
+      if (!searchLower) {
+        return { groupedCategories: grouped, flatList: [] };
+      }
+      
+      // Filter categories within each group based on search
+      const filteredGrouped: Record<string, CategoryMetadata[]> = {};
+      Object.entries(grouped).forEach(([groupId, categories]) => {
+        const filtered = categories.filter(cat => 
+          cat.name.toLowerCase().includes(searchLower)
+        );
+        if (filtered.length > 0) {
+          filteredGrouped[groupId] = filtered;
+        }
+      });
+      
+      return { groupedCategories: filteredGrouped, flatList: [] };
     } else {
-      // Custom categories - use existing flat sorting logic
-      const pinned = rawList.filter(c => pinnedCategories.includes(c.name));
-      const others = rawList.filter(c => !pinnedCategories.includes(c.name));
+      // Custom categories - filter and sort
+      let filtered = rawList;
+      if (searchLower) {
+        filtered = rawList.filter(cat => 
+          cat.name.toLowerCase().includes(searchLower)
+        );
+      }
+      
+      const pinned = filtered.filter(c => pinnedCategories.includes(c.name));
+      const others = filtered.filter(c => !pinnedCategories.includes(c.name));
       const sortFn = sortKey === 'name'
         ? (a: CategoryMetadata, b: CategoryMetadata) => a.name.localeCompare(b.name)
         : (a: CategoryMetadata, b: CategoryMetadata) => b.phraseCount - a.phraseCount;
@@ -145,13 +170,9 @@ export const CategorySelector: React.FC<Props> = ({
         ]
       };
     }
-  }, [activeTab, defaultCategories, rawList, pinnedCategories, sortKey]);
+  }, [activeTab, defaultCategories, rawList, pinnedCategories, sortKey, search]);
 
-  const filtered = useMemo(() => {
-    if (!search.trim()) return flatList;
-    const lc = search.toLowerCase();
-    return flatList.filter((c) => c.name.toLowerCase().includes(lc));
-  }, [search, flatList]);
+  const { groupedCategories, flatList } = filteredData;
 
   const toggleCategory = (name: string) => {
     const exists = selected.includes(name);
@@ -203,26 +224,55 @@ export const CategorySelector: React.FC<Props> = ({
         </button>
       </div>
 
-      <div className="toolbar">
-        <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} aria-label="Sort categories">
-          <option value="name">Sort: A→Z</option>
-          <option value="count">Sort: Phrase Count</option>
-        </select>
-
-        <button onClick={selectAll} type="button">Select All</button>
-        <button onClick={clearAll} type="button">Clear</button>
-        <button onClick={invertSelection} type="button">Invert</button>
-        
-        {activeTab === 'default' && (
-          <>
+      <div className="compact-toolbar">
+        {/* Essential controls - always visible */}
+        <div className="essential-controls">
+          <button onClick={clearAll} type="button" className="clear-btn" title="Clear all selections">
+            🗑️ Clear
+          </button>
+          
+          {activeTab === 'default' && (
             <button 
               onClick={hasAllExpanded ? collapseAllGroups : expandAllGroups} 
               type="button"
-              className="expand-toggle"
+              className="expand-toggle-btn"
+              title={hasAllExpanded ? 'Collapse all groups' : 'Expand all groups'}
             >
-              {hasAllExpanded ? 'Collapse All' : 'Expand All'}
+              {hasAllExpanded ? '📁' : '📂'}
             </button>
-          </>
+          )}
+          
+          <button 
+            onClick={() => setShowAdvancedControls(!showAdvancedControls)}
+            type="button" 
+            className="advanced-toggle"
+            title="Show advanced controls"
+          >
+            ⚙️ {showAdvancedControls ? 'Less' : 'More'}
+          </button>
+        </div>
+
+        {/* Advanced controls - collapsible */}
+        {showAdvancedControls && (
+          <div className="advanced-controls">
+            <select 
+              value={sortKey} 
+              onChange={(e) => setSortKey(e.target.value as SortKey)} 
+              aria-label="Sort categories"
+              className="sort-select"
+            >
+              <option value="name">A→Z</option>
+              <option value="count">By Count</option>
+            </select>
+            
+            <button onClick={selectAll} type="button" className="select-all-btn">
+              ✅ Select All
+            </button>
+            
+            <button onClick={invertSelection} type="button" className="invert-btn">
+              🔄 Invert
+            </button>
+          </div>
         )}
       </div>
 
@@ -289,7 +339,7 @@ export const CategorySelector: React.FC<Props> = ({
           ) : (
             // Flat grid for custom categories
             <div className="category-grid">
-              {filtered.map(({ name, phraseCount }) => (
+              {flatList.map(({ name, phraseCount }) => (
                 <label key={name} className={`category-tile ${selected.includes(name) ? 'selected' : ''}`}>
                   <input
                     type="checkbox"

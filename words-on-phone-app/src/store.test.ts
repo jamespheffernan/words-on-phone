@@ -71,10 +71,10 @@ describe('Enhanced Timer Store Tests', () => {
     useGameStore.setState({
       showTimer: false,
       useRandomTimer: true,
-      timerRangeMin: 45,
-      timerRangeMax: 75,
-      timerDuration: 60,
-      actualTimerDuration: 60
+      timerRangeMin: 90,
+      timerRangeMax: 180,
+      timerDuration: 120,
+      actualTimerDuration: 120
     });
   });
 
@@ -89,8 +89,8 @@ describe('Enhanced Timer Store Tests', () => {
       
       // All durations should be within range
       durations.forEach(duration => {
-        expect(duration).toBeGreaterThanOrEqual(45);
-        expect(duration).toBeLessThanOrEqual(75);
+        expect(duration).toBeGreaterThanOrEqual(90);
+        expect(duration).toBeLessThanOrEqual(180);
       });
       
       // Should have some variation (not all the same)
@@ -100,14 +100,14 @@ describe('Enhanced Timer Store Tests', () => {
 
     it('should handle edge case when min equals max', () => {
       useGameStore.setState({
-        timerRangeMin: 60,
-        timerRangeMax: 60
+        timerRangeMin: 150,
+        timerRangeMax: 150
       });
       
       const store = useGameStore.getState();
       const duration = store.generateRandomTimerDuration();
       
-      expect(duration).toBe(60);
+      expect(duration).toBe(150);
     });
 
     it('should use random duration when starting game with useRandomTimer enabled', () => {
@@ -116,8 +116,8 @@ describe('Enhanced Timer Store Tests', () => {
       store.startGame();
       
       const { actualTimerDuration } = useGameStore.getState();
-      expect(actualTimerDuration).toBeGreaterThanOrEqual(45);
-      expect(actualTimerDuration).toBeLessThanOrEqual(75);
+      expect(actualTimerDuration).toBeGreaterThanOrEqual(90);
+      expect(actualTimerDuration).toBeLessThanOrEqual(180);
     });
 
     it('should use fixed duration when starting game with useRandomTimer disabled', () => {
@@ -144,8 +144,8 @@ describe('Enhanced Timer Store Tests', () => {
 
     it('should initialize with correct default timer range', () => {
       const { timerRangeMin, timerRangeMax } = useGameStore.getState();
-      expect(timerRangeMin).toBe(45);
-      expect(timerRangeMax).toBe(75);
+      expect(timerRangeMin).toBe(90);
+      expect(timerRangeMax).toBe(180);
     });
 
     it('should update showTimer setting', () => {
@@ -173,25 +173,25 @@ describe('Enhanced Timer Store Tests', () => {
     it('should prevent min from exceeding max', () => {
       const store = useGameStore.getState();
       
-      // Set max to 60
-      store.setTimerRangeMax(60);
-      expect(useGameStore.getState().timerRangeMax).toBe(60);
+      // Set max to 120
+      store.setTimerRangeMax(120);
+      expect(useGameStore.getState().timerRangeMax).toBe(120);
       
-      // Try to set min to 70 (should be clamped to 60)
-      store.setTimerRangeMin(70);
-      expect(useGameStore.getState().timerRangeMin).toBe(60);
+      // Try to set min to 140 (should be clamped to 120)
+      store.setTimerRangeMin(140);
+      expect(useGameStore.getState().timerRangeMin).toBe(120);
     });
 
     it('should prevent max from going below min', () => {
       const store = useGameStore.getState();
       
-      // Set min to 50
-      store.setTimerRangeMin(50);
-      expect(useGameStore.getState().timerRangeMin).toBe(50);
+      // Set min to 150
+      store.setTimerRangeMin(150);
+      expect(useGameStore.getState().timerRangeMin).toBe(150);
       
-      // Try to set max to 40 (should be clamped to 50)
-      store.setTimerRangeMax(40);
-      expect(useGameStore.getState().timerRangeMax).toBe(50);
+      // Try to set max to 100 (should be clamped to 150)
+      store.setTimerRangeMax(100);
+      expect(useGameStore.getState().timerRangeMax).toBe(150);
     });
 
     it('should allow valid range updates', () => {
@@ -245,25 +245,25 @@ describe('Enhanced Timer Store Tests', () => {
       // Update all timer settings
       store.setShowTimer(true);
       store.setUseRandomTimer(false);
-      store.setTimerRangeMin(35);
-      store.setTimerRangeMax(85);
-      store.setTimerDuration(70);
+      store.setTimerRangeMin(105);
+      store.setTimerRangeMax(165);
+      store.setTimerDuration(150);
       
       // Check persistence partialize includes all timer settings
       const persistedState = {
         showTimer: true,
         useRandomTimer: false,
-        timerRangeMin: 35,
-        timerRangeMax: 85,
-        timerDuration: 70
+        timerRangeMin: 105,
+        timerRangeMax: 165,
+        timerDuration: 150
       };
       
       // These should be included in persisted state
       expect(persistedState.showTimer).toBe(true);
       expect(persistedState.useRandomTimer).toBe(false);
-      expect(persistedState.timerRangeMin).toBe(35);
-      expect(persistedState.timerRangeMax).toBe(85);
-      expect(persistedState.timerDuration).toBe(70);
+      expect(persistedState.timerRangeMin).toBe(105);
+      expect(persistedState.timerRangeMax).toBe(165);
+      expect(persistedState.timerDuration).toBe(150);
     });
   });
 }); 

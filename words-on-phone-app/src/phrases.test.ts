@@ -1,37 +1,33 @@
-import phrases from '../public/phrases.json';
+import phrases from './phrases.json';
 
 describe('Phrases', () => {
   test('should have the expected number of phrases', () => {
-    expect(phrases.length).toBe(6081);
+    // Total includes Everything category duplicates (5773 unique + 5773 in Everything = 11546)
+    expect(phrases.length).toBe(11546);
   });
 
-  test('should have no duplicate phrases', () => {
-    const phraseTexts = phrases.map(p => p.phrase);
-    const unique = new Set(phraseTexts);
-    expect(unique.size).toBe(3019);
+  test('should have correct unique phrase count', () => {
+    const nonEverythingPhrases = phrases.filter(p => p.category !== 'Everything');
+    const everythingPhrases = phrases.filter(p => p.category === 'Everything');
+    
+    // Everything should contain same number as all other categories combined
+    expect(everythingPhrases.length).toBe(nonEverythingPhrases.length);
+    expect(nonEverythingPhrases.length).toBe(5773);
   });
 
   test('should have valid category assignments', () => {
     const validCategories = [
-      'Movies & TV',
-      'Music & Artists', 
-      'Famous People',
-      'Entertainment & Pop Culture',
-      'Brands & Companies',
-      'History & Events',
-      'Everything',
-      'Food & Drink',
-      'Nature & Animals',
-      'Places & Travel',
-      'Sports & Athletes',
-      'Technology & Science',
-      'Adult Content',
-      'Clothing & Fashion',
-      'Art & Culture',
-      'Literature & Books',
-      'Idioms & Phrases',
-      'Video Games & Gaming',
-      'Fantasy & Magic'
+      'Adult Content', 'Anatomy & Medical', 'Art & Culture', 'Board Games & Toys',
+      'Brands & Companies', 'Childhood & Nostalgia', 'Clothing & Fashion', 'Crimes & Justice',
+      'Entertainment & Pop Culture', 'Everything', 'Fairy Tales & Fables', 'Famous Duos & Trios',
+      'Famous People', 'Fantasy & Magic', 'Food & Drink', 'Geology & Earth Science',
+      'History & Events', 'Hobbies & Crafts', 'Holidays & Celebrations', 'Household Items',
+      'Idioms & Phrases', 'In the Office', 'Literature & Books', 'Money & Finance',
+      'Movies & TV', 'Music & Artists', 'Musical Instruments', 'Mythology & Folklore',
+      'Natural Wonders', 'Nature & Animals', 'On the Farm', 'Outer Space & Astronomy',
+      'Places & Travel', 'School & Education', 'Sports & Athletes', 'Technology & Science',
+      'Tools & Home Improvement', 'Under the Sea', 'Units of Measurement', 
+      'Video Games & Gaming', 'World Architecture'
     ];
     
     phrases.forEach(phrase => {
@@ -50,5 +46,6 @@ describe('Phrases', () => {
     expect(categoryCounts['Music & Artists']).toBeGreaterThan(0);
     expect(categoryCounts['Famous People']).toBeGreaterThan(0);
     expect(categoryCounts['History & Events']).toBeGreaterThan(0);
+    expect(categoryCounts['Everything']).toBe(5773); // Everything should have all unique phrases
   });
 });

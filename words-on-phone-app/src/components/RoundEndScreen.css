@@ -1,17 +1,14 @@
 .round-end-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
   color: white;
   padding: 1rem;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .round-end-content {
@@ -24,6 +21,8 @@
   text-align: center;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 1rem auto;
+  flex-shrink: 0;
 }
 
 .round-title {
@@ -78,9 +77,66 @@
 
 .selection-hint {
   font-size: clamp(0.85rem, 2.5vw, 1rem);
-  opacity: 0.8;
+  opacity: 0.9;
   margin: 0 0 1.5rem 0;
+  line-height: 1.4;
+}
+
+.correction-hint {
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+  opacity: 0.7;
+  margin: 1.5rem 0 1rem 0;
   font-style: italic;
+}
+
+/* Round Result Display */
+.round-result-display {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.losing-team, .winning-team {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  flex: 1;
+  min-width: 180px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.winning-team {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: rgba(76, 175, 80, 0.4);
+}
+
+.result-label {
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  opacity: 0.8;
+  display: block;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.team-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.team-info .team-name {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: bold;
+}
+
+.score-after {
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+  opacity: 0.8;
 }
 
 .team-buttons {
@@ -88,6 +144,22 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.correction-buttons {
+  margin-top: 0.5rem;
+}
+
+.correction-buttons .team-win-button {
+  opacity: 0.7;
+  font-size: 0.9em;
+  padding: 0.75rem 1rem;
+}
+
+.correction-buttons .team-win-button.assumed-winner {
+  opacity: 1;
+  background: rgba(76, 175, 80, 0.3);
+  border-color: rgba(76, 175, 80, 0.5);
 }
 
 .team-win-button {
@@ -175,13 +247,26 @@
     padding: 1rem;
   }
   
+  .round-result-display {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .losing-team, .winning-team {
+    min-width: auto;
+  }
+  
   .team-buttons {
     flex-direction: column;
     align-items: center;
   }
   
-  .team-win-button {
+  .team-win-button, .team-starter-button {
     width: 100%;
+    max-width: 250px;
+  }
+  
+  .correction-buttons .team-win-button {
     max-width: 200px;
   }
   
@@ -241,6 +326,18 @@
   font-weight: bold;
 }
 
+.default-label {
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
+  opacity: 0.7;
+  font-style: italic;
+  margin-left: 0.5rem;
+}
+
+.team-starter-button.default-starter {
+  background: rgba(255, 193, 7, 0.3);
+  border-color: rgba(255, 193, 7, 0.5);
+}
+
 .continue-button {
   background: rgba(76, 175, 80, 0.3);
   border: 2px solid rgba(76, 175, 80, 0.6);
@@ -262,12 +359,15 @@
   box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
 }
 
-/* Landscape mobile */
+/* Landscape mobile and small screens */
 @media (orientation: landscape) and (max-height: 500px) {
+  .round-end-screen {
+    padding: 0.5rem;
+  }
+  
   .round-end-content {
     padding: 1rem;
-    max-height: 90vh;
-    overflow-y: auto;
+    margin: 0.5rem auto;
   }
   
   .round-title {
@@ -276,7 +376,20 @@
   
   .round-stats,
   .team-selection,
+  .next-round-setup,
   .game-progress {
     margin-bottom: 1rem;
+  }
+}
+
+/* Ensure content can scroll on very small screens */
+@media (max-height: 600px) {
+  .round-end-screen {
+    min-height: auto;
+    padding: 0.5rem;
+  }
+  
+  .round-end-content {
+    margin: 0.5rem auto;
   }
 }

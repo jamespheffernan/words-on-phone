@@ -1,4 +1,4 @@
-import { phrases as staticPhrases, categorizedPhrases, PhraseCategory } from '../data/phrases';
+import { phrases as staticPhrases, categorizedPhrases, PhraseCategory, phrasesArray } from '../data/phrases';
 import { categoryRequestService } from './categoryRequestService';
 import { CategoryMetadata } from '../types/category';
 
@@ -30,8 +30,12 @@ class PhraseService {
   private dbName = 'words-on-phone-phrases';
   private storeName = 'fetchedPhrases';
 
-  // Add a custom category cache
+  // Enhanced caching for larger datasets
   private customCategoryPhrases: Record<string, string[]> = {};
+  private categoryPhraseCache: Map<string, string[]> = new Map();
+  private staticCategoryCache: Map<string, string[]> = new Map();
+  private lastCacheUpdate = 0;
+  private readonly CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache TTL
 
   constructor() {
     this.initializeDB();
@@ -184,6 +188,14 @@ class PhraseService {
     const fetchedTexts = this.state.fetchedPhrases.map(p => p.text);
     this.state.allPhrases = [...this.state.staticPhrases, ...fetchedTexts, ...this.state.customPhrases];
     this.state.lastUpdate = Date.now();
+    
+    // Invalidate cache when data changes
+    this.invalidateCache();
+  }
+
+  private invalidateCache(): void {
+    this.categoryPhraseCache.clear();
+    this.lastCacheUpdate = Date.now();
   }
 
   // Public API methods
@@ -192,32 +204,51 @@ class PhraseService {
   }
 
   getPhrasesByCategory(category: PhraseCategory | string): string[] {
+    // Check cache first for performance with large datasets
+    const cacheKey = category.toString();
+    const now = Date.now();
+    
+    if (this.categoryPhraseCache.has(cacheKey) && (now - this.lastCacheUpdate) < this.CACHE_TTL) {
+      return this.categoryPhraseCache.get(cacheKey)!;
+    }
+
+    let result: string[];
+
     if (category === PhraseCategory.EVERYTHING_PLUS) {
-      return this.getAllPhrases();
-    }
-
-    if (category === PhraseCategory.EVERYTHING) {
-      // Return only default categories (exclude custom)
-      return [...this.state.staticPhrases, ...this.state.fetchedPhrases.map(p=> p.text)];
-    }
-
-    // Check if it's a custom category
-    if (typeof category === 'string' && !(Object.values(PhraseCategory) as string[]).includes(category)) {
+      result = this.getAllPhrases();
+    } else if (category === PhraseCategory.EVERYTHING) {
+      // Return unique phrases for Everything category (exclude Everything duplicates)
+      // Get phrases from all categories except Everything itself
+      const uniqueStaticPhrases = phrasesArray
+        .filter(item => item.category !== 'Everything')
+        .map(item => item.phrase);
+      const uniqueFetchedPhrases = this.state.fetchedPhrases.map(p=> p.text);
+      result = [...uniqueStaticPhrases, ...uniqueFetchedPhrases];
+    } else if (typeof category === 'string' && !(Object.values(PhraseCategory) as string[]).includes(category)) {
       // It's a custom category - return from cache
-      return this.customCategoryPhrases[category] || [];
+      result = this.customCategoryPhrases[category] || [];
+    } else {
+      // Use static cache for built-in categories to avoid repeated lookups
+      if (!this.staticCategoryCache.has(cacheKey)) {
+        const staticCategoryPhrases = (category !== PhraseCategory.EVERYTHING && Object.prototype.hasOwnProperty.call(categorizedPhrases, category)) 
+          ? categorizedPhrases[category as keyof typeof categorizedPhrases] || []
+          : [];
+        this.staticCategoryCache.set(cacheKey, staticCategoryPhrases);
+      }
+
+      const staticPhrases = this.staticCategoryCache.get(cacheKey)!;
+      
+      // Fetched phrases for this category (these can change, so don't cache statically)
+      const fetchedCategoryPhrases = this.state.fetchedPhrases
+        .filter(p => p.category === category)
+        .map(p => p.text);
+
+      result = [...staticPhrases, ...fetchedCategoryPhrases];
     }
 
-    // Static phrases for this category
-    const staticCategoryPhrases = (category !== PhraseCategory.EVERYTHING && Object.prototype.hasOwnProperty.call(categorizedPhrases, category)) 
-      ? categorizedPhrases[category as keyof typeof categorizedPhrases] || []
-      : [];
-
-    // Fetched phrases for this category
-    const fetchedCategoryPhrases = this.state.fetchedPhrases
-      .filter(p => p.category === category)
-      .map(p => p.text);
-
-    return [...staticCategoryPhrases, ...fetchedCategoryPhrases];
+    // Cache the result
+    this.categoryPhraseCache.set(cacheKey, result);
+    return result;
   }
 
   getStatistics() {

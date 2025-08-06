@@ -97,11 +97,11 @@ export const useAudio = (soundCategory: SoundCategory, soundName: string, option
         sample = createBuzzerSound(type, t, duration);
       }
 
-      // Apply envelope to avoid clicking - less dampening for buzzers
+      // Apply envelope to avoid clicking - minimal dampening for harsh buzzers
       const envelope = category === 'buzzer' 
-        ? Math.min(1, t * 50) * Math.min(1, (duration - t) * 10) // Gentler fade for buzzers
+        ? Math.min(1, t * 100) * Math.min(1, (duration - t) * 5) // Much less fade for buzzers
         : Math.min(1, t * 20) * Math.min(1, (duration - t) * 20);
-      const volume = category === 'buzzer' ? 0.7 : 0.3; // Louder buzzers
+      const volume = category === 'buzzer' ? 1.0 : 0.3; // Maximum volume for buzzers
       channelData[i] = sample * envelope * volume;
     }
 
@@ -189,8 +189,12 @@ export const useAudio = (soundCategory: SoundCategory, soundName: string, option
         // Urgent alarm sound
         return Math.sin(2 * Math.PI * (400 + 300 * Math.sin(12 * Math.PI * t)) * t) * (1 - Math.exp(-t * 2));
       case 'game-show':
-        // Game show buzzer - starts quiet, gets LOUD
-        return Math.sin(2 * Math.PI * 120 * t) * (1 - Math.exp(-t * 8)) * Math.min(1, t * 4);
+        // Harsh basketball shot clock buzzer - IMMEDIATELY LOUD and abrasive
+        const sawtooth = (2 * (110 * t - Math.floor(110 * t + 0.5))) * 0.6; // Harsh sawtooth wave
+        const square = Math.sign(Math.sin(2 * Math.PI * 110 * t)) * 0.8; // Sharp square wave  
+        const buzz = Math.sin(2 * Math.PI * 110 * t) + sawtooth + square; // Combine for harshness
+        const distortion = Math.tanh(buzz * 3); // Add distortion/clipping
+        return distortion * 0.9; // Maximum volume, no fade-in
       case 'electronic':
         // Sharp electronic buzz
         return Math.sin(2 * Math.PI * 800 * t) * Math.exp(-t * 1.5);

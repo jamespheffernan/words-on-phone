@@ -17,7 +17,7 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
   onGameStart
 }) => {
   const [isExpanded, setIsExpanded] = useState(true);
-  const { setSelectedCategories, startGame } = useGameStore();
+  const { setSelectedCategories, startGame, resetTeams } = useGameStore();
   const { defaultCategories, customCategories } = useCategoryMetadata();
   const { triggerImpact, triggerNotification } = useHaptics();
 
@@ -63,8 +63,10 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
   const handleSurpriseMe = useCallback(() => {
     if (allCategories.length === 0) return;
     
-    // Equal probability for all default categories (excludes custom unless opted-in)
-    const eligibleCategories = allCategories.filter(cat => cat.type === 'default');
+    // Equal probability for all default categories with phrases (excludes custom, empty, and Everything categories)
+    const eligibleCategories = allCategories.filter(cat => 
+      cat.type === 'default' && cat.phraseCount > 0 && cat.name !== 'Everything'
+    );
     if (eligibleCategories.length === 0) return;
     
     const randomIndex = Math.floor(Math.random() * eligibleCategories.length);
@@ -88,12 +90,13 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
     triggerNotification();
     onCategorySelected?.(selectedCategory.name);
     
-    // Auto-start game after selection for quick play
+    // Set up teams with fun random names and auto-start game
+    resetTeams();
     setTimeout(() => {
       startGame();
       onGameStart?.();
     }, 100);
-  }, [allCategories, setSelectedCategories, startGame, triggerNotification, onCategorySelected, onGameStart]);
+  }, [allCategories, setSelectedCategories, startGame, resetTeams, triggerNotification, onCategorySelected, onGameStart]);
 
   // Last Played quick start
   const handleLastPlayed = useCallback(() => {
@@ -111,12 +114,13 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
     triggerImpact();
     onCategorySelected?.(lastPlayedCategory.name);
     
-    // Auto-start game
+    // Set up teams with fun random names and auto-start game
+    resetTeams();
     setTimeout(() => {
       startGame();
       onGameStart?.();
     }, 100);
-  }, [lastPlayedCategory, setSelectedCategories, startGame, triggerImpact, onCategorySelected, onGameStart]);
+  }, [lastPlayedCategory, setSelectedCategories, startGame, resetTeams, triggerImpact, onCategorySelected, onGameStart]);
 
   // Category tile quick start
   const handleCategoryQuickStart = useCallback((categoryName: string) => {
@@ -132,12 +136,13 @@ export const QuickPlayWidget: React.FC<QuickPlayWidgetProps> = ({
     triggerImpact();
     onCategorySelected?.(categoryName);
     
-    // Auto-start game
+    // Set up teams with fun random names and auto-start game
+    resetTeams();
     setTimeout(() => {
       startGame();
       onGameStart?.();
     }, 100);
-  }, [allCategories, setSelectedCategories, startGame, triggerImpact, onCategorySelected, onGameStart]);
+  }, [allCategories, setSelectedCategories, startGame, resetTeams, triggerImpact, onCategorySelected, onGameStart]);
 
   // Toggle expansion
   const toggleExpanded = useCallback(() => {

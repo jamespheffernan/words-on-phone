@@ -2,7 +2,7 @@
 // Total phrases: 1092 across 20 categories
 
 // Import the exported phrases database from public folder
-import phrasesData from '../../public/phrases.json';
+import phrasesData from '../phrases.json';
 
 // Phrase categories enum
 export enum PhraseCategory {
@@ -18,10 +18,8 @@ export enum PhraseCategory {
   HISTORY = 'History & Events',
   ENTERTAINMENT = 'Entertainment & Pop Culture',
   NATURE = 'Nature & Animals',
-  EMOTIONS = 'Emotions & Feelings',
   FANTASY = 'Fantasy & Magic',
   TRANSPORTATION = 'Transportation',
-  WEATHER = 'Weather & Seasons',
   INTERNET = 'Internet & Social Media',
   CLOTHING = 'Clothing & Fashion',
   BRANDS = 'Brands & Companies',
@@ -47,10 +45,8 @@ const categoryMapping: Record<string, PhraseCategory> = {
   'Nature & Animals': PhraseCategory.NATURE,
   'Everything': PhraseCategory.EVERYTHING,
   'Everything+': PhraseCategory.EVERYTHING_PLUS,
-  'Emotions & Feelings': PhraseCategory.EMOTIONS,
   'Fantasy & Magic': PhraseCategory.FANTASY,
   'Transportation': PhraseCategory.TRANSPORTATION,
-  'Weather & Seasons': PhraseCategory.WEATHER,
   'Internet & Social Media': PhraseCategory.INTERNET,
   'Clothing & Fashion': PhraseCategory.CLOTHING,
   'Brands & Companies': PhraseCategory.BRANDS,
@@ -71,7 +67,7 @@ Object.values(PhraseCategory).forEach(category => {
 });
 
 // Convert array of objects to categorized structure
-const phrasesArray = phrasesData as Array<{phrase: string, category: string}>;
+export const phrasesArray = phrasesData as Array<{phrase: string, category: string}>;
 phrasesArray.forEach(item => {
   const mappedCategory = categoryMapping[item.category];
   if (mappedCategory) {
@@ -85,12 +81,16 @@ export const phrases: string[] = phrasesArray.map(item => item.phrase);
 // Get phrases by category
 export function getPhrasesByCategory(category: PhraseCategory): string[] {
   if (category === PhraseCategory.EVERYTHING) {
-    // Return all phrases for Everything category
-    return phrases;
+    // Return unique phrases for Everything category (excluding Everything duplicates)
+    return phrasesArray
+      .filter(item => item.category !== 'Everything')
+      .map(item => item.phrase);
   }
   if (category === PhraseCategory.EVERYTHING_PLUS) {
-    // Return all phrases for Everything+ category
-    return phrases;
+    // Return unique phrases for Everything+ category (excluding Everything duplicates)
+    return phrasesArray
+      .filter(item => item.category !== 'Everything')
+      .map(item => item.phrase);
   }
   return categorizedPhrases[category] || [];
 }

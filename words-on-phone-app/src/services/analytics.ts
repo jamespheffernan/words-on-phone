@@ -56,6 +56,7 @@ export interface AnalyticsEvent {
     skipLimit: number
     gameId: string
     phraseCount: number
+    gameMode?: 'solo' | 'team'
   }
   phrase_shown: {
     phraseId: string
@@ -70,6 +71,7 @@ export interface AnalyticsEvent {
     teamName?: string
     scoreAfter: number
     responseTimeMs: number
+    gameMode?: 'solo' | 'team'
   }
   answer_pass: {
     phraseId: string

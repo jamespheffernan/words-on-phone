@@ -7,6 +7,7 @@ import { useBeepAudio } from '../hooks/useBeepAudio';
 import { useBeepRamp } from '../hooks/useBeepRamp';
 import { useBackgroundWarning } from '../hooks/useBackgroundWarning';
 import { useViewportHeight } from '../hooks/useViewportHeight';
+import { useFlashEffect } from '../hooks/useFlashEffect';
 import { RippleCountdown } from './RippleCountdown';
 import { analytics } from '../services/analytics';
 import './GameScreen.css';
@@ -37,11 +38,12 @@ export const GameScreen: React.FC = () => {
     enableBeepRamp,
     beepFirstInterval,
     beepFinalInterval,
-    beepVolume
+    beepVolume,
+    buzzerVolume
   } = useGameStore();
 
   // Audio hook for buzzer sound
-  const buzzer = useAudio('buzzer', buzzerSound, { volume: 1.0, preload: true });
+  const buzzer = useAudio('buzzer', buzzerSound, { volume: buzzerVolume, preload: true });
 
   // Beep audio hook for ramp beeps
   const beepAudio = useBeepAudio({ 
@@ -55,6 +57,13 @@ export const GameScreen: React.FC = () => {
 
   // Haptics hook for mobile feedback
   const { triggerNotification, triggerHaptic } = useHaptics();
+
+  // Flash effect for round end visual feedback
+  const flashEffect = useFlashEffect({
+    duration: 2200, // Match buzzer duration + buffer
+    flashInterval: 150, // Fast red/white flashing
+    colors: ['#dc2626', '#ffffff'] // Red and white
+  });
 
   // Timer with buzzer callback
   const timer = useTimer({
@@ -77,8 +86,9 @@ export const GameScreen: React.FC = () => {
         }
       }
       
-      // Add haptic feedback
+      // Add haptic feedback and flash effect
       triggerNotification();
+      flashEffect.startFlash();
       
       // Immediately disable UI by setting BUZZER_PLAYING state
       onTimerComplete();
@@ -183,8 +193,8 @@ export const GameScreen: React.FC = () => {
       className={`game-screen ${!showTimer ? 'hidden-timer-mode' : ''}`}
       data-testid="game-screen"
       style={{
-        background: backgroundWarning.backgroundStyle,
-        transition: 'background 0.3s ease-in-out',
+        background: flashEffect.isFlashing ? flashEffect.currentColor : backgroundWarning.backgroundStyle,
+        transition: flashEffect.isFlashing ? 'background 0.1s ease-out' : 'background 0.3s ease-in-out',
         // Apply JavaScript-calculated height for browsers without dvh support
         ...(supportsDvh === false && { minHeight: heightValue, maxHeight: heightValue })
       }}

@@ -35,53 +35,119 @@
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
-.toolbar {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 15px;
+/* Compact toolbar - space efficient design */
+.compact-toolbar {
+  margin-bottom: 12px;
 }
 
-.toolbar select {
-  padding: 8px 12px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+.essential-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.essential-controls button {
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.1);
   color: white;
-  border-radius: 10px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.toolbar select:hover {
+.essential-controls button:hover {
   background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
 }
 
-.toolbar select option {
+.clear-btn {
+  color: rgba(255, 100, 100, 0.9) !important;
+}
+
+.clear-btn:hover {
+  background: rgba(255, 100, 100, 0.1) !important;
+  border-color: rgba(255, 100, 100, 0.4) !important;
+}
+
+.expand-toggle-btn {
+  min-width: 38px;
+  font-size: 16px;
+}
+
+.advanced-toggle {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.advanced-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 60px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+.sort-select {
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  min-width: 80px;
+}
+
+.sort-select option {
   background: rgba(102, 126, 234, 0.95);
   color: white;
 }
 
-.toolbar button {
-  padding: 8px 15px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.1);
+.advanced-controls button {
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
   color: white;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 4px;
+  font-size: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
-.toolbar button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-1px);
+.advanced-controls button:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
+
+/* Old toolbar styles removed - using compact-toolbar instead */
 
 .search-input {
   width: 100%;
@@ -234,11 +300,11 @@
   }
 }
 
-/* Task 3: Accordion Grouping Styles */
+/* Task 3: Accordion Grouping Styles - Enhanced organization */
 .accordion-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .accordion-group {
@@ -253,6 +319,17 @@
 .accordion-group:hover {
   border-color: rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.08);
+}
+
+/* Special styling for mature content group */
+.accordion-group:has(.accordion-header-content:contains("Adult Content")) {
+  border-color: rgba(255, 100, 100, 0.3);
+  background: rgba(255, 100, 100, 0.05);
+}
+
+.accordion-group:has(.accordion-header-content:contains("Adult Content")):hover {
+  border-color: rgba(255, 100, 100, 0.4);
+  background: rgba(255, 100, 100, 0.08);
 }
 
 .accordion-header {
@@ -390,10 +467,69 @@
     align-items: stretch;
   }
 
-  .toolbar select,
-  .toolbar button {
-    width: 100%;
+  .essential-controls button {
     min-height: 44px;  /* Ensure minimum 44px touch target */
-    padding: 12px 16px; /* Increased padding for better touch targets */
+    padding: 10px 16px; /* Increased padding for better touch targets */
+  }
+  
+  .advanced-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .advanced-controls button,
+  .sort-select {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 16px;
+  }
+}
+
+/* Virtualized container for large datasets */
+.virtualized-category-container {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.virtualized-category-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.virtualized-category-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.virtualized-category-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.virtualized-category-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Performance optimizations for large category lists */
+.category-tile {
+  contain: layout style paint;
+  will-change: transform;
+}
+
+.accordion-content {
+  contain: layout style;
+}
+
+/* Enhanced responsive design for larger category sets */
+@media (min-width: 768px) {
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
 } 
