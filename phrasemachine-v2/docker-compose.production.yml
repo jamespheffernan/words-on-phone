@@ -1,0 +1,419 @@
+version: '3.8'
+
+services:
+  # Redis - In-memory data store for all scoring components
+  redis:
+    image: redis:7-alpine
+    container_name: phrasemachine-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --maxmemory 1gb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # PostgreSQL - Persistent database for phrase storage and scoring history
+  postgres:
+    image: postgres:15-alpine
+    container_name: phrasemachine-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: phrasemachine
+      POSTGRES_USER: phrasemachine
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-phrasemachine_secure_pass}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/init:/docker-entrypoint-initdb.d
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U phrasemachine -d phrasemachine"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # Distinctiveness Scorer Service
+  distinctiveness-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.microservice
+      args:
+        SERVICE_NAME: distinctiveness
+    container_name: phrasemachine-distinctiveness
+    restart: unless-stopped
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+      - SERVICE_PORT=3004
+      - SERVICE_NAME=distinctiveness
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+
+  # Describability Scorer Service
+  describability-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.microservice
+      args:
+        SERVICE_NAME: describability
+    container_name: phrasemachine-describability
+    restart: unless-stopped
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+      - SERVICE_PORT=3005
+      - SERVICE_NAME=describability
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3005/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+
+  # Legacy Heuristics Scorer Service
+  legacy-heuristics-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.microservice
+      args:
+        SERVICE_NAME: legacy
+    container_name: phrasemachine-legacy
+    restart: unless-stopped
+    ports:
+      - "3006:3006"
+    environment:
+      - NODE_ENV=production
+      - SERVICE_PORT=3006
+      - SERVICE_NAME=legacy
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3006/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.25'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
+
+  # Cultural Validation Scorer Service
+  cultural-validation-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.microservice
+      args:
+        SERVICE_NAME: cultural
+    container_name: phrasemachine-cultural
+    restart: unless-stopped
+    ports:
+      - "3007:3007"
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+      - SERVICE_PORT=3007
+      - SERVICE_NAME=cultural
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3007/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    deploy:
+      resources:
+        limits:
+          memory: 384M
+          cpus: '0.35'
+        reservations:
+          memory: 192M
+          cpus: '0.15'
+
+  # Decision Engine Service
+  decision-engine-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.microservice
+      args:
+        SERVICE_NAME: decision-engine
+    container_name: phrasemachine-decision-engine
+    restart: unless-stopped
+    ports:
+      - "3008:3008"
+    environment:
+      - NODE_ENV=production
+      - SERVICE_PORT=3008
+      - SERVICE_NAME=decision-engine
+      - DISTINCTIVENESS_URL=http://distinctiveness-service:3004
+      - DESCRIBABILITY_URL=http://describability-service:3005
+      - LEGACY_URL=http://legacy-heuristics-service:3006
+      - CULTURAL_URL=http://cultural-validation-service:3007
+    depends_on:
+      distinctiveness-service:
+        condition: service_healthy
+      describability-service:
+        condition: service_healthy
+      legacy-heuristics-service:
+        condition: service_healthy
+      cultural-validation-service:
+        condition: service_healthy
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3008/health"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      start_period: 90s
+    deploy:
+      resources:
+        limits:
+          memory: 384M
+          cpus: '0.5'
+        reservations:
+          memory: 192M
+          cpus: '0.25'
+
+  # LLM Generator Service
+  llm-generator-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.microservice
+      args:
+        SERVICE_NAME: llm-generator
+    container_name: phrasemachine-llm-generator
+    restart: unless-stopped
+    ports:
+      - "3009:3009"
+    environment:
+      - NODE_ENV=production
+      - SERVICE_PORT=3009
+      - SERVICE_NAME=llm-generator
+      - DECISION_ENGINE_URL=http://decision-engine-service:3008
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    depends_on:
+      decision-engine-service:
+        condition: service_healthy
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3009/health"]
+      interval: 45s
+      timeout: 20s
+      retries: 3
+      start_period: 120s
+    deploy:
+      resources:
+        limits:
+          memory: 768M
+          cpus: '1.0'
+        reservations:
+          memory: 384M
+          cpus: '0.5'
+
+  # Main API Server
+  api-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: phrasemachine-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PHRASEMACHINE_API_PORT=3000
+      - DISTINCTIVENESS_URL=http://distinctiveness-service:3004
+      - DESCRIBABILITY_URL=http://describability-service:3005
+      - LEGACY_URL=http://legacy-heuristics-service:3006
+      - CULTURAL_URL=http://cultural-validation-service:3007
+      - DECISION_ENGINE_URL=http://decision-engine-service:3008
+      - LLM_GENERATOR_URL=http://llm-generator-service:3009
+    depends_on:
+      distinctiveness-service:
+        condition: service_healthy
+      describability-service:
+        condition: service_healthy
+      legacy-heuristics-service:
+        condition: service_healthy
+      cultural-validation-service:
+        condition: service_healthy
+      decision-engine-service:
+        condition: service_healthy
+      llm-generator-service:
+        condition: service_healthy
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      start_period: 180s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.75'
+        reservations:
+          memory: 256M
+          cpus: '0.35'
+
+  # Nginx Reverse Proxy and Load Balancer
+  nginx:
+    image: nginx:alpine
+    container_name: phrasemachine-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./nginx/logs:/var/log/nginx
+    depends_on:
+      api-server:
+        condition: service_healthy
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.25'
+        reservations:
+          memory: 64M
+          cpus: '0.1'
+
+  # Monitoring Dashboard (optional)
+  monitoring-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.monitoring
+    container_name: phrasemachine-monitoring
+    restart: unless-stopped
+    ports:
+      - "3010:3010"
+    environment:
+      - NODE_ENV=production
+      - MONITORING_PORT=3010
+      - API_SERVER_URL=http://api-server:3000
+    depends_on:
+      api-server:
+        condition: service_healthy
+    networks:
+      - phrasemachine_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3010/health"]
+      interval: 60s
+      timeout: 10s
+      retries: 2
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.25'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
+
+networks:
+  phrasemachine_network:
+    driver: bridge
+    name: phrasemachine_network
+
+volumes:
+  redis_data:
+    driver: local
+    name: phrasemachine_redis_data
+  postgres_data:
+    driver: local
+    name: phrasemachine_postgres_data
+
+# Production deployment configuration
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+# Apply logging to all services
+x-deploy: &default-deploy
+  logging: *default-logging
+  restart_policy:
+    condition: unless-stopped
+    delay: 5s
+    max_attempts: 3
+    window: 120s
+
+# Environment variable validation
+x-environment-validation:
+  required_variables:
+    - POSTGRES_PASSWORD
+    - OPENAI_API_KEY
+  optional_variables:
+    - NODE_ENV=production
+    - LOG_LEVEL=info
+    - REDIS_MAX_MEMORY=1gb 

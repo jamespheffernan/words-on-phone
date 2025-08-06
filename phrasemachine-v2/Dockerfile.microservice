@@ -1,0 +1,156 @@
+# Generic Production Dockerfile for PhraseMachine v2 Microservices
+# Build with: docker build --build-arg SERVICE_NAME=<service> -f Dockerfile.microservice .
+
+FROM node:18-alpine AS builder
+
+# Build argument for service selection
+ARG SERVICE_NAME
+ENV SERVICE_NAME=${SERVICE_NAME}
+
+# Validate service name
+RUN if [ -z "$SERVICE_NAME" ]; then \
+        echo "ERROR: SERVICE_NAME build argument is required"; \
+        exit 1; \
+    fi
+
+# Set working directory
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    curl
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies with production optimizations
+RUN npm ci --only=production && npm cache clean --force
+
+# Copy source code
+COPY . .
+
+# Remove development files and unnecessary directories
+RUN rm -rf \
+    tests/ \
+    tools/ \
+    docs/ \
+    *.test.js \
+    *.spec.js \
+    .git \
+    .gitignore \
+    README.md
+
+# Validate service directory exists
+RUN if [ ! -d "services/${SERVICE_NAME}" ] && [ ! -d "services/scoring/${SERVICE_NAME}-server.js" ] && [ ! -d "services/generation/${SERVICE_NAME}-server.js" ]; then \
+        echo "ERROR: Service directory not found for ${SERVICE_NAME}"; \
+        echo "Available services:"; \
+        find services/ -name "*server.js" -type f; \
+        exit 1; \
+    fi
+
+# Production stage
+FROM node:18-alpine AS production
+
+# Build argument for service selection
+ARG SERVICE_NAME
+ENV SERVICE_NAME=${SERVICE_NAME}
+
+# Create non-root user
+RUN addgroup -g 1001 -S phrasemachine && \
+    adduser -S phrasemachine -u 1001 -G phrasemachine
+
+# Install runtime dependencies
+RUN apk add --no-cache \
+    curl \
+    dumb-init \
+    && rm -rf /var/cache/apk/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy from builder stage
+COPY --from=builder --chown=phrasemachine:phrasemachine /app/node_modules ./node_modules
+COPY --from=builder --chown=phrasemachine:phrasemachine /app/services ./services
+COPY --from=builder --chown=phrasemachine:phrasemachine /app/package*.json ./
+
+# Set environment variables based on service type
+ENV NODE_ENV=production
+ENV NODE_OPTIONS="--max-old-space-size=256"
+
+# Service-specific port mapping
+ENV SERVICE_PORT=3000
+
+# Expose service port
+EXPOSE ${SERVICE_PORT}
+
+# Switch to non-root user
+USER phrasemachine
+
+# Create startup script
+COPY <<EOF /app/start-service.sh
+#!/bin/sh
+set -e
+
+echo "🚀 Starting PhraseMachine v2 microservice: \${SERVICE_NAME}"
+echo "📍 Service port: \${SERVICE_PORT}"
+echo "🔧 Node environment: \${NODE_ENV}"
+
+# Determine service file path
+case "\${SERVICE_NAME}" in
+    "distinctiveness")
+        SERVICE_FILE="services/scoring/distinctiveness-server.js"
+        ;;
+    "describability")
+        SERVICE_FILE="services/scoring/describability-server.js"
+        ;;
+    "legacy")
+        SERVICE_FILE="services/scoring/legacy-heuristics-server.js"
+        ;;
+    "cultural")
+        SERVICE_FILE="services/scoring/cultural-validation-server.js"
+        ;;
+    "decision-engine")
+        SERVICE_FILE="services/scoring/decision-engine-server.js"
+        ;;
+    "llm-generator")
+        SERVICE_FILE="services/generation/llm-generator-server.js"
+        ;;
+    *)
+        echo "❌ ERROR: Unknown service name: \${SERVICE_NAME}"
+        exit 1
+        ;;
+esac
+
+# Verify service file exists
+if [ ! -f "\$SERVICE_FILE" ]; then
+    echo "❌ ERROR: Service file not found: \$SERVICE_FILE"
+    echo "Available files:"
+    find services/ -name "*server.js" -type f
+    exit 1
+fi
+
+echo "✅ Starting service: \$SERVICE_FILE"
+
+# Start the service
+exec node "\$SERVICE_FILE"
+EOF
+
+# Health check with dynamic port detection
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:\${SERVICE_PORT}/health || exit 1
+
+# Make startup script executable
+RUN chmod +x /app/start-service.sh
+
+# Start application with dumb-init
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["/app/start-service.sh"]
+
+# Labels for service identification
+LABEL service.name="${SERVICE_NAME}"
+LABEL service.version="2.0.0"
+LABEL service.type="phrasemachine-microservice"
+LABEL maintainer="PhraseMachine v2 Team" 
