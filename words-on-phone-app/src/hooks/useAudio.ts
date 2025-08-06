@@ -222,33 +222,49 @@ export const useAudio = (soundCategory: SoundCategory, soundName: string, option
 
       // Resume audio context if suspended (required by browser autoplay policies)
       if (ctx.state === 'suspended') {
+        console.log('Resuming suspended AudioContext...');
         await ctx.resume();
       }
 
-      // Create or use existing buffer
+      // Verify context state after resume attempt
+      if (ctx.state === 'closed') {
+        console.warn('AudioContext is closed, recreating...');
+        // Force recreation of context
+        globalAudioContext = null;
+        const newCtx = getAudioContext();
+        if (newCtx.state === 'suspended') {
+          await newCtx.resume();
+        }
+      }
+
+      const activeCtx = globalAudioContext || ctx;
+
+      // Create or use existing buffer (recreate if context changed)
       let buffer = audioBufferRef.current;
-      if (!buffer) {
+      if (!buffer || buffer.sampleRate !== activeCtx.sampleRate) {
+        console.log(`Creating audio buffer for ${soundCategory}/${soundName}`);
         buffer = createSyntheticSound(soundCategory, soundName);
         audioBufferRef.current = buffer;
       }
 
       // Create source and gain nodes
-      const source = ctx.createBufferSource();
-      const gainNode = ctx.createGain();
+      const source = activeCtx.createBufferSource();
+      const gainNode = activeCtx.createGain();
 
       source.buffer = buffer;
       gainNode.gain.value = volume;
 
       // Connect: source -> gain -> destination
       source.connect(gainNode);
-      gainNode.connect(ctx.destination);
+      gainNode.connect(activeCtx.destination);
 
       // Play sound
       source.start(0);
 
+      console.log(`Successfully played ${soundCategory}/${soundName} at volume ${volume}`);
       return Promise.resolve();
     } catch (error) {
-      console.warn('Failed to play audio:', error);
+      console.error('Failed to play audio:', error);
       return Promise.reject(error);
     }
   }, [soundCategory, soundName, volume, createSyntheticSound]);

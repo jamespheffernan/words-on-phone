@@ -52,8 +52,8 @@ export const GameScreen: React.FC = () => {
   });
 
   // Gameplay audio hooks
-  const correctAudio = useAudio('gameplay', 'correct');
-  const skipAudio = useAudio('gameplay', 'skip');
+  const correctAudio = useAudio('gameplay', 'correct-answer', { volume: 0.7, preload: true });
+  const skipAudio = useAudio('gameplay', 'skip-phrase', { volume: 0.6, preload: true });
 
   // Haptics hook for mobile feedback
   const { triggerNotification, triggerHaptic } = useHaptics();
