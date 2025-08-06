@@ -60,16 +60,17 @@ Object.values(PhraseCategory).forEach(category => {
   categorizedPhrases[category] = [];
 });
 
-// Populate categories from imported data
-Object.entries(phrasesData as Record<string, string[]>).forEach(([categoryName, phrases]) => {
-  const mappedCategory = categoryMapping[categoryName];
-  if (mappedCategory && Array.isArray(phrases)) {
-    categorizedPhrases[mappedCategory] = phrases;
+// Convert array of objects to categorized structure
+const phrasesArray = phrasesData as Array<{phrase: string, category: string}>;
+phrasesArray.forEach(item => {
+  const mappedCategory = categoryMapping[item.category];
+  if (mappedCategory) {
+    categorizedPhrases[mappedCategory].push(item.phrase);
   }
 });
 
 // Create a flat array of all phrases for general use
-export const phrases: string[] = Object.values(phrasesData as Record<string, string[]>).flat();
+export const phrases: string[] = phrasesArray.map(item => item.phrase);
 
 // Get phrases by category
 export function getPhrasesByCategory(category: PhraseCategory): string[] {
@@ -101,8 +102,8 @@ export const DEFAULT_CATEGORIES: PhraseCategory[] = [
 // Export phrase statistics
 export const phraseStats = {
   totalPhrases: phrases.length,
-  totalCategories: Object.keys(phrasesData).length,
+  totalCategories: Object.keys(categorizedPhrases).length,
   categoryBreakdown: Object.fromEntries(
-    Object.entries(phrasesData).map(([category, phrases]) => [category, (phrases as string[]).length])
+    Object.entries(categorizedPhrases).map(([category, phrases]) => [category, phrases.length])
   )
 };
