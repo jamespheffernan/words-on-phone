@@ -36,7 +36,7 @@ export interface AnalyticsEvent {
   // Category selection events
   category_selected: {
     categoryName: string
-    source: 'grid' | 'quick_play' | 'surprise_me' | 'last_played'
+    source: 'grid' | 'quick_play' | 'surprise_me' | 'last_played' | 'hero_grid' | 'hero_last_played' | 'hero_surprise_me'
     categoryGroup?: string
     selectionIndex?: number
     isMultiSelect?: boolean
@@ -44,6 +44,7 @@ export interface AnalyticsEvent {
   surprise_me_clicked: {
     selectedCategory: string
     availableCategories: number
+    source?: string
   }
   
   // Gameplay events
@@ -96,7 +97,15 @@ export interface AnalyticsEvent {
   
   // Settings events
   settings_opened: {
-    source: 'header_button' | 'first_time_setup' | 'menu_button'
+    source: 'header_button' | 'first_time_setup' | 'menu_button' | 'menu_disclosure'
+  }
+  
+  // New interface events
+  team_game_clicked: {
+    source: string
+  }
+  browse_categories_opened: {
+    source: string
   }
   setting_changed: {
     settingName: string

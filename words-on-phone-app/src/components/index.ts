@@ -7,4 +7,7 @@ export { TeamSetup } from './TeamSetup';
 export { RoundEndScreen } from './RoundEndScreen';
 export { VersionDisplay } from './VersionDisplay';
 export { RippleCountdown } from './RippleCountdown';
-export { PrivacySettings } from './PrivacySettings'; 
+export { PrivacySettings } from './PrivacySettings';
+export { HeroSection } from './HeroSection';
+export { TopCategoriesGrid } from './TopCategoriesGrid';
+export { GameSettingsModal } from './GameSettingsModal'; 

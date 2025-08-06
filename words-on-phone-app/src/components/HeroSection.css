@@ -1,0 +1,237 @@
+.hero-section {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/* Header */
+.hero-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.game-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #333; /* Fallback for non-supporting browsers */
+}
+
+.game-tagline {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Quick Actions */
+.quick-actions {
+  margin-bottom: 2rem;
+}
+
+.quick-action-button {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  
+  /* Ensure minimum touch target */
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.quick-action-button:hover {
+  transform: translateY(-1px);
+}
+
+.quick-action-button:active {
+  transform: translateY(0);
+}
+
+/* Primary action button (Last Played / Get Started) */
+.quick-action-button.primary {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.quick-action-button.primary:hover {
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.quick-action-button.primary .action-icon {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.action-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.action-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.125rem;
+}
+
+.action-subtitle {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* Secondary action buttons */
+.secondary-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.quick-action-button.secondary {
+  flex: 1;
+  padding: 1rem;
+  background: #f8f9fa;
+  color: #333;
+  border: 2px solid #e9ecef;
+  font-size: 0.9rem;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quick-action-button.secondary:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.quick-action-button.secondary .action-icon {
+  font-size: 1.25rem;
+}
+
+.action-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Popular Categories */
+.popular-categories {
+  margin-top: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 1.75rem;
+  }
+  
+  .game-tagline {
+    font-size: 0.9rem;
+  }
+  
+  .quick-action-button.primary {
+    padding: 1rem 1.25rem;
+  }
+  
+  .quick-action-button.primary .action-icon {
+    font-size: 1.25rem;
+    margin-right: 0.5rem;
+  }
+  
+  .action-title {
+    font-size: 0.9rem;
+  }
+  
+  .action-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .secondary-actions {
+    gap: 0.5rem;
+  }
+  
+  .quick-action-button.secondary {
+    padding: 0.875rem 0.5rem;
+  }
+  
+  .section-title {
+    font-size: 1rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .game-title {
+    color: #fff; /* Fallback for dark mode */
+  }
+  
+  .game-tagline {
+    color: #aaa;
+  }
+  
+  .section-title {
+    color: #fff;
+  }
+  
+  .quick-action-button.secondary {
+    background: #2d3748;
+    color: #fff;
+    border-color: #4a5568;
+  }
+  
+  .quick-action-button.secondary:hover {
+    background: #4a5568;
+    border-color: #718096;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .quick-action-button.primary {
+    background: #000;
+    color: #fff;
+    border: 2px solid #fff;
+  }
+  
+  .quick-action-button.secondary {
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .quick-action-button {
+    transition: none;
+  }
+  
+  .quick-action-button:hover {
+    transform: none;
+  }
+  
+  .quick-action-button:active {
+    transform: none;
+  }
+}

@@ -28,7 +28,14 @@ const categoryMap = {
   'activity': 'Entertainment & Pop Culture',
   'entertainment': 'Entertainment & Pop Culture',
   'general': 'Everything',
-  'other': 'Everything'
+  'other': 'Everything',
+  // New categories from historical expansion
+  'historical': 'History & Events',
+  'scientist': 'Technology & Science',
+  'musician': 'Music & Artists',
+  'band': 'Music & Artists',
+  'invention': 'Technology & Science',
+  'concept': 'Technology & Science'
 };
 
 // Group phrases by game categories

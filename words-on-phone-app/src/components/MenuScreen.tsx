@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useGameStore, BUZZER_SOUNDS } from '../store';
+import { useGameStore } from '../store';
 import { HowToPlayModal } from './HowToPlayModal';
 import { CategoryRequestModal } from './CategoryRequestModal';
 import { VersionDisplay } from './VersionDisplay';
 import { PrivacySettings } from './PrivacySettings';
-import { useAudio } from '../hooks/useAudio';
+import { GameSettingsModal } from './GameSettingsModal';
 import { useHaptics } from '../hooks/useHaptics';
 import { categoryRequestService } from '../services/categoryRequestService';
 import { phraseService } from '../services/phraseService';
@@ -12,58 +12,30 @@ import { trackCategoryRequested, trackCategoryConfirmed, trackCategoryGenerated 
 import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
 import { CategorySelector } from './CategorySelector';
 import { SelectionBanner } from './SelectionBanner';
-import { QuickPlayWidget } from './QuickPlayWidget';
+import { HeroSection } from './HeroSection';
 import { analytics } from '../services/analytics';
 import './MenuScreen.css';
 
 export const MenuScreen: React.FC = () => {
   const {
     selectedCategories,
-    timerDuration,
     showTimer,
-    useRandomTimer,
-    timerRangeMin,
-    timerRangeMax,
-    skipLimit,
-    buzzerSound,
     setSelectedCategories,
-    setTimerDuration,
     setShowTimer,
-    setUseRandomTimer,
-    setTimerRangeMin,
-    setTimerRangeMax,
-    setSkipLimit,
-    setBuzzerSound,
-    startTeamSetup,
     startGame
   } = useGameStore();
 
   const [showHowToPlay, setShowHowToPlay] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
+  const [showGameSettings, setShowGameSettings] = useState(false);
+  const [showBrowseCategories, setShowBrowseCategories] = useState(false);
   const [showCategoryRequest, setShowCategoryRequest] = useState(false);
   const [showPrivacySettings, setShowPrivacySettings] = useState(false);
+  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
+  
   const { defaultCategories, customCategories, loading: categoriesLoading, reload: reloadCategories } = useCategoryMetadata();
 
-  // Audio hooks for testing buzzer sounds (using current working approach)
-  const testBuzzer = useAudio('buzzer', buzzerSound, { volume: 0.4, preload: true });
-  
   // Basic haptics using current implementation  
-  const { 
-    triggerImpact, 
-    triggerNotification, 
-    triggerHaptic,
-    isEnabled: isHapticsEnabled,
-    setEnabled: setHapticsEnabled,
-    getIntensity: getHapticIntensity,
-    setIntensity: setHapticIntensity
-  } = useHaptics();
-
-  const buzzerSoundKeys = Object.keys(BUZZER_SOUNDS) as (keyof typeof BUZZER_SOUNDS)[];
-
-  const handleTestBuzzer = () => {
-    testBuzzer.play().catch(console.warn);
-    triggerImpact();
-  };
+  const { triggerNotification } = useHaptics();
 
   const handleCategoryRequest = async (categoryName: string): Promise<string[]> => {
     try {
@@ -124,366 +96,183 @@ export const MenuScreen: React.FC = () => {
 
   return (
     <main className="menu-screen" data-testid="menu-screen">
-      <header className="menu-header">
-        <h1 className="game-title">Words on Phone</h1>
-        <p className="game-tagline">The Game with the Words on the Phone!</p>
-      </header>
-
       <div className="menu-content">
-        <QuickPlayWidget
+        {/* Hero Section - Primary actions and popular categories */}
+        <HeroSection
           onCategorySelected={(categoryName) => {
-            console.log('Quick Play category selected:', categoryName);
+            console.log('Hero section category selected:', categoryName);
           }}
           onGameStart={() => {
-            console.log('Quick Play game started');
+            console.log('Hero section game started');
           }}
         />
 
-        <section className="category-section">
-          <h2>Choose Category</h2>
-          <CategorySelector
-            defaultCategories={defaultCategories}
-            customCategories={customCategories}
-            selected={selectedCategories}
-            onChange={(sel) => setSelectedCategories(sel)}
-            loading={categoriesLoading}
-          />
-
-          <SelectionBanner
-            categories={selectedCategories}
-            onClear={() => setSelectedCategories([])}
-          />
-        </section>
-
-        <button
-          className="settings-toggle"
-          onClick={() => {
-            setShowSettings(!showSettings);
-            triggerNotification();
+        {/* Progressive Disclosure Section */}
+        <div className="progressive-disclosure">
+          
+          {/* Browse All Categories */}
+          <div className="disclosure-section">
+            <button
+              className="disclosure-header"
+              onClick={() => {
+                setShowBrowseCategories(!showBrowseCategories);
+                triggerNotification();
+                
+                if (!showBrowseCategories) {
+                  analytics.track('browse_categories_opened', {
+                    source: 'menu_disclosure'
+                  });
+                }
+              }}
+              aria-expanded={showBrowseCategories}
+              aria-label="Browse all categories"
+            >
+              <span className="disclosure-icon">📂</span>
+              <span className="disclosure-title">Browse All Categories</span>
+              <span className={`disclosure-chevron ${showBrowseCategories ? 'expanded' : ''}`}>▼</span>
+            </button>
             
-            // Track settings opened
-            if (!showSettings) {
-              analytics.track('settings_opened', {
-                source: 'menu_button'
-              });
-            }
-          }}
-          aria-label="Toggle settings"
-        >
-          ⚙️ Settings
-        </button>
-
-        {showSettings && (
-          <div className="settings-panel">
-            <div className="setting-item">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={showTimer}
-                  onChange={(e) => {
-                    const newValue = e.target.checked;
-                    analytics.track('setting_changed', {
-                      settingName: 'showTimer',
-                      previousValue: showTimer,
-                      newValue
-                    });
-                    setShowTimer(newValue);
-                  }}
-                  className="setting-checkbox"
+            {showBrowseCategories && (
+              <div className="disclosure-content">
+                <CategorySelector
+                  defaultCategories={defaultCategories}
+                  customCategories={customCategories}
+                  selected={selectedCategories}
+                  onChange={(sel) => setSelectedCategories(sel)}
+                  loading={categoriesLoading}
                 />
-                Show Timer (default: hidden)
-              </label>
-              <p className="setting-description">
-                Display the countdown timer during gameplay
-              </p>
-            </div>
 
-            <div className="setting-item">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={useRandomTimer}
-                  onChange={(e) => {
-                    const newValue = e.target.checked;
-                    analytics.track('setting_changed', {
-                      settingName: 'useRandomTimer',
-                      previousValue: useRandomTimer,
-                      newValue
-                    });
-                    setUseRandomTimer(newValue);
-                  }}
-                  className="setting-checkbox"
+                <SelectionBanner
+                  categories={selectedCategories}
+                  onClear={() => setSelectedCategories([])}
                 />
-                Random Timer Duration (default: enabled)
-              </label>
-              <p className="setting-description">
-                Randomize timer duration each round for unpredictability
-              </p>
-            </div>
 
-            {useRandomTimer ? (
-              <>
-                <div className="setting-item">
-                  <label htmlFor="timer-range-min">
-                    Random Timer Range: {timerRangeMin}s - {timerRangeMax}s
-                  </label>
-                  <div className="dual-slider-container">
-                    <input
-                      id="timer-range-min"
-                      type="range"
-                      min="30"
-                      max="90"
-                      step="5"
-                      value={timerRangeMin}
-                      onChange={(e) => setTimerRangeMin(Number(e.target.value))}
-                      className="slider range-min"
-                      aria-label="Minimum timer duration"
-                    />
-                    <input
-                      id="timer-range-max"
-                      type="range"
-                      min="30"
-                      max="90"
-                      step="5"
-                      value={timerRangeMax}
-                      onChange={(e) => setTimerRangeMax(Number(e.target.value))}
-                      className="slider range-max"
-                      aria-label="Maximum timer duration"
-                    />
+                {selectedCategories.length > 0 && (
+                  <div className="browse-actions">
+                    <button
+                      className="start-button solo-game"
+                      onClick={startGame}
+                      aria-label="Start solo game with selected categories"
+                    >
+                      👤 Start Solo Game
+                    </button>
                   </div>
-                </div>
-              </>
-            ) : (
-              <div className="setting-item">
-                <label htmlFor="timer-slider">
-                  Fixed Timer Duration: {timerDuration}s
-                </label>
-                <input
-                  id="timer-slider"
-                  type="range"
-                  min="30"
-                  max="90"
-                  step="10"
-                  value={timerDuration}
-                  onChange={(e) => {
-                    const newValue = Number(e.target.value);
-                    analytics.track('setting_changed', {
-                      settingName: 'timerDuration',
-                      previousValue: timerDuration,
-                      newValue
-                    });
-                    setTimerDuration(newValue);
-                  }}
-                  className="slider"
-                />
+                )}
               </div>
             )}
-
-            <div className="setting-item">
-              <label htmlFor="skip-limit">
-                Skip Limit: {skipLimit === 0 ? 'Unlimited' : skipLimit}
-              </label>
-                              <input
-                  id="skip-limit"
-                  type="range"
-                  min="0"
-                  max="5"
-                  step="1"
-                  value={skipLimit}
-                  onChange={(e) => {
-                    const newValue = Number(e.target.value);
-                    analytics.track('setting_changed', {
-                      settingName: 'skipLimit',
-                      previousValue: skipLimit,
-                      newValue
-                    });
-                    setSkipLimit(newValue);
-                  }}
-                  className="slider"
-                />
-            </div>
-
-            <div className="setting-item">
-              <label htmlFor="buzzer-sound">
-                Buzzer Sound: {BUZZER_SOUNDS[buzzerSound]}
-              </label>
-              <div className="buzzer-controls">
-                <select
-                  id="buzzer-sound"
-                  value={buzzerSound}
-                  onChange={(e) => setBuzzerSound(e.target.value as keyof typeof BUZZER_SOUNDS)}
-                  className="buzzer-selector"
-                >
-                  {buzzerSoundKeys.map(soundKey => (
-                    <option key={soundKey} value={soundKey}>
-                      {BUZZER_SOUNDS[soundKey]}
-                    </option>
-                  ))}
-                </select>
-                <button
-                  type="button"
-                  onClick={handleTestBuzzer}
-                  className="test-buzzer-button"
-                  aria-label="Test buzzer sound"
-                >
-                  🔊 Test
-                </button>
-              </div>
-            </div>
-
-            {/* Audio Settings Section */}
-            <div className="setting-section audio-settings">
-              <h3 className="setting-section-title">🔊 Audio Settings</h3>
-              
-              <div className="setting-item">
-                <p className="setting-description">
-                  ⏰ Metronome-style tick-tock sounds automatically play throughout each round, getting faster as time runs out
-                </p>
-              </div>
-            </div>
-
-            {/* Haptic Settings Section */}
-            <div className="setting-section haptic-settings">
-              <h3 className="setting-section-title">📳 Haptic Feedback</h3>
-              
-              <div className="setting-item">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={isHapticsEnabled()}
-                    onChange={(e) => {
-                      const newValue = e.target.checked;
-                      analytics.track('setting_changed', {
-                        settingName: 'hapticsEnabled',
-                        previousValue: isHapticsEnabled(),
-                        newValue
-                      });
-                      setHapticsEnabled(newValue);
-                    }}
-                    className="setting-checkbox"
-                  />
-                  Enable Haptic Feedback
-                </label>
-                <p className="setting-description">
-                  Vibration feedback for mobile devices and UI interactions
-                </p>
-              </div>
-
-              {isHapticsEnabled() && (
-                <>
-                  <div className="setting-item">
-                    <label htmlFor="haptic-intensity">
-                      Haptic Intensity: {Math.round(getHapticIntensity() * 100)}%
-                    </label>
-                    <div className="volume-controls">
-                      <input
-                        id="haptic-intensity"
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.1"
-                        value={getHapticIntensity()}
-                        onChange={(e) => {
-                          const newValue = Number(e.target.value);
-                          analytics.track('setting_changed', {
-                            settingName: 'hapticIntensity',
-                            previousValue: getHapticIntensity(),
-                            newValue
-                          });
-                          setHapticIntensity(newValue);
-                        }}
-                        className="slider"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          // Test haptic feedback at current intensity
-                          triggerHaptic('ui', 'button-tap');
-                        }}
-                        className="test-volume-button"
-                        aria-label="Test haptic intensity"
-                      >
-                        📳 Test
-                      </button>
-                    </div>
-                    <p className="setting-description">
-                      Intensity of vibration feedback (Light to Heavy)
-                    </p>
-                  </div>
-                </>
-              )}
-            </div>
-
-            <div className="setting-item custom-category-section">
-              <label>Custom Categories</label>
-              <p className="setting-description">
-                Request AI-generated phrases for specific categories
-              </p>
-              <button
-                type="button"
-                onClick={() => setShowCategoryRequest(true)}
-                className="category-request-button"
-                aria-label="Request custom category"
-              >
-                🎯 Request Category
-              </button>
-            </div>
-
-            <div className="setting-item privacy-settings-section">
-              <label>Privacy & Analytics</label>
-              <p className="setting-description">
-                Manage your data privacy and analytics preferences
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowPrivacySettings(true);
-                  // Track settings opened
-                  analytics.track('settings_opened', {
-                    source: 'menu_button'
-                  });
-                }}
-                className="privacy-settings-button"
-                aria-label="Open privacy settings"
-              >
-                🔒 Privacy Settings
-              </button>
-            </div>
           </div>
-        )}
 
-        <div className="menu-actions">
-          <button
-            className="start-button team-game"
-            onClick={startTeamSetup}
-            aria-label="Start team game"
-          >
-            🏆 Team Game
-          </button>
+          {/* Quick Settings */}
+          <div className="disclosure-section">
+            <button
+              className="disclosure-header"
+              onClick={() => {
+                setShowGameSettings(true);
+                analytics.track('settings_opened', {
+                  source: 'menu_disclosure'
+                });
+              }}
+              aria-label="Game settings"
+            >
+              <span className="disclosure-icon">⚙️</span>
+              <span className="disclosure-title">Game Settings</span>
+              <span className="disclosure-subtitle">Timer • Sound • Controls</span>
+            </button>
+          </div>
 
-          <button
-            className="start-button solo-game"
-            onClick={startGame}
-            aria-label="Start solo game"
-          >
-            👤 Solo Game
-          </button>
-
-          <button
-            className="how-to-play-button"
-            onClick={() => setShowHowToPlay(true)}
-            aria-label="How to play"
-          >
-            ℹ️ How to Play
-          </button>
+          {/* Advanced Options */}
+          <div className="disclosure-section">
+            <button
+              className="disclosure-header"
+              onClick={() => {
+                setShowAdvancedOptions(!showAdvancedOptions);
+                triggerNotification();
+              }}
+              aria-expanded={showAdvancedOptions}
+              aria-label="Advanced options"
+            >
+              <span className="disclosure-icon">🔒</span>
+              <span className="disclosure-title">Privacy & More</span>
+              <span className={`disclosure-chevron ${showAdvancedOptions ? 'expanded' : ''}`}>▼</span>
+            </button>
+            
+            {showAdvancedOptions && (
+              <div className="disclosure-content">
+                <div className="advanced-options-grid">
+                  <button
+                    className="advanced-option-button"
+                    onClick={() => setShowCategoryRequest(true)}
+                    aria-label="Request custom category"
+                  >
+                    <span className="option-icon">🎯</span>
+                    <div className="option-content">
+                      <div className="option-title">Custom Categories</div>
+                      <div className="option-subtitle">AI-generated phrases</div>
+                    </div>
+                  </button>
+                  
+                  <button
+                    className="advanced-option-button"
+                    onClick={() => setShowPrivacySettings(true)}
+                    aria-label="Privacy settings"
+                  >
+                    <span className="option-icon">🔒</span>
+                    <div className="option-content">
+                      <div className="option-title">Privacy Settings</div>
+                      <div className="option-subtitle">Data & analytics</div>
+                    </div>
+                  </button>
+                  
+                  <button
+                    className="advanced-option-button"
+                    onClick={() => setShowHowToPlay(true)}
+                    aria-label="How to play"
+                  >
+                    <span className="option-icon">ℹ️</span>
+                    <div className="option-content">
+                      <div className="option-title">How to Play</div>
+                      <div className="option-subtitle">Rules & tips</div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+          
+          {/* Quick Settings Toggle */}
+          <div className="quick-settings">
+            <label className="quick-setting-item">
+              <input
+                type="checkbox"
+                checked={showTimer}
+                onChange={(e) => {
+                  const newValue = e.target.checked;
+                  analytics.track('setting_changed', {
+                    settingName: 'showTimer',
+                    previousValue: showTimer,
+                    newValue
+                  });
+                  setShowTimer(newValue);
+                }}
+                className="setting-checkbox"
+              />
+              <span className="setting-label">Show Timer</span>
+            </label>
+          </div>
         </div>
 
         <VersionDisplay />
       </div>
 
+      {/* Modals */}
       <HowToPlayModal
         isOpen={showHowToPlay}
         onClose={() => setShowHowToPlay(false)}
+      />
+
+      <GameSettingsModal
+        isOpen={showGameSettings}
+        onClose={() => setShowGameSettings(false)}
       />
 
       <CategoryRequestModal

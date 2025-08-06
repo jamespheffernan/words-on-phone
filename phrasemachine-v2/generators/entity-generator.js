@@ -48,7 +48,20 @@ class EntityGenerator extends PhraseGenerator {
       'Q6256': 'country',
       'Q43229': 'company',
       'Q1047113': 'food',
-      'Q349': 'sport'
+      'Q349': 'sport',
+      // Historical figures and events
+      'Q169470': 'historical',
+      'Q1190554': 'historical',
+      'Q198': 'historical',
+      'Q1799794': 'historical',
+      // Scientists and inventors
+      'Q37226': 'scientist',
+      'Q3957': 'invention',
+      'Q7187': 'concept',
+      // Musicians and music
+      'Q177220': 'musician',
+      'Q215380': 'band',
+      'Q7366': 'song'
     };
     return typeMap[type] || 'other';
   }

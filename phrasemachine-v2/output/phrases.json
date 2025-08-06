@@ -1,32 +1,37 @@
 {
   "meta": {
     "version": "2.0",
-    "generated": "2025-08-06T16:13:48.876Z",
-    "totalPhrases": 524,
+    "generated": "2025-08-06T17:32:21.973Z",
+    "totalPhrases": 656,
     "breakdown": {
       "byCategory": {
         "activity": 4,
+        "band": 12,
         "company": 34,
         "country": 24,
         "entertainment": 7,
         "food": 37,
         "general": 24,
+        "historical": 73,
+        "invention": 17,
         "movie": 37,
+        "musician": 12,
         "other": 119,
-        "person": 146,
+        "person": 144,
         "place": 38,
+        "scientist": 20,
         "sport": 29,
         "tv_show": 25
       },
       "byDifficulty": {
-        "medium": 192,
+        "medium": 273,
         "hard": 58,
-        "easy": 274
+        "easy": 325
       },
       "bySource": {
         "compound": 44,
-        "entity_direct": 388,
-        "entity_alias": 92
+        "entity_alias": 193,
+        "entity_direct": 419
       }
     }
   },
@@ -58,6 +63,78 @@
       "difficulty": "hard",
       "source": "compound",
       "pmi": 9.8
+    },
+    {
+      "phrase": "Beatles",
+      "category": "band",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Fab Four",
+      "category": "band",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "John, Paul, George, Ringo",
+      "category": "band",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Beatles",
+      "category": "band",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Bohemian Rhapsody Band",
+      "category": "band",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Freddie Mercury Band",
+      "category": "band",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Grunge Band",
+      "category": "band",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Kurt Cobain Band",
+      "category": "band",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Nirvana",
+      "category": "band",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Queen",
+      "category": "band",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Queen Band",
+      "category": "band",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Smells Like Teen Spirit",
+      "category": "band",
+      "difficulty": "medium",
+      "source": "entity_alias"
     },
     {
       "phrase": "Amazon",
@@ -856,6 +933,546 @@
       "pmi": 10.6
     },
     {
+      "phrase": "Abe",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Abraham Lincoln",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Alexander III",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Alexander of Macedon",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Alexander the Great",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Caesar",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Churchill",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Emperor Napoleon",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "First World War",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Gaius Julius Caesar",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Honest Abe",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Julius Caesar",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Lincoln",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Napoleon",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Napoleon Bonaparte",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Napoleon I",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Second World War",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Sir Winston",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Bulldog",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Dictator",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Great",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Great Emancipator",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Great War",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Little Corporal",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The War",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Winston Churchill",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "World War 1",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "World War 2",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "World War I",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "World War II",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "WWI",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "WWII",
+      "category": "historical",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "1789 Revolution",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Age of Industry",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "American Civil War",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Apollo 11",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Chinggis Khan",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Civil War",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Cold War",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Cold War Era",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "East-West Conflict",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Father of His Country",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "First Moon Landing",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "French Revolution",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "General Washington",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Genghis Khan",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "George Washington",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Industrial Age",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Industrial Revolution",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Italian Renaissance",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Jeanne d'Arc",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Joan of Arc",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Moon Landing",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Neil Armstrong",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "One Small Step",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Queen Vic",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Queen Victoria",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Rebirth",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Renaissance",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Revolution française",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Saint Joan",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Temujin",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Cold War",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Grandmother of Europe",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Great Khan",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Industrial Revolution",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Maid of Orléans",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Renaissance",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Revolution",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The War Between the States",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Victoria",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "War of Northern Aggression",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Washington",
+      "category": "historical",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Information Superhighway",
+      "category": "invention",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Internet",
+      "category": "invention",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Net",
+      "category": "invention",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Web",
+      "category": "invention",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "World Wide Web",
+      "category": "invention",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Apple iPhone",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Bell's Invention",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Communication Device",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Edison Bulb",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Electric Light",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Incandescent Light",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "iPhone",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Light Bulb",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Mobile Phone",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Phone",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Smartphone",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Telephone",
+      "category": "invention",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
       "phrase": "Avatar",
       "category": "movie",
       "difficulty": "easy",
@@ -1075,6 +1692,78 @@
       "phrase": "Up",
       "category": "movie",
       "difficulty": "hard",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Beethoven",
+      "category": "musician",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Ludwig Beethoven",
+      "category": "musician",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Ludwig van Beethoven",
+      "category": "musician",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "The Deaf Composer",
+      "category": "musician",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Bach",
+      "category": "musician",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "J.S. Bach",
+      "category": "musician",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Johann Sebastian Bach",
+      "category": "musician",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Mozart",
+      "category": "musician",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Child Prodigy",
+      "category": "musician",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Master",
+      "category": "musician",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "W.A. Mozart",
+      "category": "musician",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Wolfgang Amadeus Mozart",
+      "category": "musician",
+      "difficulty": "medium",
       "source": "entity_direct"
     },
     {
@@ -1810,12 +2499,6 @@
       "source": "entity_direct"
     },
     {
-      "phrase": "Albert Einstein",
-      "category": "person",
-      "difficulty": "easy",
-      "source": "entity_direct"
-    },
-    {
       "phrase": "Angelina Jolie",
       "category": "person",
       "difficulty": "easy",
@@ -1904,12 +2587,6 @@
       "category": "person",
       "difficulty": "easy",
       "source": "entity_direct"
-    },
-    {
-      "phrase": "Einstein",
-      "category": "person",
-      "difficulty": "easy",
-      "source": "entity_alias"
     },
     {
       "phrase": "Eminem",
@@ -2892,6 +3569,126 @@
     {
       "phrase": "Yellowstone",
       "category": "place",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Albert Einstein",
+      "category": "scientist",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "E=mc²",
+      "category": "scientist",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Einstein",
+      "category": "scientist",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Father of Physics",
+      "category": "scientist",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Isaac Newton",
+      "category": "scientist",
+      "difficulty": "easy",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Newton",
+      "category": "scientist",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Sir Isaac",
+      "category": "scientist",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Genius",
+      "category": "scientist",
+      "difficulty": "easy",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Charles Darwin",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Darwin",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Edison",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Father of Evolution",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Light Bulb Inventor",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Madame Curie",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Marie Curie",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_direct"
+    },
+    {
+      "phrase": "Nobel Prize Winner",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Origin of Species",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Radioactivity Pioneer",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "The Wizard of Menlo Park",
+      "category": "scientist",
+      "difficulty": "medium",
+      "source": "entity_alias"
+    },
+    {
+      "phrase": "Thomas Edison",
+      "category": "scientist",
       "difficulty": "medium",
       "source": "entity_direct"
     },
