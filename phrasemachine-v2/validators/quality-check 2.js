@@ -28,11 +28,15 @@ if (!phrases || !Array.isArray(phrases)) {
 
 // Quality checks
 const checks = {
+  minLength: 0,
+  maxLength: 0,
   duplicates: 0,
   missingCategory: 0,
   missingDifficulty: 0,
   missingSource: 0,
   emptyPhrases: 0,
+  tooShort: [],
+  tooLong: [],
   invalidChars: []
 };
 
@@ -47,6 +51,16 @@ phrases.forEach((p, index) => {
   }
 
   const words = p.phrase.trim().split(/\s+/);
+  
+  // Length checks
+  if (words.length < 1) {
+    checks.minLength++;
+    checks.tooShort.push(p.phrase);
+  }
+  if (words.length > 4) {
+    checks.maxLength++;
+    checks.tooLong.push(p.phrase);
+  }
   
   // Duplicate check
   const key = p.phrase.toLowerCase().trim();
@@ -84,6 +98,8 @@ console.log(`Total phrases: ${phrases.length}`);
 console.log(`Unique phrases: ${seen.size}`);
 console.log(`Empty phrases: ${checks.emptyPhrases}`);
 console.log(`Duplicates: ${checks.duplicates}`);
+console.log(`Too short: ${checks.minLength}`);
+console.log(`Too long: ${checks.maxLength}`);
 console.log(`Missing category: ${checks.missingCategory}`);
 console.log(`Missing difficulty: ${checks.missingDifficulty}`);
 console.log(`Missing source: ${checks.missingSource}`);
@@ -108,34 +124,21 @@ if (data.meta && data.meta.breakdown && data.meta.breakdown.byDifficulty) {
     });
 }
 
-if (checks.emptyPhrases > 0) {
-  console.log('\n⚠️ Empty phrases:', checks.emptyPhrases);
+if (checks.tooShort.length > 0) {
+  console.log('\n⚠️ Too short phrases:', checks.tooShort.slice(0, 5));
 }
 
-if (checks.duplicates > 0) {
-  console.log('\n⚠️ Duplicates:', checks.duplicates);
-}
-
-if (checks.missingCategory > 0) {
-  console.log('\n⚠️ Missing category:', checks.missingCategory);
-}
-
-if (checks.missingDifficulty > 0) {
-  console.log('\n⚠️ Missing difficulty:', checks.missingDifficulty);
-}
-
-if (checks.missingSource > 0) {
-  console.log('\n⚠️ Missing source:', checks.missingSource);
+if (checks.tooLong.length > 0) {
+  console.log('\n⚠️ Too long phrases:', checks.tooLong.slice(0, 5));
 }
 
 if (checks.invalidChars.length > 0) {
   console.log('\n⚠️ Invalid characters:', checks.invalidChars.slice(0, 5));
 }
 
-const hasErrors = checks.duplicates > 0 ||
-                  checks.missingCategory > 0 ||
-                  checks.missingDifficulty > 0 ||
-                  checks.missingSource > 0 ||
+const hasErrors = checks.duplicates > 0 || checks.minLength > 0 || 
+                  checks.maxLength > 0 || checks.missingCategory > 0 || 
+                  checks.missingDifficulty > 0 || checks.missingSource > 0 ||
                   checks.emptyPhrases > 0;
 
 if (hasErrors) {

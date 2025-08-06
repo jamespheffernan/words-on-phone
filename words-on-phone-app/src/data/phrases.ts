@@ -1,8 +1,8 @@
 // Generated phrase database from phrase-database-generation project
 // Total phrases: 1092 across 20 categories
 
-// Import the exported phrases database
-import phrasesData from '../phrases.json';
+// Import the exported phrases database from public folder
+import phrasesData from '../../public/phrases.json';
 
 // Phrase categories enum
 export enum PhraseCategory {

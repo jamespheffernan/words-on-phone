@@ -12,8 +12,10 @@ class PhraseGenerator {
   }
   
   validate(phrase) {
-    // Override validation: no length restrictions
-    return true;
+    // Basic validation
+    const words = phrase.split(' ');
+    return words.length >= this.minLength && 
+           words.length <= this.maxLength;
   }
 }
 
