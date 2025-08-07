@@ -5,6 +5,9 @@
   padding: 2rem;
   max-width: 800px;
   margin: 0 auto;
+  box-sizing: border-box;
+  height: fit-content; /* Take only needed space */
+  flex-shrink: 1; /* Allow shrinking if needed */
 }
 
 .step-header {

@@ -19,7 +19,6 @@ import { analytics } from './services/analytics';
 
 export enum GameStatus {
   MENU = 'menu',
-  TEAM_SETUP = 'team_setup',
   PLAYING = 'playing',
   PAUSED = 'paused',
   BUZZER_PLAYING = 'buzzer_playing',
@@ -186,7 +185,6 @@ interface GameState {
   setBeepVolume: (volume: number) => void;
   setBuzzerVolume: (volume: number) => void;
   
-  startTeamSetup: () => void;
   startSoloGame: () => void;
   startGame: () => void;
   pauseGame: () => void;
@@ -528,7 +526,6 @@ export const useGameStore = create<GameState>()(
           buzzerVolume: Math.max(0, Math.min(1, volume))
         }),
         
-        startTeamSetup: () => set({ status: GameStatus.TEAM_SETUP }),
 
         startSoloGame: () => set((state) => {
           // Solo mode always uses fixed timer (no randomization) for fairness

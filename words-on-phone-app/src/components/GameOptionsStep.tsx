@@ -3,6 +3,7 @@ import { GameMode } from './GameModeStep';
 import { useGameStore, BUZZER_SOUNDS } from '../store';
 import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
 import { getCategoryGroup } from '../types/category';
+import { getRandomTeamNames } from '../data/teamNames';
 import './GameOptionsStep.css';
 
 interface GameOptions {
@@ -27,7 +28,11 @@ interface GameOptionsStepProps {
   onBack: () => void;
 }
 
-const DEFAULT_TEAM_NAMES = ['Team 1', 'Team 2'];
+// Get initial random team names
+const getInitialTeamNames = () => {
+  const [team1, team2] = getRandomTeamNames();
+  return [team1, team2];
+};
 
 export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
   gameMode,
@@ -48,7 +53,7 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
   } = useGameStore();
 
   const [teamNames, setTeamNames] = useState<string[]>(
-    gameOptions.teamNames || DEFAULT_TEAM_NAMES
+    gameOptions.teamNames || getInitialTeamNames()
   );
   const [playerName, setPlayerName] = useState(gameOptions.playerName || '');
   const [showCategoriesModal, setShowCategoriesModal] = useState(false);
@@ -71,6 +76,16 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
   const handleTeamNameChange = (index: number, name: string) => {
     const newTeamNames = [...teamNames];
     newTeamNames[index] = name;
+    setTeamNames(newTeamNames);
+    onOptionsChange({
+      ...gameOptions,
+      teamNames: newTeamNames
+    });
+  };
+
+  const shuffleTeamNames = () => {
+    const [team1, team2] = getRandomTeamNames();
+    const newTeamNames = [team1, team2];
     setTeamNames(newTeamNames);
     onOptionsChange({
       ...gameOptions,
@@ -175,8 +190,20 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
       <div className="options-content">
         {gameMode === 'team' && (
           <div className="team-setup-section">
-            <h3 className="section-title">Team Setup</h3>
-            <p className="section-description">Name your two teams</p>
+            <div className="section-header">
+              <div>
+                <h3 className="section-title">Team Setup</h3>
+                <p className="section-description">Name your two teams</p>
+              </div>
+              <button
+                type="button"
+                className="shuffle-button"
+                onClick={shuffleTeamNames}
+                title="Shuffle team names"
+              >
+                🎲 Shuffle
+              </button>
+            </div>
             
             <div className="teams-grid">
               {teamNames.slice(0, 2).map((name, index) => (

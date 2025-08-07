@@ -14,40 +14,32 @@ interface StepIndicatorProps {
 export const StepIndicator: React.FC<StepIndicatorProps> = ({
   currentStep,
   totalSteps,
-  steps
+  // steps parameter not used in simplified design
 }) => {
+  const stepNames = ['Game Mode', 'Categories', 'Settings'];
+  
   return (
     <div className="step-indicator">
+      <div className="step-row">
+        {stepNames.map((name, index) => (
+          <div
+            key={index + 1}
+            className={`step-item ${
+              index + 1 < currentStep ? 'completed' : 
+              index + 1 === currentStep ? 'active' : 'upcoming'
+            }`}
+          >
+            <span className="step-name">{name}</span>
+            {index < stepNames.length - 1 && <span className="step-separator">|</span>}
+          </div>
+        ))}
+      </div>
+      
       <div className="step-progress-bar">
         <div 
           className="step-progress-fill"
           style={{ width: `${((currentStep - 1) / (totalSteps - 1)) * 100}%` }}
         />
-      </div>
-      
-      <div className="step-list">
-        {steps.map((step) => (
-          <div
-            key={step.id}
-            className={`step-item ${
-              step.id < currentStep ? 'completed' : 
-              step.id === currentStep ? 'active' : 'upcoming'
-            }`}
-          >
-            <div className="step-circle">
-              {step.id < currentStep ? (
-                <span className="step-checkmark">✓</span>
-              ) : (
-                <span className="step-number">{step.id}</span>
-              )}
-            </div>
-            
-            <div className="step-content">
-              <h4 className="step-title">{step.title}</h4>
-              <p className="step-description">{step.description}</p>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );

@@ -22,8 +22,6 @@ interface AccordionGroupProps {
   onToggleCategory: (name: string) => void;
   isExpanded: boolean;
   onToggleExpanded: () => void;
-  pinnedCategories: string[];
-  onTogglePin: (category: string) => void;
   sortKey: SortKey;
 }
 
@@ -34,22 +32,15 @@ const AccordionGroup: React.FC<AccordionGroupProps> = ({
   onToggleCategory,
   isExpanded,
   onToggleExpanded,
-  pinnedCategories,
-  onTogglePin,
   sortKey
 }) => {
   const sortedCategories = useMemo(() => {
-    const pinned = categories.filter(c => pinnedCategories.includes(c.name));
-    const others = categories.filter(c => !pinnedCategories.includes(c.name));
     const sortFn = sortKey === 'name'
       ? (a: CategoryMetadata, b: CategoryMetadata) => a.name.localeCompare(b.name)
       : (a: CategoryMetadata, b: CategoryMetadata) => b.phraseCount - a.phraseCount;
     
-    return [
-      ...pinned.sort(sortFn),
-      ...others.sort(sortFn)
-    ];
-  }, [categories, pinnedCategories, sortKey]);
+    return categories.sort(sortFn);
+  }, [categories, sortKey]);
 
   const selectedInGroup = categories.filter(cat => selected.includes(cat.name)).length;
   const totalInGroup = categories.length;
@@ -74,23 +65,20 @@ const AccordionGroup: React.FC<AccordionGroupProps> = ({
       
       {isExpanded && (
         <div className="accordion-content">
-          <div className="category-grid">
+          <div className="category-rows">
             {sortedCategories.map(({ name, phraseCount }) => (
-              <label key={name} className={`category-tile ${selected.includes(name) ? 'selected' : ''}`}>
+              <label key={name} className={`category-row ${selected.includes(name) ? 'selected' : ''}`}>
+                <div className="category-info">
+                  <span className="category-icon">{getCategoryIcon(name)}</span>
+                  <span className="category-name">{name}</span>
+                  <span className="category-count">{phraseCount}</span>
+                </div>
                 <input
                   type="checkbox"
+                  className="category-checkbox"
                   checked={selected.includes(name)}
                   onChange={() => onToggleCategory(name)}
                 />
-                <button
-                  type="button"
-                  className={`pin-btn ${pinnedCategories.includes(name) ? 'pinned' : ''}`}
-                  onClick={(e) => { e.stopPropagation(); onTogglePin(name); }}
-                  aria-label={pinnedCategories.includes(name) ? 'Unpin' : 'Pin'}
-                >★</button>
-                <span className="category-icon">{getCategoryIcon(name)}</span>
-                <span className="name">{name}</span>
-                <span className="count">({phraseCount})</span>
               </label>
             ))}
           </div>
@@ -112,8 +100,6 @@ export const CategorySelector: React.FC<Props> = ({
   const [showAdvancedControls, setShowAdvancedControls] = useState(false);
 
   const { 
-    pinnedCategories, 
-    togglePinnedCategory, 
     expandedGroups, 
     toggleGroupExpanded,
     expandAllGroups,
@@ -156,27 +142,38 @@ export const CategorySelector: React.FC<Props> = ({
         );
       }
       
-      const pinned = filtered.filter(c => pinnedCategories.includes(c.name));
-      const others = filtered.filter(c => !pinnedCategories.includes(c.name));
       const sortFn = sortKey === 'name'
         ? (a: CategoryMetadata, b: CategoryMetadata) => a.name.localeCompare(b.name)
         : (a: CategoryMetadata, b: CategoryMetadata) => b.phraseCount - a.phraseCount;
       
       return {
         groupedCategories: {},
-        flatList: [
-          ...pinned.sort(sortFn),
-          ...others.sort(sortFn)
-        ]
+        flatList: filtered.sort(sortFn)
       };
     }
-  }, [activeTab, defaultCategories, rawList, pinnedCategories, sortKey, search]);
+  }, [activeTab, defaultCategories, rawList, sortKey, search]);
 
   const { groupedCategories, flatList } = filteredData;
 
   const toggleCategory = (name: string) => {
     const exists = selected.includes(name);
-    const next = exists ? selected.filter((n) => n !== name) : [...selected, name];
+    let next: string[];
+    
+    if (exists) {
+      // Deselecting a category
+      next = selected.filter((n) => n !== name);
+    } else {
+      // Selecting a category
+      if (name === 'Everything') {
+        // If selecting Everything, remove all specific categories
+        next = ['Everything'];
+      } else {
+        // If selecting a specific category, remove Everything if it exists
+        const filteredSelected = selected.filter((n) => n !== 'Everything');
+        next = [...filteredSelected, name];
+      }
+    }
+    
     onChange(next);
     
     // Track category selection
@@ -305,8 +302,6 @@ export const CategorySelector: React.FC<Props> = ({
                      onToggleCategory={toggleCategory}
                      isExpanded={expandedGroups.has(group.id)}
                      onToggleExpanded={() => toggleGroupExpanded(group.id)}
-                     pinnedCategories={pinnedCategories}
-                     onTogglePin={togglePinnedCategory}
                      sortKey={sortKey}
                    />
                  );
@@ -330,31 +325,26 @@ export const CategorySelector: React.FC<Props> = ({
                    onToggleCategory={toggleCategory}
                    isExpanded={expandedGroups.has('ungrouped')}
                    onToggleExpanded={() => toggleGroupExpanded('ungrouped')}
-                   pinnedCategories={pinnedCategories}
-                   onTogglePin={togglePinnedCategory}
                    sortKey={sortKey}
                  />
                )}
              </div>
           ) : (
-            // Flat grid for custom categories
-            <div className="category-grid">
+            // Flat rows for custom categories
+            <div className="category-rows">
               {flatList.map(({ name, phraseCount }) => (
-                <label key={name} className={`category-tile ${selected.includes(name) ? 'selected' : ''}`}>
+                <label key={name} className={`category-row ${selected.includes(name) ? 'selected' : ''}`}>
+                  <div className="category-info">
+                    <span className="category-icon">{getCategoryIcon(name)}</span>
+                    <span className="category-name">{name}</span>
+                    <span className="category-count">{phraseCount}</span>
+                  </div>
                   <input
                     type="checkbox"
+                    className="category-checkbox"
                     checked={selected.includes(name)}
                     onChange={() => toggleCategory(name)}
                   />
-                  <button
-                    type="button"
-                    className={`pin-btn ${pinnedCategories.includes(name) ? 'pinned' : ''}`}
-                    onClick={(e) => { e.stopPropagation(); togglePinnedCategory(name); }}
-                    aria-label={pinnedCategories.includes(name) ? 'Unpin' : 'Pin'}
-                  >★</button>
-                  <span className="category-icon">{getCategoryIcon(name)}</span>
-                  <span className="name">{name}</span>
-                  <span className="count">({phraseCount})</span>
                 </label>
               ))}
             </div>

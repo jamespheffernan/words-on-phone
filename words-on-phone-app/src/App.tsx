@@ -3,7 +3,6 @@ import { useGameStore, GameStatus } from './store';
 import { MenuScreenSteps } from './components/MenuScreenSteps';
 import { GameScreen } from './components/GameScreen';
 import { EndScreen } from './components/EndScreen';
-import { TeamSetup } from './components/TeamSetup';
 import { RoundEndScreen } from './components/RoundEndScreen';
 import { PauseMenu } from './components/PauseMenu';
 import { usePhraseWorker } from './hooks/usePhraseWorker';
@@ -29,8 +28,6 @@ function App() {
       switch (gameStatus) {
         case GameStatus.MENU:
           return 'Home' as const;
-        case GameStatus.TEAM_SETUP:
-          return 'TeamSetup' as const;
         case GameStatus.PLAYING:
         case GameStatus.BUZZER_PLAYING:
           return 'GameScreen' as const;
@@ -65,9 +62,6 @@ function App() {
   return (
     <div className="app">
       {status === GameStatus.MENU && <MenuScreenSteps />}
-      {status === GameStatus.TEAM_SETUP && (
-        <TeamSetup onStartGame={handleStartGame} />
-      )}
       {(status === GameStatus.PLAYING || status === GameStatus.BUZZER_PLAYING) && <GameScreen />}
       {status === GameStatus.ROUND_END && (
         <RoundEndScreen 

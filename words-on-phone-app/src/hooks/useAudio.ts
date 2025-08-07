@@ -178,6 +178,7 @@ export const useAudio = (soundCategory: SoundCategory, soundName: string, option
 
   // Buzzer sound generation (existing functionality)
   const createBuzzerSound = (type: string, t: number, _duration: number): number => {
+    console.log('Creating buzzer sound with type:', type);
     switch (type) {
       case 'classic':
         // Much more noticeable classic buzzer - loud, attention-grabbing

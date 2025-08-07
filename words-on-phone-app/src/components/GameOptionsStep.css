@@ -5,6 +5,9 @@
   padding: 2rem;
   max-width: 800px;
   margin: 0 auto;
+  box-sizing: border-box;
+  height: fit-content; /* Take only needed space */
+  flex-shrink: 1; /* Allow shrinking if needed */
 }
 
 .step-header {
@@ -35,6 +38,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  /* Removed flex and overflow properties since parent handles scrolling */
 }
 
 .team-setup-section,
@@ -125,6 +129,40 @@
 .team-input::placeholder,
 .player-input::placeholder {
   color: rgba(255, 255, 255, 0.6);
+}
+
+/* Section header with shuffle button */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.shuffle-button {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.75rem;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+
+.shuffle-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.shuffle-button:active {
+  transform: translateY(0);
 }
 
 /* Remove team button styles removed - only 2 teams supported */

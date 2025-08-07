@@ -10,6 +10,7 @@ import { GameSettingsModal } from './GameSettingsModal';
 import { VersionDisplay } from './VersionDisplay';
 import { useHaptics } from '../hooks/useHaptics';
 import { analytics } from '../services/analytics';
+import { getRandomTeamNames } from '../data/teamNames';
 import './MenuScreenSteps.css';
 
 interface GameOptions {
@@ -52,7 +53,6 @@ export const MenuScreenSteps: React.FC = () => {
     setBuzzerSound,
     setGameLength,
     startSoloGame,
-    startTeamSetup,
     setTeams
   } = useGameStore();
 
@@ -68,7 +68,7 @@ export const MenuScreenSteps: React.FC = () => {
     skipLimit,
     buzzerSound,
     gameLength,
-    teamNames: ['Team 1', 'Team 2'],
+    teamNames: getRandomTeamNames(),
     playerName: ''
   });
 
@@ -169,13 +169,14 @@ export const MenuScreenSteps: React.FC = () => {
 
     if (selectedGameMode === 'team') {
       if (gameOptions.teamNames && gameOptions.teamNames.length >= 2) {
-        // Ensure exactly 2 teams
+        // Set up teams and start game directly, skipping the separate team setup screen
         const teams = gameOptions.teamNames.slice(0, 2).map((name) => ({
           name,
           score: 0
         }));
         setTeams(teams);
-        startTeamSetup();
+        // Start team game directly using existing startGame function
+        useGameStore.getState().startGame();
       }
     } else {
       if (gameOptions.playerName) {
@@ -229,50 +230,55 @@ export const MenuScreenSteps: React.FC = () => {
   return (
     <main className="menu-screen-steps" data-testid="menu-screen">
       <div className="menu-content">
-        {/* Header with quick access buttons */}
+        {/* Compact header with quick access buttons and step indicator */}
         <div className="menu-header">
-          <div className="header-actions">
-            <button
-              className="header-action-button"
-              onClick={() => setShowGameSettings(true)}
-              aria-label="Game settings"
-            >
-              ⚙️
-            </button>
-            
-            <button
-              className="header-action-button"
-              onClick={() => setShowHowToPlay(true)}
-              aria-label="How to play"
-            >
-              ℹ️
-            </button>
-            
-            <button
-              className="header-action-button"
-              onClick={() => setShowPrivacySettings(true)}
-              aria-label="Privacy settings"
-            >
-              🔒
-            </button>
+          <div className="header-top-row">
+            <div className="header-actions">
+              <button
+                className="header-action-button"
+                onClick={() => setShowGameSettings(true)}
+                aria-label="Game settings"
+              >
+                ⚙️
+              </button>
+              
+              <button
+                className="header-action-button"
+                onClick={() => setShowHowToPlay(true)}
+                aria-label="How to play"
+              >
+                ℹ️
+              </button>
+              
+              <button
+                className="header-action-button"
+                onClick={() => setShowPrivacySettings(true)}
+                aria-label="Privacy settings"
+              >
+                🔒
+              </button>
+            </div>
+          </div>
+          
+          <div className="header-step-row">
+            <StepIndicator
+              currentStep={currentStep}
+              totalSteps={STEPS.length}
+              steps={STEPS}
+            />
           </div>
         </div>
 
-        {/* Step indicator */}
-        <StepIndicator
-          currentStep={currentStep}
-          totalSteps={STEPS.length}
-          steps={STEPS}
-        />
-
-        {/* Current step content */}
+        {/* Current step content with footer inside scrollable area */}
         <div className="step-container">
-          {renderCurrentStep()}
-        </div>
-
-        {/* Footer */}
-        <div className="menu-footer">
-          <VersionDisplay />
+          <div className="step-content">
+            {renderCurrentStep()}
+          </div>
+          
+          {/* Footer moved inside scrollable area */}
+          <div className="menu-footer">
+            <VersionDisplay />
+          </div>
         </div>
       </div>
 
