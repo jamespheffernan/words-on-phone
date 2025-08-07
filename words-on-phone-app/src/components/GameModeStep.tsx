@@ -58,7 +58,7 @@ export const GameModeStep: React.FC<GameModeStepProps> = ({
           <div className="mode-content">
             <h3 className="mode-title">Solo Game</h3>
             <p className="mode-description">
-              Play by yourself or with friends taking turns. Perfect for practice or casual fun.
+              Every player for themselves. Wrack up the highest score you can  during your turn.
             </p>
             <div className="mode-features">
               <span className="feature">• Individual scoring</span>
