@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { CategoryMetadata } from '../types/category';
 import { useGameStore } from '../store';
 import { DEFAULT_CATEGORY_GROUPS, groupCategoriesByGroup, CategoryGroup, getCategoryIcon } from '../types/category';
@@ -36,6 +36,10 @@ const AccordionGroup: React.FC<AccordionGroupProps> = ({
   onToggleExpanded,
   sortKey
 }) => {
+  const longPressTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isLongPressRef = useRef(false);
+  const [isHolding, setIsHolding] = useState(false);
+  
   const sortedCategories = useMemo(() => {
     const sortFn = sortKey === 'name'
       ? (a: CategoryMetadata, b: CategoryMetadata) => a.name.localeCompare(b.name)
@@ -48,7 +52,38 @@ const AccordionGroup: React.FC<AccordionGroupProps> = ({
   const totalInGroup = categories.length;
   const allSelected = selectedInGroup === totalInGroup;
 
+  const startLongPress = () => {
+    isLongPressRef.current = false;
+    setIsHolding(true);
+    longPressTimerRef.current = setTimeout(() => {
+      isLongPressRef.current = true;
+      setIsHolding(false);
+      // Trigger group selection on long press
+      const categoryNames = categories.map(cat => cat.name);
+      onToggleGroup(categoryNames);
+      
+      // Add haptic feedback if available (mobile)
+      if ('vibrate' in navigator) {
+        navigator.vibrate(50);
+      }
+    }, 500); // 500ms long press threshold
+  };
+
+  const endLongPress = () => {
+    setIsHolding(false);
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
+    }
+  };
+
   const handleGroupClick = (e: React.MouseEvent) => {
+    // If this was a long press, don't execute click action
+    if (isLongPressRef.current) {
+      isLongPressRef.current = false;
+      return;
+    }
+
     // If clicking on the chevron area, just expand/collapse
     const target = e.target as HTMLElement;
     if (target.classList.contains('accordion-chevron')) {
@@ -56,26 +91,46 @@ const AccordionGroup: React.FC<AccordionGroupProps> = ({
       return;
     }
 
-    // Double-click to select/deselect all in group
-    if (e.detail === 2) {
-      e.preventDefault();
-      const categoryNames = categories.map(cat => cat.name);
-      onToggleGroup(categoryNames);
-      return;
-    }
-
     // Single click to expand/collapse
     onToggleExpanded();
+  };
+
+  // Mouse events for desktop
+  const handleMouseDown = () => {
+    startLongPress();
+  };
+
+  const handleMouseUp = () => {
+    endLongPress();
+  };
+
+  const handleMouseLeave = () => {
+    endLongPress();
+  };
+
+  // Touch events for mobile
+  const handleTouchStart = () => {
+    startLongPress();
+  };
+
+  const handleTouchEnd = () => {
+    endLongPress();
   };
 
   return (
     <div className="accordion-group">
       <button 
-        className={`accordion-header ${allSelected ? 'all-selected' : ''}`}
+        className={`accordion-header ${allSelected ? 'all-selected' : ''} ${isHolding ? 'holding' : ''}`}
         onClick={handleGroupClick}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
         aria-expanded={isExpanded}
-        aria-label={`${group.name} category group, ${selectedInGroup} of ${totalInGroup} selected. Double-click to select all.`}
-        title="Double-click to select/deselect all categories in this group"
+        aria-label={`${group.name} category group, ${selectedInGroup} of ${totalInGroup} selected. Press and hold to select all.`}
+        title="Press and hold to select/deselect all categories in this group"
+        style={{ touchAction: 'manipulation' }}
       >
         <div className="accordion-header-content">
           <span className="accordion-icon">{group.emoji}</span>
