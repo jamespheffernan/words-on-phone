@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useGameStore, GameStatus } from '../store';
+import { useGameStore, GameStatus, GameMode } from '../store';
 import { useTimer } from '../hooks/useTimer';
 import { useAudio } from '../hooks/useAudio';
 import { useHaptics } from '../hooks/useHaptics';
@@ -35,6 +35,8 @@ export const GameScreen: React.FC = () => {
     buzzerSound,
     status,
     selectedCategories,
+    gameMode,
+    currentSoloPlayer,
     // Beep ramp settings
     enableBeepRamp,
     beepFirstInterval,
@@ -247,7 +249,7 @@ export const GameScreen: React.FC = () => {
           )}
           
           <div className="team-display" role="status" aria-live="polite">
-            {teams.length > 0 ? (
+            {gameMode === GameMode.TEAM && teams.length > 0 ? (
               <div className="current-team">
                 <div className="team-indicator">
                   <span className="holding-label">Holding:</span>
@@ -263,6 +265,11 @@ export const GameScreen: React.FC = () => {
                     </span>
                   ))}
                 </div>
+              </div>
+            ) : gameMode === GameMode.SOLO && currentSoloPlayer ? (
+              <div className="solo-player-display">
+                <span className="player-name">{currentSoloPlayer}:</span>
+                <span className="current-score">{currentRoundAnswers.length}</span>
               </div>
             ) : (
               <div className="round-counter">Round: {currentRoundAnswers.length}</div>

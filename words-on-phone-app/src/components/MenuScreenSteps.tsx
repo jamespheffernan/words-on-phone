@@ -7,6 +7,7 @@ import { StepIndicator } from './StepIndicator';
 import { HowToPlayModal } from './HowToPlayModal';
 import { PrivacySettings } from './PrivacySettings';
 import { GameSettingsModal } from './GameSettingsModal';
+import { PlayerNameModal } from './PlayerNameModal';
 import { VersionDisplay } from './VersionDisplay';
 import { useHaptics } from '../hooks/useHaptics';
 import { analytics } from '../services/analytics';
@@ -76,12 +77,22 @@ export const MenuScreenSteps: React.FC = () => {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showGameSettings, setShowGameSettings] = useState(false);
   const [showPrivacySettings, setShowPrivacySettings] = useState(false);
+  const [showPlayerNameModal, setShowPlayerNameModal] = useState(false);
 
   const { triggerNotification } = useHaptics();
 
   const handleModeSelect = (mode: GameMode) => {
     setSelectedGameMode(mode);
     triggerNotification();
+    
+    // Set mode-specific defaults
+    if (mode === 'solo') {
+      setGameOptions(prev => ({
+        ...prev,
+        showTimer: true,        // Solo mode should show timer by default
+        useRandomTimer: false   // Solo mode should use fixed timer by default
+      }));
+    }
     analytics.track('category_selected', { 
       categoryName: `${mode}_mode_selection`,
       source: 'grid'
@@ -179,14 +190,19 @@ export const MenuScreenSteps: React.FC = () => {
         useGameStore.getState().startGame();
       }
     } else {
-      if (gameOptions.playerName) {
-        useGameStore.getState().setCurrentSoloPlayer(gameOptions.playerName);
-        useGameStore.getState().startNewSoloGame();
-        startSoloGame();
-      }
+      // For solo mode, show player name modal first
+      setShowPlayerNameModal(true);
     }
 
     triggerNotification();
+  };
+
+  const handlePlayerNameConfirmed = (playerName: string) => {
+    // Set the player name and start solo game
+    useGameStore.getState().setCurrentSoloPlayer(playerName);
+    useGameStore.getState().startNewSoloGame();
+    startSoloGame();
+    setShowPlayerNameModal(false);
   };
 
   const renderCurrentStep = () => {
@@ -296,6 +312,14 @@ export const MenuScreenSteps: React.FC = () => {
       <PrivacySettings
         isOpen={showPrivacySettings}
         onClose={() => setShowPrivacySettings(false)}
+      />
+
+      <PlayerNameModal
+        isOpen={showPlayerNameModal}
+        onClose={() => setShowPlayerNameModal(false)}
+        onConfirm={handlePlayerNameConfirmed}
+        title="First Player"
+        message="Enter the name of the first player to start the game!"
       />
     </main>
   );

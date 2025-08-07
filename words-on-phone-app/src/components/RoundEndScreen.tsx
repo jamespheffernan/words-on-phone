@@ -19,7 +19,8 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
     setCurrentTeamIndex,
     currentSoloPlayer,
     soloGameResults,
-    completeSoloRound 
+    completeSoloRound,
+    skipsUsed
   } = useGameStore();
   const { triggerHaptic } = useHaptics();
   
@@ -68,8 +69,14 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
 
   const handleSoloContinue = () => {
     triggerHaptic('gameplay', 'round-continue');
+    
+    // Complete the round first, then show modal
     completeSoloRound(currentSoloPlayer);
-    setShowPlayerNameModal(true);
+    
+    // Use a small delay to ensure state updates, then show modal
+    setTimeout(() => {
+      setShowPlayerNameModal(true);
+    }, 50);
   };
 
   const handleNextPlayerName = (name: string) => {
@@ -85,12 +92,33 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
 
   // Solo mode render
   if (gameMode === GameMode.SOLO) {
-    // Calculate current round stats
-    const slowestAnswer = currentRoundAnswers.length > 0 
-      ? currentRoundAnswers.reduce((slowest, answer) => 
+    // Get the most recent round result for this player from soloGameResults
+    // If completeSoloRound hasn't run yet, use currentRoundAnswers
+    // If it has run, use the last entry in soloGameResults for this player
+    const playerLastRound = soloGameResults
+      .filter(result => result.playerName === currentSoloPlayer)
+      .sort((a, b) => b.roundNumber - a.roundNumber)[0];
+    
+    // Use the saved round data if available, otherwise current round answers
+    const roundAnswers = playerLastRound?.answers || currentRoundAnswers;
+    const roundScore = playerLastRound?.score || currentRoundAnswers.length;
+    
+    // Calculate current round stats from the appropriate data source
+    const slowestAnswer = roundAnswers.length > 0 
+      ? roundAnswers.reduce((slowest, answer) => 
           answer.timeMs > slowest.timeMs ? answer : slowest
         )
       : null;
+    
+    const roundFastestAnswer = roundAnswers.length > 0 
+      ? roundAnswers.reduce((fastest, answer) => 
+          answer.timeMs < fastest.timeMs ? answer : fastest
+        )
+      : null;
+    
+    const roundAverageTime = roundAnswers.length > 0
+      ? Math.round(roundAnswers.reduce((sum, answer) => sum + answer.timeMs, 0) / roundAnswers.length)
+      : 0;
 
     return (
       <div className="round-end-screen solo-mode">
@@ -104,16 +132,16 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
             </div>
             <div className="current-round-score">
               <span className="score-label">This Round:</span>
-              <span className="score-value">{totalCorrect} correct</span>
+              <span className="score-value">{roundScore} correct</span>
             </div>
           </div>
           
           <div className="round-stats">
-            {fastestAnswer && (
+            {roundFastestAnswer && (
               <div className="stat-item highlight">
                 <span className="stat-label">⚡ Fastest Answer:</span>
                 <span className="stat-value">
-                  "{fastestAnswer.phrase}" ({(fastestAnswer.timeMs / 1000).toFixed(1)}s)
+                  "{roundFastestAnswer.phrase}" ({(roundFastestAnswer.timeMs / 1000).toFixed(1)}s)
                 </span>
               </div>
             )}
@@ -127,33 +155,59 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
               </div>
             )}
             
-            {totalCorrect > 1 && (
+            {roundScore > 1 && (
               <div className="stat-item">
                 <span className="stat-label">📊 Average Time:</span>
-                <span className="stat-value">{(averageTime / 1000).toFixed(1)}s</span>
+                <span className="stat-value">{(roundAverageTime / 1000).toFixed(1)}s</span>
               </div>
             )}
           </div>
 
-          {soloGameResults.length > 0 && (
-            <div className="leaderboard">
-              <h3>Current Game Leaderboard</h3>
-              <div className="round-history">
-                {soloGameResults
-                  .sort((a, b) => b.score - a.score)
-                  .map((result, index) => (
-                    <div key={index} className="round-summary">
-                      <span className="round-num">{result.playerName}:</span>
-                      <span className="round-score">{result.score} correct</span>
-                    </div>
-                  ))}
-                <div className="round-summary current">
-                  <span className="round-num">{currentSoloPlayer}:</span>
-                  <span className="round-score">{totalCorrect} correct (current)</span>
-                </div>
+          <div className="leaderboard">
+            <h3>Game Leaderboard</h3>
+            <div className="leaderboard-table">
+              <div className="leaderboard-header">
+                <span className="rank-col">#</span>
+                <span className="name-col">Player</span>
+                <span className="score-col">Correct</span>
+                <span className="skips-col">Skips</span>
               </div>
+              {(() => {
+                // Create leaderboard with current player included
+                const allResults = [...soloGameResults];
+                
+                // Add current player's round if not already completed
+                const hasCurrentPlayer = soloGameResults.some(r => r.playerName === currentSoloPlayer);
+                if (!hasCurrentPlayer) {
+                  allResults.push({
+                    playerName: currentSoloPlayer,
+                    score: roundScore,
+                    skipsUsed: playerLastRound?.skipsUsed || skipsUsed,
+                    answers: roundAnswers,
+                    roundNumber: soloGameResults.length + 1
+                  });
+                }
+                
+                // Sort by score (desc), then by skips (asc - fewer skips is better)
+                const sortedResults = allResults.sort((a, b) => {
+                  if (a.score !== b.score) return b.score - a.score;
+                  return a.skipsUsed - b.skipsUsed;
+                });
+                
+                return sortedResults.map((result, index) => (
+                  <div 
+                    key={`${result.playerName}-${result.roundNumber}`}
+                    className={`leaderboard-row ${result.playerName === currentSoloPlayer && !hasCurrentPlayer ? 'current' : ''}`}
+                  >
+                    <span className="rank-col">#{index + 1}</span>
+                    <span className="name-col">{result.playerName}</span>
+                    <span className="score-col">{result.score}</span>
+                    <span className="skips-col">{result.skipsUsed}</span>
+                  </div>
+                ));
+              })()}
             </div>
-          )}
+          </div>
 
           <div className="solo-actions">
             <button

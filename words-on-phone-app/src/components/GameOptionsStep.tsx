@@ -55,7 +55,6 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
   const [teamNames, setTeamNames] = useState<string[]>(
     gameOptions.teamNames || getInitialTeamNames()
   );
-  const [playerName, setPlayerName] = useState(gameOptions.playerName || '');
   const [showCategoriesModal, setShowCategoriesModal] = useState(false);
   
   // Get category metadata for displaying selected categories
@@ -94,14 +93,6 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
   };
 
   // Team management functions removed - only 2 teams supported
-
-  const handlePlayerNameChange = (name: string) => {
-    setPlayerName(name);
-    onOptionsChange({
-      ...gameOptions,
-      playerName: name
-    });
-  };
 
   const handleTimerToggle = (showTimer: boolean) => {
     onOptionsChange({
@@ -155,14 +146,14 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
 
   const canStartGame = gameMode === 'team' 
     ? teamNames.slice(0, 2).every(name => name.trim().length > 0)
-    : playerName.trim().length > 0;
+    : true; // Solo mode no longer requires player name up front
 
   // Get selected categories organized by group
   const getSelectedCategoryGroups = () => {
     const allCategories = [...defaultCategories, ...customCategories];
     const selectedCategoryData = allCategories.filter(cat => selectedCategories.includes(cat.name));
     
-    const groups: { [key: string]: any[] } = {};
+    const groups: { [key: string]: Array<{ name: string; phraseCount: number; icon: string }> } = {};
     selectedCategoryData.forEach(cat => {
       const categoryGroup = getCategoryGroup(cat.name);
       const groupName = categoryGroup ? categoryGroup.name : 'Other';
@@ -226,20 +217,28 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
         )}
 
         {gameMode === 'solo' && (
-          <div className="player-setup-section">
-            <h3 className="section-title">Player Setup</h3>
-            <p className="section-description">Who's playing today?</p>
-            
-            <div className="player-input-group">
-              <label className="player-label">Player Name</label>
-              <input
-                type="text"
-                value={playerName}
-                onChange={(e) => handlePlayerNameChange(e.target.value)}
-                className="player-input"
-                placeholder="Enter your name"
-                maxLength={20}
-              />
+          <div className="solo-info-section">
+            <h3 className="section-title">Solo Mode</h3>
+            <p className="section-description">
+              Take turns with friends - each player gets one round and results are tracked on a leaderboard.
+            </p>
+            <div className="solo-flow-info">
+              <div className="flow-step">
+                <span className="step-number">1</span>
+                <span className="step-text">Configure game settings</span>
+              </div>
+              <div className="flow-step">
+                <span className="step-number">2</span>
+                <span className="step-text">Enter first player's name</span>
+              </div>
+              <div className="flow-step">
+                <span className="step-number">3</span>
+                <span className="step-text">Play round & see leaderboard</span>
+              </div>
+              <div className="flow-step">
+                <span className="step-number">4</span>
+                <span className="step-text">Add next player & repeat</span>
+              </div>
             </div>
           </div>
         )}

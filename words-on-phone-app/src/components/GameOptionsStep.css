@@ -42,7 +42,7 @@
 }
 
 .team-setup-section,
-.player-setup-section,
+.solo-info-section,
 .game-settings-section,
 .summary-section {
   background: rgba(255, 255, 255, 0.1);
@@ -129,6 +129,44 @@
 .team-input::placeholder,
 .player-input::placeholder {
   color: rgba(255, 255, 255, 0.6);
+}
+
+/* Solo info section */
+.solo-flow-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(78, 205, 196, 0.3);
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: 2px solid rgba(78, 205, 196, 0.5);
+  flex-shrink: 0;
+}
+
+.step-text {
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Section header with shuffle button */
@@ -431,7 +469,7 @@
   }
 
   .team-setup-section,
-  .player-setup-section,
+  .solo-info-section,
   .game-settings-section,
   .summary-section {
     padding: 1.5rem;

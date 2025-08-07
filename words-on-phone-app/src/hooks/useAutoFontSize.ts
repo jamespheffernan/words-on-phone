@@ -47,7 +47,7 @@ export const useAutoFontSize = <T extends HTMLElement = HTMLElement>({
       element.style.lineHeight = '1.2'; // Tight line height for better space usage
       
       // Force reflow to get accurate measurements
-      element.offsetHeight;
+      void element.offsetHeight;
       
       // Check if content fits within both width and height constraints
       const fitsWidth = element.scrollWidth <= containerWidth;

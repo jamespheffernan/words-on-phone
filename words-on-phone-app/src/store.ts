@@ -84,6 +84,7 @@ export interface LeaderboardEntry {
 export interface SoloRoundResult {
   playerName: string;
   score: number;
+  skipsUsed: number;
   answers: Array<{ phrase: string; timeMs: number }>;
   fastestAnswer?: { phrase: string; timeMs: number };
   slowestAnswer?: { phrase: string; timeMs: number };
@@ -857,6 +858,7 @@ export const useGameStore = create<GameState>()(
           const roundResult: SoloRoundResult = {
             playerName,
             score,
+            skipsUsed: state.skipsUsed,
             answers,
             fastestAnswer,
             slowestAnswer,
