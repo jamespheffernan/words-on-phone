@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GameMode } from './GameModeStep';
-import { useGameStore, BUZZER_SOUNDS } from '../store';
+import { useGameStore, BUZZER_SOUNDS, GameDifficulty } from '../store';
 import { useCategoryMetadata } from '../hooks/useCategoryMetadata';
 import { getCategoryGroup } from '../types/category';
 import { getRandomTeamNames } from '../data/teamNames';
+import { getDifficultyStats, getDifficultyDescription } from '../services/difficultyService';
 import './GameOptionsStep.css';
 
 interface GameOptions {
@@ -59,16 +60,26 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
     timerRangeMax: globalTimerRangeMax,
     skipLimit: globalSkipLimit,
     buzzerSound: globalBuzzerSound,
-    gameLength: globalGameLength
+    gameLength: globalGameLength,
+    difficulty: globalDifficulty,
+    setDifficulty
   } = useGameStore();
 
   const [teamNames, setTeamNames] = useState<string[]>(
     gameOptions.teamNames || getInitialTeamNames()
   );
   const [showCategoriesModal, setShowCategoriesModal] = useState(false);
+  const [difficultyStats, setDifficultyStats] = useState(() => 
+    getDifficultyStats(selectedCategories)
+  );
   
   // Get category metadata for displaying selected categories
   const { defaultCategories, customCategories, loading: categoriesLoading } = useCategoryMetadata();
+
+  // Update difficulty stats when categories change
+  useEffect(() => {
+    setDifficultyStats(getDifficultyStats(selectedCategories));
+  }, [selectedCategories]);
   
   // Initialize with global store values if not set in gameOptions
   const currentOptions = {
@@ -152,6 +163,10 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
       ...currentOptions,
       gameLength
     });
+  };
+
+  const handleDifficultyChange = (difficulty: GameDifficulty) => {
+    setDifficulty(difficulty);
   };
 
   const canStartGame = gameMode === 'team' 
@@ -370,6 +385,32 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
                 className="slider"
               />
               <p className="setting-description">Maximum skips allowed per round</p>
+            </div>
+
+            <div className="setting-item">
+              <label className="setting-label">
+                Difficulty: {globalDifficulty.charAt(0).toUpperCase() + globalDifficulty.slice(1)}
+              </label>
+              <div className="difficulty-selector">
+                {Object.values(GameDifficulty).map((difficulty) => (
+                  <button
+                    key={difficulty}
+                    type="button"
+                    className={`difficulty-button ${globalDifficulty === difficulty ? 'active' : ''}`}
+                    onClick={() => handleDifficultyChange(difficulty)}
+                  >
+                    <span className="difficulty-name">
+                      {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+                    </span>
+                    <span className="difficulty-count">
+                      {difficultyStats[difficulty].toLocaleString()} phrases
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <p className="setting-description">
+                {getDifficultyDescription(globalDifficulty)}
+              </p>
             </div>
 
             <div className="setting-item">

@@ -8,6 +8,7 @@ import { indexedDBStorage } from './storage/indexedDBStorage';
 import { categoryPopularityService } from './services/categoryPopularityService';
 import { DEFAULT_CATEGORY_GROUPS } from './types/category';
 import { getRandomTeamNames } from './data/teamNames';
+import { getPhrasesForDifficulty } from './services/difficultyService';
 import { 
   trackRoundStart, 
   trackPhraseSuccess, 
@@ -29,6 +30,12 @@ export enum GameStatus {
 export enum GameMode {
   SOLO = 'solo',
   TEAM = 'team'
+}
+
+export enum GameDifficulty {
+  EASY = 'easy',      // Top 40% most prominent phrases in each category
+  MEDIUM = 'medium',  // Top 70% most prominent phrases in each category  
+  HARD = 'hard'       // All phrases from eligible categories
 }
 
 // Phrase statistics interface
@@ -105,6 +112,7 @@ interface GameState {
   // Game status
   status: GameStatus;
   gameMode: GameMode;
+  difficulty: GameDifficulty;
   
   // Phrase management
   cursor: PhraseCursor<string>;
@@ -177,6 +185,7 @@ interface GameState {
   setSkipLimit: (limit: number) => void;
   setBuzzerSound: (sound: BuzzerSoundType) => void;
   setGameLength: (length: number) => void;
+  setDifficulty: (difficulty: GameDifficulty) => void;
   
   // Beep ramp actions
   setEnableBeepRamp: (enabled: boolean) => void;
@@ -306,6 +315,7 @@ export const useGameStore = create<GameState>()(
         // Initial state
         status: GameStatus.MENU,
         gameMode: GameMode.TEAM, // Default to team mode
+        difficulty: GameDifficulty.MEDIUM, // Default to medium difficulty
         cursor,
         currentPhrase: '',
         selectedCategory: PhraseCategory.EVERYTHING,
@@ -502,6 +512,8 @@ export const useGameStore = create<GameState>()(
         
         setGameLength: (length) => set({ gameLength: length }),
         
+        setDifficulty: (difficulty) => set({ difficulty }),
+        
         setEnableBeepRamp: (enabled) => set({ enableBeepRamp: enabled }),
         
         setBeepRampStart: (seconds) => set({ 
@@ -533,17 +545,15 @@ export const useGameStore = create<GameState>()(
           // Solo mode always uses fixed timer (no randomization) for fairness
           const actualDuration = state.timerDuration;
           
-          // Build phrase list based on selectedCategories
+          // Build phrase list based on selectedCategories and difficulty
           const cats = state.selectedCategories && state.selectedCategories.length > 0
             ? state.selectedCategories
             : [state.selectedCategory];
           
-          const phraseSet = new Set<string>();
-          cats.forEach((cat) => {
-            phraseService.getPhrasesByCategory(cat as any).forEach((p) => phraseSet.add(p));
-          });
+          // Use difficulty service to get filtered phrases
+          const phrases = getPhrasesForDifficulty(cats, state.difficulty);
 
-          const newCursor = new PhraseCursor(Array.from(phraseSet));
+          const newCursor = new PhraseCursor(phrases);
           const gameId = `solo_game_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
           // Track solo game start
@@ -554,7 +564,7 @@ export const useGameStore = create<GameState>()(
             gameMode: 'solo',
             skipLimit: state.skipLimit,
             gameId,
-            phraseCount: phraseSet.size
+            phraseCount: phrases.length
           });
 
           return {
@@ -595,7 +605,7 @@ export const useGameStore = create<GameState>()(
             buzzer_sound: state.buzzerSound
           });
           
-          // Build phrase list based on selectedCategories (fallback legacy)
+          // Build phrase list based on selectedCategories and difficulty
           const cats = state.selectedCategories && state.selectedCategories.length > 0
             ? state.selectedCategories
             : [state.selectedCategory];
@@ -603,12 +613,10 @@ export const useGameStore = create<GameState>()(
           // Track category popularity (async, non-blocking)
           trackCategoryPopularity(cats);
           
-          const phraseSet = new Set<string>();
-          cats.forEach((cat)=> {
-            phraseService.getPhrasesByCategory(cat as any).forEach((p)=> phraseSet.add(p));
-          });
+          // Use difficulty service to get filtered phrases
+          const phrases = getPhrasesForDifficulty(cats, state.difficulty);
 
-          const newCursor = new PhraseCursor(Array.from(phraseSet));
+          const newCursor = new PhraseCursor(phrases);
           const gameId = `game_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
           // Track PostHog game_started event
@@ -619,7 +627,7 @@ export const useGameStore = create<GameState>()(
             teamCount: state.teams.length > 0 ? state.teams.length : undefined,
             skipLimit: state.skipLimit,
             gameId,
-            phraseCount: phraseSet.size
+            phraseCount: phrases.length
           });
 
           // Track game start performance

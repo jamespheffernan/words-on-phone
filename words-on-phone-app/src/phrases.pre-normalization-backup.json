@@ -3,8 +3,8 @@
     "phrase": "Tampa Bay Buccaneers",
     "category": "Sports & Athletes",
     "prominence": {
-      "score": 15000000,
-      "method": "wiki_pageviews_normalized",
+      "score": 85326481,
+      "method": "wiki_pageviews_corrected",
       "article": "Tampa Bay Buccaneers"
     }
   },
@@ -12,8 +12,8 @@
     "phrase": "Tampa Bay Buccaneers",
     "category": "Everything",
     "prominence": {
-      "score": 15000000,
-      "method": "wiki_pageviews_normalized",
+      "score": 85326481,
+      "method": "wiki_pageviews_corrected",
       "article": "Tampa Bay Buccaneers"
     }
   },
