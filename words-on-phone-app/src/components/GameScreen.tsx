@@ -153,15 +153,21 @@ export const GameScreen: React.FC = () => {
     }
   }, [actualTimerDuration, isTimerRunning, timer]);
 
-  // Reset and start timer when starting a new game/round (status changes to PLAYING)
+  // Reset timer when starting a new game/round (status changes to PLAYING)
   useEffect(() => {
     if (status === GameStatus.PLAYING) {
       timer.reset();
-      if (isTimerRunning) {
-        timer.start();
-      }
     }
-  }, [status, isTimerRunning, timer]);
+  }, [status, timer]);
+
+  // Start/stop timer based on isTimerRunning state
+  useEffect(() => {
+    if (isTimerRunning && !timer.isRunning) {
+      timer.start();
+    } else if (!isTimerRunning && timer.isRunning) {
+      timer.stop();
+    }
+  }, [isTimerRunning, timer]);
 
   // Use timer's timeRemaining when running, store's when idle
   const displayTime = timer.isRunning || timer.isPaused ? timer.timeRemaining : timeRemaining;
