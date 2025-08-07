@@ -41,13 +41,14 @@ export const CategorySelectionStep: React.FC<CategorySelectionStepProps> = ({
     setSelectedPreset(preset);
     
     switch (preset) {
-      case 'all':
+      case 'all': {
         const allCategories = defaultCategories.map(cat => cat.name);
         onCategoriesChange(allCategories);
         setShowManualSelection(false);
         break;
+      }
       
-      case 'random':
+      case 'random': {
         // Select 5 random categories to ensure enough phrases (excluding 'Everything')
         const eligibleForRandom = defaultCategories.filter(cat => cat.name !== 'Everything');
         const shuffled = [...eligibleForRandom].sort(() => 0.5 - Math.random());
@@ -55,6 +56,7 @@ export const CategorySelectionStep: React.FC<CategorySelectionStepProps> = ({
         onCategoriesChange(randomSelection);
         setShowManualSelection(false);
         break;
+      }
       
       case 'custom':
         setShowManualSelection(true);
@@ -124,7 +126,8 @@ export const CategorySelectionStep: React.FC<CategorySelectionStepProps> = ({
         <p className="step-description">Select which phrases you'd like to play with</p>
       </div>
 
-      <div className="preset-options">
+      <div className="category-selection-content">
+        <div className="preset-options">
         <button
           className={`preset-option ${selectedPreset === 'all' ? 'selected' : ''}`}
           onClick={() => handlePresetChange('all')}
@@ -191,6 +194,7 @@ export const CategorySelectionStep: React.FC<CategorySelectionStepProps> = ({
           <span className="button-icon">✨</span>
           Request Custom Category
         </button>
+      </div>
       </div>
 
       <div className="step-navigation">

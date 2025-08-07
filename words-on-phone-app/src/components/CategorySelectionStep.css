@@ -10,7 +10,38 @@
   min-height: 0; /* Allow shrinking if needed */
 }
 
+.category-selection-content {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding-right: 8px; /* Space for scrollbar */
+  margin-right: -8px; /* Offset padding to maintain alignment */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Custom scrollbar styling for content area */
+.category-selection-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.category-selection-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.category-selection-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.category-selection-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
 .step-header {
+  flex-shrink: 0; /* Keep header fixed size */
   text-align: center;
 }
 
@@ -118,8 +149,7 @@
   animation: slideDown 0.3s ease-out;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 400px); /* Reserve space for header, navigation, etc */
-  min-height: 0;
+  gap: 2rem;
 }
 
 @keyframes slideDown {
@@ -157,43 +187,15 @@
   font-style: normal;
 }
 
-/* Make the category selector area scrollable within manual selection */
+/* Remove internal scrolling - let parent handle it */
 .manual-selection .category-selector {
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
-  padding-right: 8px; /* Space for scrollbar */
-  margin-right: -8px; /* Offset padding to maintain alignment */
-}
-
-/* Custom scrollbar styling */
-.manual-selection .category-selector::-webkit-scrollbar {
-  width: 6px;
-}
-
-.manual-selection .category-selector::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-}
-
-.manual-selection .category-selector::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 3px;
-}
-
-.manual-selection .category-selector::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.selection-header {
-  flex-shrink: 0; /* Don't shrink header */
+  /* No flex or overflow properties - let it size naturally */
 }
 
 .category-actions {
   display: flex;
   justify-content: center;
   padding: 1rem 0;
-  flex-shrink: 0; /* Don't shrink actions */
 }
 
 .request-category-button {
@@ -231,6 +233,7 @@
   align-items: center;
   padding-top: 1rem;
   gap: 1rem;
+  flex-shrink: 0; /* Keep navigation fixed */
 }
 
 .back-button {
