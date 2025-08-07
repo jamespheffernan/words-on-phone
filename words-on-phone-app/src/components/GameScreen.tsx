@@ -108,7 +108,7 @@ export const GameScreen: React.FC = () => {
     }
   });
 
-  // Beep ramp system - start from beginning of timer
+  // Beep ramp system - start beeping from beginning and accelerate throughout duration
   const beepRamp = useBeepRamp({
     remainingMs: timer.timeRemainingMs,
     beepConfig: {
@@ -152,11 +152,14 @@ export const GameScreen: React.FC = () => {
 
   // Reset and start timer when starting a new game/round (status changes to PLAYING)
   useEffect(() => {
-    if (status === GameStatus.PLAYING) {
+    if (status === GameStatus.PLAYING && isTimerRunning) {
       timer.reset();
-      if (isTimerRunning) {
+      // Use setTimeout to avoid immediate beep ramp triggering during reset
+      setTimeout(() => {
         timer.start();
-      }
+      }, 0);
+    } else if (status === GameStatus.PLAYING && !isTimerRunning) {
+      timer.reset();
     }
   }, [status, isTimerRunning, timer]);
 
