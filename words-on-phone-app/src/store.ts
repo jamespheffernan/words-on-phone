@@ -758,8 +758,9 @@ export const useGameStore = create<GameState>()(
             isTeamMode: state.teams.length > 0
           });
           
-          // If teams are set up, go to round end; otherwise go directly to game end
-          if (state.teams.length > 0) {
+          // If teams are set up, go to round end
+          // For solo mode, also go to round end to show stats
+          if (state.teams.length > 0 || state.gameMode === GameMode.SOLO) {
             return {
               status: GameStatus.ROUND_END
             };

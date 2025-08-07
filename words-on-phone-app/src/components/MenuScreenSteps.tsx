@@ -198,9 +198,9 @@ export const MenuScreenSteps: React.FC = () => {
   };
 
   const handlePlayerNameConfirmed = (playerName: string) => {
-    // Set the player name and start solo game
-    useGameStore.getState().setCurrentSoloPlayer(playerName);
+    // Initialize solo game first, then set player name
     useGameStore.getState().startNewSoloGame();
+    useGameStore.getState().setCurrentSoloPlayer(playerName);
     startSoloGame();
     setShowPlayerNameModal(false);
   };
