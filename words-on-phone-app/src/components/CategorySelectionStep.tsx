@@ -48,8 +48,9 @@ export const CategorySelectionStep: React.FC<CategorySelectionStepProps> = ({
         break;
       
       case 'random':
-        // Select 5 random categories to ensure enough phrases
-        const shuffled = [...defaultCategories].sort(() => 0.5 - Math.random());
+        // Select 5 random categories to ensure enough phrases (excluding 'Everything')
+        const eligibleForRandom = defaultCategories.filter(cat => cat.name !== 'Everything');
+        const shuffled = [...eligibleForRandom].sort(() => 0.5 - Math.random());
         const randomSelection = shuffled.slice(0, 5).map(cat => cat.name);
         onCategoriesChange(randomSelection);
         setShowManualSelection(false);

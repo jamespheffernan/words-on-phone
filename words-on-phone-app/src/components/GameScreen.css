@@ -244,19 +244,25 @@
   padding: clamp(20px, 6vw, 40px) clamp(15px, 4vw, 20px);
   /* Ensure phrase container can shrink when needed */
   min-height: 0;
-  overflow-wrap: anywhere;
-  /* Allow content to overflow with scrolling if absolutely necessary */
-  overflow-y: auto;
+  /* Full width for auto font sizing calculations */
+  width: 100%;
+  /* Hide overflow to prevent scrolling during font size calculation */
+  overflow: hidden;
 }
 
 .current-phrase {
-  font-size: clamp(2rem, 8vw, 4rem);
+  /* Font size and wrapping now controlled by useAutoFontSize hook */
   text-align: center;
   font-family: "Turret Road", sans-serif;
   font-weight: 800;
   font-style: normal;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.5s ease-in;
+  /* Allow multi-line but keep full words together */
+  word-break: normal;
+  overflow-wrap: normal;
+  line-height: 1.2;
+  margin: 0;
 }
 
 @keyframes fadeIn {
@@ -414,10 +420,7 @@
     margin-bottom: clamp(12px, 3vh, 20px);
   }
   
-  .current-phrase {
-    /* Slightly smaller phrase text in landscape */
-    font-size: clamp(1.5rem, 6vw, 3rem);
-  }
+  /* Font size for .current-phrase now handled by useAutoFontSize hook */
 }
 
 /* Landscape with sufficient height - use horizontal button layout */

@@ -80,8 +80,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const handleSurpriseMe = useCallback(() => {
     if (allCategories.length === 0) return;
     
-    // Equal probability for all default categories
-    const eligibleCategories = allCategories.filter(cat => cat.type === 'default');
+    // Equal probability for all default categories (excluding 'Everything')
+    const eligibleCategories = allCategories.filter(cat => cat.type === 'default' && cat.name !== 'Everything');
     if (eligibleCategories.length === 0) return;
     
     const randomIndex = Math.floor(Math.random() * eligibleCategories.length);

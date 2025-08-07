@@ -8,6 +8,7 @@ import { useBeepRamp } from '../hooks/useBeepRamp';
 import { useBackgroundWarning } from '../hooks/useBackgroundWarning';
 import { useViewportHeight } from '../hooks/useViewportHeight';
 import { useFlashEffect } from '../hooks/useFlashEffect';
+import { useAutoFontSize } from '../hooks/useAutoFontSize';
 import { RippleCountdown } from './RippleCountdown';
 import { analytics } from '../services/analytics';
 import './GameScreen.css';
@@ -173,6 +174,14 @@ export const GameScreen: React.FC = () => {
   // Viewport height management with fallback
   const { heightValue, supportsDvh } = useViewportHeight();
 
+  // Auto font sizing for phrases with multi-line support
+  const phraseRef = useAutoFontSize({
+    text: currentPhrase,
+    maxFontSize: 120,
+    minFontSize: 24,
+    maxLines: 4
+  });
+
   // Track phrase_shown events
   useEffect(() => {
     if (currentPhrase && status === GameStatus.PLAYING) {
@@ -275,7 +284,7 @@ export const GameScreen: React.FC = () => {
       </header>
 
       <section className="phrase-container">
-        <h1 className="current-phrase" data-testid="phrase-display">{currentPhrase}</h1>
+        <h1 className="current-phrase" data-testid="phrase-display" ref={phraseRef}>{currentPhrase}</h1>
       </section>
 
       <section className="game-actions">
