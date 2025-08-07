@@ -719,7 +719,7 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  color: #333;
+  color: white;
 }
 
 .modal-header {
@@ -833,7 +833,7 @@
   font-weight: 500;
   font-style: normal;
   font-size: clamp(0.9rem, 2.8vw, 1rem);
-  color: #333;
+  color: white;
 }
 
 .category-count {
@@ -841,13 +841,13 @@
   font-weight: 400;
   font-style: normal;
   font-size: clamp(0.75rem, 2.2vw, 0.85rem);
-  color: #666;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .no-categories {
   text-align: center;
   padding: 2rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .no-categories p {
@@ -870,7 +870,7 @@
   font-family: "Turret Road", sans-serif;
   font-weight: 400;
   font-style: normal;
-  color: #2e7d32;
+  color: rgba(76, 175, 80, 0.9);
   text-align: center;
 }
 
