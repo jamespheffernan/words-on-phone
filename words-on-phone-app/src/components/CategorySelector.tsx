@@ -236,13 +236,15 @@ export const CategorySelector: React.FC<Props> = ({
     
     onChange(next);
     
-    // Track group selection
-    analytics.track('category_group_toggled', {
-      groupName: categoryNames.length > 0 ? 'group' : 'unknown',
-      categoryCount: categoryNames.length,
-      isSelectAll: !allSelectedInGroup,
-      source: 'group_header'
-    });
+    // Track group selection - using category_selected for now
+    if (categoryNames.length > 0) {
+      analytics.track('category_selected', {
+        categoryName: categoryNames[0], // First category in group as representative
+        source: 'grid',
+        categoryGroup: categoryNames.length > 1 ? 'multiple' : undefined,
+        isMultiSelect: true
+      });
+    }
   };
 
   // Bulk operations
