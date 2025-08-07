@@ -14,6 +14,14 @@ export const GameModeStep: React.FC<GameModeStepProps> = ({
   onModeSelect,
   onNext
 }) => {
+  const handleModeSelect = (mode: GameMode) => {
+    onModeSelect(mode);
+    // Auto-advance to next step
+    setTimeout(() => {
+      onNext();
+    }, 100); // Small delay for visual feedback
+  };
+
   return (
     <div className="game-mode-step">
       <div className="step-header">
@@ -24,7 +32,7 @@ export const GameModeStep: React.FC<GameModeStepProps> = ({
       <div className="mode-options">
         <button
           className={`mode-option ${selectedMode === 'team' ? 'selected' : ''}`}
-          onClick={() => onModeSelect('team')}
+          onClick={() => handleModeSelect('team')}
           aria-label="Team game mode"
         >
           <div className="mode-icon">👥</div>
@@ -43,7 +51,7 @@ export const GameModeStep: React.FC<GameModeStepProps> = ({
 
         <button
           className={`mode-option ${selectedMode === 'solo' ? 'selected' : ''}`}
-          onClick={() => onModeSelect('solo')}
+          onClick={() => handleModeSelect('solo')}
           aria-label="Solo game mode"
         >
           <div className="mode-icon">👤</div>
@@ -61,16 +69,6 @@ export const GameModeStep: React.FC<GameModeStepProps> = ({
         </button>
       </div>
 
-      <div className="step-actions">
-        <button
-          className="next-button"
-          onClick={onNext}
-          disabled={!selectedMode}
-          aria-label="Continue to category selection"
-        >
-          Continue
-        </button>
-      </div>
     </div>
   );
 };
