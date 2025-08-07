@@ -1,20 +1,26 @@
 [
   {
-    "phrase": "YouTube",
+    "phrase": "It is. Are you?",
     "category": "Brands & Companies",
     "prominence": {
-      "score": 4766830,
-      "method": "wiki_pageviews",
-      "article": "YouTube"
+      "score": 3598219,
+      "method": "wiki_totalhits"
     }
   },
   {
-    "phrase": "Google",
-    "category": "Brands & Companies",
+    "phrase": "24",
+    "category": "Movies & TV",
     "prominence": {
-      "score": 3143222,
-      "method": "wiki_pageviews",
-      "article": "Google"
+      "score": 2115848,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "University",
+    "category": "School & Education",
+    "prominence": {
+      "score": 1786437,
+      "method": "wiki_totalhits"
     }
   },
   {
@@ -36,21 +42,28 @@
     }
   },
   {
-    "phrase": "Chicago",
-    "category": "Entertainment & Pop Culture",
-    "prominence": {
-      "score": 1271974,
-      "method": "wiki_pageviews",
-      "article": "Chicago"
-    }
-  },
-  {
     "phrase": "Gandhi",
     "category": "Everything",
     "prominence": {
       "score": 1093973,
       "method": "wiki_pageviews",
       "article": "Mahatma_Gandhi"
+    }
+  },
+  {
+    "phrase": "Set",
+    "category": "Board Games & Toys",
+    "prominence": {
+      "score": 1066511,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "David",
+    "category": "Art & Culture",
+    "prominence": {
+      "score": 965080,
+      "method": "wiki_totalhits"
     }
   },
   {
@@ -72,30 +85,51 @@
     }
   },
   {
-    "phrase": "The Sun",
-    "category": "Technology & Science",
+    "phrase": "Go",
+    "category": "Board Games & Toys",
     "prominence": {
-      "score": 749918,
-      "method": "wiki_pageviews",
-      "article": "Sun"
+      "score": 872540,
+      "method": "wiki_totalhits"
     }
   },
   {
-    "phrase": "Encyclopedia",
-    "category": "Childhood & Nostalgia",
+    "phrase": "Map",
+    "category": "School & Education",
     "prominence": {
-      "score": 723940,
-      "method": "wiki_pageviews",
-      "article": "Encyclopedia"
+      "score": 803417,
+      "method": "wiki_totalhits"
     }
   },
   {
-    "phrase": "Encyclopedia",
-    "category": "Everything",
+    "phrase": "Project",
+    "category": "In the Office",
     "prominence": {
-      "score": 723940,
-      "method": "wiki_pageviews",
-      "article": "Encyclopedia"
+      "score": 763268,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "H&M",
+    "category": "Brands & Companies",
+    "prominence": {
+      "score": 763081,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Six",
+    "category": "Entertainment & Pop Culture",
+    "prominence": {
+      "score": 741736,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Law",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 684491,
+      "method": "wiki_totalhits"
     }
   },
   {
@@ -108,12 +142,27 @@
     }
   },
   {
-    "phrase": "Bar",
+    "phrase": "High School",
     "category": "Everything",
     "prominence": {
-      "score": 599495,
-      "method": "wiki_pageviews",
-      "article": "Bar"
+      "score": 625597,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Television",
+    "category": "Household Items",
+    "prominence": {
+      "score": 570353,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Take 6",
+    "category": "Famous People",
+    "prominence": {
+      "score": 555358,
+      "method": "wiki_totalhits"
     }
   },
   {
@@ -126,39 +175,43 @@
     }
   },
   {
-    "phrase": "John Williams",
-    "category": "Everything",
+    "phrase": "He-Man",
+    "category": "Board Games & Toys",
     "prominence": {
-      "score": 522187,
-      "method": "wiki_pageviews",
-      "article": "John_Williams"
+      "score": 535753,
+      "method": "wiki_totalhits"
     }
   },
   {
-    "phrase": "The White House",
-    "category": "Everything",
+    "phrase": "He-Man",
+    "category": "Childhood & Nostalgia",
     "prominence": {
-      "score": 509965,
-      "method": "wiki_pageviews",
-      "article": "White_House"
+      "score": 535753,
+      "method": "wiki_totalhits"
     }
   },
   {
-    "phrase": "The White House",
-    "category": "Everything",
+    "phrase": "Up and Down",
+    "category": "Famous Duos & Trios",
     "prominence": {
-      "score": 509965,
-      "method": "wiki_pageviews",
-      "article": "White_House"
+      "score": 496554,
+      "method": "wiki_totalhits"
     }
   },
   {
-    "phrase": "David",
-    "category": "Art & Culture",
+    "phrase": "69",
+    "category": "Adult Content",
     "prominence": {
-      "score": 509346,
-      "method": "wiki_pageviews",
-      "article": "David"
+      "score": 449244,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Heads Up!",
+    "category": "Board Games & Toys",
+    "prominence": {
+      "score": 448316,
+      "method": "wiki_totalhits"
     }
   },
   {
@@ -189,12 +242,60 @@
     }
   },
   {
+    "phrase": "Coach",
+    "category": "Occupations & Jobs",
+    "prominence": {
+      "score": 420355,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Trade",
+    "category": "Money & Finance",
+    "prominence": {
+      "score": 391348,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Role-playing",
+    "category": "Adult Content",
+    "prominence": {
+      "score": 387843,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Cast",
+    "category": "Anatomy & Medical",
+    "prominence": {
+      "score": 387093,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
     "phrase": "Aphrodite",
     "category": "Everything",
     "prominence": {
       "score": 381184,
       "method": "wiki_pageviews",
       "article": "Aphrodite"
+    }
+  },
+  {
+    "phrase": "Influencer",
+    "category": "Entertainment & Pop Culture",
+    "prominence": {
+      "score": 377595,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Heart",
+    "category": "Anatomy & Medical",
+    "prominence": {
+      "score": 375843,
+      "method": "wiki_totalhits"
     }
   },
   {
@@ -207,6 +308,14 @@
     }
   },
   {
+    "phrase": "The Sun",
+    "category": "Technology & Science",
+    "prominence": {
+      "score": 357855,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
     "phrase": "Orville and Wilbur Wright",
     "category": "Famous Duos & Trios",
     "prominence": {
@@ -216,21 +325,187 @@
     }
   },
   {
-    "phrase": "Right and Left",
-    "category": "Famous Duos & Trios",
+    "phrase": "Making out",
+    "category": "Adult Content",
     "prominence": {
-      "score": 304916,
-      "method": "wiki_pageviews",
-      "article": "Left-_and_right-hand_traffic"
+      "score": 352760,
+      "method": "wiki_totalhits"
     }
   },
   {
-    "phrase": "Six",
+    "phrase": "Encyclopedia",
+    "category": "Childhood & Nostalgia",
+    "prominence": {
+      "score": 343143,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Encyclopedia",
+    "category": "Everything",
+    "prominence": {
+      "score": 343143,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Router",
+    "category": "Everything",
+    "prominence": {
+      "score": 340354,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Meeting",
+    "category": "Everything",
+    "prominence": {
+      "score": 335091,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Black and White",
+    "category": "Famous Duos & Trios",
+    "prominence": {
+      "score": 333333,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Right and Left",
+    "category": "Famous Duos & Trios",
+    "prominence": {
+      "score": 329600,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Chicago",
     "category": "Entertainment & Pop Culture",
     "prominence": {
-      "score": 275256,
-      "method": "wiki_pageviews",
-      "article": "6"
+      "score": 326442,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Just Do It",
+    "category": "Brands & Companies",
+    "prominence": {
+      "score": 322068,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Saw",
+    "category": "Tools & Home Improvement",
+    "prominence": {
+      "score": 318209,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Shot",
+    "category": "Anatomy & Medical",
+    "prominence": {
+      "score": 316692,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "App",
+    "category": "Technology & Science",
+    "prominence": {
+      "score": 307627,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Up in the air",
+    "category": "Everything",
+    "prominence": {
+      "score": 306627,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Hospital",
+    "category": "Anatomy & Medical",
+    "prominence": {
+      "score": 301903,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Simon",
+    "category": "Board Games & Toys",
+    "prominence": {
+      "score": 297563,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Investigation",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 297488,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Google",
+    "category": "Brands & Companies",
+    "prominence": {
+      "score": 295786,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Playing the field",
+    "category": "Adult Content",
+    "prominence": {
+      "score": 285602,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Community Service",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 283189,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Justice",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 281060,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "The White House",
+    "category": "Everything",
+    "prominence": {
+      "score": 280078,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "The White House",
+    "category": "Everything",
+    "prominence": {
+      "score": 280078,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Cut",
+    "category": "Anatomy & Medical",
+    "prominence": {
+      "score": 278980,
+      "method": "wiki_totalhits"
     }
   },
   {
@@ -243,30 +518,283 @@
     }
   },
   {
-    "phrase": "Television",
-    "category": "Household Items",
+    "phrase": "Bar",
+    "category": "Everything",
     "prominence": {
-      "score": 225465,
-      "method": "wiki_pageviews",
-      "article": "Television"
+      "score": 273405,
+      "method": "wiki_totalhits"
     }
   },
   {
-    "phrase": "Heart",
+    "phrase": "YouTube",
+    "category": "Brands & Companies",
+    "prominence": {
+      "score": 265501,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Playing Cards",
+    "category": "Board Games & Toys",
+    "prominence": {
+      "score": 264451,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Getting to first base",
+    "category": "Adult Content",
+    "prominence": {
+      "score": 258288,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Joints",
     "category": "Anatomy & Medical",
     "prominence": {
-      "score": 196553,
-      "method": "wiki_pageviews",
-      "article": "Heart"
+      "score": 254173,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Judge",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 253940,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Day and Night",
+    "category": "Famous Duos & Trios",
+    "prominence": {
+      "score": 246697,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Fine",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 245435,
+      "method": "wiki_totalhits"
     }
   },
   {
     "phrase": "Evidence",
     "category": "Crimes & Justice",
     "prominence": {
-      "score": 190246,
-      "method": "wiki_pageviews",
-      "article": "Evidence"
+      "score": 241613,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Lost and Found",
+    "category": "Famous Duos & Trios",
+    "prominence": {
+      "score": 235113,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Doctor",
+    "category": "Anatomy & Medical",
+    "prominence": {
+      "score": 231282,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Trial",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 230514,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Crime",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 229777,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Estate",
+    "category": "Money & Finance",
+    "prominence": {
+      "score": 229677,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Light-year",
+    "category": "Outer Space & Astronomy",
+    "prominence": {
+      "score": 227093,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Tower",
+    "category": "Fairy Tales & Fables",
+    "prominence": {
+      "score": 224541,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Home run",
+    "category": "Adult Content",
+    "prominence": {
+      "score": 223505,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Principal",
+    "category": "School & Education",
+    "prominence": {
+      "score": 219949,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "No. 5, 1948",
+    "category": "Art & Culture",
+    "prominence": {
+      "score": 219925,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Castle",
+    "category": "Fairy Tales & Fables",
+    "prominence": {
+      "score": 217669,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Murder",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 215992,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Murder",
+    "category": "Everything",
+    "prominence": {
+      "score": 215992,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Spot It!",
+    "category": "Board Games & Toys",
+    "prominence": {
+      "score": 213218,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "The Game of Life",
+    "category": "Board Games & Toys",
+    "prominence": {
+      "score": 210537,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Gun",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 209629,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Medicine",
+    "category": "Anatomy & Medical",
+    "prominence": {
+      "score": 207017,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "John Williams",
+    "category": "Everything",
+    "prominence": {
+      "score": 201088,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "The Thinker",
+    "category": "Art & Culture",
+    "prominence": {
+      "score": 199302,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Half-Life 2",
+    "category": "Entertainment & Pop Culture",
+    "prominence": {
+      "score": 198590,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Rock Band",
+    "category": "Musical Instruments",
+    "prominence": {
+      "score": 194859,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Arrest",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 194403,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Needed Me",
+    "category": "Music & Artists",
+    "prominence": {
+      "score": 194315,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Annual report",
+    "category": "In the Office",
+    "prominence": {
+      "score": 190433,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Chair",
+    "category": "Household Items",
+    "prominence": {
+      "score": 190160,
+      "method": "wiki_totalhits"
+    }
+  },
+  {
+    "phrase": "Blood",
+    "category": "Anatomy & Medical",
+    "prominence": {
+      "score": 189446,
+      "method": "wiki_totalhits"
     }
   },
   {
@@ -276,6 +804,14 @@
       "score": 189432,
       "method": "wiki_pageviews",
       "article": "Great_Barrier_Reef"
+    }
+  },
+  {
+    "phrase": "Lawyer",
+    "category": "Crimes & Justice",
+    "prominence": {
+      "score": 186721,
+      "method": "wiki_totalhits"
     }
   },
   {
@@ -304,56 +840,11 @@
     }
   },
   {
-    "phrase": "Law",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 181466,
-      "method": "wiki_pageviews",
-      "article": "Law"
-    }
-  },
-  {
-    "phrase": "H&M",
-    "category": "Brands & Companies",
-    "prominence": {
-      "score": 176250,
-      "method": "wiki_pageviews",
-      "article": "H&M"
-    }
-  },
-  {
-    "phrase": "Murder",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 172963,
-      "method": "wiki_pageviews",
-      "article": "Murder"
-    }
-  },
-  {
-    "phrase": "Murder",
-    "category": "Everything",
-    "prominence": {
-      "score": 172963,
-      "method": "wiki_pageviews",
-      "article": "Murder"
-    }
-  },
-  {
     "phrase": "Hamilton",
     "category": "Entertainment & Pop Culture",
     "prominence": {
       "score": 171798,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Up in the air",
-    "category": "Everything",
-    "prominence": {
-      "score": 171479,
-      "method": "wiki_pageviews",
-      "article": "Up_in_the_Air_(2009_film)"
     }
   },
   {
@@ -455,15 +946,6 @@
     }
   },
   {
-    "phrase": "Medicine",
-    "category": "Anatomy & Medical",
-    "prominence": {
-      "score": 153788,
-      "method": "wiki_pageviews",
-      "article": "Medicine"
-    }
-  },
-  {
     "phrase": "Cell",
     "category": "Crimes & Justice",
     "prominence": {
@@ -477,15 +959,6 @@
     "prominence": {
       "score": 151779,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Blood",
-    "category": "Anatomy & Medical",
-    "prominence": {
-      "score": 150523,
-      "method": "wiki_pageviews",
-      "article": "Blood"
     }
   },
   {
@@ -586,15 +1059,6 @@
     }
   },
   {
-    "phrase": "University",
-    "category": "School & Education",
-    "prominence": {
-      "score": 138063,
-      "method": "wiki_pageviews",
-      "article": "University"
-    }
-  },
-  {
     "phrase": "Attorney",
     "category": "Crimes & Justice",
     "prominence": {
@@ -608,24 +1072,6 @@
     "prominence": {
       "score": 136927,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "The Thinker",
-    "category": "Art & Culture",
-    "prominence": {
-      "score": 136846,
-      "method": "wiki_pageviews",
-      "article": "The_Thinker"
-    }
-  },
-  {
-    "phrase": "Playing Cards",
-    "category": "Board Games & Toys",
-    "prominence": {
-      "score": 135560,
-      "method": "wiki_pageviews",
-      "article": "Playing_card"
     }
   },
   {
@@ -691,24 +1137,6 @@
     "prominence": {
       "score": 130982,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Map",
-    "category": "School & Education",
-    "prominence": {
-      "score": 130741,
-      "method": "wiki_pageviews",
-      "article": "Map"
-    }
-  },
-  {
-    "phrase": "Castle",
-    "category": "Fairy Tales & Fables",
-    "prominence": {
-      "score": 130449,
-      "method": "wiki_pageviews",
-      "article": "Castle"
     }
   },
   {
@@ -793,15 +1221,6 @@
     }
   },
   {
-    "phrase": "Influencer",
-    "category": "Entertainment & Pop Culture",
-    "prominence": {
-      "score": 124321,
-      "method": "wiki_pageviews",
-      "article": "Influencer"
-    }
-  },
-  {
     "phrase": "Twitter",
     "category": "Brands & Companies",
     "prominence": {
@@ -810,29 +1229,11 @@
     }
   },
   {
-    "phrase": "High School",
-    "category": "Everything",
-    "prominence": {
-      "score": 121962,
-      "method": "wiki_pageviews",
-      "article": "Secondary_school"
-    }
-  },
-  {
     "phrase": "Once Upon a Time",
     "category": "Fairy Tales & Fables",
     "prominence": {
       "score": 121596,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Light-year",
-    "category": "Outer Space & Astronomy",
-    "prominence": {
-      "score": 121591,
-      "method": "wiki_pageviews",
-      "article": "Light-year"
     }
   },
   {
@@ -884,15 +1285,6 @@
     }
   },
   {
-    "phrase": "Hospital",
-    "category": "Anatomy & Medical",
-    "prominence": {
-      "score": 118027,
-      "method": "wiki_pageviews",
-      "article": "Hospital"
-    }
-  },
-  {
     "phrase": "Mirror",
     "category": "Everything",
     "prominence": {
@@ -910,38 +1302,11 @@
     }
   },
   {
-    "phrase": "Gun",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 116436,
-      "method": "wiki_pageviews",
-      "article": "Gun"
-    }
-  },
-  {
     "phrase": "Hit and Run",
     "category": "Crimes & Justice",
     "prominence": {
       "score": 113905,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "He-Man",
-    "category": "Board Games & Toys",
-    "prominence": {
-      "score": 113664,
-      "method": "wiki_pageviews",
-      "article": "He-Man"
-    }
-  },
-  {
-    "phrase": "He-Man",
-    "category": "Childhood & Nostalgia",
-    "prominence": {
-      "score": 113664,
-      "method": "wiki_pageviews",
-      "article": "He-Man"
     }
   },
   {
@@ -1007,24 +1372,6 @@
       "score": 111913,
       "method": "wiki_pageviews",
       "article": "Fever"
-    }
-  },
-  {
-    "phrase": "Lawyer",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 109827,
-      "method": "wiki_pageviews",
-      "article": "Lawyer"
-    }
-  },
-  {
-    "phrase": "Half-Life 2",
-    "category": "Entertainment & Pop Culture",
-    "prominence": {
-      "score": 107697,
-      "method": "wiki_pageviews",
-      "article": "Half-Life_2"
     }
   },
   {
@@ -1273,15 +1620,6 @@
     }
   },
   {
-    "phrase": "Crime",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 92655,
-      "method": "wiki_pageviews",
-      "article": "Crime"
-    }
-  },
-  {
     "phrase": "The Night Watch",
     "category": "Art & Culture",
     "prominence": {
@@ -1415,24 +1753,6 @@
     }
   },
   {
-    "phrase": "Trade",
-    "category": "Money & Finance",
-    "prominence": {
-      "score": 82869,
-      "method": "wiki_pageviews",
-      "article": "Trade"
-    }
-  },
-  {
-    "phrase": "Justice",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 82621,
-      "method": "wiki_pageviews",
-      "article": "Justice"
-    }
-  },
-  {
     "phrase": "Insurance",
     "category": "Money & Finance",
     "prominence": {
@@ -1531,15 +1851,6 @@
     }
   },
   {
-    "phrase": "Home run",
-    "category": "Adult Content",
-    "prominence": {
-      "score": 77630,
-      "method": "wiki_pageviews",
-      "article": "Home_run"
-    }
-  },
-  {
     "phrase": "Scooby-Doo and Shaggy",
     "category": "Everything",
     "prominence": {
@@ -1589,15 +1900,6 @@
     }
   },
   {
-    "phrase": "Making out",
-    "category": "Adult Content",
-    "prominence": {
-      "score": 75709,
-      "method": "wiki_pageviews",
-      "article": "Making_out"
-    }
-  },
-  {
     "phrase": "Jail",
     "category": "Crimes & Justice",
     "prominence": {
@@ -1619,15 +1921,6 @@
     "prominence": {
       "score": 74822,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Chair",
-    "category": "Household Items",
-    "prominence": {
-      "score": 73792,
-      "method": "wiki_pageviews",
-      "article": "Chair"
     }
   },
   {
@@ -1989,15 +2282,6 @@
     }
   },
   {
-    "phrase": "69",
-    "category": "Adult Content",
-    "prominence": {
-      "score": 56537,
-      "method": "wiki_pageviews",
-      "article": "69"
-    }
-  },
-  {
     "phrase": "Tablespoon",
     "category": "Units of Measurement",
     "prominence": {
@@ -2231,15 +2515,6 @@
     "prominence": {
       "score": 51039,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Judge",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 49653,
-      "method": "wiki_pageviews",
-      "article": "Judge"
     }
   },
   {
@@ -2477,15 +2752,6 @@
     }
   },
   {
-    "phrase": "Project",
-    "category": "In the Office",
-    "prominence": {
-      "score": 45166,
-      "method": "wiki_pageviews",
-      "article": "Project"
-    }
-  },
-  {
     "phrase": "Dissertation",
     "category": "Everything",
     "prominence": {
@@ -2641,15 +2907,6 @@
     }
   },
   {
-    "phrase": "The Game of Life",
-    "category": "Board Games & Toys",
-    "prominence": {
-      "score": 42035,
-      "method": "wiki_pageviews",
-      "article": "The_Game_of_Life"
-    }
-  },
-  {
     "phrase": "Prosecutor",
     "category": "Crimes & Justice",
     "prominence": {
@@ -2682,29 +2939,11 @@
     }
   },
   {
-    "phrase": "Just Do It",
-    "category": "Brands & Companies",
-    "prominence": {
-      "score": 41651,
-      "method": "wiki_pageviews",
-      "article": "Just_Do_It"
-    }
-  },
-  {
     "phrase": "Badge",
     "category": "Crimes & Justice",
     "prominence": {
       "score": 41491,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Joints",
-    "category": "Anatomy & Medical",
-    "prominence": {
-      "score": 41486,
-      "method": "wiki_pageviews",
-      "article": "Joint"
     }
   },
   {
@@ -2983,15 +3222,6 @@
     }
   },
   {
-    "phrase": "Saw",
-    "category": "Tools & Home Improvement",
-    "prominence": {
-      "score": 36215,
-      "method": "wiki_pageviews",
-      "article": "Saw"
-    }
-  },
-  {
     "phrase": "Rocking Horse",
     "category": "Board Games & Toys",
     "prominence": {
@@ -3005,15 +3235,6 @@
     "prominence": {
       "score": 36193,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Rock Band",
-    "category": "Musical Instruments",
-    "prominence": {
-      "score": 35880,
-      "method": "wiki_pageviews",
-      "article": "Rock_Band"
     }
   },
   {
@@ -3103,15 +3324,6 @@
     "prominence": {
       "score": 35048,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Arrest",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 35028,
-      "method": "wiki_pageviews",
-      "article": "Arrest"
     }
   },
   {
@@ -3505,24 +3717,6 @@
     }
   },
   {
-    "phrase": "Community Service",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 28490,
-      "method": "wiki_pageviews",
-      "article": "Community_service"
-    }
-  },
-  {
-    "phrase": "No. 5, 1948",
-    "category": "Art & Culture",
-    "prominence": {
-      "score": 28463,
-      "method": "wiki_pageviews",
-      "article": "No._5,_1948"
-    }
-  },
-  {
     "phrase": "Washington Monument",
     "category": "World Architecture",
     "prominence": {
@@ -3620,15 +3814,6 @@
     }
   },
   {
-    "phrase": "Go",
-    "category": "Board Games & Toys",
-    "prominence": {
-      "score": 27024,
-      "method": "wiki_pageviews",
-      "article": "Go"
-    }
-  },
-  {
     "phrase": "Moral of the story",
     "category": "Fairy Tales & Fables",
     "prominence": {
@@ -3694,15 +3879,6 @@
     }
   },
   {
-    "phrase": "Role-playing",
-    "category": "Adult Content",
-    "prominence": {
-      "score": 26187,
-      "method": "wiki_pageviews",
-      "article": "Role-playing"
-    }
-  },
-  {
     "phrase": "GoFundMe",
     "category": "Everything",
     "prominence": {
@@ -3743,15 +3919,6 @@
     }
   },
   {
-    "phrase": "Tower",
-    "category": "Fairy Tales & Fables",
-    "prominence": {
-      "score": 25963,
-      "method": "wiki_pageviews",
-      "article": "Tower"
-    }
-  },
-  {
     "phrase": "The Blues Brothers",
     "category": "Famous Duos & Trios",
     "prominence": {
@@ -3789,15 +3956,6 @@
     "prominence": {
       "score": 25150,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "24",
-    "category": "Movies & TV",
-    "prominence": {
-      "score": 25119,
-      "method": "wiki_pageviews",
-      "article": "24"
     }
   },
   {
@@ -3870,15 +4028,6 @@
     "prominence": {
       "score": 24275,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Doctor",
-    "category": "Anatomy & Medical",
-    "prominence": {
-      "score": 24172,
-      "method": "wiki_pageviews",
-      "article": "Doctor"
     }
   },
   {
@@ -3970,15 +4119,6 @@
     }
   },
   {
-    "phrase": "Trial",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 23215,
-      "method": "wiki_pageviews",
-      "article": "Trial"
-    }
-  },
-  {
     "phrase": "Stomach",
     "category": "Anatomy & Medical",
     "prominence": {
@@ -4032,15 +4172,6 @@
     "prominence": {
       "score": 22985,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Set",
-    "category": "Board Games & Toys",
-    "prominence": {
-      "score": 22922,
-      "method": "wiki_pageviews",
-      "article": "Set"
     }
   },
   {
@@ -4260,15 +4391,6 @@
     "prominence": {
       "score": 20515,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Take 6",
-    "category": "Famous People",
-    "prominence": {
-      "score": 20511,
-      "method": "wiki_pageviews",
-      "article": "Take_6"
     }
   },
   {
@@ -4505,15 +4627,6 @@
     }
   },
   {
-    "phrase": "Meeting",
-    "category": "Everything",
-    "prominence": {
-      "score": 17796,
-      "method": "wiki_pageviews",
-      "article": "Meeting"
-    }
-  },
-  {
     "phrase": "The Red Shoes",
     "category": "Fairy Tales & Fables",
     "prominence": {
@@ -4576,15 +4689,6 @@
     "prominence": {
       "score": 16536,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Black and White",
-    "category": "Famous Duos & Trios",
-    "prominence": {
-      "score": 16333,
-      "method": "wiki_pageviews",
-      "article": "Black_and_white"
     }
   },
   {
@@ -5263,15 +5367,6 @@
     }
   },
   {
-    "phrase": "Simon",
-    "category": "Board Games & Toys",
-    "prominence": {
-      "score": 12427,
-      "method": "wiki_pageviews",
-      "article": "Simon"
-    }
-  },
-  {
     "phrase": "Vitamins",
     "category": "Anatomy & Medical",
     "prominence": {
@@ -5377,15 +5472,6 @@
     }
   },
   {
-    "phrase": "Needed Me",
-    "category": "Music & Artists",
-    "prominence": {
-      "score": 11709,
-      "method": "wiki_pageviews",
-      "article": "Needed_Me"
-    }
-  },
-  {
     "phrase": "American Pastoral",
     "category": "Everything",
     "prominence": {
@@ -5399,15 +5485,6 @@
     "prominence": {
       "score": 11610,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Day and Night",
-    "category": "Famous Duos & Trios",
-    "prominence": {
-      "score": 11566,
-      "method": "wiki_pageviews",
-      "article": "Day_for_night"
     }
   },
   {
@@ -5627,15 +5704,6 @@
     }
   },
   {
-    "phrase": "App",
-    "category": "Technology & Science",
-    "prominence": {
-      "score": 10329,
-      "method": "wiki_pageviews",
-      "article": "App"
-    }
-  },
-  {
     "phrase": "Respiratory System",
     "category": "Anatomy & Medical",
     "prominence": {
@@ -5649,15 +5717,6 @@
     "prominence": {
       "score": 10312,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "It is. Are you?",
-    "category": "Brands & Companies",
-    "prominence": {
-      "score": 10311,
-      "method": "wiki_pageviews",
-      "article": "You_Are_What_You_Is"
     }
   },
   {
@@ -5746,15 +5805,6 @@
     "prominence": {
       "score": 9746,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Cast",
-    "category": "Anatomy & Medical",
-    "prominence": {
-      "score": 9740,
-      "method": "wiki_pageviews",
-      "article": "Cast"
     }
   },
   {
@@ -5851,15 +5901,6 @@
     "prominence": {
       "score": 9476,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Annual report",
-    "category": "In the Office",
-    "prominence": {
-      "score": 9436,
-      "method": "wiki_pageviews",
-      "article": "Annual_report"
     }
   },
   {
@@ -6212,15 +6253,6 @@
     "prominence": {
       "score": 8215,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Coach",
-    "category": "Occupations & Jobs",
-    "prominence": {
-      "score": 8082,
-      "method": "wiki_pageviews",
-      "article": "Coach"
     }
   },
   {
@@ -6970,15 +7002,6 @@
     }
   },
   {
-    "phrase": "Estate",
-    "category": "Money & Finance",
-    "prominence": {
-      "score": 6327,
-      "method": "wiki_pageviews",
-      "article": "Estate"
-    }
-  },
-  {
     "phrase": "Hatchery",
     "category": "On the Farm",
     "prominence": {
@@ -7307,15 +7330,6 @@
     }
   },
   {
-    "phrase": "Playing the field",
-    "category": "Adult Content",
-    "prominence": {
-      "score": 5573,
-      "method": "wiki_pageviews",
-      "article": "Playing_the_Field"
-    }
-  },
-  {
     "phrase": "Aquarius",
     "category": "Entertainment & Pop Culture",
     "prominence": {
@@ -7436,29 +7450,11 @@
     }
   },
   {
-    "phrase": "Investigation",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 5388,
-      "method": "wiki_pageviews",
-      "article": "Investigation"
-    }
-  },
-  {
     "phrase": "Merry-Go-Round",
     "category": "Childhood & Nostalgia",
     "prominence": {
       "score": 5377,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Shot",
-    "category": "Anatomy & Medical",
-    "prominence": {
-      "score": 5376,
-      "method": "wiki_pageviews",
-      "article": "Shot"
     }
   },
   {
@@ -7483,15 +7479,6 @@
     "prominence": {
       "score": 5361,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Cut",
-    "category": "Anatomy & Medical",
-    "prominence": {
-      "score": 5352,
-      "method": "wiki_pageviews",
-      "article": "Cut"
     }
   },
   {
@@ -7548,15 +7535,6 @@
     "prominence": {
       "score": 5315,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Fine",
-    "category": "Crimes & Justice",
-    "prominence": {
-      "score": 5313,
-      "method": "wiki_pageviews",
-      "article": "Fine"
     }
   },
   {
@@ -7832,15 +7810,6 @@
     }
   },
   {
-    "phrase": "Lost and Found",
-    "category": "Famous Duos & Trios",
-    "prominence": {
-      "score": 4746,
-      "method": "wiki_pageviews",
-      "article": "Lost_and_found"
-    }
-  },
-  {
     "phrase": "Training Wheels",
     "category": "Childhood & Nostalgia",
     "prominence": {
@@ -7913,15 +7882,6 @@
     }
   },
   {
-    "phrase": "Principal",
-    "category": "School & Education",
-    "prominence": {
-      "score": 4614,
-      "method": "wiki_pageviews",
-      "article": "Principal"
-    }
-  },
-  {
     "phrase": "Super Mario 64",
     "category": "Entertainment & Pop Culture",
     "prominence": {
@@ -7959,15 +7919,6 @@
     "prominence": {
       "score": 4564,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Getting to first base",
-    "category": "Adult Content",
-    "prominence": {
-      "score": 4554,
-      "method": "wiki_pageviews",
-      "article": "Single_(baseball)"
     }
   },
   {
@@ -8179,15 +8130,6 @@
     }
   },
   {
-    "phrase": "Router",
-    "category": "Everything",
-    "prominence": {
-      "score": 4220,
-      "method": "wiki_pageviews",
-      "article": "Router"
-    }
-  },
-  {
     "phrase": "Heineken",
     "category": "Brands & Companies",
     "prominence": {
@@ -8377,15 +8319,6 @@
     "prominence": {
       "score": 3956,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Spot It!",
-    "category": "Board Games & Toys",
-    "prominence": {
-      "score": 3955,
-      "method": "wiki_pageviews",
-      "article": "Spot"
     }
   },
   {
@@ -11815,15 +11748,6 @@
     }
   },
   {
-    "phrase": "Up and Down",
-    "category": "Famous Duos & Trios",
-    "prominence": {
-      "score": 1009,
-      "method": "wiki_pageviews",
-      "article": "Up_and_Down"
-    }
-  },
-  {
     "phrase": "Polly Pocket",
     "category": "Board Games & Toys",
     "prominence": {
@@ -12285,15 +12209,6 @@
     "prominence": {
       "score": 811,
       "method": "wiki_totalhits"
-    }
-  },
-  {
-    "phrase": "Heads Up!",
-    "category": "Board Games & Toys",
-    "prominence": {
-      "score": 809,
-      "method": "wiki_pageviews",
-      "article": "Heads_up"
     }
   },
   {

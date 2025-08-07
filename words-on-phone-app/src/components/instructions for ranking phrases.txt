@@ -1,0 +1,131 @@
+# Phrase Prominence Ranking – **1‑Day Run**
+
+A streamlined, cost‑free pipeline that finishes ≈ 20 k HTTP calls (≈ 11 k phrases) in **< 5 min** using only Wikipedia’s public REST endpoints. No paid keys, no rate‑limit headaches.
+
+---
+
+## 0.  Requirements
+
+```bash
+pip install aiohttp python-dateutil tqdm
+```
+
+---
+
+## 1.  Load your JSON
+
+```python
+import json, pathlib
+PHRASES_PATH = pathlib.Path("phrases.json")
+items = json.loads(PHRASES_PATH.read_text())  # [{'phrase': 'Foo', 'category': 'Bar'}, ...]
+```
+
+---
+
+## 2.  One‑shot Wikipedia query
+
+**Goal:** get (a) the page title *if* it exists, (b) `totalhits` – Wikipedia’s own result‑count – for *every* phrase.
+
+```python
+import aiohttp, asyncio, datetime as dt
+
+async def wiki_search(session, phrase):
+    payload = {
+        "action": "query", "list": "search", "srsearch": phrase,
+        "format": "json", "srlimit": 1,
+        "srprop": "",
+    }
+    async with session.get("https://en.wikipedia.org/w/api.php", params=payload) as r:
+        js = await r.json()
+        hits = js["query"]["searchinfo"].get("totalhits", 0)
+        results = js["query"]["search"]
+        title = results[0]["title"].replace(" ", "_") if results else None
+        return title, hits
+```
+
+---
+
+## 3.  Page‑views for phrases that *do* have an article
+
+We sum the last 3 months.
+
+```python
+def month_range(months=3):
+    end = (dt.date.today() - dt.timedelta(days=1)).strftime("%Y%m%d")
+    start = (dt.date.today().replace(day=1) - dt.timedelta(days=30*months)).strftime("%Y%m01")
+    return start, end
+
+async def pageviews(session, title, months=3):
+    start, end = month_range(months)
+    url = f"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia.org/all-access/all-agents/{title}/monthly/{start}/{end}"
+    async with session.get(url) as r:
+        if r.status != 200:
+            return 0
+        data = await r.json()
+        return sum(p["views"] for p in data.get("items", []))
+```
+
+---
+
+## 4.  Scoring & ranking (async, \~50 concurrent workers)
+
+```python
+from asyncio import Semaphore
+SEM = Semaphore(50)  # stay well under 200 req/s cap
+
+async def score_one(sess, obj):
+    phrase = obj["phrase"]
+    async with SEM:
+        title, hits = await wiki_search(sess, phrase)
+    if title:  # try for page‑views
+        async with SEM:
+            views = await pageviews(sess, title)
+        if views:
+            obj["prominence"] = {
+                "score": views,
+                "method": "wiki_pageviews",
+                "article": title,
+            }
+            return
+    # fallback = totalhits
+    obj["prominence"] = {"score": hits, "method": "wiki_totalhits"}
+
+async def score_all():
+    async with aiohttp.ClientSession() as sess:
+        await asyncio.gather(*(score_one(sess, o) for o in items))
+
+asyncio.run(score_all())
+items.sort(key=lambda o: o["prominence"]["score"], reverse=True)
+```
+
+---
+
+## 5.  Persist back to disk
+
+```python
+PHRASES_PATH.write_text(json.dumps(items, indent=2, ensure_ascii=False))
+```
+
+---
+
+## 6.  (Optional) Automation
+
+If you still want weekly refreshes, keep the GitHub Action skeleton from the previous version – **no Brave key needed**. Just drop the `BRAVE_SEARCH_API_KEY` lines and call the script above.
+
+---
+
+### Runtime breakdown
+
+* **Search calls:** 11 k ➜ 11 k requests
+* **View calls:** about 70 % have pages ⇒ \~7.7 k requests
+* **Total:** ≈ 19 k requests
+
+At 50 parallel requests, elapsed time ≈ 4–5 min on a vanilla laptop or GitHub Action runner.
+
+---
+
+### Why this meets the “under 1‑day” constraint
+
+* Everything hits a single, high‑capacity public API.
+* No external quotas or keys.
+* Network latencies dominate; CPU/RAM negligible.
