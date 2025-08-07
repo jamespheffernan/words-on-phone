@@ -28,7 +28,7 @@ export const useTimer = ({ duration, onComplete, onTick }: UseTimerOptions) => {
     
     // Call onTick callback every ~100ms to avoid too frequent updates
     if (now - lastTickRef.current >= 100) {
-      onTick?.(Math.ceil(remaining / 1000));
+      onTick?.(Math.floor(remaining / 1000));
       lastTickRef.current = now;
     }
 
@@ -104,7 +104,7 @@ export const useTimer = ({ duration, onComplete, onTick }: UseTimerOptions) => {
   }, [duration, isRunning]);
 
   return {
-    timeRemaining: Math.ceil(timeRemaining / 1000), // return in seconds
+    timeRemaining: Math.floor(timeRemaining / 1000), // return in seconds
     timeRemainingMs: timeRemaining,
     isRunning,
     isPaused,

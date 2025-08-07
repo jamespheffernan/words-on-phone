@@ -20,6 +20,7 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
     currentSoloPlayer,
     soloGameResults,
     completeSoloRound,
+    startNextSoloRound,
     skipsUsed
   } = useGameStore();
   const { triggerHaptic } = useHaptics();
@@ -80,8 +81,7 @@ export const RoundEndScreen: React.FC<RoundEndScreenProps> = ({ onTeamWon, onCon
   };
 
   const handleNextPlayerName = (name: string) => {
-    useGameStore.getState().setCurrentSoloPlayer(name);
-    useGameStore.setState({ status: GameStatus.PLAYING });
+    startNextSoloRound(name);
     setShowPlayerNameModal(false);
   };
 

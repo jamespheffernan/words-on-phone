@@ -34,6 +34,16 @@ const getInitialTeamNames = () => {
   return [team1, team2];
 };
 
+// Format timer duration for better readability
+const formatTimerDuration = (seconds: number): string => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  if (remainingSeconds === 0) {
+    return `${minutes}m`;
+  }
+  return `${minutes}m ${remainingSeconds}s`;
+};
+
 export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
   gameMode,
   selectedCategories,
@@ -247,17 +257,17 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
           <h3 className="section-title">⏱️ Timer Settings</h3>
           
           <div className="settings-grid">
-            <div className="setting-item">
-              <label className="setting-label">
+            <div className="setting-item timer-visibility-setting">
+              <label className="setting-label enhanced-checkbox-label">
                 <input
                   type="checkbox"
                   checked={currentOptions.showTimer}
                   onChange={(e) => handleTimerToggle(e.target.checked)}
                   className="setting-checkbox"
                 />
-                <span className="checkbox-label">Show Timer</span>
+                <span className="checkbox-label">Show Timer During Rounds</span>
               </label>
-              <p className="setting-description">Display countdown timer during rounds</p>
+              <p className="setting-description">Display countdown timer to players during gameplay</p>
             </div>
 
             <div className="setting-item">
@@ -274,47 +284,71 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
             </div>
 
             {currentOptions.useRandomTimer ? (
-              <div className="setting-item">
-                <label className="setting-label">
-                  Random Timer Range: {currentOptions.timerRangeMin}s - {currentOptions.timerRangeMax}s
-                </label>
+              <div className="setting-item timer-range-setting">
+                <div className="timer-setting-header">
+                  <span className="timer-setting-label">Random Timer Range</span>
+                  <div className="timer-values-display">
+                    <div className="timer-value-badge min-value">
+                      <span className="timer-value">{formatTimerDuration(currentOptions.timerRangeMin)}</span>
+                      <span className="timer-sublabel">minimum</span>
+                    </div>
+                    <span className="timer-range-separator">to</span>
+                    <div className="timer-value-badge max-value">
+                      <span className="timer-value">{formatTimerDuration(currentOptions.timerRangeMax)}</span>
+                      <span className="timer-sublabel">maximum</span>
+                    </div>
+                  </div>
+                </div>
                 <div className="dual-slider-container">
-                  <input
-                    type="range"
-                    min="60"
-                    max="300"
-                    step="15"
-                    value={currentOptions.timerRangeMin}
-                    onChange={(e) => handleTimerRangeChange(Number(e.target.value), currentOptions.timerRangeMax)}
-                    className="slider range-min"
-                    aria-label="Minimum timer duration"
-                  />
-                  <input
-                    type="range"
-                    min="60"
-                    max="300"
-                    step="15"
-                    value={currentOptions.timerRangeMax}
-                    onChange={(e) => handleTimerRangeChange(currentOptions.timerRangeMin, Number(e.target.value))}
-                    className="slider range-max"
-                    aria-label="Maximum timer duration"
-                  />
+                  <div className="slider-group">
+                    <label className="slider-label">Minimum: {formatTimerDuration(currentOptions.timerRangeMin)}</label>
+                    <input
+                      type="range"
+                      min="60"
+                      max="300"
+                      step="15"
+                      value={currentOptions.timerRangeMin}
+                      onChange={(e) => handleTimerRangeChange(Number(e.target.value), currentOptions.timerRangeMax)}
+                      className="slider range-min"
+                      aria-label="Minimum timer duration"
+                    />
+                  </div>
+                  <div className="slider-group">
+                    <label className="slider-label">Maximum: {formatTimerDuration(currentOptions.timerRangeMax)}</label>
+                    <input
+                      type="range"
+                      min="60"
+                      max="300"
+                      step="15"
+                      value={currentOptions.timerRangeMax}
+                      onChange={(e) => handleTimerRangeChange(currentOptions.timerRangeMin, Number(e.target.value))}
+                      className="slider range-max"
+                      aria-label="Maximum timer duration"
+                    />
+                  </div>
                 </div>
               </div>
             ) : (
-              <div className="setting-item">
-                <label className="setting-label">
-                  Fixed Timer Duration: {currentOptions.timerDuration}s
-                </label>
-                <input
-                  type="range"
-                  min="60"
-                  max="300"
-                  step="15"
-                  value={currentOptions.timerDuration}
-                  onChange={(e) => handleTimerDurationChange(Number(e.target.value))}
-                  className="slider"
-                />
+              <div className="setting-item timer-fixed-setting">
+                <div className="timer-setting-header">
+                  <span className="timer-setting-label">Timer Duration</span>
+                  <div className="timer-value-badge fixed-value">
+                    <span className="timer-value">{formatTimerDuration(currentOptions.timerDuration)}</span>
+                    <span className="timer-sublabel">per round</span>
+                  </div>
+                </div>
+                <div className="slider-group">
+                  <label className="slider-label">Duration: {formatTimerDuration(currentOptions.timerDuration)}</label>
+                  <input
+                    type="range"
+                    min="60"
+                    max="300"
+                    step="15"
+                    value={currentOptions.timerDuration}
+                    onChange={(e) => handleTimerDurationChange(Number(e.target.value))}
+                    className="slider"
+                  />
+                </div>
               </div>
             )}
           </div>

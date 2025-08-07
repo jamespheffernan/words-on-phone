@@ -312,11 +312,124 @@
   color: white;
 }
 
+/* Enhanced Timer Settings Styles */
+.timer-setting-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.timer-setting-label {
+  color: white;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.timer-values-display {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.timer-value-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  min-width: 80px;
+  text-align: center;
+}
+
+.timer-value-badge.fixed-value {
+  background: rgba(76, 175, 80, 0.15);
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.timer-value-badge.min-value {
+  background: rgba(255, 193, 7, 0.15);
+  border-color: rgba(255, 193, 7, 0.3);
+}
+
+.timer-value-badge.max-value {
+  background: rgba(76, 175, 80, 0.15);
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.timer-value {
+  color: white;
+  font-size: clamp(1.3rem, 4vw, 1.6rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+}
+
+.timer-sublabel {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(0.75rem, 2.2vw, 0.85rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  margin-top: 0.25rem;
+  opacity: 0.9;
+}
+
+.timer-range-separator {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  margin: 0 0.5rem;
+}
+
 .dual-slider-container {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
   margin-top: 0.5rem;
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.slider-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.85rem, 2.3vw, 0.95rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced checkbox styling for timer settings */
+.enhanced-checkbox-label {
+  font-size: clamp(1rem, 3vw, 1.1rem) !important;
+  font-weight: 600 !important;
+}
+
+.enhanced-checkbox-label .checkbox-label {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.setting-checkbox {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 0.25rem;
 }
 
 .slider {

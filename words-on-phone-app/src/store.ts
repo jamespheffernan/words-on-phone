@@ -215,6 +215,7 @@ interface GameState {
   setCurrentTeamIndex: (index: number) => void;
   // Solo actions
   setCurrentSoloPlayer: (name: string) => void;
+  startNextSoloRound: (name: string) => void;
   completeSoloRound: (playerName: string) => void;
   addToAllTimeLeaderboard: (entry: AllTimeEntry) => void;
   clearAllTimeLeaderboard: () => void;
@@ -845,6 +846,17 @@ export const useGameStore = create<GameState>()(
         
         // Solo actions
         setCurrentSoloPlayer: (name) => set({ currentSoloPlayer: name }),
+        startNextSoloRound: (name) => set((state) => ({
+          currentSoloPlayer: name,
+          status: GameStatus.PLAYING,
+          timeRemaining: state.actualTimerDuration,
+          isTimerRunning: true,
+          phraseStartTime: Date.now(),
+          currentPhrase: state.cursor.next(),
+          skipsUsed: 0,
+          skipsRemaining: state.skipLimit === 0 ? Infinity : state.skipLimit,
+          currentRoundAnswers: [] // Reset for new round
+        })),
         completeSoloRound: (playerName) => set((state) => {
           // Calculate stats for the current round
           const answers = state.currentRoundAnswers;

@@ -4,28 +4,35 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+  backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 20vh; /* Position higher on screen for mobile keyboards */
   z-index: 1000;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
 }
 
 .player-name-modal {
-  background-color: var(--card-background, white);
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1.5rem;
   padding: 2rem;
   max-width: 400px;
   width: 100%;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  animation: modalSlideIn 0.3s ease-out;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: #333;
 }
 
 @keyframes modalSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-20px) scale(0.95);
+    transform: translateY(-30px) scale(0.9);
   }
   to {
     opacity: 1;
@@ -40,11 +47,12 @@
 
 .modal-header h2 {
   margin: 0;
-  color: var(--text-primary, #2c3e50);
-  font-size: 1.5rem;
+  color: #333;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
   font-family: "Turret Road", sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   font-style: normal;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .modal-body {
@@ -54,89 +62,108 @@
 
 .modal-body p {
   margin: 0 0 1.5rem 0;
-  color: var(--text-secondary, #6c757d);
-  font-size: 1rem;
+  color: rgba(51, 51, 51, 0.8);
+  font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
   line-height: 1.5;
 }
 
 .name-input {
   width: 100%;
-  padding: 0.875rem 1rem;
-  font-size: 1.1rem;
+  padding: 1rem 1.25rem;
+  font-size: clamp(1rem, 3.5vw, 1.2rem);
   font-family: "Turret Road", sans-serif;
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
-  border: 2px solid var(--border-color, #e9ecef);
-  border-radius: 8px;
-  background-color: var(--input-background, #f8f9fa);
-  color: var(--text-primary, #2c3e50);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid rgba(102, 126, 234, 0.2);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  transition: all 0.3s ease;
   box-sizing: border-box;
+  text-align: center;
+  backdrop-filter: blur(10px);
 }
 
 .name-input:focus {
   outline: none;
-  border-color: var(--primary-color, #3498db);
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: rgba(102, 126, 234, 0.6);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+  transform: scale(1.02);
+}
+
+.name-input::placeholder {
+  color: rgba(51, 51, 51, 0.5);
+  font-weight: 500;
 }
 
 .modal-actions {
   display: flex;
   gap: 1rem;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .cancel-button,
 .confirm-button {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 0.875rem 2rem;
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
   font-family: "Turret Road", sans-serif;
-  font-weight: 500;
+  font-weight: 700;
   font-style: normal;
   cursor: pointer;
-  transition: all 0.2s ease;
-  min-width: 80px;
+  transition: all 0.3s ease;
+  min-width: 100px;
+  backdrop-filter: blur(10px);
 }
 
 .cancel-button {
-  background-color: var(--secondary-background, #f8f9fa);
-  color: var(--text-secondary, #6c757d);
+  background: rgba(255, 255, 255, 0.7);
+  color: rgba(51, 51, 51, 0.8);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .cancel-button:hover {
-  background-color: var(--secondary-background-hover, #e9ecef);
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(51, 51, 51, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .confirm-button {
-  background-color: var(--primary-color, #3498db);
+  background: rgba(76, 175, 80, 0.9);
   color: white;
+  border-color: rgba(76, 175, 80, 0.3);
 }
 
 .confirm-button:hover:not(:disabled) {
-  background-color: var(--primary-color-hover, #2980b9);
-  transform: translateY(-1px);
+  background: rgba(76, 175, 80, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
 }
 
 .confirm-button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
   transform: none;
+  background: rgba(200, 200, 200, 0.5);
 }
 
 /* Mobile responsiveness */
 @media (max-width: 480px) {
   .modal-overlay {
-    padding: 1rem 0.5rem;
+    padding-top: 15vh; /* Less top padding on mobile for keyboard */
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-bottom: 0.75rem;
   }
   
   .player-name-modal {
     padding: 1.5rem;
-  }
-  
-  .modal-header h2 {
-    font-size: 1.3rem;
   }
   
   .modal-actions {
@@ -147,5 +174,20 @@
   .cancel-button,
   .confirm-button {
     width: 100%;
+    padding: 1rem 2rem;
+  }
+}
+
+/* Very small mobile screens */
+@media (max-width: 320px) {
+  .modal-overlay {
+    padding-top: 10vh; /* Even less top padding on very small screens */
+  }
+}
+
+/* Landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .modal-overlay {
+    padding-top: 5vh; /* Minimal top padding in landscape */
   }
 }
