@@ -9,6 +9,7 @@ export const useBeepAudio = (options: BeepAudioOptions) => {
   const audioContextRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
   const tickTockStateRef = useRef<boolean>(false); // false = tick, true = tock
+  const lastBeepTimeRef = useRef<number>(0); // Track last beep to prevent rapid fire
 
   const initializeAudio = useCallback(() => {
     if (!audioContextRef.current) {
@@ -31,11 +32,29 @@ export const useBeepAudio = (options: BeepAudioOptions) => {
   const playBeep = useCallback(async () => {
     if (!options.enabled) return;
 
+    // Mobile safeguard: prevent beeps that are too close together (minimum 30ms apart)
+    const now = performance.now();
+    if (now - lastBeepTimeRef.current < 30) {
+      return;
+    }
+    lastBeepTimeRef.current = now;
+
     try {
       initializeAudio();
       
       if (!audioContextRef.current || !gainNodeRef.current) {
         throw new Error('Audio context not initialized');
+      }
+
+      // Mobile-specific: Ensure audio context is running
+      if (audioContextRef.current.state === 'suspended') {
+        await audioContextRef.current.resume();
+      }
+      
+      // Double-check context is running before proceeding
+      if (audioContextRef.current.state !== 'running') {
+        console.warn('Audio context not running, skipping beep');
+        return;
       }
 
       // Set volume
