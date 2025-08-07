@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useGameStore, GameStatus, GameMode } from '../store';
 import { useTimer } from '../hooks/useTimer';
 import { useAudio } from '../hooks/useAudio';
@@ -108,6 +108,11 @@ export const GameScreen: React.FC = () => {
     }
   });
 
+  // Stable beep callback to prevent continuous re-renders
+  const handleBeep = useCallback(() => {
+    beepAudio.playBeep().catch(console.warn);
+  }, [beepAudio]);
+
   // Beep ramp system - start beeping from beginning and accelerate throughout duration
   const beepRamp = useBeepRamp({
     remainingMs: timer.timeRemainingMs,
@@ -117,9 +122,7 @@ export const GameScreen: React.FC = () => {
       finalInterval: beepFinalInterval
     },
     enabled: enableBeepRamp && timer.isRunning && !timer.isPaused,
-    onBeep: () => {
-      beepAudio.playBeep().catch(console.warn);
-    }
+    onBeep: handleBeep
   });
 
   // Debug info for beep system
@@ -152,14 +155,11 @@ export const GameScreen: React.FC = () => {
 
   // Reset and start timer when starting a new game/round (status changes to PLAYING)
   useEffect(() => {
-    if (status === GameStatus.PLAYING && isTimerRunning) {
+    if (status === GameStatus.PLAYING) {
       timer.reset();
-      // Use setTimeout to avoid immediate beep ramp triggering during reset
-      setTimeout(() => {
+      if (isTimerRunning) {
         timer.start();
-      }, 0);
-    } else if (status === GameStatus.PLAYING && !isTimerRunning) {
-      timer.reset();
+      }
     }
   }, [status, isTimerRunning, timer]);
 
