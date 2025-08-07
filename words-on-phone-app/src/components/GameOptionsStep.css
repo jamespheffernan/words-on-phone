@@ -43,13 +43,66 @@
 
 .team-setup-section,
 .solo-info-section,
-.game-settings-section,
-.summary-section {
+.game-settings-section {
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 1.5rem;
   padding: 2rem;
   backdrop-filter: blur(10px);
+}
+
+.summary-section {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1.5rem;
+  padding: 0;
+  backdrop-filter: blur(10px);
+}
+
+.summary-toggle {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 2rem;
+  text-align: left;
+  transition: all 0.3s ease;
+  border-radius: 1.5rem;
+}
+
+.summary-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.summary-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.summary-mode,
+.summary-categories,
+.summary-timer {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.summary-expand-hint {
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Turret Road", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .section-title {
@@ -470,8 +523,11 @@
 
   .team-setup-section,
   .solo-info-section,
-  .game-settings-section,
-  .summary-section {
+  .game-settings-section {
+    padding: 1.5rem;
+  }
+
+  .summary-toggle {
     padding: 1.5rem;
   }
 

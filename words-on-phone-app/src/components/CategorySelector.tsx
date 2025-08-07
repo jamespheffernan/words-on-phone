@@ -20,6 +20,7 @@ interface AccordionGroupProps {
   categories: CategoryMetadata[];
   selected: string[];
   onToggleCategory: (name: string) => void;
+  onToggleGroup: (categoryNames: string[]) => void;
   isExpanded: boolean;
   onToggleExpanded: () => void;
   sortKey: SortKey;
@@ -30,6 +31,7 @@ const AccordionGroup: React.FC<AccordionGroupProps> = ({
   categories,
   selected,
   onToggleCategory,
+  onToggleGroup,
   isExpanded,
   onToggleExpanded,
   sortKey
@@ -44,19 +46,42 @@ const AccordionGroup: React.FC<AccordionGroupProps> = ({
 
   const selectedInGroup = categories.filter(cat => selected.includes(cat.name)).length;
   const totalInGroup = categories.length;
+  const allSelected = selectedInGroup === totalInGroup;
+
+  const handleGroupClick = (e: React.MouseEvent) => {
+    // If clicking on the chevron area, just expand/collapse
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('accordion-chevron')) {
+      onToggleExpanded();
+      return;
+    }
+
+    // Double-click to select/deselect all in group
+    if (e.detail === 2) {
+      e.preventDefault();
+      const categoryNames = categories.map(cat => cat.name);
+      onToggleGroup(categoryNames);
+      return;
+    }
+
+    // Single click to expand/collapse
+    onToggleExpanded();
+  };
 
   return (
     <div className="accordion-group">
       <button 
-        className="accordion-header"
-        onClick={onToggleExpanded}
+        className={`accordion-header ${allSelected ? 'all-selected' : ''}`}
+        onClick={handleGroupClick}
         aria-expanded={isExpanded}
-        aria-label={`${group.name} category group, ${selectedInGroup} of ${totalInGroup} selected`}
+        aria-label={`${group.name} category group, ${selectedInGroup} of ${totalInGroup} selected. Double-click to select all.`}
+        title="Double-click to select/deselect all categories in this group"
       >
         <div className="accordion-header-content">
           <span className="accordion-icon">{group.emoji}</span>
           <span className="accordion-title">{group.name}</span>
           <span className="accordion-count">({selectedInGroup}/{totalInGroup})</span>
+          {allSelected && <span className="all-selected-indicator">✓</span>}
         </div>
         <span className={`accordion-chevron ${isExpanded ? 'expanded' : ''}`}>
           ▼
@@ -194,6 +219,32 @@ export const CategorySelector: React.FC<Props> = ({
     }
   };
 
+  const toggleGroup = (categoryNames: string[]) => {
+    const allSelectedInGroup = categoryNames.every(name => selected.includes(name));
+    let next: string[];
+    
+    if (allSelectedInGroup) {
+      // Deselect all categories in this group
+      next = selected.filter(name => !categoryNames.includes(name));
+    } else {
+      // Select all categories in this group
+      // Remove Everything if it exists and we're selecting specific categories
+      const filteredSelected = selected.filter(name => name !== 'Everything');
+      const newSelections = categoryNames.filter(name => !filteredSelected.includes(name));
+      next = [...filteredSelected, ...newSelections];
+    }
+    
+    onChange(next);
+    
+    // Track group selection
+    analytics.track('category_group_toggled', {
+      groupName: categoryNames.length > 0 ? 'group' : 'unknown',
+      categoryCount: categoryNames.length,
+      isSelectAll: !allSelectedInGroup,
+      source: 'group_header'
+    });
+  };
+
   // Bulk operations
   const selectAll = () => onChange(rawList.map(l => l.name));
   const clearAll = () => onChange([]);
@@ -300,6 +351,7 @@ export const CategorySelector: React.FC<Props> = ({
                      categories={groupCategories}
                      selected={selected}
                      onToggleCategory={toggleCategory}
+                     onToggleGroup={toggleGroup}
                      isExpanded={expandedGroups.has(group.id)}
                      onToggleExpanded={() => toggleGroupExpanded(group.id)}
                      sortKey={sortKey}
@@ -323,6 +375,7 @@ export const CategorySelector: React.FC<Props> = ({
                    categories={(groupedCategories as Record<string, CategoryMetadata[]>).ungrouped}
                    selected={selected}
                    onToggleCategory={toggleCategory}
+                   onToggleGroup={toggleGroup}
                    isExpanded={expandedGroups.has('ungrouped')}
                    onToggleExpanded={() => toggleGroupExpanded('ungrouped')}
                    sortKey={sortKey}

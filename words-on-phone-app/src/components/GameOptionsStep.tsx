@@ -375,69 +375,21 @@ export const GameOptionsStep: React.FC<GameOptionsStepProps> = ({
         </div>
 
         <div className="summary-section">
-          <h3 className="section-title">📋 Game Summary</h3>
-          <div className="summary-details">
-            <div className="summary-item">
-              <span className="summary-label">Mode:</span>
-              <span className="summary-value">{gameMode === 'team' ? 'Team Game' : 'Solo Game'}</span>
-            </div>
-            
-            {gameMode === 'team' && (
-              <div className="summary-item">
-                <span className="summary-label">Teams:</span>
-                <span className="summary-value">2 teams</span>
-              </div>
-            )}
-            
-            <div 
-              className="summary-item tappable" 
-              onClick={() => setShowCategoriesModal(true)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  setShowCategoriesModal(true);
-                }
-              }}
-              aria-label="View selected categories"
-            >
-              <span className="summary-label">Categories:</span>
-              <span className="summary-value">
-                {selectedCategories.length} selected 
-                <span className="tap-indicator">👆</span>
+          <button
+            className="summary-toggle"
+            onClick={() => setShowCategoriesModal(true)}
+            type="button"
+            aria-label="View game configuration"
+          >
+            <div className="summary-compact">
+              <span className="summary-mode">{gameMode === 'team' ? '👥 Team Game' : '👤 Solo Game'}</span>
+              <span className="summary-categories">{selectedCategories.length} categories</span>
+              <span className="summary-timer">
+                {currentOptions.useRandomTimer ? '🎲 Random timer' : `⏱️ ${currentOptions.timerDuration}s`}
               </span>
             </div>
-            
-            <div className="summary-item">
-              <span className="summary-label">Timer Visibility:</span>
-              <span className="summary-value">{currentOptions.showTimer ? 'Visible' : 'Hidden'}</span>
-            </div>
-            
-            <div className="summary-item">
-              <span className="summary-label">Timer Duration:</span>
-              <span className="summary-value">
-                {currentOptions.useRandomTimer 
-                  ? `${currentOptions.timerRangeMin}s - ${currentOptions.timerRangeMax}s (random)`
-                  : `${currentOptions.timerDuration}s (fixed)`
-                }
-              </span>
-            </div>
-            
-            <div className="summary-item">
-              <span className="summary-label">Skip Limit:</span>
-              <span className="summary-value">{currentOptions.skipLimit === 0 ? 'Unlimited' : currentOptions.skipLimit}</span>
-            </div>
-            
-            <div className="summary-item">
-              <span className="summary-label">Game Length:</span>
-              <span className="summary-value">First to {currentOptions.gameLength} points</span>
-            </div>
-            
-            <div className="summary-item">
-              <span className="summary-label">Buzzer Sound:</span>
-              <span className="summary-value">{BUZZER_SOUNDS[currentOptions.buzzerSound]}</span>
-            </div>
-          </div>
+            <span className="summary-expand-hint">👆 Tap to see full details</span>
+          </button>
         </div>
       </div>
 

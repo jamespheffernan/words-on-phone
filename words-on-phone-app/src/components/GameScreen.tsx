@@ -10,6 +10,7 @@ import { useViewportHeight } from '../hooks/useViewportHeight';
 import { useFlashEffect } from '../hooks/useFlashEffect';
 import { useAutoFontSize } from '../hooks/useAutoFontSize';
 import { RippleCountdown } from './RippleCountdown';
+import { SwipeCard } from './SwipeCard';
 import { analytics } from '../services/analytics';
 import './GameScreen.css';
 
@@ -291,7 +292,26 @@ export const GameScreen: React.FC = () => {
       </header>
 
       <section className="phrase-container">
-        <h1 className="current-phrase" data-testid="phrase-display" ref={phraseRef}>{currentPhrase}</h1>
+        <SwipeCard
+          onSwipeLeft={() => {
+            if (!isGameInteractionDisabled && skipsRemaining > 0) {
+              skipPhrase();
+              skipAudio.play().catch(console.warn);
+              triggerHaptic('gameplay', 'skip');
+            }
+          }}
+          onSwipeRight={() => {
+            if (!isGameInteractionDisabled) {
+              nextPhrase();
+              correctAudio.play().catch(console.warn);
+              triggerHaptic('gameplay', 'correct');
+            }
+          }}
+          disabled={isGameInteractionDisabled}
+          className="phrase-swipe-card"
+        >
+          <h1 className="current-phrase" data-testid="phrase-display" ref={phraseRef}>{currentPhrase}</h1>
+        </SwipeCard>
       </section>
 
       <section className="game-actions">
