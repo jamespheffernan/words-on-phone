@@ -175,7 +175,7 @@ export const GameScreen: React.FC = () => {
   const { heightValue, supportsDvh } = useViewportHeight();
 
   // Auto font sizing for phrases with multi-line support
-  const phraseRef = useAutoFontSize({
+  const phraseRef = useAutoFontSize<HTMLHeadingElement>({
     text: currentPhrase,
     maxFontSize: 120,
     minFontSize: 24,

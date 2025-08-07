@@ -7,13 +7,13 @@ interface UseAutoFontSizeOptions {
   maxLines?: number;
 }
 
-export const useAutoFontSize = ({
+export const useAutoFontSize = <T extends HTMLElement = HTMLElement>({
   text,
   maxFontSize = 120,
   minFontSize = 16,
   maxLines = 4
 }: UseAutoFontSizeOptions) => {
-  const elementRef = useRef<HTMLElement>(null);
+  const elementRef = useRef<T | null>(null);
 
   const adjustFontSize = useCallback(() => {
     const element = elementRef.current;
