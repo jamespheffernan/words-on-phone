@@ -93,21 +93,21 @@ describe('RippleCountdown', () => {
   it('handles edge cases gracefully', () => {
     // Test with zero total duration - should default to 3 objects
     render(<RippleCountdown remaining={0} total={0} />);
-    let objects = document.querySelectorAll('.ripple-countdown__object');
+    const objects = document.querySelectorAll('.ripple-countdown__object');
     expect(objects).toHaveLength(3);
     
     // All should be active when total is 0
-    let activeObjects = document.querySelectorAll('.ripple-countdown__object:not(.ripple-countdown__object--inactive)');
+    const activeObjects = document.querySelectorAll('.ripple-countdown__object:not(.ripple-countdown__object--inactive)');
     expect(activeObjects).toHaveLength(3);
     
-    let dots = document.querySelectorAll('.ripple-countdown__dot');
+    const dots = document.querySelectorAll('.ripple-countdown__dot');
     expect(dots).toHaveLength(12); // 3 objects × 4 dots each
     
     // Should also default to 3 ripples per object and 2s speed
-    let ripples = document.querySelectorAll('.ripple-countdown__ripple');
+    const ripples = document.querySelectorAll('.ripple-countdown__ripple');
     expect(ripples).toHaveLength(9); // 3 objects × 3 ripples each
     
-    let object = document.querySelector('.ripple-countdown__object') as HTMLElement;
+    const object = document.querySelector('.ripple-countdown__object') as HTMLElement;
     expect(object.style.getPropertyValue('--ripple-speed')).toBe('2s');
   });
 

@@ -67,7 +67,7 @@ beforeAll(async () => {
   // Dynamically import the module **after** we stub `indexedDB` so that
   // its constructor sees the mocked implementation and not `undefined`.
   const module = await import('./phraseService');
-  // eslint-disable-next-line prefer-destructuring
+   
   phraseService = module.phraseService;
 });
 
