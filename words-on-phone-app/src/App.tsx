@@ -12,7 +12,7 @@ import PWABadge from './PWABadge';
 import './App.css';
 
 function App() {
-  const { status, completeRound, continueFromRoundEnd, startGame } = useGameStore();
+  const { status, completeRound, continueFromRoundEnd } = useGameStore();
   const { lastFetchResult } = usePhraseWorker();
 
   // Handle new phrases from worker
@@ -55,9 +55,6 @@ function App() {
     continueFromRoundEnd();
   };
 
-  const handleStartGame = () => {
-    startGame();
-  };
 
   return (
     <div className="app">

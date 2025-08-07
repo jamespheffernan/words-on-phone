@@ -17,7 +17,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onCategorySelected,
   onGameStart
 }) => {
-  const { setSelectedCategories, startTeamSetup, startGame } = useGameStore();
+  const { setSelectedCategories, startGame } = useGameStore();
   const { defaultCategories, customCategories } = useCategoryMetadata();
   const { triggerImpact, triggerNotification } = useHaptics();
 
@@ -111,15 +111,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     }, 100);
   }, [allCategories, setSelectedCategories, startGame, triggerNotification, onCategorySelected, onGameStart]);
 
-  // Team Game handler
+  // Team Game handler - navigate to team setup flow
   const handleTeamGame = useCallback(() => {
     analytics.track('team_game_clicked', {
       source: 'hero_section'
     });
     
     triggerImpact();
-    startTeamSetup();
-  }, [startTeamSetup, triggerImpact]);
+    // Team setup is now handled in MenuScreenSteps, so we'll just trigger the callback
+    onGameStart?.();
+  }, [triggerImpact, onGameStart]);
 
   return (
     <section className="hero-section" data-testid="hero-section">
