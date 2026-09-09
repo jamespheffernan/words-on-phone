@@ -1,6 +1,5 @@
-/// <reference types="vitest" />
 import { VitePWA } from 'vite-plugin-pwa';
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 // @ts-ignore - Dynamic import for version generation
 import generateVersion from './scripts/generate-version.js'

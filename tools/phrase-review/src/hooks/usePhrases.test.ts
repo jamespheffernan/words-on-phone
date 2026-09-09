@@ -2,7 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { usePhrases } from './usePhrases';
 
 // Mock fetch
-const mockFetch = jest.fn();
+const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
 describe('usePhrases', () => {
