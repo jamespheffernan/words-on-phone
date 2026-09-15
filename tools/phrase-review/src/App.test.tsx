@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import App from './App';
 
 // Mock the usePhrases hook
-jest.mock('./hooks/usePhrases', () => ({
+vi.mock('./hooks/usePhrases', () => ({
   usePhrases: () => ({
     phrases: [
       { phrase: 'Test Phrase 1' },
@@ -18,10 +18,10 @@ jest.mock('./hooks/usePhrases', () => ({
 
 // Mock localStorage
 const mockLocalStorage = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn()
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn()
 };
 Object.defineProperty(window, 'localStorage', {
   value: mockLocalStorage
@@ -29,21 +29,21 @@ Object.defineProperty(window, 'localStorage', {
 
 // Mock URL.createObjectURL for file downloads
 Object.defineProperty(URL, 'createObjectURL', {
-  value: jest.fn(() => 'mock-url')
+  value: vi.fn(() => 'mock-url')
 });
 Object.defineProperty(URL, 'revokeObjectURL', {
-  value: jest.fn()
+  value: vi.fn()
 });
 
 // Mock scrollIntoView for test environment
 Object.defineProperty(Element.prototype, 'scrollIntoView', {
-  value: jest.fn(),
+  value: vi.fn(),
   writable: true
 });
 
 describe('App', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     mockLocalStorage.getItem.mockReturnValue(null);
   });
 
