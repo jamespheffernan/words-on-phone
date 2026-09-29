@@ -85,7 +85,7 @@
     "joi": "^17.11.0",
     "bcrypt": "^6.0.0",
     "jsonwebtoken": "^9.0.2",
-    "multer": "^2.1.1",
+    "multer": "^2.4.0",
     "csv-parser": "^3.0.0",
     "csv-writer": "^1.6.0",
     "commander": "^11.1.0"
